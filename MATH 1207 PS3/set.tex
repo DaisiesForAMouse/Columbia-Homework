@@ -92,7 +92,7 @@
         &\implies& a &> 0 \\
         &\implies& a &\in \R^+
     \end{alignat*}
-    Suppose that $b \notin \R^+ \iff b < 0$.
+    Suppose that $b \notin \R^+, b \neq 0 \iff b < 0$.
     It has already been shown in Apostol that for $c < 0$, $a > b \implies ac < bc$.
     \begin{alignat*}{2}
         && ab &> 0 \\
@@ -109,7 +109,7 @@
 \subsection*{Apostol p.21 no.10}
 
 \begin{claim}
-    $\forall h \in \R, 0 \leq x < h \implies x = 0$.
+    $\forall h \in \R^+, 0 \leq x < h \implies x = 0$.
 \end{claim}
 
 \begin{proof}
@@ -119,7 +119,8 @@
     Then the premise has that $x < 1 \implies x(x) < 1(x) \implies x^2 < x$.
     However, we also have that as $x^2 \in R$, $x < x^2$.
     Having both $x^2 < x$ and $x < x^2$ violates trichotomy, which was proved earlier
-    in Apostol. This means that $x = 0$, as it is the only remaining case.
+    in Apostol. This means that $x = 0$, as it is the only remaining case, if it exists.
+    Clearly $\forall h \in \R^+, 0 \leq 0 < h \implies x = 0$.
 \end{proof}
 
 \subsection*{Apostol p.35 no.1c}
@@ -140,7 +141,7 @@
         &= (\sum_{i=1}^{k} i)^2 + (k+1)^3 \\
         &= (\frac{k(k+1)}{2})^2 + (k+1)^3 \\
         &= (k+1)^2(\frac{k^2 + 4(k+1)}{4}) \\
-        &= (k+1)^2(\frac{(k+2)^2}{2}) \\
+        &= (k+1)^2(\frac{(k+2)}{2})^2 \\
         &= (\frac{(k+1)(k+2)}{2})^2 \\
         &= (\sum_{i=1}^{k+1} i)^2
     \end{align*}
@@ -248,7 +249,7 @@ We put $\N$ for the nonegative integers $\Z_{\geq 0}$, mostly because
     subset of the naturals has a least element.
 \end{proof}
 
-\subsection*{c}
+\section*{Problem 2}
 \begin{claim}
     The Cartesian product of two finite sets $S,T$ is finite.
 \end{claim}
@@ -318,7 +319,7 @@ We put $\N$ for the nonegative integers $\Z_{\geq 0}$, mostly because
         &\iff (x,y) \in (S \times T) \cup (S \times \{t\})
     \end{align*}
 
-    However, we have that, if $t \notin T$, and that $T$ has a bijection to $\{i \in \N \mid 0 < i < n\}$, $S \times T$ is finite from the inductive hypothesis and that
+    However, we have that, if $t \notin T$, that $T$ has a bijection to $\{i \in \N \mid 0 < i < n\}$, $S \times T$ is finite from the inductive hypothesis and that
     $S \times \{t\}$ is finite from the base case, so the claim holds for $n = k+1$.
 
     By the principle of induction, this is true for $n \in \N$.
