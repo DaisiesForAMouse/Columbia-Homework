@@ -231,7 +231,7 @@ We put $\N$ for the nonegative integers $\Z_{\geq 0}$, mostly because
     and so $n+1$ is the minimal element of $S$, fulfilling the inductive step.
 
     We have that the claim holds for $k = n+1$, and by the principle of induction, 
-    the claim is true for $k \in \N$.
+    the claim is true for any $k \in \N$.
 \end{proof}
 
 \subsection*{b}
@@ -261,13 +261,13 @@ We put $\N$ for the nonegative integers $\Z_{\geq 0}$, mostly because
     
     Suppose we have a finite set $A$.
     Since we have $A$ finite, $\exists n$ such that we have a bijection 
-    $f: \{i \in \N \mid 0 < i \leq n\} \rightarrow A$.
+    $f: A \rightarrow \{i \in \N \mid 0 < i \leq n\}$.
     
     We induct on $n$.
 
     The base case is that $A = \{a\}$ has one object, $a$, with a bijection $f: a \mapsto 1$. 
     The bijection taking $\emptyset \rightarrow \emptyset$ shows $\emptyset$ is finite, so
-    we see that the subsets of $A$ are $A, \emptyset$, both obviously finite.
+    we see that the subsets of $A$, namely $A, \emptyset$, are both obviously finite.
 
     Now suppose that the claim holds for $n = k$.
 
@@ -305,7 +305,7 @@ We put $\N$ for the nonegative integers $\Z_{\geq 0}$, mostly because
     We induct on $n$, with $T$ having a bijection $f_T: T \rightarrow \{i \in \N \mid 0 < i < n\}$.
     Let $S$ have a bijection $f_S: S \rightarrow \{i \in \N \mid 0 < i < m\}$.
 
-    The base case is $S \times \{t\}$, which has a bijection $f_1: S\times \{t\} \Rightarrow  \{i \in \N | 0 < i < n\}$
+    The base case is $S \times \{t\}$, which has a bijection $f_1: S\times \{t\} \rightarrow  \{i \in \N \mid 0 < i < n\}$
     given by $f_1: (s,t) \mapsto f_S(s)$.
 
     Now suppose that the claim holds for $n = k$.
@@ -319,10 +319,10 @@ We put $\N$ for the nonegative integers $\Z_{\geq 0}$, mostly because
         &\iff (x,y) \in (S \times T) \cup (S \times \{t\})
     \end{align*}
 
-    However, we have that, if $t \notin T$, that $T$ has a bijection to $\{i \in \N \mid 0 < i < n\}$, $S \times T$ is finite from the inductive hypothesis and that
+    However, we have that, taking $t \notin T$, $T$ has a bijection to $\{i \in \N \mid 0 < i < n\}$, $S \times T$ is finite from the inductive hypothesis and that
     $S \times \{t\}$ is finite from the base case, so the claim holds for $n = k+1$.
 
-    By the principle of induction, this is true for $n \in \N$.
+    By the principle of induction, this is true for any $n \in \N$.
 \end{proof}
 
 \section*{Problem 3}
@@ -350,8 +350,7 @@ This is actually solved above, as the intersection of two sets is a subset of bo
 
     If $x = 0$, then $|x| = 0 < \epsilon \implies 0(-1) > \epsilon(-1) \implies 0 > -\epsilon \implies -\epsilon < 0 < \epsilon$.
 
-    If $x > 0$, then $|x| = x < \epsilon \implies x(-1) > \epsilon(-1) \implies -x > -\epsilon$.
-    Further, $ -\epsilon < -x < 0 < x < \epsilon \implies -\epsilon < x < \epsilon$.
+    If $x > 0$, then $|x| = x < \epsilon, -\epsilon < 0 < x \implies -\epsilon < x < \epsilon$.
 
     ($\impliedby$) By trichotomy, we have three cases.
 
