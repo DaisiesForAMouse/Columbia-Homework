@@ -1,0 +1,154 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{xfrac}
+\usepackage{nicefrac}
+\usepackage{xcolor}
+
+\usetikzlibrary{shapes.geometric,fit}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+
+\newcommand\course{ECON 3211}
+\newcommand\hwnumber{3}
+\newcommand\NetIDa{dc3451}
+\newcommand\NetIDb{David Chen}          
+
+\theoremstyle{definition}
+\newtheorem*{statement}{Statement}
+\newtheorem*{claim}{Claim}
+\newtheorem*{theorem}{Theorem}
+
+\newcommand{\contra}{\Rightarrow\!\Leftarrow}
+
+\pagestyle{fancyplain}
+\headheight 35pt
+\lhead{\NetIDa}
+\lhead{\NetIDa\\\NetIDb}
+\chead{\textbf{\Large Problem Set \hwnumber}}
+\rhead{\course \\ \today}
+\lfoot{}
+\cfoot{}
+\rfoot{\small\thepage}
+\headsep 1.5em
+
+\begin{document}
+
+\subsection*{Problem 1}
+\subsubsection*{a)}
+
+\begin{center}
+    \begin{tikzpicture}[
+            dot/.style={shape=circle, inner sep=2pt, draw, node contents=},
+            circ/.style={shape=circle, inner sep=2pt, draw, fill}]
+				\draw[thick,->] (0,0) -- (4.5,0) node[anchor=north west] {raspberries};
+				\draw[thick,->] (0,0) -- (0,4.5) node[anchor=south east] {strawberries};
+			
+				\draw (4cm,3pt) -- (4cm,-3pt) node[anchor=north] {$8$}; 
+
+				\draw (3pt,4cm) -- (-3pt,4cm) node[anchor=east] {$8$};
+        
+				\draw (0,4) -- node[circle,label=below:]{} (4,0);
+				%\draw[thick] (2.5,4) -- (2.5,0.67) -- (4,0.67);
+				%\draw (4,.67) node[label=right:IC]{};
+				%\draw (2.5,0.67) node[circ,label=above right:{B$^*$, (5,500)}]{};
+				
+				%\draw[dashed] (2.5,0) -- (2.5,0.67);
+				%\draw[dashed] (0,0.67) -- (2.5,0.67);
+				%\draw[dashed] (0,0) -- (4,1.066);
+ 		\end{tikzpicture}
+\end{center}
+
+\subsubsection*{b)}
+
+\begin{align*}
+		MU_X &= \frac{\delta U}{\delta x} = 3 \\
+		MU_Y &= \frac{\delta U}{\delta y} = 2 \\
+		MRS &= -\frac{MU_X}{MU_Y} \\
+		&= -\frac{3}{2} \\
+\end{align*}
+
+What this means is that, as $MRS$ is invariant in respect to both $x, y$, then for varying amounts of strawberries and raspberries $MRS$ is constant at $1.5$ for typical consumers.
+
+\subsubsection*{c)}
+
+As above, the marginal utilities for raspberries and strawberries are respectively $MU_Y=2$ and $MU_X = 3$. Now given that the prices of those two fruits are equal, then we have that an utility maximizing consumer buys only strawberries and no raspberries. This can be seen as $MRS = 1.5 > \frac{P_X}{P_Y} = 1$.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection*{Problem 4}
+\subsubsection*{a)}
+\begin{align*}
+		\max_{x,y}(z^2ln(x) + y), \text{ s.t. } p_xx + y = M
+\end{align*}
+
+\subsubsection*{b)}
+
+\subsubsection*{c)}
+Assume that for the rest of the problem that the solution is interior.
+
+Neither normal nor inferior.
+
+$x$ is not Giffen.
+
+\subsubsection*{d)}
+\subsubsection*{e)}
+
+Note that goods whose consumption rises with price are called Veblen goods, or status symbol goods.
+Demand increases with price because the good becomes a more effective means of converying status.
+
+Note that here as $U$ varies with $z = p_x$, we have that demand and the effective preferences of consumers change with the price of a good.
+However, in a Giffin good, we see that budget constraints change such that optimization changes.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
