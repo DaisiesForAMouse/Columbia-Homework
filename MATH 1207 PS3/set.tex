@@ -1,0 +1,365 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{relsize}
+\usepackage{fancyvrb}
+\usetikzlibrary{shapes.geometric,fit}
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+% Edit these as appropriate
+\newcommand\course{MATH 1207}
+\newcommand\hwnumber{3}                  % <-- homework number
+\newcommand\NetIDa{dc3451}           % <-- NetID of person #1
+\newcommand\NetIDb{David Chen}           % <-- NetID of person #2 (Comment this line out for problem sets)
+
+\theoremstyle{definition}
+\newtheorem*{statement}{Statement}
+\newtheorem*{claim}{Claim}
+\newtheorem*{theorem}{Theorem}
+
+\newcommand{\contra}{\Rightarrow\!\Leftarrow}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+
+\pagestyle{fancyplain}
+\headheight 35pt
+\lhead{\NetIDa}
+\lhead{\NetIDa\\\NetIDb}                 % <-- Comment this line out for problem sets (make sure you are person #1)
+\chead{\textbf{\Large Homework \hwnumber}}
+\rhead{\course \\ \today}
+\lfoot{}
+\cfoot{}
+\rfoot{\small\thepage}
+\headsep 1.5em
+
+\begin{document}
+
+\subsection*{Apostol p.19 no.4}
+\begin{claim}
+    $0$ has no reciprocal.
+\end{claim}
+
+\begin{proof}
+    We prove that $\forall x \in \F, 0 \cdot x = 0$, where $\F$ is a field.
+    \begin{alignat*}{2}
+        &&0x &= (0 + 0)x \\
+        && &= 0x + 0x \\
+        &\implies& 0x + -(0x) &= (0x + 0x) + -(0x) \\
+        &\implies& 0x + -(0x) &= 0x + (0x + -(0x)) \\
+        &\implies& 0 &= 0x + 0 \\
+        && &= 0x
+    \end{alignat*}
+    Now suppose that an inverse $0^{-1} \in \F$ exists, such that $0(0^{-1}) = 1$.
+    This contradicts the above. $\contra$
+\end{proof}
+
+\subsection*{Apostol p.21 no.1, thm.1.24}
+
+\begin{claim}
+    $ab > 0 \implies a,b \in \R^+$ or $a,b \notin \R^+$.
+\end{claim}
+
+\begin{proof}
+    Suppose that $b \in \R^+ \iff b > 0$.
+    It has already been shown in Apostol that for $c > 0$, $a > b \implies ac > bc$.
+    \begin{alignat*}{2}
+        && ab &> 0 \\
+        &\implies& (ab)b^{-1} &> 0b^{-1} \\
+        &\implies& a(bb^{-1}) &> 0 \\
+        &\implies& a(1) &> 0 \\
+        &\implies& a &> 0 \\
+        &\implies& a &\in \R^+
+    \end{alignat*}
+    Suppose that $b \notin \R^+ \iff b < 0$.
+    It has already been shown in Apostol that for $c < 0$, $a > b \implies ac < bc$.
+    \begin{alignat*}{2}
+        && ab &> 0 \\
+        &\implies& (ab)b^{-1} &< 0b^{-1} \\
+        &\implies& a(bb^{-1}) &< 0 \\
+        &\implies& a(1) &< 0 \\
+        &\implies& a &< 0 \\
+        &\implies& a &\notin \R^+
+    \end{alignat*}
+    Now $b = 0 \implies ab = 0$, and so $ab > 0$ is impossible. 
+    We have covered all the cases for $b$, and the claim follows.
+\end{proof}
+
+\subsection*{Apostol p.21 no.10}
+
+\begin{claim}
+    $\forall h \in \R, 0 \leq x < h \implies x = 0$.
+\end{claim}
+
+\begin{proof}
+    We have three cases: $x < 0, x = 0, x > 0$.
+    Clearly as $0 \leq x$ it must be one of the latter two.
+    Suppose that $0 < x$.
+    Then the premise has that $x < 1 \implies x(x) < 1(x) \implies x^2 < x$.
+    However, we also have that as $x^2 \in R$, $x < x^2$.
+    Having both $x^2 < x$ and $x < x^2$ violates trichotomy, which was proved earlier
+    in Apostol. This means that $x = 0$, as it is the only remaining case.
+\end{proof}
+
+\subsection*{Apostol p.35 no.1c}
+
+\begin{claim}
+    $\sum_{i=1}^{n} i^3 = (\sum_{i=1}^{n} i)^2$
+\end{claim}
+
+\begin{proof}
+    We proceed with induction. The base case is that $1^3 = 1^2 = 1$.
+
+    Suppose that the claim holds for $n = k$.
+    Note that it has been proved earlier in Apostol that 
+    $\sum_{i=1}^{n} i = \frac{n(n+1)}{2}$.
+    Then we have that 
+    \begin{align*}
+        \sum_{i=1}^{k+1} i^3 &= \sum_{i=1}^{k} i^3 + (k+1)^3 \\
+        &= (\sum_{i=1}^{k} i)^2 + (k+1)^3 \\
+        &= (\frac{k(k+1)}{2})^2 + (k+1)^3 \\
+        &= (k+1)^2(\frac{k^2 + 4(k+1)}{4}) \\
+        &= (k+1)^2(\frac{(k+2)^2}{2}) \\
+        &= (\frac{(k+1)(k+2)}{2})^2 \\
+        &= (\sum_{i=1}^{k+1} i)^2
+    \end{align*}
+
+    Thus we have that the claim holds for $n = k+1$, and by the principle of induction,
+    the claim is true for all $n \in \Z_+$. 
+\end{proof}
+
+\subsection*{Apostol p.36 no.4}
+
+\begin{claim}
+    $\prod_{i=2}^{n}(1 - i^{-1}) = n^{-1}$.
+\end{claim}
+
+\begin{proof}
+    The base case of $i = 2$ holds, as $1 - 2^{-1} = 2^{-1}$.
+    
+    Suppose that the claim holds for $n = k$.
+    Then we have that
+    \begin{align*}
+        \prod_{i=2}^{k+1}(1 - i^{-1}) &= (\prod_{i=2}^{k}(1 - i^{-1}))(1 - (k+1)^{-1}) \\
+        &= (k^{-1})((k+1)(k+1)^{-1} - (k+1)^{-1}) \\
+        &= (k^{-1})((k+1-1)(k+1)^{-1}) \\
+        &= (k^{-1})(k(k+1)^{-1}) \\
+        &= (k+1)^{-1}
+    \end{align*}
+
+    Note that we have omitted all steps regarding commutativity and associativity.
+    Thus we have that the claim holds for $n = k+1$, and by the principle of induction,
+    the claim is true for all $n \in \Z_+$. 
+\end{proof}
+
+\subsection*{Apostol p.43 no.1j}
+
+\begin{claim}
+    $|x| - |y| \leq |x - y|$
+\end{claim}
+
+\begin{proof}
+    The triangle inequality, which was proved earlier in Apostol,
+    has that $\forall y,z \in \R, |y|+|z| \geq |y+z|$.
+
+    \begin{alignat*}{2}
+        && |y+z| &\leq |y| + |z| \\
+        &\implies& |y+z| - |y| &\leq |y| + |z| - |y| \\
+        &\implies& |y+z| - |y| &\leq |z|\\
+    \end{alignat*}
+
+    If we take $z = x - y$, then the claim follows:
+    $|y + x - y| - |y| = |x| - |y| \leq |x - y|$.
+\end{proof}
+
+\section*{Problem 1}
+\subsection*{a}
+
+We put $\N$ for the nonegative integers $\Z_{\geq 0}$, mostly because
+\verb#\Z_{\geq 0}# is hard to type compared to \verb#\N#.
+
+\begin{claim}
+    For any subset $S \subseteq \N$, the set $\{\ell \in \N \mid \ell \leq k\}$
+    either contains no elements if $S$ or a least element of $S$.
+\end{claim}
+
+\begin{proof}
+    Note that as $\N$ is the smallest inductive set containing $0$, 
+    we have that $0$ is the minimal element in $\N$.
+
+    Thus, the base case of $k = 0$ is true; $\{\ell \in \N \mid \ell \leq 0\} = \{0\}$, and
+    either $0 \in S$ and is the minimal element, or else $0 \notin S$.
+
+    Suppose that the claim is true for $k = n$. 
+    Then the set $\{\ell \in \N \mid \ell \leq n+1\} = \{\ell \in \N \mid \ell \leq n\} \cup \{n+1\}$ 
+    either does not contain any elements of $S$, or contains at least one element of $S$.
+
+    If if it the following, then the claim follows for $k = n+1$. 
+    If it is the latter, then consider that by the inductive hypothesis, we have that
+    the set $\{\ell \in \N \mid \ell \leq n\}$ either contains the smallest element of $S$,
+    or it contains no element of $S$. 
+
+    In the first case, as $\{\ell \in \N \mid \ell \leq n\} \subseteq \{\ell \in \N \mid \ell \leq n+1\}$,
+    we are done. In the second case, as $\{\ell \in \N \mid \ell \leq n+1\} \setminus \{\ell \in \N \mid \ell \leq n\} = \{n+1\}$,
+    so we have that $n+1$ must be an element of $S$.
+
+    However, since $\{\ell \in \N \mid \ell \leq n\}$ contains no elements of $S$,
+    no $s \in \N$ exists such that $s < n+1$ and $s \in S$, or else it would be in both sets.
+    By trichotomy, we have that all other elemnents of $S$ must be greater than $n+1$,
+    and so $n+1$ is the minimal element of $S$, fulfilling the inductive step.
+
+    We have that the claim holds for $k = n+1$, and by the principle of induction, 
+    the claim is true for $k \in \N$.
+\end{proof}
+
+\subsection*{b}
+
+\begin{claim}
+    $\N$ is well ordered.
+\end{claim}
+
+\begin{proof}
+    Consider that if $S \subseteq \N$ is nonempty,
+    we have $s \in S$ such that $\{\ell \in \N \mid \ell \leq s\}$ contains an element in $S$.
+    In particular, the choice of $s$ does not matter.
+
+    From part a, this set, a subset of $\N$, contains the least element of $S$, implying that any nonempty
+    subset of the naturals has a least element.
+\end{proof}
+
+\subsection*{c}
+\begin{claim}
+    The Cartesian product of two finite sets $S,T$ is finite.
+\end{claim}
+
+\begin{proof}
+    We proceed by showing proving some properties of finite sets.
+
+    First, all subsets of finite sets are finite themselves.
+    
+    Suppose we have a finite set $A$.
+    Since we have $A$ finite, $\exists n$ such that we have a bijection 
+    $f: \{i \in \N \mid 0 < i \leq n\} \rightarrow A$.
+    
+    We induct on $n$.
+
+    The base case is that $A = \{a\}$ has one object, $a$, with a bijection $f: a \mapsto 1$. 
+    The bijection taking $\emptyset \rightarrow \emptyset$ shows $\emptyset$ is finite, so
+    we see that the subsets of $A$ are $A, \emptyset$, both obviously finite.
+
+    Now suppose that the claim holds for $n = k$.
+
+    Let $A$ be a finite set with a bijection $f: A \rightarrow \{i \in \N \mid 0 < i \leq k+1\}$
+    We can find an element $a \in A$ such that $f^{-1}(k+1) = a$.
+    Note that this element is not special; we can rearrange the bijection such that
+    if we have another element $f^{-1}(k') = a'$, then just take $f'$ such that $f'^{-1}(k+1) = a'$
+    and $f'^{-1}(k') = a$ and we have another bijection $f'^{-1}$ where $f'^{-1}(k+1) = a'$.
+
+    Now, for any subset $B$, either $B = A$, in which case $B$ is finite, or $\exists a \mid a \in A, a \notin B$. Then
+    the set $A \setminus \{a\}$ is finite, with the bijection simply $f$ restricted to
+    the domain of $\{i \in \N \mid 0 < i < k\}$. 
+    Then, we have that $B \subseteq A \setminus \{a\}$, but the latter set has only finite
+    subsets by the inductive hypothesis.
+    Thus, all subsets of finite subsets are finite themselves.
+
+    We now proceed by showing that the union of two sets is itself finite.
+    Note that we need only handle the case in which they are disjoint, as $A \cup B = A \cup (B \setminus A)$,
+    which are two disjoint sets, and $(B \setminus A) \subseteq B$ is finite if $B$ is finite.
+
+    We have then that for two disjoint finite sets $A, B$, with bijections
+    $f_A: A \rightarrow \{i \in \N \mid 0 < i < n\}$ and $f_B: B \rightarrow \{i \in \N \mid 0 < i < m\}$.
+    Their union has a bijection $f: A\cup B \rightarrow \{i \in \N \mid 0 < i < n+m\}$
+    defined by
+
+    \[
+    f(x) = \begin{cases}
+        f_A(x) & x \in A \\
+        f_B(x) + n & x \in B \\
+    \end{cases}
+    \]
+
+    We finally prove the original claim.
+
+    We induct on $n$, with $T$ having a bijection $f_T: T \rightarrow \{i \in \N \mid 0 < i < n\}$.
+    Let $S$ have a bijection $f_S: S \rightarrow \{i \in \N \mid 0 < i < m\}$.
+
+    The base case is $S \times \{t\}$, which has a bijection $f_1: S\times \{t\} \Rightarrow  \{i \in \N | 0 < i < n\}$
+    given by $f_1: (s,t) \mapsto f_S(s)$.
+
+    Now suppose that the claim holds for $n = k$.
+
+    We have that $S \times (T \cup \{t\}) = (S \times T) \cup (S \times \{t\})$.
+    This comes from 
+    \begin{align*}
+        (x,y) \in S \times (T \cup \{t\}) &\iff (x \in S) \land (y \in T \cup \{t\}) \\
+        &\iff (x \in S) \land ((y \in T) \lor (y \in \{t\}) \\
+        &\iff ((x \in S) \land (y \in T)) \lor ((x\in S) \land (y \in \{t\})) \\
+        &\iff (x,y) \in (S \times T) \cup (S \times \{t\})
+    \end{align*}
+
+    However, we have that, if $t \notin T$, and that $T$ has a bijection to $\{i \in \N \mid 0 < i < n\}$, $S \times T$ is finite from the inductive hypothesis and that
+    $S \times \{t\}$ is finite from the base case, so the claim holds for $n = k+1$.
+
+    By the principle of induction, this is true for $n \in \N$.
+\end{proof}
+
+\section*{Problem 3}
+
+This is actually solved above, as the intersection of two sets is a subset of both sets.
+
+\section*{Problem 4}
+
+\begin{claim}
+    $\forall x, \epsilon > 0 \in \R, |x| < \epsilon \iff -\epsilon < x < \epsilon$.
+\end{claim}
+
+\begin{proof}
+    It is proved in Apostol that $a > b, c < 0 \implies ac < bc$.
+    Further, that $x(-1) = -x$ follows from the uniqueness of the additive inverse,
+    proved in Apostol, and the fact that $x(-1) + x = x(-1 + 1) = x(0) = 0$.
+
+    We have not shown that $-1 < 0$, but note $\forall x,y > 0 \implies xy > 0$ implies that
+    $x^2 > 0$. $1^2 = 1 > 0 \implies 1 + (-1) > 0 + (-1) \implies -1 < 0$.
+
+    ($\implies$) By trichotomy, we have three cases.
+    
+    If $x < 0$, then $|x| = -x < \epsilon \implies -x(-1) > \epsilon(-1) \implies x > -\epsilon$.
+    Further, $x < 0 < \epsilon \implies -\epsilon < x < \epsilon$.
+
+    If $x = 0$, then $|x| = 0 < \epsilon \implies 0(-1) > \epsilon(-1) \implies 0 > -\epsilon \implies -\epsilon < 0 < \epsilon$.
+
+    If $x > 0$, then $|x| = x < \epsilon \implies x(-1) > \epsilon(-1) \implies -x > -\epsilon$.
+    Further, $ -\epsilon < -x < 0 < x < \epsilon \implies -\epsilon < x < \epsilon$.
+
+    ($\impliedby$) By trichotomy, we have three cases.
+
+    If $x < 0$, then we have that $|x| = -x$. 
+    Further, $-\epsilon < x \implies -\epsilon(-1) > x(-1) \implies -x = |x| < \epsilon$.
+
+    If $x < 0$, then $|x| = 0 < \epsilon$.
+
+    If $x > 0$, then $|x| = x < \epsilon$.
+\end{proof}
+
+\end{document}
