@@ -117,7 +117,7 @@
     Clearly as $0 \leq x$ it must be one of the latter two.
     Suppose that $0 < x$.
     Then the premise has that $x < 1 \implies x(x) < 1(x) \implies x^2 < x$.
-    However, we also have that as $x^2 \in R$, $x < x^2$.
+    However, we also have that as $x^2 \in \R^+$, $x < x^2$ by the premise.
     Having both $x^2 < x$ and $x < x^2$ violates trichotomy, which was proved earlier
     in Apostol. This means that $x = 0$, as it is the only remaining case, if it exists.
     Clearly $\forall h \in \R^+, 0 \leq 0 < h \implies x = 0$.
@@ -177,21 +177,37 @@
 \subsection*{Apostol p.43 no.1j}
 
 \begin{claim}
-    $|x| - |y| \leq |x - y|$
+    $||x| - |y|| \leq |x - y|$
 \end{claim}
 
 \begin{proof}
-    The triangle inequality, which was proved earlier in Apostol,
+    First we prove that for any $x \in \R$, we have that $|x| = |-x|$.
+    Specifically, if $x = 0$, then $|x| = |-x| = 0$, and if $x > 0, x(-1) = -x < 0$ then 
+    $|-x| = -(-x) = x = |x|$, and if $x < 0, x(-1) = -x > 0$ then
+    $|x| = -x = |-x|$.
+
+    Should $|x| = |y|$, then we have that both sides are $0$, so the claim holds.
+
+    Consider the following for the other two cases:
+    the triangle inequality, which was proved earlier in Apostol,
     has that $\forall y,z \in \R, |y|+|z| \geq |y+z|$.
 
     \begin{alignat*}{2}
-        && |y+z| &\leq |y| + |z| \\
-        &\implies& |y+z| - |y| &\leq |y| + |z| - |y| \\
-        &\implies& |y+z| - |y| &\leq |z|\\
+        && |w+z| &\leq |w| + |z| \\
+        &\implies& |w+z| - |w| &\leq |w| + |z| - |w| \\
+        &\implies& |w+z| - |w| &\leq |z|\\
     \end{alignat*}
 
-    If we take $z = x - y$, then the claim follows:
+
+    For $|x| > |y|$, we have that $||x| - |y|| = |x| - |y|$.
+    If we take $z = x - y, w = y$, then the claim follows:
     $|y + x - y| - |y| = |x| - |y| \leq |x - y|$.
+
+    For $|x| < |y|$, we have that $||x| - |y|| = -(|x| - |y|) = |y| - |x|$.
+    If we take $z = y - x, w = x$, then we have 
+    $|y - x + x|-|x| = |y| - |x| \leq |y - x| = |-(y - x)| = |x - y|$.
+
+    By trichotomy, we have covered all cases relating $|x|$ and $|y|$, so the claim follows.
 \end{proof}
 
 \section*{Problem 1}
@@ -269,7 +285,7 @@ We put $\N$ for the nonegative integers $\Z_{\geq 0}$, mostly because
     The bijection taking $\emptyset \rightarrow \emptyset$ shows $\emptyset$ is finite, so
     we see that the subsets of $A$, namely $A, \emptyset$, are both obviously finite.
 
-    Now suppose that the claim holds for $n = k$.
+    Now suppose that the claim holds for $n = k$
 
     Let $A$ be a finite set with a bijection $f: A \rightarrow \{i \in \N \mid 0 < i \leq k+1\}$
     We can find an element $a \in A$ such that $f^{-1}(k+1) = a$.
@@ -289,8 +305,8 @@ We put $\N$ for the nonegative integers $\Z_{\geq 0}$, mostly because
     which are two disjoint sets, and $(B \setminus A) \subseteq B$ is finite if $B$ is finite.
 
     We have then that for two disjoint finite sets $A, B$, with bijections
-    $f_A: A \rightarrow \{i \in \N \mid 0 < i < n\}$ and $f_B: B \rightarrow \{i \in \N \mid 0 < i < m\}$.
-    Their union has a bijection $f: A\cup B \rightarrow \{i \in \N \mid 0 < i < n+m\}$
+    $f_A: A \rightarrow \{i \in \N \mid 0 < i \leq n\}$ and $f_B: B \rightarrow \{i \in \N \mid 0 < i \leq m\}$.
+    Their union has a bijection $f: A\cup B \rightarrow \{i \in \N \mid 0 < i \leq n+m\}$
     defined by
 
     \[
@@ -300,12 +316,18 @@ We put $\N$ for the nonegative integers $\Z_{\geq 0}$, mostly because
     \end{cases}
     \]
 
+    This is injective as we have that if two elements map to the same element,
+    they must be in the same set as $f_A(x) \leq n < f_B(x) + n$. Now,
+    because $f_A, f_B$ are bijections, $f$ is then injective.
+
+    Surjectivity is shown as $f(f_A^{-1}(k)) = k$ if $0 < k \leq n$ and $f(f_B^{-1}(k-n)) = k$ if $n < k \leq n+m$.
+
     We finally prove the original claim.
 
-    We induct on $n$, with $T$ having a bijection $f_T: T \rightarrow \{i \in \N \mid 0 < i < n\}$.
-    Let $S$ have a bijection $f_S: S \rightarrow \{i \in \N \mid 0 < i < m\}$.
+    We induct on $n$, with $T$ having a bijection $f_T: T \rightarrow \{i \in \N \mid 0 < i \leq n\}$.
+    Let $S$ have a bijection $f_S: S \rightarrow \{i \in \N \mid 0 < i \leq m\}$.
 
-    The base case is $S \times \{t\}$, which has a bijection $f_1: S\times \{t\} \rightarrow  \{i \in \N \mid 0 < i < n\}$
+    The base case is $S \times \{t\}$, which has a bijection $f_1: S\times \{t\} \rightarrow  \{i \in \N \mid 0 < i \leq n\}$
     given by $f_1: (s,t) \mapsto f_S(s)$.
 
     Now suppose that the claim holds for $n = k$.
@@ -319,10 +341,12 @@ We put $\N$ for the nonegative integers $\Z_{\geq 0}$, mostly because
         &\iff (x,y) \in (S \times T) \cup (S \times \{t\})
     \end{align*}
 
-    However, we have that, taking $t \notin T$, $T$ has a bijection to $\{i \in \N \mid 0 < i < n\}$, $S \times T$ is finite from the inductive hypothesis and that
-    $S \times \{t\}$ is finite from the base case, so the claim holds for $n = k+1$.
+    However, we have that, taking $t \notin T$, $T$ has a bijection to 
+    $\{i \in \N \mid 0 < i \leq n\}$, $S \times T$ is finite from the inductive hypothesis and that
+    $S \times \{t\}$ is finite from the base case, and the union of two finite sets
+    is itself finite, so the claim holds for $n = k+1$.
 
-    By the principle of induction, this is true for any $n \in \N$.
+    By the principle of induction, this is true for any $n \geq 1 \in \N$.
 \end{proof}
 
 \section*{Problem 3}
