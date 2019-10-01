@@ -5,3 +5,4 @@
 *.gnuplot
 *.fls
 *.fdb_latexmk
+.~lock*
