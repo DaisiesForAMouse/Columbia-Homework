@@ -1,0 +1,218 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{relsize}
+\usepackage{fancyvrb}
+\usetikzlibrary{shapes.geometric,fit}
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+% Edit these as appropriate
+\newcommand\course{MATH 1207}
+\newcommand\hwnumber{3}                  % <-- homework number
+\newcommand\NetIDa{dc3451}           % <-- NetID of person #1
+\newcommand\NetIDb{David Chen}           % <-- NetID of person #2 (Comment this line out for problem sets)
+
+\theoremstyle{definition}
+\newtheorem*{statement}{Statement}
+\newtheorem*{claim}{Claim}
+\newtheorem*{theorem}{Theorem}
+
+\newcommand{\contra}{\Rightarrow\!\Leftarrow}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Ze}{\mathbb{Z}_{\geq 0}}
+\newcommand{\Zg}{\mathbb{Z}_{>0}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+
+\pagestyle{fancyplain}
+\headheight 35pt
+\lhead{\NetIDa}
+\lhead{\NetIDa\\\NetIDb}                 % <-- Comment this line out for problem sets (make sure you are person #1)
+\chead{\textbf{\Large Homework \hwnumber}}
+\rhead{\course \\ \today}
+\lfoot{}
+\cfoot{}
+\rfoot{\small\thepage}
+\headsep 1.5em
+
+\begin{document}
+
+
+
+\subsection*{Apostol p.28 no.1}
+
+\begin{claim}
+  For $x,y \in \R, x < y \implies \exists z \in \R \mid x < z < y$.
+\end{claim}
+
+\begin{proof}
+  Consider $z = \frac{x}{2} + \frac{y}{2}$. We have $z \in \R$ as $\R$ is closed under
+  addition and multiplication as it is a field under those operations.
+
+  Further, we have that $x \leq y \implies \frac{x}{2} < \frac{y}{2} \implies
+  \frac{x}{2} + \frac{x}{2} < \frac{x}{2} + \frac{y}{2}, \frac{x}{2} +
+  \frac{y}{2} < \frac{y}{2} + \frac{y}{2}$.
+
+  As $\forall a \in \R, \frac{a}{2} + \frac{a}{2} = \frac{1}{2}(a+a) =
+  \frac{1}{2}(2a) = a$, we have that $x < \frac{x}{2} + \frac{y}{2} < y$.
+\end{proof}
+
+\subsection*{Apostol p.28 no.3}
+
+\begin{claim}
+  For $x \in \R, x>0 \implies \exists n \in \Zg \mid \frac{1}{n} < x$.
+\end{claim}
+
+\begin{proof}
+  The Archimedian property of the reals furnishes an $n \in \Zg \mid nx > 1$.
+  Then, we see that $nx > 1 \implies 1 < nx \implies n^{-1}(1) < n^{-1}(nx)
+  \implies \frac{1}{n} < x$. 
+\end{proof}
+
+\subsection*{Apostol p.28 no.4}
+
+\begin{claim}
+  For $x \in \R, \exists ! n \in \Z \mid n < x < n+1$.
+\end{claim}
+
+\begin{proof}
+  We will first show existence. Consider $S := \{n \in \Z \mid n \leq x\}$. This
+  must be nonempty, or else $x$ would be a lower bound to $\Z$, as $\neg \exists
+  n \in \Z \mid n \leq x \implies \forall n \in \Z, \neg(n \leq x) \implies
+  \forall n \in \Z, x \leq n$.
+
+  Now, note that if $x$ is a lower bound for $\Z$, then $-x$ is an upper bound
+  for $\Z$. This follows as $x \leq n \implies -x \geq -n$, but as $n \in \Z \implies
+  -n \in \Z$, we have that $\forall n \in \Z, x \leq n \implies \forall n \in
+  \Z, x \leq -n \implies \forall n \in \Z, -x \geq -(-n) = n$.
+
+  However, we proved that $\Ze \subset \Z$ has no upper bound, meaning that $-x$
+  cannot be an upper bound of $\Z$. Thus, $S$ must be nonempty.
+
+  Now, the approximation theorem proved in class furnishes $n \in S \mid
+  \sup(S) - 1 < n$. Thus, since we have $\sup(S) - 1 < n \implies \sup(S) < n +
+  1 \implies n + 1 \notin S$, and by definition of $S$, $n \in S \implies n \leq x$
+  and $n+1 \notin S \implies \neg(n + 1 \leq x) \implies x < n + 1 \implies n
+  \leq x < n+1$.
+
+  We will now show uniqueness: suppose that $\exists n, n' \in \Z \mid n \neq n', n \leq x
+  < n+1, n' \leq x < n'+1$. $n' > n \implies n' \geq n + 1 > x$. However, $n' <
+  n$, then we have that $n \geq n' + 1 > x$. Either way, we have $\contra$, so
+  $n = n'$.
+
+  The above relies on the fact that $a,b \in Z, a > b \implies a \geq b + 1$.
+  This follows from $a > b \implies a - b > 0$, and as $a - b \in \Z$,
+  the fact that there is no integer between $0$ and $1$ (proved in an earlier
+  homework) allows that $a - b = 1$ or $a - b > 1$ by trichotomy. However, this
+  means that $a-b \geq 1 \implies a \geq b + 1$.
+\end{proof}
+
+\subsection*{Apostol p.28 no.6}
+
+\begin{claim}
+  $\Q$ is dense in $\R$.
+\end{claim}
+
+\begin{proof}
+  We shall start by proving at for $x,y \in \R, x < y, \exists r \in \Q \mid x <
+  r < y$. The Archimedian property furnishes $n \in \Zg \mid n(y-x) > 1 \implies
+  ny > nx + 1$. Now consider $[nx]$. We have that $[nx] \leq nx \implies [nx] +
+  1 \leq nx + 1 < ny$, and also $nx < [nx] + 1$.
+
+  These together yield that 
+  \begin{align*}
+    & nx < [nx] + 1 \leq nx + 1 < ny \\
+    \implies& n^{-1}(nx) < n^{-1}([nx] +1) \leq n^{-1}(nx + 1) < n^{-1}(ny) \\
+    \implies& x < \frac{[nx] + 1}{n} < y \\
+  \end{align*}
+
+  Critically, $[nx] \in \Z$, meaning that as $[nx] + 1, n \in \Z$, we have
+  $\frac{[nx] + 1}{n} \in \Q$.
+
+  Now that we have one such $r$, we can construct infinitely many: simply use
+  the above process to find $r'$ such that $r < r' < y$. This can be repeated ad infinitum.
+\end{proof}
+
+\subsection*{Apostol p.64 no.4b}
+
+\begin{claim}
+  \[
+    [-x] = \begin{cases}
+      -[x] & x \in \Z \\
+      -[x] - 1 & x \notin \Z
+    \end{cases}
+  \]
+\end{claim}
+
+\begin{proof}
+  Note that if we find one such $a$ such that $a \leq x < a + 1$, we have that
+  $[x] = a$ as we have shown previously that such an $a$ must be unique.
+
+  Suppose that $x \in \Z$. Then we have that $-x \leq -x < -x + 1$, and so $[-x]
+  = -x$.
+
+  Otherwise, we have that $[x] \leq x$. However, we have that as $[x] \in \Z,
+  x \notin \Z$, $[x] < x$. This then provides that $-[x] > -x$. Further, $x < [x]
+  + 1 \implies -x > -([x] + 1) = -[x] - 1$.
+
+  These together give us $-[x]-1<-x<-[x] \implies -[x] -1 \leq -x < -[x]
+  \implies [-x] = -[x]-1$.
+\end{proof}
+
+\subsection*{Apostol p.64 no.4d}
+
+\begin{claim}
+  $[2x] = [x] + [x + \frac{1}{2}]$
+\end{claim}
+
+\begin{proof}
+  Consider $[x] + \frac{1}{2}$. We have that by trichotomy, exactly one of
+  $x < y, x = y, x > y$ is true.
+
+  If $x < [x]+\frac{1}{2}$, then $[x] \leq x < [x] + \frac{1}{2} \implies [x]
+  < x + \frac{1}{2} < [x] + \frac{1}{2} + \frac{1}{2} = [x] + 1 \implies [x +
+  \frac{1}{2}] = [x]$. Further, $2[x] \leq 2x < 2([x] + \frac{1}{2}) = 2[x] + 1 \implies [2x]
+  = 2[x] = [x] + [x] = [x] + [x + \frac{1}{2}]$.
+
+  If $x = [x]+\frac{1}{2}$, then $x + \frac{1}{2} = [x] + \frac{1}{2} + \frac{1}{2} = [x] +
+  1$, and $[x] + 1 \in Z \implies [x] + 1 \leq [x] + 1 < [x] + 2 \implies [x +
+  \frac{1}{2}] = [[x] + 1] = [x] + 1$. Further, $2x = 2([x] + \frac{1}{2}) = 2[x]
+  + 1 = [x] + [x] + 1 = [x] + [x + \frac{1}{2}]$.
+
+  If $x > [x]+\frac{1}{2}$, then $[x] + \frac{1}{2} \leq x < [x] + 1 \implies [x] +
+  \frac{1}{2} + \frac{1}{2} \leq x + \frac{1}{2} < [x] + 1 + \frac{1}{2}
+  \implies [x] + 1 \leq x + \frac{1}{2} < [x] + 2 \implies [x + \frac{1}{2}] =
+  [x] + 1$. Further, $2x > 2([x] + \frac{1}{2}) = 2[x] + 1$, and $x < [x] + 1
+  \implies 2x < 2[x] + 2 \implies 2[x] + 1 < 2x < 2[x] + 2 \implies [2x] = 2[x]
+  + 1 = [x] + [x] + 1 = [x] + [x + \frac{1}{2}]$.
+\end{proof}
+
+\section*{Problem 1}
+\section*{Problem 2}
+\section*{Problem 3}
+\section*{Problem 4}
+
+\end{document}
+
+% LocalWords:  NetID fancyplain LocalWords colorlinks linkcolor linkbordercolor
