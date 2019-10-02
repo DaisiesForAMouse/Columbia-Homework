@@ -97,7 +97,7 @@
 \end{claim}
 
 \begin{proof}
-  We will first show existence. Consider $S := \{n \in \Z \mid n \leq x\}$. This
+  We will first show existence. Consider $S = \{n \in \Z \mid n \leq x\}$. This
   must be nonempty, or else $x$ would be a lower bound to $\Z$, as $\neg \exists
   n \in \Z \mid n \leq x \implies \forall n \in \Z, \neg(n \leq x) \implies
   \forall n \in \Z, x \leq n$.
@@ -121,7 +121,7 @@
   n$, then we have that $n \geq n' + 1 > x$. Either way, we have $\contra$, so
   $n = n'$.
 
-  The above relies on the fact that $a,b \in Z, a > b \implies a \geq b + 1$.
+  The above relies on the fact that $a,b \in \Z, a > b \implies a \geq b + 1$.
   This follows from $a > b \implies a - b > 0$, and as $a - b \in \Z$,
   the fact that there is no integer between $0$ and $1$ (proved in an earlier
   homework) allows that $a - b = 1$ or $a - b > 1$ by trichotomy. However, this
@@ -206,12 +206,201 @@
   [x] + 1$. Further, $2x > 2([x] + \frac{1}{2}) = 2[x] + 1$, and $x < [x] + 1
   \implies 2x < 2[x] + 2 \implies 2[x] + 1 < 2x < 2[x] + 2 \implies [2x] = 2[x]
   + 1 = [x] + [x] + 1 = [x] + [x + \frac{1}{2}]$.
+
+  (What an awful proof)
 \end{proof}
 
 \section*{Problem 1}
+
+Suppose $S \subseteq \R, c \in \R$. Let $cS = \{cx \mid x \in S\}$.
+
+\subsubsection*{a)}
+
+\begin{claim}
+  If $c > 0$ and $S$ is bounded above, then $cS$ is also bounded above.
+\end{claim}
+
+\begin{proof}
+  Let $r \in \R$ be an upper bound of $S$. Then $\forall s \in S, s \leq r \implies
+  \forall s \in S, cs \leq cr$. However, for any element $t \in cS$, we have that
+  $\exists s \in S \mid t = cs$. This means that for any element $t \in cS$, we
+  have that $t = cs \leq cr$, so $cr$ is an upper bound on $cS$.
+\end{proof}
+
+\subsubsection*{b)}
+
+\begin{claim}
+  If $c > 0$, then $\sup(cS) = c\sup(S)$.
+\end{claim}
+
+\begin{proof}
+  (I use problem 2 in this proof freely, as that proof does not rely on this one.)
+
+  We will first show that if one exists only if the other exists. Suppose that
+  $\sup(cS)$ exists. Then, we can see that for any element
+  $t \in cS$ we have $t = cs$ for some $s \in S$, meaning that $\forall t \in
+  cS, \sup(cS) \geq t \implies \forall s \in S, \sup(cS) \geq cs \implies \forall s
+  \in S, c^{-1}\sup(cS) \geq s$, so $c^{-1}\sup(cS)$ in particular is an upper
+  bound for $S$.
+
+  Suppose now $\sup(S)$ exists. Then we can see for any $t \in cS$, we have $t =
+  cs$ for some $s \in S$, such that $\forall s \in S, \sup(S) \geq s \implies
+  \forall s \in S, c\sup(S) \geq cs \implies \forall t \in cS, c\sup(S) \geq t$, so
+  $c\sup(S)$ in particular is an upper bound for $cS$.
+
+  We will now show that $\sup(cS)$ is exactly $c\sup(S)$.  Now suppose
+  that $c\sup(S)$ is not the least upper bound of $cS$, meaning that
+  $\exists \epsilon > 0 \mid \sup(cS) + \epsilon < c\sup(S)$. By
+  approximation theorem, we have another $\epsilon' > 0 \mid s + \epsilon >
+  \sup(S)$ for some $s \in S$. Then, we have that $c(s + \epsilon') = cs +
+  c\epsilon' > c\sup(S)$. However, $\sup(cS) > cs,$ as $cs \in cS$, so we have
+  that $\sup(cS) + c\epsilon' > cs + c\epsilon > c\sup(S)$. However, since we
+  can take $\epsilon, \epsilon'$ to be any two positive reals, we can take $\epsilon'
+  = c^{-1}\epsilon$, such that we have $\sup(cS) + \epsilon > c\sup(S)$ as well
+  as $\sup(cS) + \epsilon < c\sup(S)$. This violates trichotomy, so $\contra$
+  and thus $\sup(cS) = c\sup(S)$.
+\end{proof}
+
+\subsubsection*{c)}
+
+Take $c = -1, S = (0,1)$. Clearly $cS = (-1,0), \sup(S) = 1, \sup(cS) = 0$, and
+so $c\sup(S) = -1(1) = -1 \neq \sup(cS)$. In fact, if $c<0$, then $\sup(cS) =
+c\inf(S)$. This is most clearly seen by noticing that multiplying by $c < 0$
+swaps the order, so the infimum gets mapped to the supremum of the new set and
+vice versa.
+
 \section*{Problem 2}
+
+\begin{claim}
+  Suppose $S \subseteq \R, t \in \R$. $t = \sup(S) \iff \forall s \in S, t \geq
+  s$, and $\forall \epsilon > 0, \exists x \in S \mid x > t - \epsilon$.
+\end{claim}
+
+\begin{proof}
+  ($\implies$) $t = \sup(S)$ implies that $t$ is an upper bound of $S$, as
+  $\sup(S)$ is an upper bound of $S$ by definition. The rest follows from the
+  approximation theorem exactly, which can be proved as follows: 
+
+  We proceed via contradiction. Suppose that $\exists \epsilon \mid \forall x \sup(S) - \epsilon \geq x$.
+  Then $\sup(S) - \epsilon$ is an upper bound for $S$.
+  By definition of $\sup$, we have the statement $\sup(S) < \sup (S) - \epsilon$
+  but as $\epsilon > 0$, $\contra$
+
+  ($\impliedby$) The first half establishes $t$ as an upper bound. Further,
+  suppose that $t$ is not the least upper bound, such that $\exists t'  \in \R \mid
+  \forall s \in S, t' \geq s, t' < t$. However, $t' < t \implies t - t' > 0$,
+  meaning that we have for $\epsilon = \frac{t - t'}{2}$, we have that $\forall x \in
+  S, t - \frac{t - t'}{2} = \frac{t}{2} - \frac{t'}{2} > \frac{t'}{2} +
+  \frac{t'}{2} = t' > x$. $\contra$, as thus there is no $x \in S$
+  that can satisfy the premise without violating trichotomy, so $t$ is the least upper bound.
+\end{proof}
+
 \section*{Problem 3}
+
+\begin{claim}
+  Suppose $S,T \subseteq R$, both nonempty and bounded above, with a bijective
+  function $f: S \rightarrow T$ such that $\forall x \in S, x \geq f(x)$. Then
+  $\sup(S) \geq \sup(T)$.
+\end{claim}
+
+  % First, we must note a property of bijections where we can create another
+  % bijection by swapping the outputs of two arguments. More specifically, if $f:
+  % S \rightarrow T$ is a bijection, then for any $a,b \in S$,
+
+  % \[
+  %   g(x) = \begin{cases}
+  %     f(x) & x \neq a,b \\
+  %     f(a) & x = b\\
+  %     f(b) & x = a\\
+  %   \end{cases}
+  % \]
+
+  % is also bijective. This is clearly injective as all three cases are injective
+  % and have disjoint domains, and also clearly surjective as the first case
+  % covers $T \setminus \{a,b\}$, and the second case covers $\{f(a)\}, \{f(b)\}$
+  % respectively. Note that this does not require $a$ distinct from $b$, as taking
+  % them equal yields $f = g$, still a bijection.
+
+\begin{proof}
+  Now, suppose that $\sup(S) < \sup(T)$. Approximation furnishes $t \in T$ such
+  that for arbitrary $\epsilon > 0, \sup(T) - \epsilon < t$. Further, we have
+  that $\sup(S) < \sup(T) \implies \sup(T) - \sup(S) > 0$. Taking $\epsilon
+  = \sup(T) - \sup(S)$, we see that $\exists t \in T \mid t > \sup(T) - (\sup(T)
+  - \sup(S)) = \sup(S)$. Thus, we have, as $f$ is surjective, that $\exists s \in S \mid t = f(s) > \sup(S)
+  \geq s$. However, we have that $\forall s \in S, s \geq f(s)$. $\contra$, so
+  $\sup(S) > \sup(T)$.
+\end{proof}
+
+We can't conclude that $x > f(x) \implies \sup(S) > \sup(T)$, as the above
+reasoning fails in that we can only say, after assuming the opposite of
+$\sup(S) \geq \sup(T)$, that $\sup(T) - \sup(S) \geq 0$. Then, we cannot
+reason with $\epsilon = \sup(T) - \sup(S) > 0$, as it  is possible $\sup(T) -
+\sup(S) = 0$.
+
+An actual example is that $f: (\frac{1}{2},1) \rightarrow (0,1)$, where $f(x)
+= 2x - 1$ is a bijection such that $\forall x \in (\frac{1}{2}, 1), x > f(x)$,
+as $x > 2x - 1  \iff x < 1$. However, $\sup((\frac{1}{2}, 1)) = \sup((0,1)) = 1$.
+  
+\begin{claim}
+  However, we can claim that $\sup(T) \notin T$.
+\end{claim}
+  
+\begin{proof}
+  Note that otherwise we could take the above $\epsilon = 0$, as $\sup(T)$ is
+  exactly  the element in $T$ such that $\sup(T) - 0 = \sup(T) \in T$. Then,
+  moving in the same line of reasoning as the original proof, we have that
+  $\forall s \in S, s < f(s)$ and $\exists s \in S \mid f(s) \geq s$. $\contra$.
+\end{proof}
+
 \section*{Problem 4}
+
+\subsubsection*{a)}
+
+\begin{claim}
+  For $S = \{\frac{n-1}{n} \mid n \in \Zg\}$, $\sup(S) = 1$.
+\end{claim}
+
+First, we have that $\frac{n-1}{n} < \frac{n-1}{n} + \frac{1}{n} =
+\frac{n-1+1}{n} = 1$. This holds as $\frac{1}{n} > 0 \impliedby n \in \Zg$.
+Thus, $1$ is an upper bound on $S$.
+
+Now, for any $\epsilon > 0$, we have that the Archimedian property furnishes an
+$n \in \Zg$ such that $n\epsilon > 1$. Then, $\exists n \in \Zg \mid \epsilon >
+\frac{1}{n} \implies -\epsilon < -\frac{1}{n} \implies 1 - \epsilon < 1 -
+\frac{1}{n} = \frac{n-1}{n} \in S$. 
+
+We use problem 2 here to show that since $1$ is an upper bound for $S =
+\{\frac{n-1}{n} \mid n \in \Zg\}$ and $\forall \epsilon > 0, \exists x \in
+S \mid x > 1 - \epsilon$, we can conclude $\sup(S) = 1$.
+
+\subsubsection*{b)}
+
+\begin{claim}
+  For $S = \{\frac{n+1}{n} \mid n \in \Zg\}$, $\inf(S) = 1$.
+\end{claim}
+
+\begin{proof}
+  We first must show that for $S \subseteq \R, t \in \R$, $\forall s \in S, t
+  \leq s$, and $\forall \epsilon > 0, \exists x \in S \mid x  > t + \epsilon \implies t = \inf(S)$.
+
+  The first half establishes $t$ as an lower bound. Further,
+  suppose that $t$ is not the greatest lower bound, such that $\exists t' \in \R \mid
+  \forall s \in S, t' \geq s, t' > t$. However, $t' > t \implies t' - t > 0$,
+  meaning that we have for $\epsilon = \frac{t' - t}{2}$, we have that $\forall x \in
+  S, t + \frac{t' - t}{2} = \frac{t}{2} + \frac{t'}{2} < \frac{t'}{2} +
+  \frac{t'}{2} = t' < x$. $\contra$, thus there is no $x \in S$ that can satisfy
+  the premise without violating trichotomy, so $t$ is the greatest lower bound.
+
+  First, we have that $\frac{n+1}{n} > \frac{n+1}{n} - \frac{1}{n} =
+  \frac{n-1+1}{n} = 1$. This holds as $-\frac{1}{n} < 0 \impliedby -n < 0
+  \impliedby n \in \Zg$. Thus, $1$ is an lower bound on $S$.
+
+  Now, for any $\epsilon > 0$, we have that the Archimedian property furnishes an
+  $n \in \Zg$ such that $n\epsilon > 1$. Then, $\exists n \in \Zg \mid \epsilon >
+  \frac{1}{n} \implies 1 + \epsilon < 1 + \frac{1}{n} = \frac{n+1}{n} \in S$. 
+
+  Thus, $1$ must be the greatest lower bound of $S$.
+\end{proof}
 
 \end{document}
 
