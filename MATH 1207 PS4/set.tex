@@ -116,10 +116,10 @@
   and $n+1 \notin S \implies \neg(n + 1 \leq x) \implies x < n + 1 \implies n
   \leq x < n+1$.
 
-  We will now show uniqueness: suppose that $\exists n, n' \in \Z \mid n \neq n', n \leq x
-  < n+1, n' \leq x < n'+1$. $n' > n \implies n' \geq n + 1 > x$. However, $n' <
+  We will now show uniqueness: suppose that $\exists n, n' \in \Z \mid n \leq x
+  < n+1, n' \leq x < n'+1$. We have that $n' > n \implies n' \geq n + 1 > x$. However, if $n' <
   n$, then we have that $n \geq n' + 1 > x$. Either way, we have $\contra$, so
-  $n = n'$.
+  $n = n'$ as the only remaining case from trichotomy.
 
   The above relies on the fact that $a,b \in \Z, a > b \implies a \geq b + 1$.
   This follows from $a > b \implies a - b > 0$, and as $a - b \in \Z$,
@@ -188,7 +188,7 @@
 
 \begin{proof}
   Consider $[x] + \frac{1}{2}$. We have that by trichotomy, exactly one of
-  $x < y, x = y, x > y$ is true.
+  $x < [x]+\frac{1}{2}, x = [x]+\frac{1}{2}, x > [x]+\frac{1}{2}$ is true.
 
   If $x < [x]+\frac{1}{2}$, then $[x] \leq x < [x] + \frac{1}{2} \implies [x]
   < x + \frac{1}{2} < [x] + \frac{1}{2} + \frac{1}{2} = [x] + 1 \implies [x +
@@ -235,6 +235,9 @@ Suppose $S \subseteq \R, c \in \R$. Let $cS = \{cx \mid x \in S\}$.
 
 \begin{proof}
   (I use problem 2 in this proof freely, as that proof does not rely on this one.)
+  
+  Note that multiplcation by $c$, or $f: x \mapsto cx$ is a bijection as we have
+  an inverse function: $f^{-1}: x \mapsto c^{-1}x$, as long as $c \neq 0$.
 
   We will first show that if one exists only if the other exists. Suppose that
   $\sup(cS)$ exists. Then, we can see that for any element
@@ -253,11 +256,11 @@ Suppose $S \subseteq \R, c \in \R$. Let $cS = \{cx \mid x \in S\}$.
   $\exists \epsilon > 0 \mid \sup(cS) + \epsilon < c\sup(S)$. By
   approximation theorem, we have another $\epsilon' > 0 \mid s + \epsilon >
   \sup(S)$ for some $s \in S$. Then, we have that $c(s + \epsilon') = cs +
-  c\epsilon' > c\sup(S)$. However, $\sup(cS) > cs,$ as $cs \in cS$, so we have
-  that $\sup(cS) + c\epsilon' > cs + c\epsilon > c\sup(S)$. However, since we
+  c\epsilon' > c\sup(S)$. However, $\sup(cS) \geq cs,$ as $cs \in cS$, so we have
+  that $\sup(cS) + c\epsilon' \geq cs + c\epsilon' > c\sup(S)$. However, since we
   can take $\epsilon, \epsilon'$ to be any two positive reals, we can take $\epsilon'
   = c^{-1}\epsilon$, such that we have $\sup(cS) + \epsilon > c\sup(S)$ as well
-  as $\sup(cS) + \epsilon < c\sup(S)$. This violates trichotomy, so $\contra$
+  as $\sup(cS) + \epsilon < c\sup(S)$ from our assumption. This violates trichotomy, so $\contra$
   and thus $\sup(cS) = c\sup(S)$.
 \end{proof}
 
@@ -291,7 +294,7 @@ vice versa.
   \forall s \in S, t' \geq s, t' < t$. However, $t' < t \implies t - t' > 0$,
   meaning that we have for $\epsilon = \frac{t - t'}{2}$, we have that $\forall x \in
   S, t - \frac{t - t'}{2} = \frac{t}{2} - \frac{t'}{2} > \frac{t'}{2} +
-  \frac{t'}{2} = t' > x$. $\contra$, as thus there is no $x \in S$
+  \frac{t'}{2} = t' \geq x$. $\contra$, as thus there is no $x \in S$
   that can satisfy the premise without violating trichotomy, so $t$ is the least upper bound.
 \end{proof}
 
@@ -328,7 +331,7 @@ vice versa.
   = \sup(T) - \sup(S)$, we see that $\exists t \in T \mid t > \sup(T) - (\sup(T)
   - \sup(S)) = \sup(S)$. Thus, we have, as $f$ is surjective, that $\exists s \in S \mid t = f(s) > \sup(S)
   \geq s$. However, we have that $\forall s \in S, s \geq f(s)$. $\contra$, so
-  $\sup(S) > \sup(T)$.
+  $\sup(S) \geq \sup(T)$.
 \end{proof}
 
 We can't conclude that $x > f(x) \implies \sup(S) > \sup(T)$, as the above
@@ -360,7 +363,7 @@ as $x > 2x - 1  \iff x < 1$. However, $\sup((\frac{1}{2}, 1)) = \sup((0,1)) = 1$
   For $S = \{\frac{n-1}{n} \mid n \in \Zg\}$, $\sup(S) = 1$.
 \end{claim}
 
-First, we have that $\frac{n-1}{n} < \frac{n-1}{n} + \frac{1}{n} =
+First, we have that $\forall b \in \Zg \frac{n-1}{n} < \frac{n-1}{n} + \frac{1}{n} =
 \frac{n-1+1}{n} = 1$. This holds as $\frac{1}{n} > 0 \impliedby n \in \Zg$.
 Thus, $1$ is an upper bound on $S$.
 
@@ -381,23 +384,23 @@ S \mid x > 1 - \epsilon$, we can conclude $\sup(S) = 1$.
 
 \begin{proof}
   We first must show that for $S \subseteq \R, t \in \R$, $\forall s \in S, t
-  \leq s$, and $\forall \epsilon > 0, \exists x \in S \mid x  > t + \epsilon \implies t = \inf(S)$.
+  \leq s$, and $\forall \epsilon > 0, \exists x \in S \mid x > t + \epsilon \implies t = \inf(S)$.
 
   The first half establishes $t$ as an lower bound. Further,
   suppose that $t$ is not the greatest lower bound, such that $\exists t' \in \R \mid
-  \forall s \in S, t' \geq s, t' > t$. However, $t' > t \implies t' - t > 0$,
+  \forall s \in S, t' \leq s, t' > t$. However, $t' > t \implies t' - t > 0$,
   meaning that we have for $\epsilon = \frac{t' - t}{2}$, we have that $\forall x \in
   S, t + \frac{t' - t}{2} = \frac{t}{2} + \frac{t'}{2} < \frac{t'}{2} +
-  \frac{t'}{2} = t' < x$. $\contra$, thus there is no $x \in S$ that can satisfy
+  \frac{t'}{2} = t' \leq x$. $\contra$, thus there is no $x \in S$ that can satisfy
   the premise without violating trichotomy, so $t$ is the greatest lower bound.
 
-  First, we have that $\frac{n+1}{n} > \frac{n+1}{n} - \frac{1}{n} =
+  First, we have that $\forall n \in \Zg \frac{n+1}{n} > \frac{n+1}{n} - \frac{1}{n} =
   \frac{n-1+1}{n} = 1$. This holds as $-\frac{1}{n} < 0 \impliedby -n < 0
   \impliedby n \in \Zg$. Thus, $1$ is an lower bound on $S$.
 
   Now, for any $\epsilon > 0$, we have that the Archimedian property furnishes an
   $n \in \Zg$ such that $n\epsilon > 1$. Then, $\exists n \in \Zg \mid \epsilon >
-  \frac{1}{n} \implies 1 + \epsilon < 1 + \frac{1}{n} = \frac{n+1}{n} \in S$. 
+  \frac{1}{n} \implies 1 + \epsilon > 1 + \frac{1}{n} = \frac{n+1}{n} \in S$. 
 
   Thus, $1$ must be the greatest lower bound of $S$.
 \end{proof}
