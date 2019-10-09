@@ -284,7 +284,7 @@ This does not rely on any Apostol problem which relies on this.
 \begin{proof}
   We will first show this for step functions. If $P = \{x_0,...,x_n\}$ is a partition for $f(x)$ over $[a,b]$ with constant values $\{c_1,...,c_n\}$, then we have that $-P = \{-x_n,...,-x_0\}$ is a partition for $g(x):[-b,-a] \rightarrow \R: x \mapsto f(-x)$ over $[-b, -a]$ with the same constant values (though in reverse order). This can be seen as we have that for any open subinterval of $-P$, $(-x_i, -x_{i-1})$, $\forall x \in \R -x_{i-1} < x < -x_i \implies x_{i-1} < -x < x_i \implies g(x) = f(-x) = c_i$.
   
-  Thus, we have that $\int_{-b}^{-a}g(x)d = \int_{-b}^{-a}f(-x)dx = \sum_{i=1}^n c_i(-x_{i-1} - (-x_i)) = \sum_{i=1}^n c_i(x_i - x_{i-1}) = \int_a^b f(x)dx$.
+  Thus, we have that $\int_{-b}^{-a}g(x)dx = \int_{-b}^{-a}f(-x)dx = \sum_{i=1}^n c_i(-x_{i-1} - (-x_i)) = \sum_{i=1}^n c_i(x_i - x_{i-1}) = \int_a^b f(x)dx$.
   
   Now to show the general case, we will show that for $f,g$ we have that $\underline{I}(f) = \underline{I}(g)$ and $\overline{I}(f) = \overline{I}(g)$. 
 
@@ -328,7 +328,7 @@ This does not rely on any Apostol problem which relies on this.
   $\sup(\underline{I}(f)) \leq \sup(\underline{I}(g)), \inf(\overline{I}(g))
   \geq \inf(\overline{I}(g))$ as properties of $\inf, \sup$. These lead to the
   conclusion that $\sup(\underline{I}(f)) = \inf(\overline{I}(f)) \leq
-  \inf(\overline{I}(g)) = \sup(\overline{I}(f)) \implies \int_a^bf \leq \int_a^b
+  \inf(\overline{I}(g)) = \sup(\overline{I}(g)) \implies \int_a^bf \leq \int_a^b
   g$.
   
   Note that we have that $-|f(x)| \leq f(x) \leq |f(x)|$ as a general property of the absolute
@@ -394,6 +394,8 @@ which is integrable over $[a,b]$. Namely, since it is equivalent to a step funct
   $\int_a^b f + \int_b^c f = \int_a^c f$. Taking $c =a$, we see that $\int_a^bf
   + \int_b^a f = \int_a^a f = 0 \implies \int_a^b f = -\int_b^a f$.
 
+  Further, we have that $\int_0^x g(x)dx = \int_{-x}^0g(-x)dx$ by problem 1.
+
   We will first show that $f$ odd $\implies g$ even.
 
   \begin{align*}
@@ -448,12 +450,12 @@ which is integrable over $[a,b]$. Namely, since it is equivalent to a step funct
   < \inf(B) \leq b$. $\contra$.
 
   Also, we have that if $\forall a \in A, \forall b \in B, a \leq b \implies
-  \sup(A) \leq \sup(B)$. To see this, consider that if $\sup(A) > \inf(B),
+  \sup(A) \leq \inf(B)$. To see this, consider that if $\sup(A) > \inf(B),
   \exists \epsilon > 0, a \in A, b \in B \mid \sup(A) - \epsilon < a, \inf(B) +
   \epsilon > b$ If we take $\epsilon = \frac{\sup(A) - \inf(B)}{2}$, then we
   have that $b < \frac{\sup(A) + \inf(B)}{2} < a$. $\contra$.
 
-  This gives us the fact that $\sup(\underline{I}(f)) \geq
+  The premise then gives us the fact that $\sup(\underline{I}(f)) \geq
   \inf(\overline{U}(f))$, as well as that since $s \leq t \implies \int_a^b s
   \leq \int_a^bt$, $\sup(\underline{I}(f)) \leq \inf(\overline{I}(f))$. Thus, to
   not violate trichotomy, we must have $\sup(\underline{I}(f)) =
