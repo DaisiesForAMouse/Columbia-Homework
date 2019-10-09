@@ -91,10 +91,12 @@
   + \int_a^b[-x]dx = \int_a^b([x] + [-x])dx$. However, consider that $\forall x
   \in \R \setminus \Z, [x] + [-x] = 1$, so $[x] + [-x]$, restricted to $[a,b]$,
   is then a step function with partition $\{a,b\} \cup \{n \in \Z \mid a < n <
-  b\} = \{a = x_0, x_1, x_2,...,x_k = b\}$ and constant values all equal to $-1$.
+  b\} = \{a = x_0, x_1, x_2,...,x_k = b\}$ and constant values all equal to $-1$
+  (On any interval $(x_{i-1},x_i)$, we have that there are no integers and thus
+  must that $f|_{(x_{i-1},x_i)} = -1$).
   This then leaves us with
   \begin{align*}
-    \int_a^b([x]+ [-x])dx = \sum_{i = 1}^k 1(x_i - x_{i-1}) = \sum_{i=1}^k-(x_1 - x_{i-1}) = x_0 - x_k = a - b
+    \int_a^b([x]+ [-x])dx = \sum_{i = 1}^k (-1)(x_i - x_{i-1}) = \sum_{i=1}^k-(x_1 - x_{i-1}) = x_0 - x_k = a - b
   \end{align*}
 \end{proof}
 
@@ -108,11 +110,14 @@
   First, note that $0 \leq a < b \implies a(a) < b(a), a(b) < b(b) \implies a^2 < b^2$,
   so that $a < t < b \implies a^2 < t^2 < b^2$.
 
-  It is easy to see that on the open subintervals of $P = \{0, 1, \sqrt{2},
-  \sqrt{3}, 2\}$, $[t^2]$ is constant. To be clear, $0 < t < 1 \implies 0 < t^2
-  < 1 \implies [t^2] = 0$, $1 < t < \sqrt{2} \implies 1 < t^2 < 2 \implies [t^2]
-  = 1$, $\sqrt{2} < t < \sqrt{3} \implies 2 < t^2 < 3 \implies [t^2] = 2, \sqrt{3} < t <
-  2 \implies 3 < t^2 < 4 \implies [t^2] = 3$. 
+  It is easy to see that $[t^2]$ on the open subintervals of the partition $P = \{0, 1, \sqrt{2},
+  \sqrt{3}, 2\}$, $[t^2]$ is constant. To be clear,
+  \begin{align*}
+    0 < t < 1 \implies 0 < t^2 < 1 \implies [t^2] = 0 \\
+    1 < t < \sqrt{2} \implies 1 < t^2 < 2 \implies [t^2] = 1 \\
+    \sqrt{2} < t < \sqrt{3} \implies 2 < t^2 < 3 \implies [t^2] = 2 \\
+    \sqrt{3} < t < 2 \implies 3 < t^2 < 4 \implies [t^2] = 3
+  \end{align*}
 
   Then, we have that
   \begin{align*}
@@ -146,6 +151,8 @@ Thus, we have that
 Then, we finally get that $\int_{-3}^3[t^2]dt = 2(5 - \sqrt{2} - \sqrt{3} +
 (4(\sqrt{5} - 2) + 5(\sqrt{6} - \sqrt{5}) + 6(\sqrt{7} - \sqrt{6}) + 7(\sqrt{8}
 - \sqrt{7}) + 8(3 - \sqrt{8}))) =  2(21 - \sqrt{2} - \sqrt{3} - \sqrt{5} - \sqrt{6} - \sqrt{7} - \sqrt{8})$.
+
+Generally, $\int_0^n [t^2] = (n^2 - 1)n - \sum_{i=1}^{n^2 - 1} \sqrt{i}$.
 
 \subsection*{Apostol p.70-71 no.11}
 
@@ -187,7 +194,7 @@ This is also false, consider again $\int_a^b2 = 2^3(b-a) \neq 2\int_a^b 1 = 2(b-
 \subsection*{Apostol p.70-71 no.11d}
 
 \begin{claim}
-  $$\int_{a+c}^{b+c} s(x)dx = \int_a^b s(x)dx $$
+  $$\int_{a+c}^{b+c} s(x)dx = \int_a^b s(x+c)dx $$
 \end{claim}
 
 \begin{proof}
@@ -213,10 +220,14 @@ This is also false, consider again $\int_a^b2 = 2^3(b-a) \neq 2\int_a^b 1 = 2(b-
   b^2 \implies a^3 < b^3$. If $a < 0, b > 0$, then $a < b \implies a^3 < 0 <
   b^3$. If $a>0, b>0$, then $a<b \implies a^2 < b^2 \implies a^3 < b^3$.
     
-  Suppose that $s,t$ have partitions $P_s, P_t$. Then $P = P_s \cup P_t = \{x_0,...x_n\}$ is a partition for both, where $s$ has constant values $s_i$ and $t$ has constant values $t_i$, where $i$ ranges from $1$ to $n$.
-  Now, $\int_a^b s = \sum_{i=1}^n s_i^3(x_i - x_{i-1}) < \sum_{i=}^n t_i^3(x_i - x_{i-1}) = \int_a^b t$. We can show that the inequality holds by inducting on $n$. 
+  Suppose that $s,t$ have partitions $P_s, P_t$. Then $P = P_s \cup P_t =
+  \{x_0,...x_n\}$ is a partition for both, where $s$ has constant values $s_i$
+  and $t$ has constant values $t_i$, where $i$ ranges from $1$ to $n$.
+  Now, $\int_a^b s = \sum_{i=1}^n s_i^3(x_i - x_{i-1}) < \sum_{i=}^n t_i^3(x_i -
+  x_{i-1}) = \int_a^b t$. We can show that the inequality holds by inducting on $n$. 
   
-  In general, we wish to show that if for $i = 1,2,...,n$, we have that $a_i < b_i$, then $\sum_{i=1}^na_i < \sum_{i=1}^nb_i$. We induct on $n$. If $n = 1$, then we have that $a_1 < b_1$, which is true by the premise. For the inductive step, suppose that the inequality holds for $n = k$. Then,
+  In general, we wish to show that if for $i = 1,2,...,n$, we have that $a_i <
+  b_i$, then $\sum_{i=1}^na_i < \sum_{i=1}^nb_i$. We induct on $n$. If $n = 1$, then we have that $a_1 < b_1$, which is true by the premise. For the inductive step, suppose that the inequality holds for $n = k$. Then,
   $\sum_{i=1}^{k+1}a_i = \sum_{i=1}^k a_i + a_{k+1} < \sum_{i=1}^k b_i + a_{k+1} < \sum_{i=1}^k b_i + b_{k+1} < \sum_{i=1}^{k+1} b_i$.
   
   Now, we know that as $s(x) < t(x)$ for $x \in [a,b]$, we have that $s_i < t_i \implies s_i^3 < t_i^3$. Applying this to the sum, we see that the inequality holds.
@@ -230,7 +241,7 @@ This is also false, consider again $\int_a^b2 = 2^3(b-a) \neq 2\int_a^b 1 = 2(b-
 \end{claim}
 
 \begin{proof}
-  From above, we have that if for $i = 1,2,...,n$, we have that $a_i < b_i$, then $\sum_{i=1}^na_i < \sum_{i=1}^nb_i$.
+  From above, we have that if for $i = 1,2,...,n$, we have that if $a_i < b_i$, then $\sum_{i=1}^na_i < \sum_{i=1}^nb_i$.
   
   Suppose that $s,t$ have partitions $P_s, P_t$. Then $P = P_s \cup P_t = \{x_0,...x_n\}$ is a partition for both, where $s$ has constant values $s_i$ and $t$ has constant values $t_i$, where $i$ ranges from $1$ to $n$.
   Now, $\int_a^b s = \sum_{i=1}^n s_i(x_i - x_{i-1}) < \sum_{i=}^n t_i(x_i - x_{i-1}) = \int_a^b t$.
@@ -416,7 +427,7 @@ which is integrable over $[a,b]$. Namely, since it is equivalent to a step funct
   \inf(\overline{I}(f))$. This means that the approximation theorem furnishes $x =
   \int_a^b s \in \underline{I}(f) \mid \sup(\underline{I}(f)) -
   \frac{\epsilon}{2} < x \implies -\int_a^bs = \int_a^b-s < -\sup(\underline{I}(f)) +
-  \frac{\epsilon}{2}$. Similarly, we can get $y = \int_a^b t \in
+  \frac{\epsilon}{2}$ for any $\epsilon > 0$. Similarly, we can get $y = \int_a^b t \in
   \overline{I}(f) \mid \inf(\underline{I}(f)) + \frac{\epsilon}{2} > y =
   \int_a^b t$. Adding the two inequalities, we have that
 
@@ -430,8 +441,23 @@ which is integrable over $[a,b]$. Namely, since it is equivalent to a step funct
   \int_a^b(t-s) < \epsilon \implies \int_a^b t - \int_a^bs < \epsilon \implies
   \int_a^bt < \int_a^bs + \epsilon$.
 
-  We have in general that for $a \in A, b \in B, \forall \epsilon > 0, b < a +
-  \epsilon \implies \sup(A) \geq \inf(B)$.
+  We have in general that if for any $a \in A, b \in B, \forall \epsilon > 0, b < a +
+  \epsilon \implies \sup(A) \geq \inf(B)$. To see this, consider that if
+  $\sup(A) < \inf(B)$, we would have $\epsilon = \frac{\inf(B) - \sup(A)}{2}$
+  such that $a + \epsilon \leq \sup{A} + \epsilon = \frac{\inf(B) + \sup(A)}{2}
+  < \inf(B) \leq b$. $\contra$.
+
+  Also, we have that if $\forall a \in A, \forall b \in B, a \leq b \implies
+  \sup(A) \leq \sup(B)$. To see this, consider that if $\sup(A) > \inf(B),
+  \exists \epsilon > 0, a \in A, b \in B \mid \sup(A) - \epsilon < a, \inf(B) +
+  \epsilon > b$ If we take $\epsilon = \frac{\sup(A) - \inf(B)}{2}$, then we
+  have that $b < \frac{\sup(A) + \inf(B)}{2} < a$. $\contra$.
+
+  This gives us the fact that $\sup(\underline{I}(f)) \geq
+  \inf(\overline{U}(f))$, as well as that since $s \leq t \implies \int_a^b s
+  \leq \int_a^bt$, $\sup(\underline{I}(f)) \leq \inf(\overline{I}(f))$. Thus, to
+  not violate trichotomy, we must have $\sup(\underline{I}(f)) =
+  \inf(\overline{I}(f))$, and thus $f$ is integrable.
 \end{proof}
 
 \end{document}
