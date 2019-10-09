@@ -1,0 +1,439 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{relsize}
+\usepackage{fancyvrb}
+\usetikzlibrary{shapes.geometric,fit}
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+% Edit these as appropriate
+\newcommand\course{MATH 1207}
+\newcommand\hwnumber{5}                  % <-- homework number
+\newcommand\NetIDa{dc3451}           % <-- NetID of person #1
+\newcommand\NetIDb{David Chen}           % <-- NetID of person #2 (Comment this line out for problem sets)
+
+\theoremstyle{definition}
+\newtheorem*{statement}{Statement}
+\newtheorem*{claim}{Claim}
+\newtheorem*{theorem}{Theorem}
+
+\newcommand{\contra}{\Rightarrow\!\Leftarrow}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Ze}{\mathbb{Z}_{\geq 0}}
+\newcommand{\Zg}{\mathbb{Z}_{>0}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+
+\pagestyle{fancyplain}
+\headheight 35pt
+\lhead{\NetIDa}
+\lhead{\NetIDa\\\NetIDb}                 % <-- Comment this line out for problem sets (make sure you are person #1)
+\chead{\textbf{\Large Homework \hwnumber}}
+\rhead{\course \\ \today}
+\lfoot{}
+\cfoot{}
+\rfoot{\small\thepage}
+\headsep 1.5em
+
+\begin{document}
+
+\subsection*{Apostol p.70-71 no.3}
+
+\begin{claim}
+  $$\int_a^b [x]dx  + \int_a^b[-x]dx = a - b$$
+\end{claim}
+
+\begin{proof}
+  % Consider that for any $n \in \Z, x \in \R$, we have that $n < x < n+1 \implies
+  % [x] = n$. Now, this means that $f:[a,b] \rightarrow \R : x \mapsto [x]$ is equivalent to a step
+  % function with partitions $\{a, [a] + 1 ...
+
+  We first show that $\forall x \in \R \setminus \Z, [x] + [-x] = -1$. If for $n \in
+  \Z, n < x < n + 1 \implies -(n + 1) < -x < -n \implies [x] = n, [-x] = -(n +
+  1) \implies [x] + [-x] = n + -(n + 1) = -1$. Should  $x \in \Z$, we
+  have that $[x] = x, [-x] = -x \implies [x] + [-x] = 0$.
+
+  We also will eventually need that for $\{x_0, x_1, ..., x_n \mid x_i \in \R\}, \sum_{i=1}^n-(x_i - x_{i-1})
+  = x_0 - x_n$.
+
+  We induct on $n$, and the base case $n = 1$, and  $\sum_{i=1}^1-(x_i - x_{i-1})
+  = x_0 - x_1$. For the inductive case, assume the statement holds for $n = k$.
+  Then,
+  \begin{align*}
+    \sum_{i=1}^{k+1} -(x_i - x_{i-1}) &= \sum_{i=1}^k -(x_i - x_{i-1}) + -(x_{k+1} - x_k) \\
+                                      &= x_0 - x_k - x_{k+1} + x_k \\
+                                      &= x_0 -x_{k+1}
+  \end{align*}
+  and we are done.
+
+  We have proved additivty of integrals in class, so we have that $\int_a^b[x]dx
+  + \int_a^b[-x]dx = \int_a^b([x] + [-x])dx$. However, consider that $\forall x
+  \in \R \setminus \Z, [x] + [-x] = 1$, so $[x] + [-x]$, restricted to $[a,b]$,
+  is then a step function with partition $\{a,b\} \cup \{n \in \Z \mid a < n <
+  b\} = \{a = x_0, x_1, x_2,...,x_k = b\}$ and constant values all equal to $-1$.
+  This then leaves us with
+  \begin{align*}
+    \int_a^b([x]+ [-x])dx = \sum_{i = 1}^k 1(x_i - x_{i-1}) = \sum_{i=1}^k-(x_1 - x_{i-1}) = x_0 - x_k = a - b
+  \end{align*}
+\end{proof}
+
+\subsection*{Apostol p.70-71 no.5a}
+
+\begin{claim}
+  $$\int_0^2[t^2]dt = 5 - \sqrt{2} - \sqrt{3}$$
+\end{claim}
+
+\begin{proof}
+  First, note that $0 \leq a < b \implies a(a) < b(a), a(b) < b(b) \implies a^2 < b^2$,
+  so that $a < t < b \implies a^2 < t^2 < b^2$.
+
+  It is easy to see that on the open subintervals of $P = \{0, 1, \sqrt{2},
+  \sqrt{3}, 2\}$, $[t^2]$ is constant. To be clear, $0 < t < 1 \implies 0 < t^2
+  < 1 \implies [t^2] = 0$, $1 < t < \sqrt{2} \implies 1 < t^2 < 2 \implies [t^2]
+  = 1$, $\sqrt{2} < t < \sqrt{3} \implies 2 < t^2 < 3 \implies [t^2] = 2, \sqrt{3} < t <
+  2 \implies 3 < t^2 < 4 \implies [t^2] = 3$. 
+
+  Then, we have that
+  \begin{align*}
+    \int_0^2[t^2]dt &= \sum_{i=1}^4 c_i(x_i - x_{i-1}) \\
+                    &= 0(1 - 0) + 1(\sqrt{2} - 1) + 2(\sqrt{3} - \sqrt{2}) + 3(2 - \sqrt{3}) \\
+                    &= 5 - \sqrt{2} - \sqrt{3} \\
+  \end{align*}
+\end{proof}
+
+\subsection*{Apostol p.70-71 no.5b}
+
+Note that $[t^2] = [(-t)^2]$, so by problem 1 we have that $\int_{-3}^3 [t^2]dt
+= \int_{-3}^{0}[t^2]dt + \int_0^3[t^2]dt = 2\int_0^3[t^2]dt = 2(\int_0^2[t^2]dt
++ \int_2^3[t^2]dt) = 2((5 - \sqrt{2} -\sqrt{3}) + \int_2^3[t^2]dt)$.
+
+We can then check that we have the following:
+
+\begin{align*}
+  2 < t < \sqrt{5} \implies 4 < t^2 < 5 \implies [t^2] = 4 \\
+  \sqrt{5} < t < \sqrt{6} \implies 5 < t^2 < 6 \implies [t^2] = 5 \\
+  \sqrt{6} < t < \sqrt{7} \implies 6 < t^2 < 7 \implies [t^2] = 6 \\
+  \sqrt{7} < t < \sqrt{8} \implies 7 < t^2 < 8 \implies [t^2] = 7 \\
+  \sqrt{8} < t < 3 \implies 8 < t^2 < 9 \implies [t^2] = 8 \\
+\end{align*}
+
+Thus, we have that
+\[
+  \int_2^3[t^2] = 4(\sqrt{5} - 2) + 5(\sqrt{6} - \sqrt{5}) + 6(\sqrt{7} - \sqrt{6}) + 7(\sqrt{8} - \sqrt{7}) + 8(3 - \sqrt{8})) \\
+\]
+
+Then, we finally get that $\int_{-3}^3[t^2]dt = 2(5 - \sqrt{2} - \sqrt{3} +
+(4(\sqrt{5} - 2) + 5(\sqrt{6} - \sqrt{5}) + 6(\sqrt{7} - \sqrt{6}) + 7(\sqrt{8}
+- \sqrt{7}) + 8(3 - \sqrt{8}))) =  2(21 - \sqrt{2} - \sqrt{3} - \sqrt{5} - \sqrt{6} - \sqrt{7} - \sqrt{8})$.
+
+\subsection*{Apostol p.70-71 no.11}
+
+Unless specified otherwise, all functions are assumed step functions.
+
+\subsection*{Apostol p.70-71 no.11a}
+
+\begin{claim}
+  $$ \int_a^b s + \int_b^c s = \int_a^c s$$
+\end{claim}
+
+\begin{proof}
+  True; we have that $P = P_1 \cup P_2 = \{x_0,...,x_{n+m}\}$, where $P_1 =
+  \{x_0,...,x_n\}, P_2 = \{x_n,...,x_m\}$ are partitions of $s$
+  on $[a,b]$ and $[b,c]$, is then a partition of $s$ on $[a,c]$.
+  \[
+    \int_a^b s + \int_b^cs = \sum_{i=n}^ms_i^3(x_i - x_{i-1}) +
+    \sum_{i=1}^ns_i^3(x_i - x_{i-1})  = \sum_{i=1}^{n+m}s^3(x_i - x_{i-1}) = \int_a^cs
+  \]
+\end{proof}
+
+\subsection*{Apostol p.70-71 no.11b}
+
+\begin{claim}
+  $$\int_a^b (s+t) = \int_a^bs + \int_a^bt$$
+\end{claim}
+
+This is false, consider that $\int_a^b 2 = 2^3(b-a) \neq \int_a^b 1 + \int_a^b 1
+= 1^3(b-a)  +1^3(b-a) = 2(b-a)$.
+
+\subsection*{Apostol p.70-71 no.11c}
+
+\begin{claim}
+  $$c\int_a^bs = \int_a^b c \cdot s $$
+\end{claim}
+
+This is also false, consider again $\int_a^b2 = 2^3(b-a) \neq 2\int_a^b 1 = 2(b-a)$.
+
+\subsection*{Apostol p.70-71 no.11d}
+
+\begin{claim}
+  $$\int_{a+c}^{b+c} s(x)dx = \int_a^b s(x)dx $$
+\end{claim}
+
+\begin{proof}
+  True; we have that for a partition $P = \{x_0, x_1,...,x_n\}$ of $s(x)$ over $[a+c,b+c]$, then $P_c =
+  \{x_0 - c, x_1 - c,...,x_n - c\}$ is a partition of $s(x + c)$ over $[a+c,b+c]$.
+  Then, we have that
+  \[
+    \int_{a+c}^{b+c}s(x)dx = \sum_{i=1}^nc_i^3(x_i - x_{i-1}) =
+    \sum_{i=1}^nc_n^3((x_i - c) - (x_{i-1} - c)) = \int_a^bs(x + c)dx
+  \]
+\end{proof}
+
+\subsection*{Apostol p.70-71 no.11e}
+
+\begin{claim}
+  $\forall x \in [a,b], s(x) < t(x) \implies \int_a^bs < \int_a^bt$.
+\end{claim}
+
+\begin{proof}
+  Note that for $a,b \in \R, a < b \implies a^3 < b^3$. This follows from
+  casework on $a,b$: if $a = 0$, then $ab^2 < b^3 \implies 0 = a^3 < b^3$. If $b
+  = 0$, then $a^3 < ba^2 = 0 = b^3$. If $a, b < 0$, then $a < b \implies a^2 >
+  b^2 \implies a^3 < b^3$. If $a < 0, b > 0$, then $a < b \implies a^3 < 0 <
+  b^3$. If $a>0, b>0$, then $a<b \implies a^2 < b^2 \implies a^3 < b^3$.
+    
+  Suppose that $s,t$ have partitions $P_s, P_t$. Then $P = P_s \cup P_t = \{x_0,...x_n\}$ is a partition for both, where $s$ has constant values $s_i$ and $t$ has constant values $t_i$, where $i$ ranges from $1$ to $n$.
+  Now, $\int_a^b s = \sum_{i=1}^n s_i^3(x_i - x_{i-1}) < \sum_{i=}^n t_i^3(x_i - x_{i-1}) = \int_a^b t$. We can show that the inequality holds by inducting on $n$. 
+  
+  In general, we wish to show that if for $i = 1,2,...,n$, we have that $a_i < b_i$, then $\sum_{i=1}^na_i < \sum_{i=1}^nb_i$. We induct on $n$. If $n = 1$, then we have that $a_1 < b_1$, which is true by the premise. For the inductive step, suppose that the inequality holds for $n = k$. Then,
+  $\sum_{i=1}^{k+1}a_i = \sum_{i=1}^k a_i + a_{k+1} < \sum_{i=1}^k b_i + a_{k+1} < \sum_{i=1}^k b_i + b_{k+1} < \sum_{i=1}^{k+1} b_i$.
+  
+  Now, we know that as $s(x) < t(x)$ for $x \in [a,b]$, we have that $s_i < t_i \implies s_i^3 < t_i^3$. Applying this to the sum, we see that the inequality holds.
+  
+\end{proof}
+
+\subsection*{Apostol p.70-71 no.15}
+
+\begin{claim}
+  For step functions $s,t$, we have that $\forall x \in [a,b], s(x) < t(x) \implies \int_a^b s < \int_a^b t$.
+\end{claim}
+
+\begin{proof}
+  From above, we have that if for $i = 1,2,...,n$, we have that $a_i < b_i$, then $\sum_{i=1}^na_i < \sum_{i=1}^nb_i$.
+  
+  Suppose that $s,t$ have partitions $P_s, P_t$. Then $P = P_s \cup P_t = \{x_0,...x_n\}$ is a partition for both, where $s$ has constant values $s_i$ and $t$ has constant values $t_i$, where $i$ ranges from $1$ to $n$.
+  Now, $\int_a^b s = \sum_{i=1}^n s_i(x_i - x_{i-1}) < \sum_{i=}^n t_i(x_i - x_{i-1}) = \int_a^b t$.
+  
+  The middle inequality holds as we have that for any interval $(x_{i-1},x_i)$, we have that $x \in (x_{i-1},x_i) \implies s(x) = s_i < t(x) = t_i \implies s_i(x_i - x_{i-1}) < t_i(x_i - x_{i-1})$ as we have that $x_i > x_{i-1} \implies x_i - x_{i-1} > 0$.
+  
+\end{proof}
+
+\subsection*{Apostol p.83 no.25a}
+
+\begin{claim}
+  If $f:[a,b] \rightarrow \R$ is an even function, $\int_{-b}^b f = 2\int_0^b f$.
+\end{claim}
+
+\begin{proof}
+  From problem 1, we have that $\int_{-b}^b f = \int_{-b}^0f(x)dx  + \int_0^b f(x)dx = \int_0^b f(-x) + \int_0^b f(x)  = \int_0^b f(x) + \int_0^b f(x) = 2\int_0^b f $
+\end{proof}
+
+\subsection*{Apostol p.83 no.25b}
+
+\begin{claim}
+  If $f:[a,b] \rightarrow \R$ is an odd function, $\int_{-b}^b f = 0$.
+\end{claim}
+
+\begin{proof}
+  From problem 1, we have that $\int_{-b}^b f = \int_{-b}^0f(x)dx  + \int_0^b f(x)dx = \int_0^b f(-x) + \int_0^b f(x)  = -\int_0^b f(x) + \int_0^b f(x) = 0 $
+\end{proof}
+
+\section*{Problem 1}
+
+This does not rely on any Apostol problem which relies on this.
+
+\begin{claim}
+  If $f$ is integrable on $[a,b]$, then
+  \[
+    \int_{-b}^{-a}f(-x)dx = \int_a^b f(x)dx
+  \]
+\end{claim}
+
+\begin{proof}
+  We will first show this for step functions. If $P = \{x_0,...,x_n\}$ is a partition for $f(x)$ over $[a,b]$ with constant values $\{c_1,...,c_n\}$, then we have that $-P = \{-x_n,...,-x_0\}$ is a partition for $g(x):[-b,-a] \rightarrow \R: x \mapsto f(-x)$ over $[-b, -a]$ with the same constant values (though in reverse order). This can be seen as we have that for any open subinterval of $-P$, $(-x_i, -x_{i-1})$, $\forall x \in \R -x_{i-1} < x < -x_i \implies x_{i-1} < -x < x_i \implies g(x) = f(-x) = c_i$.
+  
+  Thus, we have that $\int_{-b}^{-a}g(x)d = \int_{-b}^{-a}f(-x)dx = \sum_{i=1}^n c_i(-x_{i-1} - (-x_i)) = \sum_{i=1}^n c_i(x_i - x_{i-1}) = \int_a^b f(x)dx$.
+  
+  Now to show the general case, we will show that for $f,g$ we have that $\underline{I}(f) = \underline{I}(g)$ and $\overline{I}(f) = \overline{I}(g)$. 
+
+  Suppose that $\int_a^b s(x)dx \in \underline{I}(f)$. Then we have that $s(x) <
+  f(x) \implies s(-x) < f(-x) =g(x) \implies \int_{-b}^{-a}s(-x)dx =
+  \int_a^bs(x)dx \in \underline{I}(g)$.
+
+  Suppose that $\int_a^b s(x)dx \in \underline{I}(g)$. Then we have that $s(x) <
+  g(x) \implies s(-x) < g(-x) = f(x) \implies \int_{-b}^{-a}s(-x)dx = \int_a^bs(x)dx \in
+  \underline{I}(f)$.
+  
+  Suppose that $\int_a^b s(x)dx \in \overline{I}(f)$. Then we have that $s(x) >
+  f(x) \implies s(-x) > f(-x) =g(x) \implies \int_{-b}^{-a}s(-x)dx =
+  \int_a^bs(x)dx \in \overline{I}(g)$.
+
+  Suppose that $\int_a^b s(x)dx \in \overline{I}(g)$. Then we have that $s(x) >
+  g(x) \implies s(-x) > g(-x) = f(x) \implies \int_{-b}^{-a}s(-x)dx = \int_a^bs(x)dx \in
+  \overline{I}(f)$.
+  
+  Thus, we have that $\underline{I}(f) = \underline{I}(g), \overline{I}(f) =
+  \overline{I}(g)$ and so $\int_a^b f(x)dx = \int_{-b}^{-a}g(x)dx = \int_{-b}^{-a}f(-x)dx$. 
+\end{proof}
+
+\section*{Problem 2}
+
+\begin{claim}
+  $$ \left| \int_a^b f(x)dx \right| \leq \int_a^b|f(x)|dx$$
+\end{claim}
+
+\begin{proof}
+  We first need to show that for any integrable functions $f,g$ on $[a,b]$, we
+  have that $f \leq g \implies \int_a^b f \leq \int_a^b g$.
+
+  In the case that $f < g$, we have that $\int_a^b f < \int_a^b g$ holds for
+  step functions (as shown in Apostol pg.70-71 no.15). The same proof holds for
+  $\leq$ instead of $<$ as well.
+
+  In the general case, we have that $f \leq g \implies \underline{I}(f)
+  \subseteq \underline{I}(g), \overline{I}(g) \subseteq \overline{I}(f)$, as $s
+  < f \implies s < g$, and $s > g \implies s > f$. Thus, we have that
+  $\sup(\underline{I}(f)) \leq \sup(\underline{I}(g)), \inf(\overline{I}(g))
+  \geq \inf(\overline{I}(g))$ as properties of $\inf, \sup$. These lead to the
+  conclusion that $\sup(\underline{I}(f)) = \inf(\overline{I}(f)) \leq
+  \inf(\overline{I}(g)) = \sup(\overline{I}(f)) \implies \int_a^bf \leq \int_a^b
+  g$.
+  
+  Note that we have that $-|f(x)| \leq f(x) \leq |f(x)|$ as a general property of the absolute
+  value. Further, we have then $\int_a^b -|f(x)|dx = -\int_a^b|f(x)|dx \leq \int_a^bf(x)dx \leq \int_a^b |f(x)|dx$.
+  The linearity of the integral was proved in class.
+
+  In general, we have that $-a \leq x \leq a \implies |x| \leq a$, as we have
+  three cases: $x = 0$, which follows as $-a \leq 0 \leq a \implies 0 \leq a$,
+  $x < 0$, which follows as $-a \leq x \implies |x| = -x \leq -(-a) = a$, and $x
+  > 0$, which follows as $x \leq a \implies |x| = x \leq a$. 
+  
+  We can now conclude that $|\int_a^bf(x)dx| \leq \int_a^b|f(x)|dx$.
+\end{proof}
+
+\section*{Problem 3}
+
+The function
+\[
+  f(x) = \begin{cases}
+    1 & x \in \Q \\
+    -1 & x \in \R \setminus \Q
+  \end{cases}
+\]
+is not, as we showed in class, integrable on any interval $[a,b], a \neq b$. However, we have that 
+\begin{align*}
+  |f(x)| &= \begin{cases}
+    |1| & x \in \Q \\
+    |-1| & x \in \R \setminus \Q
+  \end{cases} \\
+  &= \begin{cases}
+    1 & x \in \Q \\
+    1 & x \in \R \setminus \Q
+  \end{cases} \\
+  &= 1
+\end{align*}
+which is integrable over $[a,b]$. Namely, since it is equivalent to a step function with partition $\{a,b\}$, it evaluates to $b - a$.
+
+
+\section*{Problem 4}
+
+\subsection*{a}
+
+\begin{claim}
+  The only function both odd and even is $f(x) = 0$.
+\end{claim}
+
+\begin{proof}
+  $f(x) = f(-x) = -f(x)$. In general, $a \in \R, a = -a \implies a = 0$. This is
+  because $a = -a \implies a + a = 0 \implies 2a = 0 \implies a = (2^{-1})0 =
+  0$. Thus, $f(x) = -f(x) \implies f(x) = 0$.
+\end{proof}
+
+\subsection*{b}
+
+\begin{claim}
+  Let $f$ be integrable on every closed interval $[a,b]$, and let $g(x) =
+  \int_0^xf(t)dt$. If $f$ is odd, then $g$ is even, and if $f$ is even, then $g$
+  is odd.
+\end{claim}
+
+\begin{proof}
+  Consider that we have that $\int_a^bf = -\int_b^a f$, as we have that
+  $\int_a^b f + \int_b^c f = \int_a^c f$. Taking $c =a$, we see that $\int_a^bf
+  + \int_b^a f = \int_a^a f = 0 \implies \int_a^b f = -\int_b^a f$.
+
+  We will first show that $f$ odd $\implies g$ even.
+
+  \begin{align*}
+    g(-x) &= \int_0^{-x}f(x)dx \\
+          &= \int_x^0 f(-x)dx \\
+          &= \int_x^0 -f(x)dx \\
+          &= -\int_x^0 f(x)dx \\
+          &= \int_0^x f(x)dx = g(x)
+  \end{align*}
+
+  Now, we handle that $f$ even $\implies g$ odd.
+
+  \begin{align*}
+    g(-x) &= \int_0^{-x}f(x)dx \\
+          &= \int_x^0 f(-x)dx \\
+          &= \int_x^0 f(x)dx \\
+          &= \int_x^0 f(x)dx \\
+          &= -\int_0^x f(x)dx = -g(x)
+  \end{align*}
+\end{proof}
+
+\section*{Problem 5}
+
+\begin{claim}
+  $f: [a,b] \rightarrow \R$ is integrable iff $\forall \epsilon > 0, \exists
+  s,t$ step functions such that $s \leq f \leq t$ and $\int_a^b(t - s)dx < \epsilon$.
+\end{claim}
+
+\begin{proof}
+  $(\implies)$ $f$ is integrable $\implies \sup(\underline{I}(f)) =
+  \inf(\overline{I}(f))$. This means that the approximation theorem furnishes $x =
+  \int_a^b s \in \underline{I}(f) \mid \sup(\underline{I}(f)) -
+  \frac{\epsilon}{2} < x \implies -\int_a^bs = \int_a^b-s < -\sup(\underline{I}(f)) +
+  \frac{\epsilon}{2}$. Similarly, we can get $y = \int_a^b t \in
+  \overline{I}(f) \mid \inf(\underline{I}(f)) + \frac{\epsilon}{2} > y =
+  \int_a^b t$. Adding the two inequalities, we have that
+
+  \[
+    \int_a^b t + \int_a^b-s = \int_a^b (t - s) < \inf(\overline{I}(f)) -
+    \sup(\underline{I}(f)) + \epsilon = \epsilon
+  \]
+
+  $(\impliedby)$
+  We have that $\forall \epsilon > 0, \exists s,t \mid s \leq f \leq t,
+  \int_a^b(t-s) < \epsilon \implies \int_a^b t - \int_a^bs < \epsilon \implies
+  \int_a^bt < \int_a^bs + \epsilon$.
+
+  We have in general that for $a \in A, b \in B, \forall \epsilon > 0, b < a +
+  \epsilon \implies \sup(A) \geq \inf(B)$.
+\end{proof}
+
+\end{document}
+
+% LocalWords:  NetID fancyplain LocalWords colorlinks linkcolor linkbordercolor
