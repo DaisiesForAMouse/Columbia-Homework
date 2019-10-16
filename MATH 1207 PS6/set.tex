@@ -137,8 +137,8 @@ To evaluate this last limit, consider that for any $\epsilon > 0$, taking $\delt
 \subsection*{Apostol p.138-139 no.8}
 
 \begin{alignat*}{3}
-  && \lim_{x\rightarrow 0} \frac{x^2 -a^2}{x^2 + 2ax + a^2} &=
-  \lim_{x\rightarrow 0} \frac{(x-a)(x+a)}{(x+a)^2} &\\
+  && \lim_{x\rightarrow a} \frac{x^2 -a^2}{x^2 + 2ax + a^2} &=
+  \lim_{x\rightarrow a} \frac{(x-a)(x+a)}{(x+a)^2} &\\
   && &= \lim_{x\rightarrow a}\frac{x-a}{x+a} & (\text{since } x + a \neq 0
   \text{ when } x = a) \ \\
   && &= \frac{\lim_{x\rightarrow a} x-a}{\lim_{x\rightarrow a} x + a} &
@@ -242,14 +242,15 @@ Consider
   \begin{align*}
     \sum_{i=0}^n(\sup_{(x_i,x_{i+1})}(|f|))(x_{i+1} - x_i) &- \sum_{i=0}^n(\inf_{(x_i,x_{i+1})}(|f|))(x_{i+1} - x_i) \\
     &= \sum_{i=0}^n(\sup_{(x_i,x_{i+1})}(|f|) - \inf_{(x_i,x_{i+1})}(|f|))(x_{i+1} - x_i) \\
-    &\leq \sum_{i=0}^n(\sup_{(x_i,x_{i+1})}(f) - \inf_{(x_i,x_{i+1})}(f))(x_{i+1} - x_i) \\
+    &\leq \sum_{i=0}^n(|\sup_{(x_i,x_{i+1})}(f) - \inf_{(x_i,x_{i+1})}(f)|)(x_{i+1} - x_i) \\
+    &= \sum_{i=0}^n(\sup_{(x_i,x_{i+1})}(f) - \inf_{(x_i,x_{i+1})}(f))(x_{i+1} - x_i) \\
     &= \sum_{i=0}^n(\sup_{(x_i,x_{i+1})}(f))(x_{i+1} - x_i) - \sum_{i=0}^n(\inf_{(x_i,x_{i+1})}(f))(x_{i+1} - x_i) \\
   \end{align*}
 
   Finally, since $f$ is integrable, we have that we can pick a partition such
   that the $RHS < \epsilon$ for any $\epsilon > 0$. Thus, we can find $x \in
-  \overline{I}(|f|), y \in \underline{I}(|f|)$ such that $0 \leq x - y <
-  \epsilon$, and so $x - y = 0$ by a previous homework result.
+  \overline{S}(|f|), y \in \underline{S}(|f|)$ such that $0 \leq x - y <
+  \epsilon$, and so $\overline{I}(|f|) - \underline{I}(|f|) = 0$ by a previous homework result.
 \end{proof}
 
 \section*{Problem 2}
@@ -301,7 +302,21 @@ Consider
   are bounds on the interval, they must be less and and greater than zero each.
 
   Then, $\int_a^0x^ndx + \int_0^bx^ndx = \int_a^bx^ndx$, as the two parts on the
-  LHS are integrable as they are bounded and monotonic.
+  LHS are integrable as they are bounded and monotonic, and the RHS is then
+  also integrable.
+  % In particular, to see
+  % why this means that $x^n$ is integrable over $[a,b]$, consider the
+  % step function created by 
+  % \[
+  %   t(x) = \begin{cases}
+  %     s_1(x) & x < 0 \\
+  %     s_2(x) & x \geq 0 \\
+  %   \end{cases}
+  %  \]
+  %  where $s_1,s_2$ are respective step functions in $\overline{S}(x^n)$ on
+  %  $[a,0]$ and $[0,b]$ or $\underline{S}(x^n)$ on the same intervals. $t$ is in
+  %  $\overline{I}(x^n)$ on $[a,b]$ or $\underline{I}(x^n)$ on $[a,b]$, depending
+  %  on $s_1,s_2$. 
 \end{proof}
 
 \subsection*{c}
@@ -355,7 +370,7 @@ Consider
   2\epsilon = \epsilon'$. Thus, $\lim_{h\rightarrow 0}|f(x+h)-f(x-h)| = 0$.
 \end{proof}
 
-We do not in fact that $b) \implies a)$. Consider the following function
+We do not in fact have that $b) \implies a)$. Consider the following function
 $f:(-1,1) \rightarrow \R$:
 
 \[
@@ -379,7 +394,7 @@ However, we have that $\lim_{h\rightarrow 0}|f(h) - f(0)| = \lim_{h\rightarrow
 \[
   f(x) = \begin{cases}
     1 & x \in \R \setminus \Q \\
-    \frac{1}{n} & x = \frac{m}{n} \mid m, n \in \Zg, (m,n) = 1 
+    \frac{1}{n} & x = \frac{m}{n}, \ m, n \in \Zg, (m,n) = 1 
   \end{cases}
 \]
 
@@ -390,11 +405,70 @@ However, we have that $\lim_{h\rightarrow 0}|f(h) - f(0)| = \lim_{h\rightarrow
 \end{claim}
 
 \begin{proof}
-  $(\implies)$ Suppose that $x$ is not irrational. Then, since $f$ is continuous
-  at $x$, we must have that 
+  $(\implies)$ Suppose that $x = \frac{m}{n}, (m,n) = 1$ is not irrational. Then, since $f$ is continuous
+  at $x$, we must have that for any $\epsilon > 0$, $\exists \delta \mid 0 < |y
+  - x| < \delta \implies |f(y) - f(x)| = |f(y) - \frac{1}{n}| < \epsilon$.
+  However, since $\R \setminus \Q$
+  is dense in $\R$, we see that $\exists y \in \R \setminus \Q \mid 0 < |y-x| <
+  \delta$, and we have that $|f(y) - \frac{1}{n}| = \frac{1}{n}$, and, for example, there is
+  no $\delta$ that satisfies the condition with $\epsilon = \frac{1}{n+1}$.
+  Thus, $x$ must be irrational.
+
+  $(\impliedby)$ If $x$ is irrational, then we have that $f(x) = 0$. For any
+  $\epsilon > 0$, take $n \in \Z$, such that $\frac{1}{n} < \epsilon$, which is
+  possible due to the Archimedian property of $\R$.
+  For any $q$ in $\Z$,  $ \exists p\in \Z \mid x \in (\frac{p}{q}, \frac{p+1}{q})$.
+  Then, let $d_q = \min(|\frac{p}{q} - x|, |\frac{p+1}{q} -x|)$. Take $\delta =
+  \min(\delta_1,\delta_2,...,\delta_n)$, so that $\delta < \frac{1}{n}$.
+  $\forall y, 0 < |y - x| < \delta$, we have that $|f(y) - f(x)| = |f(y)|$. If
+  $y$ is irrational, then $|f(y)| = 0 < \epsilon$ and we are done. Otherwise,
+  the way that  $\delta$ is constructed
+  means that if $y \in \Q, 0 < |y-x| < \delta$, then $y = \frac{m'}{n'}, n' > n$, so $|f(y)| =
+  \frac{1}{n'} < \frac{1}{n} < \epsilon$. To see why that is true, if $n' \leq
+  n$, then we would have that $y - x > \delta_{n'}$, but $\delta \leq
+  \delta_{n'}$.  Thus, $\lim_{y\rightarrow x}f(y) = f(x)$ if $x$ is irrational.
 \end{proof}
 
 \subsection*{b}
+
+\begin{claim}
+  \[
+    \int_0^1f = 0
+  \]
+\end{claim}
+
+\begin{proof}
+  We begin by showing that $\underline{I}(f) = 0$. To calculate the lower
+  integral, let $s$ be a step function with $s \leq f$.
+  By definition, $\exists$ partition $P=\{x_0,...x_n\}$ with
+  $s|_{(x_{i-1},x_i)}$ constant. However, $\exists y  \in \R \setminus \Q$ with
+  $x_{i-1} < y < x_i \implies f(y) = 0 \implies s(y) \leq 0 \implies
+  s|_{(x_{i-1},x_i)} \leq 0 \implies s \leq 0$ except at points of $P$. Hence,
+  $\int_0^1s \leq 0 \implies \forall x \in \underline{I}(f), x \leq 0$. Further,
+  since we can for any $\epsilon > 0$, we can show that the step function $s$ with
+  partition $P = \{0,1\}$, with constant value $\frac{-\epsilon}{2}$ has $\int_0^1 s
+  = \frac{-\epsilon}{2} \in \underline{S}(f)$, so that $\exists x \in
+  \underline{S}(f) \mid 0 - \epsilon < x$, so $\underline{I}(f) = 0$.
+ 
+  Finding $\overline{I}(f)$ is harder. For $N \in \Zg$, take the partition $P_N =
+  \{\frac{p}{q} \leq 1 \mid p,q \in \Ze, (p,q) = 1, q < N\} = \{x_0 = 0,...x_n = 1\}$. The step
+  function $s_N$ such that for $x_i = \frac{p}{q}, s|_{(x_i,x_{i+1})} =
+  \frac{1}{N}, s(x_i) = \frac{1}{q}$ satisfies that $s \leq f$ on $[0,1]$.
+  Further, since the actual values of the step function on the points of the
+  partition don't matter in our formulation, we have that 
+
+  \begin{align*}
+    \int_0^1s_N &= \sum_{i=0}^n\frac{1}{N}(x_{i+1} - x_i) \\
+              &= \frac{1}{N}\sum_{i=0}^n(x_{i+1} - x_i) \\
+              &= \frac{1}{N}(x_n - x_0) = \frac{1}{N}(1-0) = \frac{1}{N}
+  \end{align*}
+  
+  The telescoping was proved on an earlier homework.
+  
+  Thus, for any $\epsilon > 0$, we can take $\frac{1}{N} < \epsilon$, and then
+  $\int_0^1s_N < \epsilon \implies \overline{I}(f) = 0$, so we conclude
+  $\int_0^1f = \overline{I}(f) = \underline{I}(f) = 0$.
+\end{proof}
 
 \end{document}
 
