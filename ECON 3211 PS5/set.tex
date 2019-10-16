@@ -1,0 +1,174 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{xfrac}
+\usepackage{nicefrac}
+\usepackage{xcolor}
+
+\usetikzlibrary{shapes.geometric,fit}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    linkbordercolor={0 0 1}
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+\newcommand\course{ECON 3211}
+\newcommand\hwnumber{5}
+\newcommand\NetIDa{dc3451}
+\newcommand\NetIDb{David Chen}          
+
+\theoremstyle{definition}
+\newtheorem*{statement}{Statement}
+\newtheorem*{claim}{Claim}
+\newtheorem*{theorem}{Theorem}
+
+\newcommand{\contra}{\Rightarrow\!\Leftarrow}
+\newcommand{\Lag}{\mathcal{L}}
+
+\pagestyle{fancyplain}
+\headheight 35pt
+\lhead{\NetIDa}
+\lhead{\NetIDa\\\NetIDb}
+\chead{\textbf{\Large Problem Set \hwnumber}}
+\rhead{\course \\ \today}
+\lfoot{}
+\cfoot{}
+\rfoot{\small\thepage}
+\headsep 1.5em
+
+\begin{document}
+
+\section*{Problem 2}
+
+\subsection*{a)}
+
+Increasing RTS (consider that $\gamma q(L,K) > q(\gamma L, \gamma K)$)
+
+\subsection*{b)}
+
+\[
+  \frac{dq}{dL} = MP_L = 0.5L^{-0.5}K, \frac{dq}{dK} = L^{0.5}
+\]
+
+\subsubsection*{b.1}
+
+\[
+  \min_{[L,K]} 4000L + 8000K \text{ s.t. } q = L^{0.5}K = 1000
+\]
+
+\subsubsection*{b.2,b.3,b.4}
+
+\begin{alignat*}{2}
+  && \Lag &= 4000L + 8000K - \lambda[L^{0.5}K - 1000] \\
+  && \frac{\delta \Lag}{\delta L} &= 4000 - 0.5\lambda L^{-0.5}K = 0 \\
+  && \frac{\delta \Lag}{\delta K} &= 8000 - \lambda L^{0.5} =0 \\
+  && \frac{\delta \Lag}{\delta \lambda} &=L^{0.5}K  - 1000 = 0\\
+  &\implies& L^{-1}K &= 1 \\
+  &\implies& L &= K \\
+  &\implies& K &= 1000^{0.67} = 100 \\
+  &\implies& L &= 1000^{0.67} = 100
+\end{alignat*}
+
+\subsubsection*{b.5}
+
+To see 1000 patients, we have that the minimum cost is $4000(100) + 8000(100) = 1,200,000$.
+
+\subsection*{c)}
+
+\begin{center}
+  \begin{tikzpicture}[
+    dot/.style={shape=circle, inner sep=2pt, draw, node contents=},
+    circ/.style={shape=circle, inner sep=2pt, draw, fill}]
+    \draw[thick,->] (0,0) -- (6.5,0) node[anchor=north west] {$L$};
+    \draw[thick,->] (0,0) -- (0,5.5) node[anchor=south east] {$K$};
+    
+    \draw (6cm,3pt) -- (6cm,-3pt) node[anchor=north] {$300$}; 
+    \draw (3pt,3cm) -- (-3pt,3cm) node[anchor=east] {$150$};
+
+    \draw (6,0) -- (0,3);
+  \end{tikzpicture}
+\end{center}
+
+\subsection*{d)}
+
+The share on labor is equal to
+
+\[
+  \frac{\text{total spent on labor}}{\text{total costs}} = \frac{wL}{TC} =
+    \frac{4000(100)}{1200000} = \frac{1}{3}
+\]
+
+Similarly, the share on capital is equal to
+
+\[
+  \frac{\text{total spent on capital}}{\text{total costs}} = \frac{wL}{TC} =
+  \frac{8000(100)}{1200000} = \frac{2}{3}
+\]
+
+We notice that $q(L,K) = L^{0.5}K$, and that the share spent on labor is
+$\frac{0.5}{0.5+1} = \frac{1}{3}$, and that the share spent on capital is
+$\frac{1}{0.5+1} = \frac{2}{3}$.
+
+In general, for $q(L,K) = L^{\alpha}K^{\beta}$, we have that the share spent on
+labor is $\frac{\alpha}{\alpha+\beta}$ and the share spent on capital is
+$\frac{\beta}{\alpha+\beta}$.
+
+\subsection*{e),f),g)}
+
+These do not exist, for some reason.
+
+\subsection*{h)}
+
+We solve for cost minimizing $L,K$ and plug in the cost function.
+
+\subsection*{i)}
+
+\begin{align*}
+  \frac{MP_L}{MP_K} &= \frac{w}{r} \\
+  \frac{0.5L^{-0.5}K}{L^{0.5}} &= \frac{w}{r} \\
+  \implies \frac{K}{2L} &= \frac{w}{r} \\
+  \implies K &= \frac{2wL}{r} \\
+  \implies q &= L^{0.5}\frac{2wL}{r} \\
+                    &= L^{1.5}\frac{2wL}{r} \\
+  \implies L&= (\frac{rq}{2w})^{\frac{2}{3}} \\
+  \implies q &= (\frac{rq}{2w})^{\frac{1}{3}} K \\
+  \implies K &= q(\frac{2w}{rq})^{\frac{1}{3}} \\
+                    &= (\frac{2wq^2}{r})^{\frac{1}{3}}
+\end{align*}
+
+\subsection*{j)}
+
+The clinic's total cost function is then $C(w,r,q) =
+w(\frac{rq}{2w})^{\frac{2}{3}} + r(\frac{2wq^2}{r})^{\frac{1}{3}} =
+(\frac{1}{2}rwq^{\frac{1}{2}})^{\frac{2}{3}} + (2wq^2r^2)^{\frac{1}{3}}$.
+
+\subsection*{k)}
+
+We have that
+
+\begin{align*}
+  AC &= \frac{C(w,r,q)}{q} \\
+     &= \frac{1}{q} [(\frac{1}{2}rwq^{\frac{1}{2}})^{\frac{2}{3}} + (2wq^2r^2)^{\frac{1}{3}}] \\
+     &= q^{-\frac{1}{3}}(\frac{1}{2}rw^{\frac{1}{2}})^{\frac{2}{3}} + q^{-\frac{1}{3}}(2wr^2)^{\frac{1}{3}} \\
+     &= q^{-\frac{1}{3}}((\frac{1}{2}rw^{\frac{1}{2}})^{\frac{2}{3}} + (2wr^2)^{\frac{1}{3}}) \\
+  \implies \frac{dAC}{dq} &= -\frac{1}{3}q^{-\frac{4}{3}}((\frac{1}{2}rw^{\frac{1}{2}})^{\frac{2}{3}} + (2wr^2)^{\frac{1}{3}}) < 0\\
+\end{align*}
+
+Thus, AC is decreasing with increased output, agreeing with our initial finding
+of economies of scale.
+
+\end{document}
