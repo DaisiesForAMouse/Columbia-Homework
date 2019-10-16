@@ -1,0 +1,401 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{relsize}
+\usepackage{fancyvrb}
+\usetikzlibrary{shapes.geometric,fit}
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+% Edit these as appropriate
+\newcommand\course{MATH 1207}
+\newcommand\hwnumber{6}                  % <-- homework number
+\newcommand\NetIDa{dc3451}           % <-- NetID of person #1
+\newcommand\NetIDb{David Chen}           % <-- NetID of person #2 (Comment this line out for problem sets)
+
+\theoremstyle{definition}
+\newtheorem*{statement}{Statement}
+\newtheorem*{claim}{Claim}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+
+\newcommand{\contra}{\Rightarrow\!\Leftarrow}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Ze}{\mathbb{Z}_{\geq 0}}
+\newcommand{\Zg}{\mathbb{Z}_{>0}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+
+\pagestyle{fancyplain}
+\headheight 35pt
+\lhead{\NetIDa}
+\lhead{\NetIDa\\\NetIDb}                 % <-- Comment this line out for problem sets (make sure you are person #1)
+\chead{\textbf{\Large Homework \hwnumber}}
+\rhead{\course \\ \today}
+\lfoot{}
+\cfoot{}
+\rfoot{\small\thepage}
+\headsep 1.5em
+
+\begin{document}
+
+\subsection*{Apostol p.125 no.21}
+
+\begin{claim}
+  Let $f,g$ be functions that are integrable on every interval and satisfying
+  the following: $f$ is odd, $g$ is even, $f(5) = 7, f(0) = 0, g(x) = f(x+5),
+  f(x) = \int_0^xg(t)dt$ for all $x$. Then (a) $\forall x, f(x-5) = -g(x)$; (b)
+  $\int_0^5f(x)dx = 7$; (c) $\int_0^xf(t)dt = g(0) - g(x)$.
+\end{claim}
+
+\begin{proof}
+  (a)
+  \begin{alignat*}{2}
+    && g(x) &= f(x + 5) \\
+    &\implies& g(x) &= \int_0^{x+5}g(t)dt \\
+    && g(x) &= g(-x) = \int_0^{-x + 5}g(t)dt \\
+    &\implies& g(x) &= f(-x + 5) = -f(x - 5) \\
+    &\implies& f(x - 5) &= -g(x)
+  \end{alignat*}
+
+  (b) Note that since $f,g$ are integrable on every interval, then we have that
+  $g(x) = f(x + 5) \implies g(y - 5) = f(y)$ by simply taking $y = x + 5$. Since
+  the choice of variables is arbitrary, in general, we have that $g(x - 5) = f(x)$.
+
+  
+  \begin{alignat*}{2}
+    && \int_0^5f(t)dt &= \int_0^5g(x - 5)dx \\
+    && &=\int_{-5}^0g(t)dt \\
+    && &=\int_0^5g(-t)dt \\
+    && &=\int_0^5g(t)dt \\
+    && &=f(5) = 7
+  \end{alignat*}
+
+  (c) Similarly to above,
+
+  \begin{alignat*}{2}
+    && \int_0^xf(t)dt &= \int_0^xg(t - 5)dt \\
+    && &=\int_{-5}^{x-5}g(t)dt \\
+    && &=\int_{-x + 5}^5g(-t)dt \\
+    && &=\int_{-x+5}^5g(t)dt \\
+    && &=\int_{-x+5}^0g(t)dt + \int_0^5g(t)dt \\
+    && &=\int_0^{x-5}g(t)dt + f(5) \\
+    && &=f(x-5) + f(5) \\
+    && &= -g(x) + g(0)
+  \end{alignat*}
+\end{proof}
+
+\subsection*{Apostol p.138-139 no.5}
+
+\begin{lemma}
+  \[
+    \lim_{x \rightarrow 0} \frac{x}{x} = 1
+  \]
+\end{lemma}
+
+\begin{proof}
+  For any $\epsilon > 0$, taking $\delta = 1224323121$, we have that $0 < |x - 0| < 1224323121 \implies x \neq 0
+  \implies |\frac{x}{x} - 1| = 0 < \epsilon$. Thus, the limit is then just $1$. 
+\end{proof}
+
+\begin{alignat*}{3}
+  && \lim_{h\rightarrow 0} \frac{(t+h)^2 - t^2}{h} &= \lim_{h\rightarrow 0}
+  \frac{t^2 + 2th +h^2 - t^2}{h} & \\
+  && &=\lim_{h\rightarrow 0}\frac{2th + h^2}{h} & \\
+  && &=\lim_{h\rightarrow 0}\frac{2th}{h} + \frac{h^2}{h} &\\
+  && &=\lim_{h\rightarrow 0}\frac{h}{h}(2t + h) &\\
+  && &=\lim_{h\rightarrow 0}\frac{h}{h} \cdot \lim_{h\rightarrow 0} 2t + h
+  & \text{ (multiplicativity of limits) } \\
+  && &=\lim_{h\rightarrow 0} 2t + h & \text{ (lemma) }\\
+  && &= 2t & \text{ (see below) }\\
+\end{alignat*}
+
+To evaluate this last limit, consider that for any $\epsilon > 0$, taking $\delta =
+\frac{\epsilon}{2} \implies \forall x, 0 < |x - 0| < \frac{\epsilon}{2} \implies
+|2t + \frac{\epsilon}{2} - 2t| = \frac{\epsilon}{2} < \epsilon$. 
+
+\subsection*{Apostol p.138-139 no.8}
+
+\begin{alignat*}{3}
+  && \lim_{x\rightarrow 0} \frac{x^2 -a^2}{x^2 + 2ax + a^2} &=
+  \lim_{x\rightarrow 0} \frac{(x-a)(x+a)}{(x+a)^2} &\\
+  && &= \lim_{x\rightarrow a}\frac{x-a}{x+a} & (\text{since } x + a \neq 0
+  \text{ when } x = a) \ \\
+  && &= \frac{\lim_{x\rightarrow a} x-a}{\lim_{x\rightarrow a} x + a} &
+  \text{ (multiplicativity of limits) } \\
+  && &= \frac{0}{2a} = 0
+\end{alignat*}
+
+We can see that $\lim_{x \rightarrow a} x - a = 0$ as we have that for $\epsilon
+> 0$, $\delta = \epsilon \implies \forall x, 0 < |x - a| < \epsilon$.
+
+Similarly, we see that $\lim_{x \rightarrow a} x + a = 2a$ as we have that for
+$\epsilon > 0$, $\delta = \epsilon \implies \forall x, 0 < |x - a| < \epsilon
+\implies |x + a - 2a| = |x - a| < \epsilon$. 
+
+\subsection*{Apostol p.138-139 no.21}
+
+\begin{alignat*}{3}
+  && \lim_{x\rightarrow 0} \frac{1 - \sqrt{1-x^2}}{x^2} &= \lim_{x\rightarrow 0}
+  \frac{1 - \sqrt{1-x^2}}{x^2}(\frac{1 + \sqrt{1-x^2}}{1 + \sqrt{1-x^2}}) &\\
+  && &= \lim_{x\rightarrow 0} \frac{1 - (1 - x^2)}{x^2(1 +\sqrt{1-x^2})} &\\
+  && &= \lim_{x\rightarrow 0} \frac{x^2}{x^2}\lim_{x\rightarrow 0}\frac{1}{1
+    +\sqrt{1-x^2}} & \text{ (multiplicativity of limits) }\\
+  && &= \lim_{x\rightarrow 0}\frac{1}{1 + \sqrt{1 -x^2}} & \text{ (lemma) }\\
+  && &= \frac{\lim_{x\rightarrow 0} 1}{\lim_{x\rightarrow 0} 1 +
+    \lim_{x\rightarrow 0} \sqrt{1 - x^2}} & \text{ (additivity, multiplicativity
+    of limits) } \\
+  && &= \frac{1}{1 + \lim_{x\rightarrow 0} \sqrt{1 - x^2}} &\\
+  && &= \frac{1}{2}
+\end{alignat*}
+
+To compute the last limit, note that we have $(\lim_{x\rightarrow 0}
+\sqrt{1-x^2})^2 = \lim_{x\rightarrow 0} 1-x^2 = 1$, as for any $\epsilon > 0$,
+take $\delta = \sqrt{\epsilon} \implies 0 < |x| < \sqrt{\epsilon} \implies |1 -
+x^2 - 1| = |x^2| = |x| < \epsilon$. Thus, $\lim_{x\rightarrow 0} \sqrt{1-x^2} =
+\sqrt{1} = 1$.
+
+\subsection*{Apostol p.138-139 no.31}
+
+Consider
+
+\[
+  f(x) = \begin{cases}
+    x & x \in \R \setminus \Q \\
+    0 & x \in \Q
+  \end{cases}
+\]
+
+\begin{claim}
+  This is continuous at 0, but nowhere else.
+\end{claim}
+
+\begin{proof}
+  At 0, we observe that for any $\epsilon > 0$, the density of $\R \setminus \Q$
+  in $\R$ furnishes $\delta \in \R \setminus \Q$ such that $0 < \delta <
+  \epsilon$. Then, $\forall x, 0 < |x| < \delta \implies |f(x)| < \delta$, as
+  either $x \in \R \setminus \Q \implies |f(x)| = |x| < \delta$ or $x \in \Q
+  \implies |f(x)| = 0 < \delta$. Thus, we have that $\lim_{x\rightarrow 0}f(x) =
+  0 = f(0)$.
+
+  However, for any $c \in \R, c \neq 0$, we have that $\lim_{x\rightarrow
+    c}f(x)$ does not exist. Suppose that it did, and it had value $K$. Take
+  $\epsilon = |\frac{c}{2}| > 0$. For any
+  $\delta$, pick $x_1 \in \Q, x_2 \in \R \setminus \Q, 0 < |x_1 - c| <\delta, 0
+  < |x_2 - c| < \delta$, and consider that the
+  existence of the limit has $|f(x_0) - K| = |K| < |\frac{c}{2}|, |f(x_1) - K| =
+  |x_1 - K| = |x_1 - K + c - c| \leq |x_1 - c| + |K - c| < |\frac{c}{2}|$.
+  However, $|K - c| > |\frac{c}{2}|$ as $|K| < |\frac{c}{2}|$, and so we have
+  that both $|K -c| < |\frac{c}{2}|$ and $|K -c| > |\frac{c}{2}|$. $\contra$, so
+  the limit does not exist and $f$ cannot be continuous for $x \neq 0$.
+\end{proof}
+
+\section*{Problem 1}
+
+\begin{claim}
+  $f$ is integrable $\implies |f|$ is integrable.
+\end{claim}
+
+\begin{proof}
+  Let $f$ be integrable over $[a,b]$.
+
+  We have from the triangle inequality that $|a - b| \leq |a| + |b| \implies |a - b| -|b| \leq |a|$.
+  Replacing $a$ with $x - y$ and $b$ with $-y$, we have that $|x| - |y| \leq |x - y|$.
+
+  % Now consider that we now have that $\forall x,y \in [a,b], |f(x)| - |f(y)| \leq |f(x) - f(y)|$.
+  Then, over any partition $P = \{x_0,...,x_n\}$ of $[a,b]$, we have that on a open subinterval of
+  the partition $(x_i,x_{i+1})$, the theorem on approximation gives $x_1,x_2 \in
+  (x_i,x_{i=1}), \epsilon > 0 \mid \sup(|f|) -
+  \inf(|f|) - 2\epsilon < |f(x_1)| - |f(x_2)| \leq |f(x_1 - f(x_2)| < |\sup(f) -
+  \inf(f)| = \sup(f) - \inf(f)$.
+
+  Then, for that partition and putting $\inf_I, \sup_I$ for the infimum and
+  supremum over $I$, we have that
+  \begin{align*}
+    \sum_{i=0}^n(\inf_{(x_i,x_{i+1})}(f))(x_{i+1} - x_i) \in \underline{I}(f) \\
+    \sum_{i=0}^n(\sup_{(x_i,x_{i+1})}(f))(x_{i+1} - x_i) \in \overline{I}(f) \\
+    \sum_{i=0}^n(\inf_{(x_i,x_{i+1})}(|f|))(x_{i+1} - x_i) \in \underline{I}(|f|) \\
+    \sum_{i=0}^n(\sup_{(x_i,x_{i+1})}(|f|))(x_{i+1} - x_i) \in \overline{I}(|f|) \\
+  \end{align*}
+
+  By properties of sums proved on previous homework, we then have that
+  \begin{align*}
+    \sum_{i=0}^n(\sup_{(x_i,x_{i+1})}(|f|))(x_{i+1} - x_i) &- \sum_{i=0}^n(\inf_{(x_i,x_{i+1})}(|f|))(x_{i+1} - x_i) \\
+    &= \sum_{i=0}^n(\sup_{(x_i,x_{i+1})}(|f|) - \inf_{(x_i,x_{i+1})}(|f|))(x_{i+1} - x_i) \\
+    &\leq \sum_{i=0}^n(\sup_{(x_i,x_{i+1})}(f) - \inf_{(x_i,x_{i+1})}(f))(x_{i+1} - x_i) \\
+    &= \sum_{i=0}^n(\sup_{(x_i,x_{i+1})}(f))(x_{i+1} - x_i) - \sum_{i=0}^n(\inf_{(x_i,x_{i+1})}(f))(x_{i+1} - x_i) \\
+  \end{align*}
+
+  Finally, since $f$ is integrable, we have that we can pick a partition such
+  that the $RHS < \epsilon$ for any $\epsilon > 0$. Thus, we can find $x \in
+  \overline{I}(|f|), y \in \underline{I}(|f|)$ such that $0 \leq x - y <
+  \epsilon$, and so $x - y = 0$ by a previous homework result.
+\end{proof}
+
+\section*{Problem 2}
+
+\subsection*{a}
+
+\begin{claim}
+  $x^n, n \in \Ze$ is monotonic on both $(-\infty, 0]$ and $[0,\infty)$.
+\end{claim}
+
+\begin{proof}
+  We induct on $n$. The base case is $n = 0 \implies x^n = 1$, and so for any
+  $x,y$ in $(-\infty,0]$ or $x,y$ in $[0,\infty)$, we have that $x > y \implies x^0 = y^0 = 1$.
+
+  For the inductive case, suppose that the claim holds for $n = k$. Then,
+  $x^{k+1} = x^k \cdot x$.
+
+  For any $x,y$ in $(-\infty, 0]$, we have that if
+  $x^k$ is monotonically increasing, then $x > y \implies x^k \geq y^k \implies
+  x^k\cdot x < y^k \cdot y$, as in general we have shown $a \geq b, 0 \geq c > d
+  \implies ac < bd$ as a property of the ordering. Similarly, if $x^k$ is monotonically decreasing, then $x >
+  y \implies x^k \geq y^k \implies x^k \cdot x > y^k \cdot y$.
+
+  
+  For any $x,y$ in $[0,\infty)$, we have that if
+  $x^k$ is monotonically increasing, then $x > y \implies x^k \geq y^k \implies
+  x^k\cdot x > y^k \cdot y$. Similarly, if $x^k$ is monotonically decreasing, then $x >
+  y \implies x^k \geq y^k \implies x^k \cdot x < y^k \cdot y$.
+
+  Thus, $x^n$ is monotonic on both $(-\infty,0]$ and $[0,\infty)$.
+\end{proof}
+
+\subsection*{b}
+
+\begin{claim}
+  All monomials are integrable on any closed interval.
+\end{claim}
+
+\begin{proof}
+  In the cases that $[a,b] \subseteq(-\infty, 0]$, or $[a,b] \subseteq[0,\infty)$, we have
+  that the function is monotonic and bounded (in general, $x^n$ bounded by
+  $\max(a^n,b^n)$ over the interval $[a,b]$). This has been shown to be integrable
+  in class.
+
+  In the last case that $[a,b] \nsubseteq (-\infty, 0]$ or $[0,\infty)$, and since
+  $ [a,b] \subseteq (-\infty, 0] \cup [0,\infty) = \R$, then $[a,b] = [a,0] \cup
+  [0,b]$. This can bee seen by the fact that there must be some element in $[a,b]$
+  that is greater than zero, and one that is less than zero. Further, since $a,b$
+  are bounds on the interval, they must be less and and greater than zero each.
+
+  Then, $\int_a^0x^ndx + \int_0^bx^ndx = \int_a^bx^ndx$, as the two parts on the
+  LHS are integrable as they are bounded and monotonic.
+\end{proof}
+
+\subsection*{c}
+
+\begin{claim}
+  \[
+    g(x) = \sum_{i=0}^nc_ix^i 
+  \]
+  is integrable.
+\end{claim}
+
+\begin{proof}
+  Note that we have already proved that $f(x) = c$ is integrable, and that the
+  sum and product of integrable functions is itself integrable in class.
+
+  We induct on $n$. The base case, $n = 0$, has $g(x) = c_0$, which is
+  integrable. Then, if the claim for $n = k$ holds, then $g_{k+1}(x) =
+  \sum_{i=0}^{k+1}c_ix^i = \sum_{i=0}^kc_ix^i + c_{k+1}x^{k+1}$. We have that
+  $\sum_{i=0}^kc_ix^i$ is integrable by the inductive premise, and that $c_{k+1}$
+  and $x^{k+1}$ are both integrable as well. Thus, $ \sum_{i=0}^kc_ix^i +
+  c_{k+1}x^{k+1} = g_{k+1}(x)$ is then integrable.
+
+  Induction then yields that $g(x)$ is integrable for any $n$.
+\end{proof}
+
+
+\section*{Problem 3}
+
+\begin{align*}
+  &f:(a,b) \rightarrow \R, x \in (a,b) \\
+  a) \ &\lim_{h\rightarrow 0}|f(x + h) - f(x)| = 0 \\
+  b) \ &\lim_{h\rightarrow 0}|f(x + h) - f(x - h)| = 0
+\end{align*}
+
+\begin{claim}
+  $a) \implies b)$.
+\end{claim}
+
+\begin{proof}
+  We have that for any $\epsilon > 0$, $\exists \delta \mid 0 < |h| < \delta
+  \implies |f(x+h) - f(x)| < \epsilon$.
+
+  We want to show that also $\lim_{h\rightarrow 0}|f(x + h) - f(x)| = 0 \implies
+  \lim_{h\rightarrow 0}|f(x - h) -f(x)| = 0$. Consider that for $\epsilon > 0$,
+  we can take the same $\delta$ as before. For $0 < |h| < \delta$ note that for
+  any given $h$, we have that $f(x-h) =
+  f(x+(-h))$, but $|-h| < \delta \implies |f(x + (-h)) - f(x)| < \epsilon$.
+  
+  Further, for any $\epsilon' = 2\epsilon > 0$, we have that $|f(x + h) - f(x - h)| = |f(x +
+  h) - f(x - h) + f(x) - f(x)| \leq |f(x + h) - f(x)| + |f(x -h) - f(x)| <
+  2\epsilon = \epsilon'$. Thus, $\lim_{h\rightarrow 0}|f(x+h)-f(x-h)| = 0$.
+\end{proof}
+
+We do not in fact that $b) \implies a)$. Consider the following function
+$f:(-1,1) \rightarrow \R$:
+
+\[
+  f(x) = \begin{cases}
+    1 & x \neq 0 \\
+    0 & x = 0 \\
+  \end{cases}
+\]
+
+Then, take $x = 0$. $\lim_{h\rightarrow 0}|f(h) - f(-h)| = 0$, as we have that
+for $\forall \epsilon > 0, \delta = 1 \implies \forall h, 0 < |h| < 1 \implies |f(h) -
+f(-h) - 0| = |1-1 - 0| = 0 < \epsilon$.
+
+However, we have that $\lim_{h\rightarrow 0}|f(h) - f(0)| = \lim_{h\rightarrow
+  0}|f(h)| = 1$, as $\forall \epsilon > 0, \delta = 1 \implies \forall h, 0 <
+|h| < 1 \implies |f(h) - 1| = 0 < \epsilon$. Thus, $\lim_{h\rightarrow
+  0}|f(0+h) - f(0)| \neq 0$.
+
+\section*{Problem 4}
+
+\[
+  f(x) = \begin{cases}
+    1 & x \in \R \setminus \Q \\
+    \frac{1}{n} & x = \frac{m}{n} \mid m, n \in \Zg, (m,n) = 1 
+  \end{cases}
+\]
+
+\subsection*{a}
+
+\begin{claim}
+  $f$ is continuous at $x$ if and only if $x$ is irrational.
+\end{claim}
+
+\begin{proof}
+  $(\implies)$ Suppose that $x$ is not irrational. Then, since $f$ is continuous
+  at $x$, we must have that 
+\end{proof}
+
+\subsection*{b}
+
+\end{document}
+
+% LocalWords:  NetID fancyplain LocalWords colorlinks linkcolor linkbordercolor
