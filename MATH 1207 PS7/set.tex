@@ -1,0 +1,277 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{relsize}
+\usepackage{fancyvrb}
+\usetikzlibrary{shapes.geometric,fit}
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+% Edit these as appropriate
+\newcommand\course{MATH 1207}
+\newcommand\hwnumber{7}                  % <-- homework number
+\newcommand\NetIDa{dc3451}           % <-- NetID of person #1
+\newcommand\NetIDb{David Chen}           % <-- NetID of person #2 (Comment this line out for problem sets)
+
+\theoremstyle{definition}
+\newtheorem*{statement}{Statement}
+\newtheorem*{claim}{Claim}
+\newtheorem*{theorem}{Theorem}
+
+\newcommand{\contra}{\Rightarrow\!\Leftarrow}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Ze}{\mathbb{Z}_{\geq 0}}
+\newcommand{\Zg}{\mathbb{Z}_{>0}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+
+\pagestyle{fancyplain}
+\headheight 35pt
+\lhead{\NetIDa}
+\lhead{\NetIDa\\\NetIDb}                 % <-- Comment this line out for problem sets (make sure you are person #1)
+\chead{\textbf{\Large Homework \hwnumber}}
+\rhead{\course \\ \today}
+\lfoot{}
+\cfoot{}
+\rfoot{\small\thepage}
+\headsep 1.5em
+
+\begin{document}
+
+\subsection*{Apostol p.139-140 no.33.a}
+
+Suppose that we have $f:[a,b] \rightarrow \R, |f(u)-f(v)| \leq |u-v|$.
+
+\begin{claim}
+  $f$ is continuous on $[a,b]$.
+\end{claim}
+
+\begin{proof}
+  For any $c \in [a,b]$, $f$ must be continuous: consider that for any $\epsilon
+  > 0$, we take $\delta = \epsilon$ and then have that $0 < |x - c| < \epsilon
+  \implies |f(x) - f(c)| < |x - c| < \epsilon$. Thus, $\lim_{x\rightarrow c}f(x)
+  = f(c)$.
+\end{proof}
+
+\subsection*{Apostol p.139-140 no.33.b}
+
+\begin{claim}
+  \[
+    \left| \int_a^bf(x)dx - (b-a)f(a) \right| \leq \frac{(b-a)^2}{2}
+  \]
+\end{claim}
+
+\begin{proof}
+  Note that $\int_a^bf(a)dx = (b-a)f(a)$, as $f(a)$ is just a step function with
+  partition $\{a,b\}$. Then, the claim becomes
+  \begin{align*}
+    \left|\int_a^bf(x)dx - \int_a^bf(a)dx\right| &= \left|\int_a^b(f(x) - f(a))dx\right| \\
+                                                 &\leq \int_a^b|(f(x) - f(a))| \\
+                                                 &\leq \int_a^b|x - a|dx \\
+                                                 &= \int_a^b(x-a)dx \\
+                                                 &= \int_a^bxdx - \int_a^badx \\
+                                                 &= \int_a^b xdx - (b-a)a \\
+                                                 &= \frac{b^2}{2} - \frac{a^2}{2} - (b-a)a \\
+                                                 &= \frac{b^2 + a^2 -2ab}{2} \\
+                                                 &= \frac{(b-a)^2}{2}
+  \end{align*}
+
+  Note that $\int_a^bxdx$ was shown on a past homework.
+\end{proof}
+
+\subsection*{Apostol p.139-140 no.33.c}
+
+\begin{claim}
+  \[
+    \left| \int_a^bf(x)dx - (b-a)f(c) \right| \leq \frac{(b-a)^2}{2}
+  \]
+\end{claim}
+
+\begin{proof}
+  \begin{align*}
+    \left|\int_a^bf(x)dx - \int_a^bf(c)dx\right| &= \left|\int_a^b(f(x) - f(c))dx\right| \\
+    &\leq \int_a^b|(f(x) - f(c))| \\
+    &\leq \int_a^b|x - c|dx \\
+    &= \int_a^c(x-c)dx + \int_c^b-(x-c)dx \\
+  \end{align*}
+
+  This last step is justified by the fact that if $x \in (a,c) \implies x < c
+  \implies |x-c| = -(x-c)$.
+  
+  \begin{align*}
+    &= -\int_a^c(x-c)dx + \int_c^b(x-c)dx \\
+    &= -(\int_a^cxdx - \int_a^ccdx) + (\int_c^b xdx - \int_c^b cdx) \\
+    &= -(\int_a^c xdx - (c-a)c) + (\int_c^b xdx - (b-c)c) \\
+    &= -\int_a^cxdx + \int_c^bxdx - (a+b)c \\
+    &= -(\frac{c^2}{2} - \frac{a^2}{2}) + (\frac{b^2}{2} - \frac{c^2}{2}) - (a+b)c + 2c^2 \\
+    &= \frac{a^2 + b^2 - 2c^2}{2} - (a+b)c + 2c^2 \\
+    &= \frac{a^2 + b^2}{2} + c^2 - (a+b)c \\
+    &\leq \frac{a^2 + b^2}{2} + b^2 - (a+b)b \\
+    &= \frac{a^2 + b^2}{2} - ab \\
+    &= \frac{(b-a)^2}{2}
+  \end{align*}
+
+  The last inequality holds, as we have that $(b^2 - (a+b)b) - (c^2 - (a+b)c) =
+  b^2 - c^2 - (a+b)(b-c) = (b-c)(b+c - (a+b) = (b-c)(c-a) > 0$, as $a < c < b$.
+\end{proof}
+
+
+\subsection*{Apostol p.142 no.11}
+
+\begin{align*}
+  \lim_{x\rightarrow -2} \frac{x^3 + 8}{x^2 - 4} &= \lim_{x\rightarrow -2} (\frac{x+2}{x+2})(\frac{x^2 - 2x + 4}{x-2}) \\
+                                                 &= (\lim_{x\rightarrow -2}\frac{x+2}{x+2})(\lim_{x\rightarrow -2} \frac{x^2 -2x +4}{x-2}) \\
+                                                 &= \lim_{x\rightarrow -2}\frac{x^2 -2x + 4}{x-2}\\
+\end{align*}
+
+We have proved $\lim_{h\rightarrow 0}\frac{h}{h} = 0$ on a past homework (for
+any $\epsilon > 0$, $\delta = 1231231231231$ works).
+
+Since we have that polynomials are continuous, and that $x-2$ at $x = -2$ is
+nonzero, we have that $\frac{x^2 -2x + 4}{x-2}$ is continuous, and so
+$\lim_{x\rightarrow -2}\frac{x^2 - 2x +4}{x-2} = \frac{4 + 4+ 4}{-4} = -3$.
+
+
+\subsection*{Apostol p.142 no.12}
+
+We have that $\lim_{x\rightarrow 4} \sqrt{1 + \sqrt{x}}$. We have that $f:x
+\mapsto \sqrt{x}$ is continuous, as is $g:x \mapsto 1 + x$, and thus $\sqrt{1 +
+  \sqrt{x}} = (f \circ g \circ f)$ is also continuous as the composition of
+continuous functions. Thus, $\lim_{x\rightarrow
+  4} = \sqrt{1 + \sqrt{4}} = \sqrt{3}$.
+
+To see that $\sqrt{x}$ is continuous, consider that for any $\epsilon > 0$, take
+$\delta = \epsilon^2 $, such that $0 < |x-c| < \delta, y = |x - c| \implies |\sqrt{x} -
+\sqrt{x + y}| < |\sqrt{x} - \sqrt{x + 2\sqrt{xy} + y}| = |\sqrt{x} - (\sqrt{x} +
+\sqrt{y})| = |\sqrt{y}| < \sqrt{\epsilon^2} < \epsilon$. Thus,
+$\lim_{y\rightarrow x} \sqrt{y} = \sqrt{x}$.
+
+\subsection*{Apostol p.142 no.19}
+
+\begin{align*}
+  \lim_{x\rightarrow 0} \frac{\sqrt{1+x} - \sqrt{1-x}}{x} &= \lim_{x\rightarrow 0} \frac{\sqrt{1+x} - \sqrt{1-x}}{x}\frac{\sqrt{1+x}+\sqrt{1-x}}{\sqrt{1+x}+\sqrt{1-x}} \\
+                                                          &= \lim_{x\rightarrow 0} \frac{1+x - (1-x)}{x\sqrt{1+x}+\sqrt{1-x}} \\
+                                                          &= \lim_{x\rightarrow 0} \frac{2x}{x\sqrt{1+x}+\sqrt{1-x}} \\
+                                                          &= \lim_{x\rightarrow 0} \frac{2}{\sqrt{1+x}+\sqrt{1-x}} \\
+\end{align*}
+
+Given that the quotient, sum, and composition of continuous functions is
+continuous, we have that $\frac{2}{\sqrt{1+x}+\sqrt{1-x}}$ is then also
+continuous, and so $\lim_{x\rightarrow 0} \frac{2}{\sqrt{1+x}+\sqrt{1-x}} =
+\frac{2}{\sqrt{1} + \sqrt{1}} = 1$.
+
+\subsection*{Apostol p.155 no.7}
+
+\begin{claim}
+  Let $f$ be integrable and nonnegative. Then $\int_a^bf(x)dx = 0 \implies f(x)
+  = 0$ at every point of continuity.
+\end{claim}
+
+\begin{proof}
+  Suppose that $f(x) \neq 0$ and $f$ is continuous at $x$. Then we have that for
+  $\epsilon = \frac{f(x)}{2}$, $\exists \delta \mid 0 < |y - x| < \delta
+  \implies \frac{f(x)}{2} < f(y) < \frac{3f(x)}{2}$, meaning that for $y \in (x -
+  \delta, x + \delta), f(y) > 0$. Put $\gamma_1 = \max(a, x-\delta), \gamma_2 =
+  \min(b, x+\delta).$ Importantly, we would then have that $\int_{\gamma_1}^{\gamma_2}f(y)dy > \int_{\gamma_1}^{\gamma_2}0dy = 0$. Thus, we
+  would then have that $\int_a^{\gamma_1} f(y)dy +
+  \int_{\gamma_1}^{\gamma_2}f(y)dy + \int_{\gamma_2}^bf(y)dy = \int_a^bf(y)dy >
+  0$, as $f$ being nonegative means that $\int_a^{\gamma_1}f(y)dy,
+  \int_{\gamma_2}^bf(y)dy \geq 0$. $\contra$, so $f(x) = 0$.
+\end{proof}
+
+\section*{Problem 1}
+
+\subsection*{a}
+
+\[
+  f(x) = \begin{cases}
+    x - 1 & x < 0 \\
+    x & x \geq 0
+  \end{cases}
+\]
+
+This is monotonic: consider that for any $a,b \in \R$, suppose that $b > a$. If
+$a,b < 0$, then $f(b) - f(a) = (b -1) - (a-1) = b-a > 0$. If $a < 0, b \geq 0$,
+then $f(b) - f(a) = (b) - (a-1) = b-a + 1> 0$. If $a,b > 0$, then $f(b) - f(a)
+= (b) - (a) = b-a > 0$. Thus, the function is monotonic.
+
+However, it is not continuous: consider that $\lim_{x \rightarrow 0}f(x)$ does
+not exist. Suppose that $\lim_{x\rightarrow 0}f(x) = K$. Then, for any $\epsilon
+> 0$, we must have $\delta > 0 \mid 0 < |x| < \delta \implies |f(x) - f(0)| =
+|f(x)| < \epsilon$. However, we have that for $x \in (-\delta,0), f(x) = x - 1 <
+-1 \implies |f(x)| > 1$. Thus, for $\epsilon < 1$, no such $\delta$ exists, and
+$f$ is discontinuous at $1$.
+
+\subsection*{b}
+
+\begin{claim}
+  Any monotonic surjective function $f: \R \rightarrow \R$ is continuous.
+\end{claim}
+
+\begin{proof}
+  We will show that $f$ must be continuous at any $c \in \R$. Consider that
+  for any $\epsilon > 0$, $f(c) + \frac{\epsilon}{2}$ must be achieved by some $b \in \R$,
+  as $f$ is surjective and also as $f$ is monotonic, $f(b) > f(c) \implies b > c$. Similarly, $f(c) -
+  \frac{\epsilon}{2}$ must be achieved by some $a < c$. Take $\delta = \min(|b-c|,
+  |a-c|)$. 
+
+  Since $f$ is monotonic, we have that $a < d < c < e < b \implies f(a) \leq
+  f(d) \leq f(c) \leq f(e) \leq f(b) \implies f(a) - f(c) \leq f(d) - f(c) \leq
+  0 \leq f(e) - f(c) \leq f(b) - f(c) \implies -\frac{\epsilon}{2} \leq f(d) -
+  f(c) < f(e) - f(c) \leq \frac{\epsilon}{2} \implies |f(d) - f(c)|, |f(e) -
+  f(c)| \leq \frac{\epsilon}{2} < \epsilon$. Thus, $0 < |x-c| < \delta \implies
+  a < x < b \implies |f(x) - f(c)| < \epsilon$. Thus, we have that
+  $\lim_{x\rightarrow c}f(x) = f(c)$, and $f$ is then continuous at $c$.
+\end{proof}
+
+\section*{Problem 2}
+
+\begin{claim}
+  For $f,g:[a,b] \rightarrow \R$, both continuous, if $f(x) = g(x)$ whenever $x \in
+  \Q$, then $f = g$.
+\end{claim}
+
+\begin{proof}
+  % Consider $h = f - g$. Suppose that $h \neq 
+  Suppose that for some $x$, $f(x) \neq g(x)$. Without loss of generality,
+  take $g(x) > f(x)$. Then, $x$ must be irrational.
+  However, we have that since $f$ is continuous, for any $\epsilon > 0$, we have
+  $\delta$ such that $0 < |y-x| < \delta_f \implies |f(x) - f(y)| < \frac{\epsilon}{2}$.
+  Similarly, we have that $0 < |y-x| < \delta_g \implies |g(x) - g(y)| <
+  \frac{\epsilon}{2}$. Taking $\delta = \min(\delta_f, \delta_g)$, we have that $|g(x) -
+  g(y)|, |f(x) - f(y)| < \frac{\epsilon}{2}$. 
+
+  Then, we have that $|g(x) - g(y) - f(x) + f(y)| < |g(x) - g(y)| + |f(x) -
+  f(y)| = \epsilon$ by the triangle inequality, but since $\Q$ is dense, we can
+  always find $y \in \Q \mid 0 < |x-y| < \delta$. In that case, we have that
+  $f(y) = g(y)$, so $|g(x) -g(y) - f(x) + f(y)| = |g(x) - f(x)| < \epsilon$ for
+  any $\epsilon$, especially for $\epsilon = g(x)
+  - f(x) > 0$. $\contra$, so $f(x) = g(x)$ everywhere. 
+
+  % Since $\Q$ is dense in $\R$, we would have that $\exists y \in \Q \mid 0 < |x - y| <
+  % \delta \implies |f(x) - f(y)| = |f(x) - g(y)| < \epsilon$.
+\end{proof}
+
+\end{document}
+
+% LocalWords:  NetID fancyplain LocalWords colorlinks linkcolor linkbordercolor
