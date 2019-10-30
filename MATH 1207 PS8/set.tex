@@ -58,8 +58,82 @@
 \begin{document}
 
 \subsection*{Apostol p.155 no.8}
+
+\begin{claim}
+  If $f$ is continuous on $[a,b]$, and $\int_a^bf(x)g(x)dx = 0$ for every
+  function $g$ continuous on $[a,b]$, then $f(x) = 0$.
+\end{claim}
+
+\begin{proof}
+  Take $g(x) = f(x)$. We have that $\int_a^b(f(x))^2dx = 0$. However, we have
+  that $f(x)^2 \geq 0$. Now, suppose that $f(y)^2 > 0$. Then, we have that, as
+  $f$ is continuous, that $\exists \delta > 0 \mid 0 < |x - y| < \delta \implies
+  |f(x)^2 - f(y)^2| < \frac{1}{2}f(y)^2 \implies f(x)^2 > \frac{1}{2}f(y)^2 >
+  0$. Thus,
+
+  \begin{align*}
+    \int_a^bf(x)^2dx &= \int_a^{y - \delta}f(x)^2dx + \int_{y - \delta}^{y+\delta}f(x)^2dx + \int_{y+\delta}^bf(x)^2dx \\
+                     & \geq \int_{y - \delta}^{y+\delta}f(x)^2dx \\
+                     & \geq \int_{y - \delta}^{y+\delta}f(y)^2dx \\
+                     &= 2\delta f(y)^2> 0
+  \end{align*}
+  
+  $\contra$, so $f(x)^2 = 0 \implies \forall x \in [a,b], f(x) = 0$.
+\end{proof}
+
 \subsection*{Apostol p.168 no.22}
+
+We first show the power rule for rational exponents. We already have that power
+rule for integral exponents, and for $f(x) = x^{\frac{p}{q}}$, $f(x)^q = x^p$.
+Further, we have that the chain rule yields $(f(x)^q)' = (qf(x)^{q-1})(f'(x))$. Thus,
+$(qf(x)^{q-1})(f'(x)) = px^{p-1} \implies f'(x) = \frac{px^{p-1}}{qf(x)^{q-1}} =
+\frac{p}{q}\frac{x^{p-1}}{x^{\frac{p(q-1)}{q}}} = \frac{p}{q}x^{p- 1 - p +
+  \frac{p}{q}} = \frac{p}{q}x^{\frac{p}{q} - 1}$.
+
+Then, we have that $(\sqrt{x})' = (x^{\frac{1}{2}})' = \frac{1}{2\sqrt{x}}$.
+Further, $(1 + x)' = (1)' + (x)' = 0 + 1 = 1$.
+
+The quotient rule then yields that
+\[
+  f'(x) = \frac{\frac{1}{2\sqrt{x}}(1+x) - \sqrt{x}}{(1+x)^2}  =
+  \frac{1}{2\sqrt{x}(1+x)} - \frac{\sqrt{x}}{(1+x)^2} = \frac{1-x}{2\sqrt{x}(1+x)^2}
+\]
+
 \subsection*{Apostol p.168 no.24}
+
+\begin{claim}
+  \[
+    g' = f'_1(f_2f_3...f_n) + f'_2(f_1f_3...f_n) + ... +
+    f'_n(f_1f_2...f_{n-1}) = \sum_{i=1}^n (f'_i\prod_{j = 1}^{i-1} f_j \prod_{j=i+1}^nf_j)
+  \]
+\end{claim}
+
+\begin{proof}
+  Take the base case of $n = 1$, or $g = f_1$. Then,
+  $g' = f_1'$, as given by the formula, as the prodcuts are empty.
+
+  Assume that the formula holds for $n = k$, and put $g_k = \prod_{i=1}^kf_i$. Then,
+  \begin{align*}
+    g'_{k+1} &= g_k'f_{k+1} + f_{k+1}'g_k \\
+             &= (\sum_{i=1}^k (f'_i\prod_{j = 1}^{i-1} f_j \prod_{j=i+1}^kf_j))f_{k+1} + f_{k+1}'(\prod_{i=1}^kf_i) \\
+             &= \sum_{i=1}^k (f'_i\prod_{j = 1}^{i-1} f_j \prod_{j=i+1}^{k+1}f_j) + f_{k+1}'(\prod_{i=1}^kf_i) \\
+             &= \sum_{i=1}^{k+1} (f'_i\prod_{j = 1}^{i-1} f_j \prod_{j=i+1}^{k+1}f_j)
+  \end{align*}
+\end{proof}
+
+\begin{claim}
+  \[
+    \frac{g'}{g} = \sum_{i=1}^n\frac{f_i'}{f_i} \\
+  \]
+\end{claim}
+
+\begin{proof}
+  \begin{align*}
+    g' = \sum_{i=1}^n (f'_i\prod_{j = 1}^{i-1} f_j \prod_{j=i+1}^nf_j) \\
+    \implies \frac{g'}{g} = \frac{
+  \end{align*}
+\end{proof}
+
 \subsection*{Apostol p.174 no.14}
 
 \section*{Problem 1}
@@ -99,48 +173,29 @@
 \end{claim}
 
 \begin{proof}
-  % Suppose that $f$ achieves a maximum value
-  % at $c \in [0,1]$.
-
-  % Now, consider $g(x) = f(x) - f(x + 1/n)$. If $c \in [1/n, 1-1/n]$, we have that
-  % $g(c) = f(c) - f(c + 1/n) > 0, g(c - 1/n) = f(c - 1/n) - f(c) < 0$, and so by
-  % the Intermediate Value Theorem we have $x \in [c - 1/n, c] \subseteq [0,1- 1/n]
-  % \mid f(x) = f(x + 1/n)$.
-
-  % If $c < 1/n$, 
-
   Consider $g(x) = f(x) - f(x + 1/n)$. Suppose that $g > 0$. Then, we have that
-  $f(1) < f(0)$. To see this, consider the set $\{ g(k/n) \mid k \in \Zg, k \leq
-  n\}.$ We then have that $k > 0 \implies f(k/n) < f(0)$, as we can induct on
-  $k$. If $k = 1$, then $g(1/n) > 0 \implies f(1/n) - f(0) < 0 \implies f(1/n) <
-  f(0)$. Assume that the hypothesis holds for $k < n$. Then, $g(k/n) > 0
-  \implies f(k/n) - f((k+1)/n) > 0 \implies f((k+1)/n <  f(k/n) < f(0)$. This
-  shows that $f(k/n) < f(0)$ for all $k \in \Zg, k \leq n$. Critically, this
-  then means that $f(1) < f(0)$.
-
-  Now suppose that $g < 0$. Then, we have that
   $f(1) > f(0)$. To see this, consider the set $\{ g(k/n) \mid k \in \Zg, k \leq
   n\}.$ We then have that $k > 0 \implies f(k/n) > f(0)$, as we can induct on
-  $k$. If $k = 1$, then $g(1/n) < 0 \implies f(1/n) - f(0) < 0 \implies f(1/n) <
+  $k$. If $k = 1$, then $g(1/n) > 0 \implies f(1/n) - f(0) > 0 \implies f(1/n) >
   f(0)$. Assume that the hypothesis holds for $k < n$. Then, $g(k/n) > 0
-  \implies f(k/n) - f((k+1)/n) > 0 \implies f((k+1)/n <  f(k/n) < f(0)$. This
+  \implies f(k/n) - f((k+1)/n) > 0 \implies f((k+1)/n > f(k/n) > f(0)$. This
+  shows that $f(k/n) > f(0)$ for all $k \in \Zg, k \leq n$. Critically, this
+  then means that $f(1) > f(0)$. $\contra$
+
+  Now suppose that $g < 0$. Then, we have that
+  $f(1) < f(0)$. To see this, consider the set $\{ g(k/n) \mid k \in \Zg, k \leq
+  n\}.$ We then have that $k > 0 \implies f(k/n) < f(0)$, as we can induct on
+  $k$. If $k = 1$, then $g(1/n) < 0 \implies f(1/n) - f(0) < 0 \implies f(1/n) <
+  f(0)$. Assume that the hypothesis holds for $k < n$. Then, $g(k/n) < 0
+  \implies f(k/n) - f((k+1)/n) < 0 \implies f((k+1)/n < f(k/n) < f(0)$. This
   shows that $f(k/n) < f(0)$ for all $k \in \Zg, k \leq n$. Critically, this
-  then means that $f(1) < f(0)$.
+  then means that $f(1) < f(0)$. $\contra$.
 
-
-
-  % If $c > 1/n$, then consider $g(x) = f(x) - f(x + 1/n)$. We
-  % have that $g(c) = f(c) - f(c + 1/n) > 0$, and that $g(c - 1/n) = f(c - 1/n) -
-  % f(c) < 0$. By the Intermediate Value Theorem, we have that $\exists x \in
-  % [c - 1/n,c] \mid g(x) = 0 \implies f(x) = f(x + 1/n)$.
-
-  % If $c < 1/n$, consider instead $g(x) = f(x) - f(x - 1/n)$. We have that
-  % $g(c) = f(c) - f(c - 
-  % Put $\alpha = \max(c - 1/n, 0), \beta = \min(c + 1/n, 1).$
-  % Then, $g(\alpha) = f(\alpha) - f(c) < 0, g(c) = f(c) - f(\beta) > 0$. We must
-  % then have by the Intermediate Value Theorem that $\exists
-  % x \in [\alpha, \beta] \mid g(x) = 0 \implies f(x) - f(x + 1/n) = 0 \implies f(x)
-  % = f(x + 1/n)$.
+  Thus, we must have that $g$ cannot be positive nor negative everywhere,
+  meaning that $\exists x,y \in [0, 1-1/n] \mid g(x) > 0, g(y) < 0$. By the
+  Intermediate Value Theorem, we have that $\exists z \in [0, 1-1/n] \mid g(z) =
+  0 \implies \exists z \in [0,1-1/n] \mid f(z) - f(z + 1/n) = 0 \implies f(z) =
+  f(z + 1/n)$.
 \end{proof}
 
 \section*{Problem 4}
