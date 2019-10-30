@@ -1,0 +1,246 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{relsize}
+\usepackage{fancyvrb}
+\usetikzlibrary{shapes.geometric,fit}
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+\newcommand\course{MATH 1207}
+\newcommand\hwnumber{8}
+\newcommand\NetIDa{dc3451}
+\newcommand\NetIDb{David Chen}
+
+\theoremstyle{definition}
+\newtheorem*{statement}{Statement}
+\newtheorem*{claim}{Claim}
+\newtheorem*{theorem}{Theorem}
+
+\newcommand{\contra}{\Rightarrow\!\Leftarrow}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Ze}{\mathbb{Z}_{\geq 0}}
+\newcommand{\Zg}{\mathbb{Z}_{>0}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+
+\pagestyle{fancyplain}
+\headheight 35pt
+\lhead{\NetIDa}
+\lhead{\NetIDa\\\NetIDb}
+\chead{\textbf{\Large Homework \hwnumber}}
+\rhead{\course \\ \today}
+\lfoot{}
+\cfoot{}
+\rfoot{\small\thepage}
+\headsep 1.5em
+
+\begin{document}
+
+\subsection*{Apostol p.155 no.8}
+\subsection*{Apostol p.168 no.22}
+\subsection*{Apostol p.168 no.24}
+\subsection*{Apostol p.174 no.14}
+
+\section*{Problem 1}
+
+\begin{claim}
+  Let $f: [a,b] \rightarrow \R$ be integrable. Then, $\exists c \in [a,b]$ such
+  that
+  \[
+    \int_a^cf(x)dx = \frac{1}{2}\int_a^cf(x)dx
+  \].
+\end{claim}
+
+\begin{proof}
+
+  First, we extend the Intermediate Value Theorem to be slightly stronger. The
+  original statement is that for
+  $f: [a,b] \rightarrow \R$ continuous, if $f(a) < K < f(b)$ then $\exists c \in
+  [a,b] \mid f(c) = K$. Further, we will show that if $f(b) < K < f(a)$ then
+  $\exists c \in [a,b] \mid f(c) = K$. To see this, consider $g(x) -f(x)$. We
+  have that $g(a) < -K < g(b)$, so $\exists c \in [a,b] \mid g(c) = -K \implies
+  f(c) = K$.
+  
+  Consider $g(x) : [a,b] \rightarrow \R, g(x) = \int_a^xg(t)dt$. Then, we have
+  that $g(a) = \int_a^ag(t)dt = 0, g(b) = \int_a^bg(t)dt$. Further, $\frac{1}{2}
+  \int_a^bf(x)dx = \frac{g(b)}{2} = \frac{g(a) + g(b)}{2}$, and if $g(b) > 0 = g(a)$, then $g(a) <
+  \frac{g(a) + g(b)}{2} < g(b)$, and if $g(b) < 0 = g(a)$, then $g(b) <
+  \frac{g(a) + g(b)}{2} < g(a)$, and so by the Intermediate Value Theorem,
+  $\exists c \in [a,b] \mid g(c) = \frac{g(a) + g(b)}{2} \implies \int_a^cf(x)dx
+    = \frac{1}{2}\int_a^bf(x)dx$.
+\end{proof}
+
+\section*{Problem 2}
+
+\begin{claim}
+  $f$ is continuous on $[0,1]$, and has $f(0) = f(1)$. $\forall n \in \Zg,
+  \exists x \in [0,1 - 1/n] \mid f(x) = f(x + 1/n).$
+\end{claim}
+
+\begin{proof}
+  % Suppose that $f$ achieves a maximum value
+  % at $c \in [0,1]$.
+
+  % Now, consider $g(x) = f(x) - f(x + 1/n)$. If $c \in [1/n, 1-1/n]$, we have that
+  % $g(c) = f(c) - f(c + 1/n) > 0, g(c - 1/n) = f(c - 1/n) - f(c) < 0$, and so by
+  % the Intermediate Value Theorem we have $x \in [c - 1/n, c] \subseteq [0,1- 1/n]
+  % \mid f(x) = f(x + 1/n)$.
+
+  % If $c < 1/n$, 
+
+  Consider $g(x) = f(x) - f(x + 1/n)$. Suppose that $g > 0$. Then, we have that
+  $f(1) < f(0)$. To see this, consider the set $\{ g(k/n) \mid k \in \Zg, k \leq
+  n\}.$ We then have that $k > 0 \implies f(k/n) < f(0)$, as we can induct on
+  $k$. If $k = 1$, then $g(1/n) > 0 \implies f(1/n) - f(0) < 0 \implies f(1/n) <
+  f(0)$. Assume that the hypothesis holds for $k < n$. Then, $g(k/n) > 0
+  \implies f(k/n) - f((k+1)/n) > 0 \implies f((k+1)/n <  f(k/n) < f(0)$. This
+  shows that $f(k/n) < f(0)$ for all $k \in \Zg, k \leq n$. Critically, this
+  then means that $f(1) < f(0)$.
+
+  Now suppose that $g < 0$. Then, we have that
+  $f(1) > f(0)$. To see this, consider the set $\{ g(k/n) \mid k \in \Zg, k \leq
+  n\}.$ We then have that $k > 0 \implies f(k/n) > f(0)$, as we can induct on
+  $k$. If $k = 1$, then $g(1/n) < 0 \implies f(1/n) - f(0) < 0 \implies f(1/n) <
+  f(0)$. Assume that the hypothesis holds for $k < n$. Then, $g(k/n) > 0
+  \implies f(k/n) - f((k+1)/n) > 0 \implies f((k+1)/n <  f(k/n) < f(0)$. This
+  shows that $f(k/n) < f(0)$ for all $k \in \Zg, k \leq n$. Critically, this
+  then means that $f(1) < f(0)$.
+
+
+
+  % If $c > 1/n$, then consider $g(x) = f(x) - f(x + 1/n)$. We
+  % have that $g(c) = f(c) - f(c + 1/n) > 0$, and that $g(c - 1/n) = f(c - 1/n) -
+  % f(c) < 0$. By the Intermediate Value Theorem, we have that $\exists x \in
+  % [c - 1/n,c] \mid g(x) = 0 \implies f(x) = f(x + 1/n)$.
+
+  % If $c < 1/n$, consider instead $g(x) = f(x) - f(x - 1/n)$. We have that
+  % $g(c) = f(c) - f(c - 
+  % Put $\alpha = \max(c - 1/n, 0), \beta = \min(c + 1/n, 1).$
+  % Then, $g(\alpha) = f(\alpha) - f(c) < 0, g(c) = f(c) - f(\beta) > 0$. We must
+  % then have by the Intermediate Value Theorem that $\exists
+  % x \in [\alpha, \beta] \mid g(x) = 0 \implies f(x) - f(x + 1/n) = 0 \implies f(x)
+  % = f(x + 1/n)$.
+\end{proof}
+
+\section*{Problem 4}
+
+\subsection*{a)}
+
+Consider the coutner example of
+
+\[
+  f(x) = \begin{cases}
+    1 & x \in \Q \\
+    0 & x \notin \Q \\
+  \end{cases}
+  \ \ \ \ 
+  g(x) = \begin{cases}
+    0 & x \in \Q \\
+    1 & x \notin \Q \\
+  \end{cases}
+\]
+
+We have that $f + g = 1$, which is differentiable everywhere $(f + g)' = 0$.
+However, we have that $f,g$ are nowhere continuous and thus nowhere
+differentiable (the contrapositive, differentiable $\implies$ continuous was
+proved in class).
+
+In general, take any function $f$ not differentiable at $x$. Then, $f + (-f) =
+0$ is differentiable at $x$, but neither $f, -f$ are.
+
+\subsection*{b)}
+
+\begin{claim}
+  If $f(x) \neq 0$, then $g$ is differentiable at $x$.
+\end{claim}
+
+\begin{proof}
+  We have that the quotient rule states for functions $s,t$ differentiable at
+  $x$, then if $t(x) \neq 0$, $(\frac{s}{t})' = \frac{s't - st'}{t^2}$ at $x$.
+  Taking $s = fg, t = f$, we have that $f(x) \neq 0 \implies g'(x)$ exists by
+  the quotient rule.
+\end{proof}
+
+\section*{Problem 5}
+
+\subsection*{a)}
+
+\begin{claim}
+  $f(x) = xg(x)$, $g$ continuous at 0 $\implies f$ is differentiable at $0$.
+\end{claim}
+
+\begin{proof}
+  \[
+    \lim_{h\rightarrow 0}\frac{f(0 + h) - f(0)}{h} = \lim_{h\rightarrow 0}\frac{f(h)}{h} 
+  \]
+
+  Consider $\lim_{h\rightarrow 0}(\frac{f(h)}{h} - g(h))$. For any $\epsilon$,
+  take arbitrary $\delta > 0$. We then have that $0 < |x| < \delta \implies x
+  \neq 0 \implies \frac{f(x)}{x} = g(x) \implies |\frac{f(x)}{x} - g(x)| = 0 < \epsilon$.
+
+  Thus, we have that $\lim_{h\rightarrow 0} (\frac{f(h)}{h} - g(h)) = 0 \implies
+  \lim_{h\rightarrow 0} \frac{f(h)}{h} = \lim_{h\rightarrow 0} g(h) = g(0)$, as
+  $g$ is continuous.
+\end{proof}
+
+\subsection*{b)}
+
+\begin{claim}
+  Suppose that $f$ is differentiable at $0$ and $f(0) = 0$. Then, $\exists g(x)
+  \mid f(x) = xg(x), g$ continuous at $0$.
+\end{claim}
+
+\begin{proof}
+  Consider
+  \[
+    g(x) = \begin{cases}
+      f'(0) & x = 0 \\
+      \frac{f(x)}{x} & x \neq 0
+    \end{cases}
+  \]
+  which is well defined as we have that $f$ is differentiable at 0.
+  
+  Then, we have that
+  \[
+    xg(x) = \begin{cases}
+      0 & x = 0 \\
+      f(x) & x \neq 0
+    \end{cases}
+  \]
+
+  This is equal to $f(x)$ everywhere.
+
+  Now, to prove that $g(x)$ is continuous, note first that we have that
+  $\lim_{h\rightarrow 0} \frac{f(h)}{h} = \lim_{h\rightarrow 0}\frac{f(0 + h) -
+    f(0)}{h} = f'(0)$, as we have that $f$ is differentiable at 0. Further,
+  $\lim_{h\rightarrow 0} (g(h) - \frac{f(h)}{h} = 0$, as for any $\epsilon > 0$,
+  take arbitrary $\delta > 0 \mid 0 < |x| < \delta \implies x \neq 0 \implies
+  g(x) = \frac{f(x)}{x} \implies |g(x) - \frac{f(x)}{x} - 0| = 0 < \epsilon$.
+  Finally, we have that $\lim_{h\rightarrow 0}g(h) = \lim_{h\rightarrow
+    0}\frac{f(h)}{h} = f'(0) = g(0)$, so $g$ is continuous.
+\end{proof}
+
+\end{document}
+
+% LocalWords:  NetID fancyplain LocalWords colorlinks linkcolor linkbordercolor
