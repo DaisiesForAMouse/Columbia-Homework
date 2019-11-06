@@ -1,0 +1,421 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{relsize}
+\usepackage{fancyvrb}
+\usetikzlibrary{shapes.geometric,fit}
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+\newcommand\course{MATH 1207}
+\newcommand\hwnumber{9}
+\newcommand\NetIDa{dc3451}
+\newcommand\NetIDb{David Chen}
+
+\theoremstyle{definition}
+\newtheorem*{statement}{Statement}
+\newtheorem*{claim}{Claim}
+\newtheorem*{theorem}{Theorem}
+
+\newcommand{\contra}{\Rightarrow\!\Leftarrow}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Ze}{\mathbb{Z}_{\geq 0}}
+\newcommand{\Zg}{\mathbb{Z}_{>0}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+
+\pagestyle{fancyplain}
+\headheight 35pt
+\lhead{\NetIDa}
+\lhead{\NetIDa\\\NetIDb}
+\chead{\textbf{\Large Homework \hwnumber}}
+\rhead{\course \\ \today}
+\lfoot{}
+\cfoot{}
+\rfoot{\small\thepage}
+\headsep 1.5em
+
+\begin{document}
+
+\subsection*{Apostol p.180 no.19bcd}
+
+\subsubsection*{b}
+
+We use the chain rule to compute that
+
+\begin{align*}
+  g'(x) &= (\sin^2(x))'f'(\sin^2(x)) + (\cos^2(x))'f(\cos^2(x)) \\
+        &= \cos(x)(2\sin(x))f'(\sin^2(x)) - \sin(x)(2\cos(x))f'(\cos^2(x)) \\
+        &= 2\sin(x)\cos(x)(f'(\sin^2(x)) - f'(\cos^2(x))) \\
+        &= \sin(2x)(f'(\sin^2(x)) - f'(\cos^2(x)))
+\end{align*}
+
+\subsubsection*{c}
+
+We use the chain rule to compute that 
+
+\[
+  g'(x) = f'(f(x))f'(x)
+\]
+
+\subsubsection*{d}
+
+We use the chain rule to compute that
+
+\[
+  g'(x) = f'(f(f(x)))(f(f(x)))' = f'(f(f(x)))f'(f(x))f'(x)
+\]
+
+\subsection*{Apostol p.186-187 no.7}
+
+\subsubsection*{a}
+
+\begin{claim}
+  If $f$ has $r$ zeros, counting multiplicity, then the $k$-th derivative
+  $f^k(x)$ has at least $r - k$ zeros counting multiplicity.
+\end{claim}
+
+\begin{proof}
+  Assuming that any real zero $a$ of multiplicity $m$ of $f$ satisfy $f(x) =
+  (x-a)^mg(x)$ for some polynomial $g(x) \mid g(r) \neq 0$, as given in the
+  problem. Further, let the function $f$ have distinct zeros $a_1,a_2,...,a_k$ with
+  respective multiplicities $m_1,m_2,...,m_k$.  We have that if $f(x) =
+  (x-a)^mg(x)$, then $f'(x) = m(x-a)^{m-1}g(x) +
+  (x-a)^mg'(x) = (x-a)^{m-1}(mg(x) + (x-a)g'(x))$, and thus $f'(x)$ has $a$ as a
+  root of multiplicity $m - 1$ (note that if $m-1 = 0$, then $a$ is no longer a
+  root, but this still works if we define the number of roots to be $r =
+  \sum_{i=1}^km_i$, as adding $m_i = 0$ counts no new roots).
+
+  Further, for each distinct root, we have that the Mean Value Theorem gives some
+  $b_i \in (a_i,a_{i+1})$ such that $f'(b) = \frac{f(a_{i+1}) - f(a_i)}{a_{i+1} -
+    a_i} = 0$. These roots have at least multiplicity $1$, as $f(b) = 0$ and
+  there are $k - 1$
+  such intervals, and none were old roots. The total amount of zeros is then at
+  least $\sum_{i=1}^k(m_i-1) + k - 1 = \sum_{i=1}^km_i - 1 = r - 1$.
+
+  To extend this to the $k$-th derivative, we induct on $k$. The base case was
+  just proved for $k = 1$. Assume that for $k = n$, the claim holds. Then, we
+  have that $f^{n+1}(x)$ has at least $(r - n) - 1 = r - (n+1)$ zeros by the
+  same reasoning as before (simply put $f(x) = f^n(x)$). The claim then holds
+  for $k = n+1$.
+\end{proof}
+
+\subsubsection*{b}
+
+If the $k$-th derivative has exactly $r$ zeros in $[a,b]$, then we can conclude
+that $f^{k-1}(x)$ had at most $r + 1$ zeros in $[a,b]$ (as if $f^{k-1}(x)$ has
+$r_{k-1}$ zeros, then $f^k(x)$ has at least $r_{k-1} - 1 \leq r$ zeros, so
+$r_{k-1} \leq r + 1$. Similarly, we have that $f^{k - i}(x)$ has at most $r + i$
+zeros, for $i \in \{1,2,...,k \}$. 
+
+\subsection*{Apostol p.186-187 no.8b}
+
+\begin{claim}
+  For $0 < y \leq x, n \in \Zg$,
+  \[
+    ny^{n-1}(x-y) \leq x^n - y^n \leq nx^{n-1}(x-y)
+  \]
+\end{claim}
+
+\begin{proof}
+
+  First, if $x = y$, then we have that the inequality is $0 \leq 0 \leq 0$,
+  which is true. We then just have to consider the case that $y < x$.
+  
+  We have by the Mean Value Theorem that
+  \[
+    \exists z \in (x,y) \mid nz^{n-1} = \frac{x^n - y^n}{x-y} \implies
+    nz^{n-1}(x-y) = x^n-y^n
+  \]
+
+  Further, we have that $0 < y < z < x, 0 < n, \implies ny^{n-1}(x-y) <
+  nz^{n-1}(x-y) < nx^{n-1}(x-y)$. However, we have that $nz^{n-1}(x-y) = x^n-y^n
+  \implies ny^{n-1}(x-y) < x^n - y^n < nx^{n-1}(x-y)$.
+\end{proof}
+
+\subsection*{Apostol p.186-187 no.9}
+
+\begin{claim}
+  $f$ has second derivative $f''$ defined on $[a,b]$. The line segment
+  connecting $(a,f(a))$ and $(b,f(b))$ intersects $f$ at $a < c < b$. Then,
+  $\exists t \in [a,b] \mid f''(t) = 0$.
+\end{claim}
+
+\begin{proof}
+  Let $g(x)$ be the linear function containing that line segment (specifically,
+  $g(x) = \frac{f(b) - f(a)}{b-a}(x - a) + f(a)$). Then, define $h(x) =
+  f(x) - g(x)$, so that $h(a) = 0, h(b) = 0, h(c) = 0$. This means by the Mean
+  Value Theorem that $\exists c_1 \in (a,c), c_2 \in (c,b) \mid h'(c_1) =
+  h'(c_2) = 0$. Further, we have again by the Mean Value Theorem that $t \in
+  (c_1, c_2) \mid h''(t) = 0$. However, we also have that $g''(x) = 0 \implies
+  h''(t) = f''(t) - g''(t) = f''(t) \implies f''(t) = 0$.
+\end{proof}
+
+\subsection*{Apostol p.209 no.19}
+
+
+\begin{alignat*}{2}
+  && f(x) &= \frac{1}{2} \int_0^x(x-t)^2g(t)dt \\
+  && &= \frac{1}{2}\int_0^x(x^2 - 2xt + t^2)g(t)dt \\
+  && &= \frac{1}{2}\int_0^xx^2g(t)dt - \frac{1}{2}\int_0^x2xtg(t)dt + \frac{1}{2}\int_0^xt^2g(t)dt \\
+  && &= \frac{x^2}{2}\int_0^xg(t)dt - x\int_0^xtg(t)dt +
+  \frac{1}{2}\int_0^xt^2g(t)dt \\
+  &\implies& f'(x) &= (x\int_0^xg(t)dt + \frac{x^2}{2}g(x)) - (\int_0^xtg(t)dt +
+  x(xg(x))) + (\frac{1}{2}x^2g(x)) \\
+  && &= x\int_0^xg(t)dt - \int_0^xtg(t)dt \\
+  &\implies& f''(x) &= (\int_0^xg(t)dt + xg(x)) - xg(x) \\
+  && &= \int_0^xg(t)dt \\
+  &\implies& f'''(x) &= g(x) \\
+  &\implies& f''(1) &= \int_0^1g(t)dt = 2, f'''(1) = g(1) = 5
+\end{alignat*}
+
+We have that $\frac{1}{2}\int_0^xx^2g(t)dt = \frac{x^2}{2}\int_0^xg(t)dt,
+\frac{1}{2}\int_0^x2xtg(t)dt = x\int_0^xtg(t)$ as $x^2, 2x$ are independent of
+$t$ and can be pulled out from the integral.
+
+Further, the derivative is computed with the product rule and the Fundamental
+Theorem of Calculus.
+
+\subsection*{Apostol p.209 no.20}
+
+In general, we have that if $g(x) = \int_0^x(1+t^2)^{-3}dt$, then $g'(x) =
+(1+x^2)^{-3}$ by the Fundamental Theorem of Calculus.
+
+\subsubsection*{a}
+
+We have that
+\[
+  f(x) = g(x) \implies f'(x) = g'(x) = (1+x^2)^{-3}
+\]
+
+\subsubsection*{b}
+
+We have that
+\[
+  f(x) = g(x^2) \implies f'(x) = 2xg'(x^2) = 2x(1 + x^4)^{-3}
+\]
+
+\subsubsection*{c}
+
+We have that
+\begin{align*}
+  f(x) &= \int_{x^3}^{x^2}(1+t^2)^{-3}dt \\
+       &= \int_{x^3}^0(1+t^2)^{-3}dt + \int_0^{x^2}(1+t^2)^{-3}dt \\
+       &= -g(x^3) + g(x^2) \\
+  \implies f'(x) &= -3x^2g'(x^3) + 2xg'(x^2) \\
+       &= -3x^2(1+x^6)^{-3} + 2x(1+x^4)^{-3}
+\end{align*}
+
+\subsection*{Apostol p.217 no.23}
+
+\begin{claim}
+  \[
+    \int_x^1\frac{dt}{1+t^2} = \int_1^{\frac{1}{x}}\frac{dt}{1+t^2}
+  \]
+\end{claim}
+
+\begin{proof}
+  Let $u = \frac{1}{t}, u' = -\frac{1}{t^2}, f(x) = \frac{1}{1+x^2}$. Then, change of variables lets us have that
+  \begin{align*}
+    \int_x^1f(t)dt &= \int_{\frac{1}{x}}^1f(u(t))u'(t)dt \\
+    \implies \int_x^1\frac{dt}{1+t^2} &= \int_{\frac{1}{x}}^1\frac{-\frac{1}{u^2}du}{1+(\frac{1}{u})^2} \\
+                   &= \int_1^{\frac{1}{x}}(\frac{1}{u^2(1 + \frac{1}{u^2})})du \\
+                   &= \int_1^{\frac{1}{x}}(\frac{1}{u^2 + 1})du \\
+                   &= \int_1^{\frac{1}{x}}\frac{1}{1 + t^2}dt \\
+    \end{align*}
+  The last change of variables is justified since we can freely rename the
+  variable of integration.
+\end{proof}
+
+\subsection*{Apostol p.217 no.24}
+
+\begin{claim}
+  \[
+    \int_0^1 x^m(1-x)^ndx = \int_0^1x^n(1-x)^mdx
+  \]
+\end{claim}
+
+\begin{proof}
+  Let $u = 1-x, u' = -1$. Then, change of variables has that
+  \begin{align*}
+    \int_0^1x^m(1-x)^ndx = \int_1^0(1-u)^mu^n(-1)du = \int_0^1(1-u)^mu^ndu = \int_0^1x^n(1-x)^mdx
+  \end{align*}
+\end{proof}
+
+\subsection*{Apostol p.222-223 no.5ab}
+
+We have $f, g \mid f' = g, g' = -f, f(0) = 0, g(0) = 1$.
+
+\subsubsection*{a}
+
+\begin{claim}
+  \[
+    f^2(x) + g^2(x) = 1
+  \]
+\end{claim}
+
+\begin{proof}
+  \begin{align*}
+    (f^2(x) + g^2(x))' &= 2f(x)f'(x) + 2g(x)g'(x) \\
+                       &= 2(f(x)g(x) + g(x)(-f(x))) \\
+                       &= 2(f(x)g(x) - f(x)g(x)) = 0
+  \end{align*}
+
+  Thus, $f^2(x) + g^2(x)$ must be constant, and we know that $f^2(0) + g^2(0) =
+  1$, so $f^2(x) + g^2(x) = 1$.
+\end{proof}
+
+\subsubsection*{b}
+
+\begin{claim}
+  If $F,G$ also satisfy these conditions, then $F = f, G = g$.
+\end{claim}
+
+\begin{proof}
+  Consider $h(x) = (F(x) - f(x))^2  + (G(x) - g(x))^2$. Then we have that
+  \begin{align*}
+    h'(x) &= 2(F(x) - f(x))(F'(x) - f'(x)) + 2(G(x) - g(x))(G'(x) - g'(x)) \\
+          &= 2(F(x) - f(x))(G(x) - g(x)) + 2(G(x) - g(x))(-F(x) + f(x)) \\
+          &= 2(F(x) - f(x))(G(x) - g(x)) - 2(F(x) - f(x))(G(x) - g(x)) \\
+          &= 0
+  \end{align*}
+
+  Thus, we have that $h(x)$ is constant. However, $h(1) = 0$, so we have that
+  $h(x) = 0$. However, since $(F(x) - f(x))^2, (G(x) - g(x))^2 \geq 0$, we must
+  have that $(F(x) - f(x))^2 = (G(x) - g(x))^2 = 0 \implies F(x) - f(x) = G(x) -
+  g(x) = 0$, and so $F = f, G = g$ in the interval where these properties are
+  satisfied.
+\end{proof}
+
+\subsection*{Apostol p.222-223 no.7}
+
+We have that $(g(x^2))' = 2xg'(x^2) = 2x(x^3) = 2x^4$.
+\begin{alignat*}{2}
+  && \int_1^y(g(x^2)'dx &= \int_1^y2x^4dx \\
+  &\implies& g(y^2) - g(1) &= \frac{2}{5}y^5 - \frac{2}{5} \\
+  &\implies& g(y^2) &= \frac{2}{5}y^5 - \frac{2}{5} + g(1) \\
+  && &= \frac{2}{5}y^5 + \frac{3}{5}
+\end{alignat*}
+
+Then, $g(4) = g(2^2) = \frac{2}{5}2^5 + \frac{3}{5} = \frac{67}{5}$.
+
+\subsection*{Apostol p.222-223 no.10}
+
+Let
+
+\[
+  f(x) = \begin{cases}
+    x^2 & x \in \Q \\
+    0 & x \notin \Q
+  \end{cases}
+\]
+
+and
+
+\[
+  Q(h) = \frac{f(h)}{h} \text{ if } h \neq 0
+\]
+
+\subsubsection*{a}
+
+\begin{claim}
+  \[
+    \lim_{h\rightarrow 0}Q(h) = 0
+  \]
+\end{claim}
+
+\begin{proof}
+  For any $\epsilon > 0$, take $\delta = \epsilon$. Then, $0 < |h - 0| < \delta
+  \implies$
+  \[
+    |Q(h) - 0| = \begin{cases}
+      |\frac{h^2}{h}| & h \in Q \\
+      0 & h \notin \Q
+    \end{cases} = \begin{cases}
+      |h| & h \in \Q \\
+      0 & h \notin \Q
+    \end{cases} < \delta = \epsilon
+  \]
+
+  Thus, we have that $\lim_{h\rightarrow 0} Q = 0$.
+\end{proof}
+
+\subsubsection*{b}
+
+\begin{claim}
+  $f$ is differentiable at $0$.
+\end{claim}
+
+\begin{proof}
+  The result follows from part a, as $f(0) = 0$.
+  \[
+    \lim_{h\rightarrow 0}\frac{f(0 + h) - f(0)}{h} = \lim_{h\rightarrow
+      0}\frac{f(h)}{h} = 0.
+  \]
+\end{proof}
+
+\section*{Problem 1}
+
+\begin{claim}
+  If $|f|$ is differentiable at $x$, and $f$ is continuous at $x$, then $f$ is differentiable at $x$.
+\end{claim}
+
+\begin{proof}
+  Suppose that $f(x) > 0$. Then, we have that continuity of $f(x)$ implies that
+  for $\epsilon = \frac{f(x)}{2}$, we have $\delta > 0 \mid 0 < |y - x| < \delta
+  \implies |f(y) - f(x)| < \frac{f(x)}{2} \implies f(y) > \frac{f(x)}{2} > 0$.
+  Then, on $(x - \delta, x + \delta)$, we have that $f > 0 \implies f = |f|$.
+
+  Similarly, if $f(x) < 0$, we have that continuity of $f$ implies that for
+  $\epsilon = \frac{f(x)}{2}$, we have $\delta > 0$ such that on $(x - \delta, x
+  + \delta)$, $f < 0 \implies f = -|f|$.
+
+  In either case, we have that since on a $\delta$ neighborhood of $x$, $f = |f|$
+  or $f = -|f|$, and $|f|, -|f|$ are differentiable at $x$, so $f$ must be
+  differentiable at $x$ (for any $\epsilon > 0$, one can take $0 < \delta' < \delta$
+  such that $||f| - |f|'(x)| < \epsilon \implies |\pm f - |f|'(x)| < \epsilon$).
+
+  The only remaining case is that $f(x) = 0$. In this case, we must have that
+  $|f|'(x) = 0$. Suppose that $|f|'(x) \neq 0$. Then, if $|f|'(x) > 0$, we have
+  that similarly to above, $\exists \delta$ such that on $(x-\delta, x +
+  \delta),$ $|f|'(x) > 0$. Then, this means that $\int_{x-\delta}^x|f|'(x)dx =
+  |f|(x) - |f|(x - \delta) > 0 \implies |f|(x -\delta) < 0$. $\contra$.
+  Similarly, if we have that $|f|'(x) < 0$, we have that $\exists \delta$ such
+  that on $(x- \delta, x +\delta)$, $|f| < 0$. Then, $\int_x^{x+\delta}|f|'(x)dx
+  = |f|(x+\delta) - |f|(x) < 0 \implies |f|(x+\delta) < 0$. $\contra$. Thus,
+  $|f|'(x) = 0$.
+
+  Since we have that $|f|'(x) = 0$, we know that $\lim_{h\rightarrow
+    0}\frac{|f(x+h)|-|f(x)|}{h} = 0 \implies \lim_{h\rightarrow
+    0}\frac{|f(x+h)|}{h} = 0 \implies \forall \epsilon > 0, \exists \delta \mid
+  0 < |h| < \delta \implies \frac{|f(x+h)|}{|h|} < \epsilon$. Now, consider
+  $\lim_{h\rightarrow 0}\frac{f(x+h) - f(x)}{h}$. For
+  any $\epsilon$, take $\delta$ to be the same $\delta$ for the corresponding
+  $\epsilon$ for $|f|$. Then, we have that $0 < |h| < \delta \implies
+  |\frac{f(x+h) - f(x)}{h}| = \frac{|f(x+h)|}{|h|} < \epsilon$. Thus, we have
+  that $f'(x) = 0$.
+\end{proof}
+
+\end{document}
+
+% LocalWords:  NetID fancyplain LocalWords colorlinks linkcolor linkbordercolor
