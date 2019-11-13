@@ -1,0 +1,234 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{relsize}
+\usepackage{fancyvrb}
+\usetikzlibrary{shapes.geometric,fit}
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+\newcommand\course{MATH 1207}
+\newcommand\hwnumber{9}
+\newcommand\NetIDa{dc3451}
+\newcommand\NetIDb{David Chen}
+
+\theoremstyle{definition}
+\newtheorem*{statement}{Statement}
+\newtheorem*{claim}{Claim}
+\newtheorem*{theorem}{Theorem}
+
+\newcommand{\contra}{\Rightarrow\!\Leftarrow}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Ze}{\mathbb{Z}_{\geq 0}}
+\newcommand{\Zg}{\mathbb{Z}_{>0}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+
+\pagestyle{fancyplain}
+\headheight 35pt
+\lhead{\NetIDa}
+\lhead{\NetIDa\\\NetIDb}
+\chead{\textbf{\Large Homework \hwnumber}}
+\rhead{\course \\ \today}
+\lfoot{}
+\cfoot{}
+\rfoot{\small\thepage}
+\headsep 1.5em
+
+\begin{document}
+
+\subsection*{Apostol p.236-237 no.17}
+
+We proceed with integration by parts, which can be found in the Apostol reading,
+to proceed.
+
+\begin{alignat*}{2}
+  &&u = \log^2(x),&\ du = \frac{2\log(x) dx}{x} \\
+  &&v = x, &\ dv = dx \\
+  &\implies& \int \log^2(x)dx &= x\log^2(x) - 2\int \log(x)dx \\
+  &&u = \log(x), &\ du = \frac{dx}{x} \\
+  &&v = x, &\ dv = dx \\
+  &\implies& \int \log^2(x)dx &= x\log^2(x) - 2(x\log(x) - \int dx) \\
+  && &= x\log^2(x) - 2x\log(x) + 2x + C
+\end{alignat*}
+
+\subsection*{Apostol p.236-237 no.19}
+
+We again proceed with integration by parts:
+
+\begin{alignat*}{2}
+  &&u = \log^2(x), &\ du = \frac{2\log(x)dx}{x} \\
+  &&v = \frac{1}{2}x^2, &\ dv = xdx \\
+  &\implies& \int x\log^2(x)dx &= \frac{1}{2}x^2\log^2(x) - \int x\log(x)dx \\
+  &&u = \log(x), &\ du = \frac{dx}{x} \\
+  &&v = \frac{1}{2}x^2, &\ dv = xdx \\
+  &\implies& \int x\log^2(x)dx &= \frac{1}{2}x^2\log^2(x) -
+  (\frac{1}{2}x^2\log(x) - \frac{1}{2}\int xdx) \\
+  && &= \frac{1}{2}x^2\log^2(x) - \frac{1}{2}x^2\log(x) + \frac{1}{4}x^2 + C \\
+\end{alignat*}
+
+\subsection*{Apostol p.236-237 no.30}
+
+\begin{claim}
+  \[ \forall r \in \Q, a > 0, \log(a^r) = r\log(a) \]
+\end{claim}
+
+\begin{proof}
+  Let $r = \frac{m}{n}, m,n \in \Z$. It has been shown in the Apostol reading
+  that for $n \in \Z, n \geq 1, \log(a^n) = n\log(a)$. Then, we have that 
+
+  \begin{align*}
+    \log(a^r) &= \log(a^{\frac{m}{n}}) \\
+              &= \log((a^{\frac{1}{n}})^m) \\
+              &= m\log(a^{\frac{1}{n}}) \\
+  \end{align*}
+
+  Further, we have that $n\log(a^{\frac{1}{n}}) = \log((a^{\frac{1}{n}})^n) = \log(a)$.
+  Thus,
+  \[
+    \log(a^r) = m\log(a^{\frac{1}{n}}) = \frac{m}{n}n\log(a^{\frac{1}{n}}) =
+    \frac{m}{n}\log(a) = r\log(a)
+  \]
+\end{proof}
+
+\subsection*{Apostol p.250 no.39}
+
+\begin{claim}
+  Let $f$ be a function defined everywhere on the real axis, with a derivative
+  $f'$ that satisfies the equation
+  \[ \forall x, f'(x) = cf(x) \],
+  where $c$ is a constant. There is a constant $K$ such that $f(x) = Ke^{cx}$
+  for every $x$.
+\end{claim}
+
+\begin{proof}
+  Consider $g(x) = f(x)e^{-cx}$. We will show that this is constant.
+  \begin{align*}
+    g'(x) &= f'(x)e^{-cx} + -cf(x)e^{-cx} \\
+          &= cf(x)e^{-cx} - cf(x)e^{-cx} \\
+          &= 0
+  \end{align*}
+
+  Thus, we have that $g(x) = K$ for some constant $K$, and then $K = f(x)e^{-cx}
+  \implies f(x) = Ke^{cx}$.
+\end{proof}
+
+\subsection*{Apostol p.382 no.29}
+
+\begin{claim}
+  A series cannot converge to two different limits.
+\end{claim}
+
+\begin{proof}
+  Suppose that a series $\{ a_n \}$ converges to $L, K$, and that $L \neq K$.
+  Then, we have that for any $\frac{\epsilon}{2} > 0$, $\exists N_L \in \Zg \mid \forall n
+  > N_L, |L - a_n| < \frac{\epsilon}{2}$. Similarly, $\exists N_K \in \Zg \mid \forall n >
+  N_K, |K - a_n| < \frac{\epsilon}{2} \implies |L - K| = |(L - a_n) - (K - a_n)| \leq |L -
+  a_n| + |K - a_n| < \epsilon$. Then, we have that since $\forall \epsilon, |L
+  - K| < \epsilon$, $L = K$. (To see this last claim, $L \neq K \implies |L - K|
+  \neq 0 \implies |L - K| > 0$. Then, take $\epsilon = \frac{|L-K|}{2}$, and $\contra$.)
+\end{proof}
+
+\subsection*{Apostol p.382 no.30}
+
+\begin{claim}
+  \[
+    \lim_{n\rightarrow \infty} a_n = 0 \implies \lim_{n\rightarrow \infty} a_n^2 = 0
+  \]
+\end{claim}
+
+\begin{proof}
+  Since we have that $\lim_{n\rightarrow \infty} a_n = 0$, $\forall \epsilon
+  \exists N \in \Zg \mid \forall n > N, |a_n| < \epsilon$. Further, $\exists N_1
+  \mid n > N_1 \implies |a_n| < 1$. For any $\epsilon$, take now $\max(N, N_1)$,
+  which means that both $|a_n| < \epsilon$ and $|a_n| < 1$, so $|a_n^2| < |a_n|
+  < 1$, and also $|a_n^2| < |a_n| < \epsilon$ as well for $n > \max(N, N_1)$.
+  Thus, we have that $\lim_{n\rightarrow \infty} a_n^2 = 0$.
+\end{proof}
+
+\section*{Problem 1}
+
+\begin{claim}
+  If $\lim_{n\rightarrow \infty} a_n = A, \lim_{n\rightarrow \infty} b_n = B$,
+  and $a_n \leq b_n$ for all $n$, then $A \leq B$.
+\end{claim}
+
+\begin{proof}
+  Suppose that $A > B$. Then, take $epsilon = \frac{A - B}{3}$. We have that
+  $\exists N_A \in \Zg \mid n > N_A \implies |a_n - A| < \frac{A - B}{2}$, and also
+  $\exists N_B \in \Zg \mid n > N_B \implies |b_n - B| < \frac{A - B}{2}$.
+  Consider $N = \max(N_A, N_B)$. Then, $n > N \implies A - \frac{A - B}{2} < a_n
+  < A + \frac{A - B}{2}, B - \frac{A - B}{2} < b_n < B + \frac{A - B}{2}
+  \implies b_n < \frac{A + B}{2} < a_n$. $\contra$, so $A \leq B$.
+\end{proof}
+
+Note that we can't make a stronger claim then $A \leq B$ even if $a_n < b_n$.
+Consider the sequences $a_n = \frac{1}{2^{n+1}}, b_n = \frac{1}{2^n}$. We have
+that $b_n = 2a_n \implies b_n > a_n$. However, these both converge to $0$, as we
+can take $N = \left\lceil \log_2(\frac{1}{\epsilon}) \right\rceil$ and $N =
+\left\lceil \log_2(\frac{1}{\epsilon}) \right\rceil + 1$ respectively.
+
+
+\section*{Problem 2}
+
+\begin{claim}
+  Let $\{a_n\}, \{b_n\}$ be sequences such that there exists $M \in \Zg$ such
+  that $\forall n > M, a_n = b_n$. $a_n$ converges if and only if $b_n$
+  converges, and if they converge they converge to the same value.
+\end{claim}
+
+\begin{proof}
+  Suppose that $\{a_n\}$ converges to $L$. Note that proving this single direction is
+  enough; the opposite direction can be shown by just swapping the names of
+  $a_n$ and $b_n$ with each other. We have that $\forall \epsilon > 0$, $\exists
+  N \in \Zg \mid n > N \implies |a_n - L| < \epsilon$. Then, consider $N' =
+  \max(N, M)$. We then have that $\forall n > N', a_n = b_n \implies |a_n - L| =
+  |b_n - L| < \epsilon$, and so $\{b_n\}$ converges to $L$ as well.
+\end{proof}
+
+\section*{Problem 4}
+
+\begin{claim}
+  If $\{x_n\}$ converges, then $\{|x_n|\}$ also converges.
+\end{claim}
+
+\begin{proof}
+  Let $\{x_n\}$ converge to $L$. Then, $\forall \epsilon > 0, \exists N \in \Zg
+  \mid n > N \implies |x_n - L| < \epsilon$. Further, we have that $||x_n| -
+  |L|| \leq |x_n - L| < \epsilon$ as a conseqence of the previously proved reverse triangle
+  inequality. Thus, $\{|x_n|\}$ converges to $|L|$.
+\end{proof}
+
+Note that the converse isn't true: consider that
+\[
+  x_n = \begin{cases}
+    -1 & n \equiv 0 \mod 2 \\
+    1 & n \equiv 1 \mod 2
+  \end{cases}
+\]
+
+has $\{|x_n| \}$ converge to $1$, but $\{x_n\}$ diverges.
+
+\end{document}
+
+% LocalWords:  NetID fancyplain LocalWords colorlinks linkcolor linkbordercolor

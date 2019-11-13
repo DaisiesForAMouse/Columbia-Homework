@@ -129,12 +129,79 @@ The quotient rule then yields that
 
 \begin{proof}
   \begin{align*}
-    g' = \sum_{i=1}^n (f'_i\prod_{j = 1}^{i-1} f_j \prod_{j=i+1}^nf_j) \\
-    \implies \frac{g'}{g} = \frac{
+    g' &= \sum_{i=1}^n (f'_i\prod_{j = 1}^{i-1} f_j \prod_{j=i+1}^nf_j) \\
+       &= \sum_{i=1}^n \frac{f'_i\prod_{j = 1}^{n} f_j}{f_i} \\
+    \implies \frac{g'}{g} &= \frac{\sum_{i=1}^n \frac{f'_i\prod_{j = 1}^{n} f_j}{f_i}}{\prod_{j=1}^nf_j} \\
+       &= \frac{\sum_{i=1}^nf'_i}{f_i} = \sum_{i=1}^n \frac{f'_i}{f_i}
   \end{align*}
 \end{proof}
 
-\subsection*{Apostol p.174 no.14}
+\subsection*{Apostol p.174 no.15}
+
+\subsection*{a}
+
+\begin{claim}
+  \[
+    f'(a) = \lim_{h \rightarrow 0}\frac{f(h) - f(a)}{h - a}
+  \]
+\end{claim}
+
+\begin{proofof}
+  Put $h = k + a$.
+  \begin{align*}
+    f'(a) &= \lim_{k \rightarrow 0}\frac{f(a + k)-  f(a)}{k} \\
+          &= \lim_{h \rightarrow a}\frac{f(a + (h-a)) - f(a)}{h-a} \\
+          &= \lim_{h \rightarrow a}\frac{f(h) - f(a)}{h-a}
+  \end{align*}
+\end{proof}
+
+\subsection*{b}
+
+\begin{claim}
+  \[
+    f'(a) = \lim_{h \rightarrow 0}\frac{f(a) - f(a-h)}{h}
+  \]
+\end{claim}
+
+\begin{proof}
+  Put $h = -k$.
+  \begin{align*}
+    f'(a) &= \lim_{k \rightarrow 0}\frac{f(a + k)-  f(a)}{k} \\
+          &= \lim_{h \rightarrow 0}\frac{f(a - h) - f(a)}{-h} \\
+          &= \lim_{h \rightarrow 0}\frac{f(a) - f(a-h)}{h}
+  \end{align*}
+\end{proof}
+
+\subsection*{c}
+
+False. Consider $f(x) = x$. Then, $f'(a) = 1$. However,
+\[
+  \lim_{t\rightarrow 0}\frac{f(a + 2t) - f(a)}{t} = \lim_{t\rightarrow
+    0}\frac{2t}{t} = 2
+\]
+
+In general, we have that since $\lim_{t \rightarrow 0} f = \lim_{ct \rightarrow
+  0}f, c \neq 0$,
+\[
+  \lim_{t\rightarrow 0}\frac{f(a + 2t) - f(a)}{t} =
+  2\lim_{2t\rightarrow 0}\frac{f(a+2t) -f(a)}{2t} = 2\lim_{t\rightarrow
+  0}\frac{f(a+t)-f(a)}{t} =2f'(a)
+\]
+
+\subsection*{d}
+
+False. Consider $f(x) = x$. Then, $f'(a) = 1$. However,
+\[
+  \lim_{t\rightarrow 0}\frac{f(a + 2t) - f(a+t)}{2t} = \lim_{t\rightarrow
+    0}\frac{t}{2t} = \frac{1}{2}
+\]
+
+In general, we have that
+\begin{align*}
+  \lim_{t\rightarrow 0}\frac{f(a + 2t) - f(a+t)}{2t} &= \frac{1}{2}(\lim_{t\rightarrow 0}\frac{f(a + 2t) - f(a)}{t} - \lim_{t\rightarrow 0}\frac{f(a + t) - f(a)}{t}) \\
+                                                     &= \frac{1}{2}(2f'(a) - f'(a)) \\
+                                                     &= \frac{1}{2}f'(a)
+\end{align*}
 
 \section*{Problem 1}
 
@@ -202,7 +269,7 @@ The quotient rule then yields that
 
 \subsection*{a)}
 
-Consider the coutner example of
+Consider the counter example of
 
 \[
   f(x) = \begin{cases}
