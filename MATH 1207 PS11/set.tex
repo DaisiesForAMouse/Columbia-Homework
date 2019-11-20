@@ -1,0 +1,263 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{relsize}
+\usepackage{fancyvrb}
+\usetikzlibrary{shapes.geometric,fit}
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+\newcommand\course{MATH 1207}
+\newcommand\hwnumber{11}
+\newcommand\NetIDa{dc3451}
+\newcommand\NetIDb{David Chen}
+
+\theoremstyle{definition}
+\newtheorem*{statement}{Statement}
+\newtheorem*{claim}{Claim}
+\newtheorem*{theorem}{Theorem}
+
+\newcommand{\contra}{\Rightarrow\!\Leftarrow}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Ze}{\mathbb{Z}_{\geq 0}}
+\newcommand{\Zg}{\mathbb{Z}_{>0}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+
+\pagestyle{fancyplain}
+\headheight 35pt
+\lhead{\NetIDa}
+\lhead{\NetIDa\\\NetIDb}
+\chead{\textbf{\Large Homework \hwnumber}}
+\rhead{\course \\ \today}
+\lfoot{}
+\cfoot{}
+\rfoot{\small\thepage}
+\headsep 1.5em
+
+\begin{document}
+
+\subsection*{Apostol p.391 no.3}
+
+\begin{align*}
+  \sum_{n = 2}^\infty a_n = \sum_{n = 2}^\infty \frac{1}{n^2 - 1} &= \sum_{n = 2}^\infty \frac{1}{(n-1)(n+1)} \\
+                                                                  &= \sum_{n = 2}^\infty \frac{1}{2}(\frac{1}{n-1} - \frac{1}{n+1}) \\
+                                                                  &= \sum_{n=2}^\infty\frac{1}{2} ((\frac{1}{n-1} + \frac{1}{n}) - (\frac{1}{n} + \frac{1}{n+1})) \\
+\end{align*}
+
+Note that we now have that if we take $b_n = -\frac{1}{2}(\frac{1}{n} + \frac{1}{n+1})$, we
+have then $a_n = b_n - b_{n-1}$. Then, $\sum_{n=2}^m a_n = b_m - b_1$. Then,
+$\sum_{n=2}^\infty \frac{1}{n^2 - 1} = \lim_{m\rightarrow \infty} (b_m - b_1) = \lim_{m\rightarrow
+  \infty} (-\frac{1}{2}(\frac{1}{m} + \frac{1}{m+1}) + (\frac{1}{1} + \frac{1}{2})) = \frac{3}{4}$.
+
+\subsection*{Apostol p.391 no.4}
+
+\begin{align*}
+  \sum_{n=1}^\infty \frac{2^n + 3^n}{6^n} &= \sum_{n=1}^\infty \frac{2^n}{6^n} + \frac{3^n}{6^n} \\
+                                          &= \sum_{n=1}^\infty (\frac{1}{3})^n + (\frac{1}{2})^n \\
+                                          &= \sum_{n=1}^\infty (\frac{1}{3})^n + \sum_{n=1}^\infty(\frac{1}{2})^n \\
+                                          &= \frac{\frac{1}{3}}{1 - \frac{1}{3}} + \frac{\frac{1}{2}}{1 - \frac{1}{2}} \\
+                                          &= \frac{1}{2} + 1 = \frac{3}{2}
+\end{align*}
+
+Note that the formula for geometric series was derived in class and that the
+splitting of the sum is also justified in class as well in the proof of the
+propositions about absolute convergence.
+
+\subsection*{Apostol p.411 no.50}
+
+\begin{claim}
+  If $\sum |a_n|$ converges, then $\sum a_n^2$ also converges.
+\end{claim}
+
+\begin{proof}
+  This proof will use freely the result from part C that $\sum_{i=0}^\infty a_i$
+  converges if and only if $\sum_{i=l}^\infty a_i$ converges, as that does not
+  depend on this result, as well as the result, also from part C, that
+  $\sum_{i=1}^\infty a_i$ converging implies that $\lim_{i\rightarrow \infty}a_i
+  = 0$.
+
+  Since we have that $\sum |a_n|$ converges, we know that $\{|a_n|\}$ converges
+  to 0. Then $\exists N \in \Zg \mid n \geq N \implies ||a_n| - 0| = |a_n| < 1
+  \implies |a_n|^2 = a_n^2 < 1$. Consider now the sums $\sum_{i=N}^\infty|a_n|,
+  \sum_{i=N}^\infty a_n^2$. We have by the comparison test, since $|a_n| >
+  a_n^2$, that $\sum_{i=N}^\infty a_n^2$ must also converge, and so $\sum a_n^2$
+  in general also converges.
+\end{proof}
+
+The converse must be false. Consider the harmonic series; $\sum_{i=1}^\infty |a_n| = \sum_{i=1}^\infty
+\frac{1}{n}$ diverges, but $\sum_{i=1}^\infty a_n^2 = \sum_{i=1}^\infty \frac{1}{n^2}$ converges.
+
+\section*{Problem 1}
+
+\begin{claim}
+  If $\{a_n\}$ is indexed from 0, then for any $k \in \Ze$,
+  $\sum_{i=0}^\infty a_n$ converges if and only if $\sum_{i=k}^\infty a_n :=
+  \sum_{n=0}^\infty a_{i+k}$ also converges.
+\end{claim}
+
+\begin{proof}
+  ($\implies$) Let $b_n = \sum_{i=0}^na_i$, and let $c_n = \sum_{i=0}^na_{i+k} =
+  \sum_{i=k}^{k+n}a_i$.
+  Then, we have that for $n \geq k$, $b_n = \sum_{i=0}^na_i = \sum_{i=0}^{k-1}
+  a_i + \sum_{i=k}^n a_i = b_{k-1} + c_{n-k}$. Reindexing, we have that $c_{n} =
+  b_{n+k} - b_{k-1}$. Then, since we have that
+  $\lim_{n\rightarrow \infty} b_n$ exists, for any $\epsilon > 0 \exists N \in
+  \Ze \mid n > N \implies |b_n - L| < \epsilon$. Then, we must also have that
+  $\lim_{n\rightarrow \infty} b_{k-1} + c_n$ exists, as for $\epsilon$, consider 
+  take $N' = \max(k, N)$. Then, $n > N' \implies |c_n - (L - b_{k-1})| =
+  |b_{n+k} - b_{k-1} - (L - b_{k-1})| = |b_{n+k} - L| < \epsilon$.
+
+  ($\impliedby$) Let $b_n, c_n$ be as before, such that $b_n = b_{k-1} +
+  c_{n-k}$.  Then, we have that $\lim_{n\rightarrow \infty} c_n = L$, so for any
+  $\epsilon > 0, \exists N \mid n > N \implies |c_n - L| < \epsilon$. Then,
+  $\lim_{n\rightarrow \infty}b_n$ must also converge, as for $\epsilon$ take $N'
+  = \max(k, N)$, so $n > N' \implies |b_n - (L + b_{k-1})| = |b_{k-1} + c_n - (L
+  + b_{k-1})| = |c_n - L| < \epsilon$.
+\end{proof}
+
+Note that this statement immediately generalizes to sums not indexed from 0;
+for any sequence $\{a_n\}$ indexed from $m$, let $a_0, a_1,...,a_m = 0$. Then,
+we have that $\sum_{i=m}^k a_i = \sum_{i=0}^k$, and the result shows that
+$\sum_{i=m}^k a_i$ converges if and only if $\sum_{i=m'}^k a_i$ converges for
+$m' \geq m$.
+
+\section*{Problem 2}
+
+\begin{claim}
+  For sequences $\{ a_n \}, \{ b_n \}$ and a number $M \in \Zg$ such that $n
+  \geq M \implies a_n = b_n$, prove that the series $\sum_{i=1}^\infty a_n$
+  converges if and only if $\sum_{i=1}^\infty b_n$ does.
+\end{claim}
+
+\begin{proof}
+  $\sum_{i=1}^\infty a_n$ converges if and only if, as above, $\sum_{i=M}^\infty
+  a_n = \sum_{i=M}^\infty b_n$ also converges, which converges if and only if
+  $\sum_{i=1}^\infty b_n$ converge.
+\end{proof}
+
+\section*{Problem 3}
+
+\begin{claim}
+  If $\{ a_n \}$ is a sequence and the sum $\sum_{i=1}^\infty a_i$ converges,
+  then the sequence converges to 0.
+\end{claim}
+
+\begin{proof}
+  Let $b_n = \sum_{i=1}^n a_i$,
+  and $\lim_{n\rightarrow \infty}b_n = L$. Then, for any $\frac{\epsilon}{2} > 0, \exists
+  N \in \Zg \mid n > N \implies |b_n - L| < \frac{\epsilon}{2} \implies |b_{n+1} - L| +
+  |b_{n} - L| = |b_{n+1} - L| + |L - b_n|< \epsilon \implies |b_{n+1} - L + (L - b_n)| = |b_{n+1} - b_n| =
+  |a_{n+1} - 0| < \epsilon$. Then, we have that $\forall \epsilon > 0$, $\exists
+  N \in \Zg \mid n > N \implies |a_n - 0| < \epsilon$, so $\{a_n\}$ must
+  converge to 0.
+\end{proof}
+
+\section*{Problem 4}
+
+\begin{claim}
+  A function $f: \R \rightarrow \R$ is continuous if and only if whenever $\{
+  x_n \}$ converges with $\lim_{n\rightarrow \infty} x_n = x$, then $\{f(x_n)\}$
+  converges with $\lim_{n\rightarrow \infty} f(x_n) = f(x)$.
+\end{claim}
+
+\begin{proof}
+  ($\implies$) $f$ is continuous means that for any $\epsilon > 0$, $\exists
+  \delta \mid |x_n - x| < \delta \implies |f(x_n) - f(x)| < \epsilon$. Then,
+  since $x_n \rightarrow x$, for $\delta \exists N \in \Zg \mid n > N \implies
+  |x_n - x| < \delta \implies |f(x_n) - f(x)| < \epsilon$.
+
+  ($\impliedby$) Suppose that $f$ is not continuous. Then $\exists \epsilon > 0
+  \mid \forall \delta > 0, \exists x' \mid |x' - x| < \delta$ and $|f(x') -
+  f(x)| \geq \epsilon$. We define $x_n$ as follows: let $\delta = \frac{1}{n}$.
+  Then, $\exists x' \mid |x' - x| < \frac{1}{n}$ and $|f(x') - f(x)| \geq
+  \epsilon$ since $f$ is discontinuous at $x$. Let $x_n = x'$.
+
+  Now, $\forall n, |f(x_n) - f(x)| \geq \epsilon$, so $\lim_{n\rightarrow
+    \infty}f(x_n) \neq f(x)$. Further, for any $\epsilon > 0$, let $N = \lceil
+  \frac{1}{\epsilon} \rceil$. Then, we have that $|x_n - x| < \frac{1}{n}$, so
+  $n > N \implies |x_n - x| < \frac{1}{N} = \frac{1}{\lceil
+    \frac{1}{\epsilon} \rceil} < \frac{1}{\frac{1}{\epsilon}} = \epsilon$, so
+  $\lim_{n\rightarrow \infty} x_n = x$. $\contra$, so $f$ must be continuous.
+\end{proof}
+
+\section*{Problem 5}
+\subsection*{a}
+
+\begin{claim}
+  Let $\{ a_n \}$ be a sequence. Suppose that for all $c \in \R$, $\exists  N
+  \in \Zg \mid \forall n \in \Zg, n \geq N \implies |a_n| > c$. $\{a_n\}$ is divergent.
+\end{claim}
+
+\begin{proof}
+  Any convergent series $\{ a_n \}$ must be bounded above. Let $\lim_{n\rightarrow
+    \infty}a_n = a$. To see why, pick $\epsilon = 1$, such that $\exists N \mid
+  n \geq N \implies |a_n - a| < 1$. Then, let $M_1$ be the maximum of
+  $\{a_1,a_2,...a_N\}$. Then, we see that $\forall n$, $a_n \leq \max(M_1, a + 1)$.
+
+  Now suppose that the initial hypothesis holds, and $\{ |a_n| \}$ is bounded by
+  $M$. However, for $M \in \R$, $\exists N \in \Zg \mid n \geq N \implies
+  |a_n| > M$. $\contra$, so $\{ |a_n| \}$ is not bounded, and thus diverges.
+  Further, since  $\{|a_n|\}$ diverges then $\{a_n\}$ must also diverge as shown
+  on an earlier homework.
+\end{proof}
+
+\subsection*{b}
+
+\begin{claim}
+  $|x| > 1 \implies \{x^n\}$ is divergent.
+\end{claim}
+
+\begin{proof}
+  We will show that for all $c \in \R$, $\exists N \in \Zg \mid \forall n \in
+  \Zg, n \geq N \implies |a_n| > c$.
+  
+  First, we have that $|x| > 1 \implies |x^{n+1}| = |x^n \cdot x| = |x^n||x| >
+  |x^n|$, so $a > b \implies |x^a| > |x^b|$.
+
+  If $c \leq 1$, we have that $|x^1| = |x| > c$, so $n > 1 \implies |x^n| > c$.
+ 
+  For $c \geq 1$, consider that $x^y = e^{y\log(x)}$. We know that that $y\log(x): \R
+  \rightarrow \R$, where $\log(x)$ is a constant, is surjective and
+  monotonically increasing, and also that $e^y: \R \rightarrow \Rg$ is also
+  surjective and monotonically increasing, so $x^y: \R \rightarrow \Rg$ must be
+  surjective and monotonically increasing, and so $\exists y' \mid x^{y'} = c$.
+  Then, let $N = \lceil y \rceil$. We have that $n > N \implies x^n > x^N \geq
+  x^{y'} = c$, as $x^{y'}$ is monotonically increasing. Thus, $\{x^n\}$ must diverge.
+\end{proof}
+
+\subsection*{c}
+
+\begin{claim}
+  $|x| > 1 \implies \sum_{n=0}^\infty x^n$ is divergent.
+\end{claim}
+
+\begin{proof}
+  Suppose $\sum_{n=0}^\infty x^n$ converges. Then, we must have that
+  $\lim_{n\rightarrow \infty} \{x^n\}$ converges to 0. However,
+  $\lim_{n\rightarrow \infty} \{x^n\}$ diverges, so the sum must diverge.
+\end{proof}
+
+\end{document}
+
+% LocalWords:  NetID fancyplain LocalWords colorlinks linkcolor linkbordercolor
