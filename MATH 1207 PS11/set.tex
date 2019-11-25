@@ -40,6 +40,8 @@
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\Ze}{\mathbb{Z}_{\geq 0}}
 \newcommand{\Zg}{\mathbb{Z}_{>0}}
+\newcommand{\Re}{\mathbb{R}_{\geq 0}}
+\newcommand{\Rg}{\mathbb{R}_{>0}}
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\Q}{\mathbb{Q}}
 \newcommand{\C}{\mathbb{C}}
@@ -66,7 +68,7 @@
 \end{align*}
 
 Note that we now have that if we take $b_n = -\frac{1}{2}(\frac{1}{n} + \frac{1}{n+1})$, we
-have then $a_n = b_n - b_{n-1}$. Then, $\sum_{n=2}^m a_n = b_m - b_1$. Then,
+have then $a_n = b_n - b_{n-1}$. Then, from class, $\sum_{n=2}^m a_n = b_m - b_1$. Then,
 $\sum_{n=2}^\infty \frac{1}{n^2 - 1} = \lim_{m\rightarrow \infty} (b_m - b_1) = \lim_{m\rightarrow
   \infty} (-\frac{1}{2}(\frac{1}{m} + \frac{1}{m+1}) + (\frac{1}{1} + \frac{1}{2})) = \frac{3}{4}$.
 
@@ -242,8 +244,8 @@ $m' \geq m$.
   monotonically increasing, and also that $e^y: \R \rightarrow \Rg$ is also
   surjective and monotonically increasing, so $x^y: \R \rightarrow \Rg$ must be
   surjective and monotonically increasing, and so $\exists y' \mid x^{y'} = c$.
-  Then, let $N = \lceil y \rceil$. We have that $n > N \implies x^n > x^N \geq
-  x^{y'} = c$, as $x^{y'}$ is monotonically increasing. Thus, $\{x^n\}$ must diverge.
+  Then, let $N = \lceil y' \rceil$. We have that $n > N \implies x^n > x^N \geq
+  x^{y'} = c$, as $x^{y}$ is monotonically increasing. Thus, $\{x^n\}$ must diverge.
 \end{proof}
 
 \subsection*{c}
@@ -254,8 +256,8 @@ $m' \geq m$.
 
 \begin{proof}
   Suppose $\sum_{n=0}^\infty x^n$ converges. Then, we must have that
-  $\lim_{n\rightarrow \infty} \{x^n\}$ converges to 0. However,
-  $\lim_{n\rightarrow \infty} \{x^n\}$ diverges, so the sum must diverge.
+  $\lim_{n\rightarrow \infty} x^n$ converges to 0. However,
+  $\lim_{n\rightarrow \infty} x^n$ diverges, so the sum must diverge.
 \end{proof}
 
 \end{document}
