@@ -1,0 +1,294 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{xfrac}
+\usepackage{nicefrac}
+\usepackage{xcolor}
+\allowdisplaybreaks
+
+\usetikzlibrary{shapes.geometric,fit}
+\usetikzlibrary{patterns}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+\newcommand\course{ECON 3211}
+\newcommand\hwnumber{9}
+\newcommand\NetIDa{dc3451}
+\newcommand\NetIDb{David Chen}
+
+\newcommand\R{\mathbb{R}}
+
+\theoremstyle{definition}
+\newtheorem*{statement}{Statement}
+\newtheorem*{claim}{Claim}
+\newtheorem*{theorem}{Theorem}
+
+\newcommand{\contra}{\Rightarrow\!\Leftarrow}
+\newcommand{\Lag}{\mathcal{L}}
+
+\pagestyle{fancyplain}
+\headheight 35pt
+\lhead{\NetIDa}
+\lhead{\NetIDa\\\NetIDb}
+\chead{\textbf{\Large Problem Set \hwnumber}}
+\rhead{\course \\ \today}
+\lfoot{}
+\cfoot{}
+\rfoot{\small\thepage}
+\headsep 1.5em
+
+\begin{document}
+
+\section*{Problem 1}
+
+\subsection*{a)}
+
+The payoffs are written on the bottom in the format Firm 1:Firm 2 in
+millions, where Firm 1 is on the side of the matrix and Firm 2 on the top (as in
+the notes).
+
+\tikzstyle{block} = [rectangle, draw, fill=blue!20, 
+text width=4em, text centered, rounded corners, minimum height=3em]
+\tikzstyle{nodecirc} = [circle, draw, fill=blue!20]
+\tikzstyle{line} = [draw, ->]
+\tikzstyle{arrow} = [->,>=stealth]
+\begin{center}
+  \begin{tikzpicture}[node distance = 1.5cm, auto]
+    \node[nodecirc] (p1) {};
+    \node[right of=p1] {Firm 1};
+    \node[nodecirc,below of=p1] (p1b) {};
+    \node[right of=p1b] (s1) {};
+    \node[right of=s1] (s2) {};
+    \node[nodecirc,right of=s2] (p1c) {};
+    \node[left of=p1b] (s1) {};
+    \node[left of=s1] (s2) {};
+    \node[nodecirc,left of=s2] (p1a) {};
+    \node[nodecirc,below of=p1b] (p1bp2b) {};
+    \node[nodecirc,right of=p1bp2b] (p1cp2c) {};
+    \node[nodecirc,left of=p1bp2b] (p1ap2a) {};
+    
+    \node[right of=p1c] {Firm 2};
+    
+    \node[nodecirc,below of=p1b] (p1bp2b) {3:2};
+    \node[nodecirc,right of=p1bp2b] (p1bp2c) {2:1};
+    \node[nodecirc,left of=p1bp2b] (p1bp2a) {2:3};
+    
+    \node[nodecirc,right of=p1bp2c] (p1cp2a) {5:1};
+    \node[nodecirc,right of=p1cp2a] (p1cp2b) {2:2};
+    \node[nodecirc,right of=p1cp2b] (p1cp2c) {1:5};
+
+    \node[nodecirc,left of=p1bp2a] (p1ap2c) {2:4};
+    \node[nodecirc,left of=p1ap2c] (p1ap2b) {0:3};
+    \node[nodecirc,left of=p1ap2b] (p1ap2a) {1:5};
+
+    \draw[arrow] (p1) -- node[anchor=center] {A} (p1a);
+    \draw[arrow] (p1) -- node[anchor=center] {B} (p1b);
+    \draw[arrow] (p1) -- node[anchor=center] {C} (p1c);
+    \draw[arrow] (p1a) -- node[anchor=center] {A} (p1ap2a);
+    \draw[arrow] (p1a) -- node[anchor=center] {B} (p1ap2b);
+    \draw[arrow] (p1a) -- node[anchor=center] {C} (p1ap2c);
+    \draw[arrow] (p1b) -- node[anchor=center] {A} (p1bp2a);
+    \draw[arrow] (p1b) -- node[anchor=center] {B} (p1bp2b);
+    \draw[arrow] (p1b) -- node[anchor=center] {C} (p1bp2c);
+    \draw[arrow] (p1c) -- node[anchor=center] {A} (p1cp2a);
+    \draw[arrow] (p1c) -- node[anchor=center] {B} (p1cp2b);
+    \draw[arrow] (p1c) -- node[anchor=center] {C} (p1cp2c);
+  \end{tikzpicture}
+\end{center}
+
+\subsection*{b)}
+
+\[
+  BR_1(s_2) = \begin{cases}
+    C & s_2 = A \\
+    B & s_2 = B \\
+    A \text{ or } B & s_2 = C
+  \end{cases}
+\]
+
+\subsection*{c)}
+
+Firm 1 does not have a dominant or weakly dominant strategy; however, Version A
+is weakly dominated by Version B.
+
+\subsection*{d)}
+
+\[
+  BR_2(s_1) = \begin{cases}
+    A & s_1 = A \\
+    A & s_1 = B \\
+    C & s_1 = C
+  \end{cases}
+\]
+
+\subsection*{e)}
+
+There are no pure strategy Nash equilibria. 
+
+Put probability $\theta_X$ for the probability that Firm 1 chooses
+Version $X$, and $\rho_X$ the probability that Firm 2 chooses Version $X$. 
+
+Now, consider that we see that Version B is strongly dominated by a mixture of
+Version A and Version C (for example, $\theta_A = 0.5, \theta_C = 0.5$) for
+Firm 2. Eliminating this, we will check the resulting $2\times3$ game for mixed
+Nash equilibria. Seeing that Version A is weakly dominated by Version B for
+Firm 1, we easily check that no Nash equilibrium occurs when mixing over $\{A, B, C\}$
+for Firm 2. We arrive at the game
+
+\begin{center}
+  \begin{tabular}{c|c|c}
+    & A & C \\
+    \hline
+    B & 2,3 & 2,1\\
+    \hline
+    C & 5,1 & 1,5
+  \end{tabular}
+\end{center}
+
+Computing the Nash equilibrium, we see that it ought to be $3\theta_B + 1\theta_C =
+\theta_B + 5\theta_C \implies \theta_B = \frac{2}{3}, \theta_C = \frac{1}{3}$
+and $2\rho_A + 2 \rho_B = 5\rho_A + \rho_B \implies \rho_A = \frac{1}{4}, \rho_C
+= \frac{3}{4}$.
+
+Therefore, the Nash equilibrium is then for Firm 1 $(0,\frac{2}{3},\frac{1}{3})$ and Firm
+2 $(\frac{1}{4},0,\frac{3}{4})$.
+
+
+\section*{Problem 2}
+
+\subsection*{a),b)}
+
+The pure cooperation game is an example of what we want. Take payoffs $P_i:
+\{A,B\}\times\{A,B\} \rightarrow \mathbb{R}$:
+
+\[
+  P_1(s_1,s_2) = \begin{cases}
+    1 & s_1 = s_2 \\
+    0 & s_1 \neq s_2
+  \end{cases}
+\]
+
+\[
+  P_2(s_1,s_2) = \begin{cases}
+    1 & s_1 = s_2 \\
+    0 & s_1 \neq s_2
+  \end{cases}
+\]
+
+\begin{center}
+  \begin{tabular}{c|c|c}
+    & A & B \\
+    \hline
+    A & 1,1 & 0,0\\
+    \hline
+    B & 0,0 & 1,1
+  \end{tabular}
+\end{center}
+
+There are two pure Nash equilibria: $(A,A)$ and $(B,B)$.
+
+\subsection*{c)}
+
+Let $\theta$, $\rho$ be the probabilities of player 1 (row player) and player 2
+(column) player choosing strategy A, respectively.
+The mixed strategy Nash equilibrium then satisfies $\theta = 1 - \theta, \rho = 1 - \rho
+\implies \theta = \frac{1}{2}, \rho = \frac{1}{2}$.
+
+\section*{Problem 3}
+
+
+\subsection*{a)}
+
+The profit maximizing quantity satisfies that $MR = 70 - 2Q = 10 = MC \implies Q
+= 30*, P = 40*$.
+
+\subsection*{b)}
+
+Consumer surplus in this market can be computed to be $\frac{1}{2}(70-40)(30) =
+450$. The monopolist's surplus is then $(40-10)(30) = 900$. 
+
+\subsection*{c)}
+
+The game in normal form would have the set of players $S = \{1, 2\}$, picking
+actions $q_1, q_2 \in \R_{\geq 0}$ representing their quantity produced. We
+define payoff functions then as follows: $P_i: \R_{\geq 0} \times \R_{\geq 0} \rightarrow \R$ is
+equal to $\pi_1(q_1,q_2) = (70 - 10(q_1+q_2))q_1 - 10q_1$, $\pi_2(q_1,q_2) = (70 - 10(q_1+q_2))q_2 - 10q_2$.
+
+\subsection*{d),f)}
+
+We have that
+
+\begin{align*}
+  BR_2(\bar{q_2}) &= \max_{q_1}(70 - (q_1+\bar{q}_2)q_1 - 10q_1 - 450) \\
+  \frac{\partial BR_1}{\partial q_1} &= 70 - 2q_1 - \bar{q_2} - 10 = 0 \\
+  q^*_1 &= \frac{60-\bar{q_2}}{2} \\
+  BR_2(\bar{q_1}) &= \max_{q_2}(70 - (q_2+\bar{q}_1)q_2 - 10q_2 - 450) \\
+  \frac{\partial BR_2}{\partial q_2} &= 70 - 2q_2 - \bar{q_1} - 10 = 0\\
+  q^*_2 &= \frac{60-\bar{q_1}}{2}\\
+                                     &= \frac{60 - \frac{60-\bar{q_2}}{2}}{2} \\
+                                     &= \frac{60+q^*_2}{4} \\
+                                     &= \frac{q^*_2}{4} + 15 \\
+  q^*_2 &= \frac{4}{3}15 = 20 \\
+  q^*_1 &= \frac{4}{3}15 = 20
+\end{align*}
+
+\subsection*{e),f)}
+
+\begin{center}
+  \begin{tikzpicture}[
+    dot/.style={shape=circle, inner sep=2pt, draw, node contents=},
+    circ/.style={shape=circle, inner sep=2pt, draw, fill}]
+    \draw[thick,->] (0,0) -- (7,0) node[anchor=north west] {$Q_1$};
+    \draw[thick,->] (0,0) -- (0,7) node[anchor=south east] {$Q_2$};
+    \draw (3pt,2cm) -- (-3pt,2cm) node[anchor=east] {$20$}; 
+    \draw (2cm,3pt) -- (2cm,-3pt) node[anchor=north] {$20$};
+    \draw[domain=0:60,scale=0.1,smooth,variable=\x] plot ({\x},{30-\x/2}) node[label=above:{$BR_2$}]{};
+    \draw[domain=0:60,scale=0.1,smooth,variable=\x] plot ({30-\x/2},{\x}) node[label=right:{$BR_1$}]{};
+    \draw (2,2) node[circ,label=above right:{$(q_1^*,q_2^*)$}]{};
+    \draw[dashed] (0,2) -- (2,2) -- (2,0);
+  \end{tikzpicture}
+\end{center}
+
+
+\subsection*{g)}
+
+The total quantity is 40, at a price of 30. This is more output for a lower
+price than the sole monopolist, and leads to a closer to socially optimal
+outcome (although not actually optimal).
+
+\subsection*{h)}
+
+There is now a consumer surplus of $\frac{1}{2}(70-30)(40) = 800$ and a producer
+surplus of $(30 - 10)(20) = 400$ each, for a total producer surplus of $800$ and
+a total surplus of $1600$. Producer surplus fell, consumer surplus rose, the
+total surplus rose ($1350 \rightarrow 1600$).
+
+\subsection*{i)}
+
+The firms make in profit $\pi = 30(20) - 10(20) - 450 = -50$ each, so they are
+losing money; previously, a monopoly would make $\pi = 40(30) - 10(30) -450 =
+450$. A regulator should not push for a duopoly unless absolutely convinced for
+external reasons that they will stay in business while taking a loss
+economically (or they don't care that no output will be produced, such as if
+this market is untenable socially in the monopoly case).
+
+
+\end{document}
+% LocalWords:  nodecirc
