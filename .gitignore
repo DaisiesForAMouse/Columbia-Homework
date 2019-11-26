@@ -5,6 +5,7 @@
 *.gnuplot
 *.fls
 *.fdb_latexmk
+*.fmt
 .~lock*
 _*
 auto
