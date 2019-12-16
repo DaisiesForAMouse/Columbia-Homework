@@ -1,0 +1,408 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{relsize}
+\usepackage{fancyvrb}
+\usetikzlibrary{shapes.geometric,fit}
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+\newcommand\course{MATH 1207}
+\newcommand\hwnumber{12}
+\newcommand\NetIDa{dc3451}
+\newcommand\NetIDb{David Chen}
+
+\theoremstyle{definition}
+\newtheorem*{statement}{Statement}
+\newtheorem*{claim}{Claim}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+
+\newcommand{\contra}{\Rightarrow\!\Leftarrow}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Zeq}{\mathbb{Z}_{\geq 0}}
+\newcommand{\Zg}{\mathbb{Z}_{>0}}
+\newcommand{\Req}{\mathbb{R}_{\geq 0}}
+\newcommand{\Rg}{\mathbb{R}_{>0}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+
+\pagestyle{fancyplain}
+\headheight 35pt
+\lhead{\NetIDa}
+\lhead{\NetIDa\\\NetIDb}
+\chead{\textbf{\Large Homework \hwnumber}}
+\rhead{\course \\ \today}
+\lfoot{}
+\cfoot{}
+\rfoot{\small\thepage}
+\headsep 1.5em
+
+\begin{document}
+
+\subsection*{Apostol p.278 no.5}
+
+We have from Apostol that if we have that if $f(x) = P_n(x) + x^ng(x)$, where
+$P_n(x)$ is a polynomial of degree $n$, and $\lim_{x\rightarrow 0}g(x) = 0$,
+then we have that $P_n(x)$ is the Taylor polynomial of $f$ of degree $n$.
+
+It is proved in class that
+
+\[
+  (1-x)\sum_{k=0}^nx^k = 1 - x^{n+1} \\
+\]
+
+Substituting $x^2$ for $x$,
+
+\begin{alignat*}{2}
+  &\implies& (1-x^2)\sum_{k=0}^nx^{2k} &= 1 - x^{2n+2} \\
+  &\implies& \frac{1}{1-x^2} &= \sum_{k=0}^nx^{2k} + \frac{x^{2n+2}}{1-x^2} \\
+  &\implies& \frac{x}{1-x^2} &= \sum_{k=0}^nx^{2k+1} + x^{2n+2}\frac{x}{1-x^2}
+  \\
+  &&&= P_{2n+1}(x) + x^{2n+2}\frac{x}{1-x^2}
+\end{alignat*}
+
+Since we have that $\frac{x}{1=x^2}$ is continuous, we have that it approaches
+zero when $x$ approaches zero.
+
+From the above, we have that
+
+\[P_{2n+1} = T_{2n+1}(\frac{x}{1-x^2}) = \sum_{k=0}^nx^{2k+1} \].
+
+
+\subsection*{Apostol p.430 no.17}
+
+\begin{claim}
+  Let $f_n(x) = nxe^{-nx^2}$ for $x \in \R$, $n \in \Zg$.
+  \[
+    \lim_{n\rightarrow \infty}\int_0^1f_n(x)dx \neq \int_0^1\lim_{n\rightarrow \infty}f_n(x)dx
+  \]
+\end{claim}
+
+\begin{proof}
+  Let us compute the left side first.
+  \begin{align*}
+    \lim_{n\rightarrow \infty}\int_0^1nxe^{-nx^2} &= \lim_{n\rightarrow \infty}\left( -\frac{1}{2}e^{-nx^2} \Big|^1_0 \right) \\
+                                                  &= \lim_{n\rightarrow \infty}\left( \frac{1}{2}(1 - e^{-n}) \right) \\
+                                                  &= \lim_{n\rightarrow \infty} \frac{1}{2} - \lim_{n\rightarrow \infty} \frac{1}{2}e^{-n} \\
+                                                  &= \frac{1}{2}
+  \end{align*}
+  
+  Taking the limit $\lim_{n\rightarrow \infty}f_n(x)$, we see that
+  $\lim_{n\rightarrow \infty} nxe^{-nx^2} = 0$, as for all $\epsilon > 0$, pick
+  \[
+    \int_0^1 \lim_{n\rightarrow \infty}\left( nxe^{-nx^2} \right) = \int_0^1  0 = 0
+  \]
+
+  The limit is proved in the Apostol reading as Theorem 7.11 (and is also
+  entirely believable).
+\end{proof}
+
+\section*{Problem 1}
+
+\begin{claim}
+  Let $f_n:[a,b] \rightarrow \R$ be a sequence of integrable functions
+  converging uniformly to $f: [a,b] \rightarrow \R$. $f$ is integrable and
+  \[
+    \lim_{n\rightarrow \infty} \int_a^b f_n(x)dx = \int_a^bf(x)dx
+  \]
+\end{claim}
+
+\begin{proof}
+  A function $f$ is only integrable if any $\epsilon$ there exist step functions $s,t$ such
+  that $s \leq f \leq t$ and $\int_a^b(t-s) < \epsilon$.
+  
+  Let $\epsilon' = \frac{\epsilon}{3(b-a)}$. Since $f_n$ uniformly converges to
+  $f$, we have that $\exists N \mid n > N \implies \forall x \in [a,b], |f(x) -
+  f_n(x)| < \epsilon'$. Then, since $f_n$ is integrable, we have $s_n, t_n$ such
+  that $\int_a^b(t_n - s_n) < (b - a)\epsilon'$. Now, consider $\int_a^b((t_n +
+  \epsilon') - (s_n - \epsilon')) = \int_a^b(t_n  - s_n) + 2(b-a)\epsilon' <
+  3(b-a)\epsilon' = \epsilon$. We have that $s_n - \epsilon' \leq f_n(x) - \epsilon' \leq
+  f(x) \leq f_n(x) + \epsilon' \leq t_n$. 
+
+  We see that there exist step
+  functions $t = t_n + \epsilon', s = s_n - \epsilon'$ such that $\int_a^b(t -
+  s) < \epsilon$ for any $\epsilon > 0$.
+
+  To show the given identity, for any $\epsilon > 0$, let
+  $\epsilon' = \frac{\epsilon}{b-a}$. Then, $\exists N \mid n > N \implies \forall x \in [a,b],
+  |f(x) - f_n(x)| < \epsilon' \implies \int_a^b|f(x) - f_n(x)|dx < (b -
+  a)\epsilon' = \epsilon$.
+
+  Since $\left| \int_a^bf(x)dx - \int_a^bf_n(x)dx
+  \right| = |\int_a^b(f(x) - f_n(x))dx| \leq \int_a^b|f(x) - f_n(x)|dx <
+  \epsilon$ for all $n > N$, we have that $\lim_{n\rightarrow \infty} \int_a^b
+  f_n(x)dx = \int_a^bf(x)dx$.
+\end{proof}
+
+\section*{Problem 2}
+
+\subsection*{a}
+
+We have that $f(x) = \lim_{n\rightarrow \infty} f_n(x) = \lim_{n\rightarrow
+  \infty} \frac{x}{1 + nx^2} = 0$, which will be shown in part b as $|f_n(x)|
+\leq \frac{1}{\sqrt{n}}$, and so $\lim_{n\rightarrow \infty} |f_n(x)| \leq
+\lim_{n\rightarrow \infty}\frac{1}{\sqrt{n}} = 0 \implies \lim_{n\rightarrow
+  \infty} f_n(x) = 0$.
+
+For $g(x)$, we have that $f'_n(x) = -\frac{2 n x^2}{(1 + n x^2)^2} + \frac{1}{1
+  + n x^2} = -\frac{1}{n}\frac{2x^2}{\frac{1}{n^2} + \frac{2x^2}{n} + x^4} + \frac{1}{1+nx^2}$. For
+all $x \neq 0$, we have that $g(x) = \lim_{n\rightarrow \infty} f'(x) = 0$ as
+well; however, at $x = 0$, we have that $f'_n(0) =
+1$, and so $\lim_{n\rightarrow \infty} f'_n(0) = 1$.
+
+\subsection*{b}
+
+We find the local extrema of $f$ by taking the zeros of the derivative of $f$.
+We see then that this occurs when $2nx^2 = 1 + nx^2 \implies nx^2 = 1 \implies x
+= \pm \frac{1}{\sqrt{n}} \implies f(x) = \pm \frac{1}{2\sqrt{n}}$ as the maxima
+and minima. Since we see that $\lim_{x\rightarrow \infty} f(x) = 0,
+\lim_{x\rightarrow -\infty}f(x) = 0$, $|f_n(x)| < \frac{1}{\sqrt{n}}$. This means that
+for any $\epsilon > 0$, we have that $\forall x \in \R$, $|f_n(x)| < \epsilon$
+if $n > N = \left\lceil \frac{1}{\epsilon^2} \right\rceil$ and so $f_n$ converges
+uniformly to $0$.
+
+\subsection*{c}
+
+$f$ is constant and so differentiable everywhere. Then, we have that $f'(x) =
+g'(x) \iff x \neq 0$. 
+
+\section*{Problem 5}
+
+\begin{claim}
+  If $f_n, g_n$ are sequences of bounded functions on an interval $I$, and $f_n
+  \rightarrow f$ and $g_n \rightarrow g$ both uniformly, then $f_n + g_n
+  \rightarrow f + g$ uniformly.
+\end{claim}
+
+\begin{proof}
+  Since $f_n, g_n$ uniformly converge to $f, g$, we have that for
+  $\frac{\epsilon}{2} > 0$, $\exists N_f, N_g
+  \mid n > N_f \implies |f_n(x) - f(x)| < \frac{\epsilon}{2}, n > N_g \implies |g_n(x) -
+  g(x)| < \frac{\epsilon}{2}$. Then, for $x > \max\{N_f, N_g\}$, we have that $|f_n(x) +
+  g_n(x) - (f(x) + g(x))| \leq |f_n(x) - f(x)| + |g_n(x) - g(x)| < \epsilon$.
+\end{proof}
+
+\section*{Problem 7}
+
+\begin{claim}
+  \[
+    \sum_{n=0}^\infty \frac{1}{2^n + x^{2n}} 
+  \]
+
+  is everywhere convergent to a continuous function that can be integrated term
+  by term.
+\end{claim}
+
+\begin{proof}
+  Uniform convergence follows from the Weierstrass M-test. Note that we have that
+  $\forall x \in \R, \forall n \in \Z, (x^n)^{2} \geq 0 \implies 2^n + x^{2n} \geq 2^n
+  \implies \frac{1}{2^n + x^{2n}} \leq \frac{1}{2^n}$. Thus, let $M_n =
+  \frac{1}{2^n}$. We have that $\sum_{n=0}^\infty M_n$ is a convergent geometric
+  series and thus $\sum_{n=0}^\infty \frac{1}{2^n + x^{2n}}$ is uniformly
+  convergent everywhere.
+
+  The claim about integrability will follow immediately from application of
+  problem 1 as we have that the individual terms of the series are integrable,
+  and we have that each partial sum is then integrable, and thus the function
+  can be integrated term by term.
+\end{proof}
+
+% \section*{Problem 8}
+\section*{Problem 9}
+
+\subsection*{a}
+
+$g(x)$ is positive on $(0, \infty)$ since we have that $\exp(t)$ is positive,
+and $g(x) = \exp(\frac{-1}{x^2})$ on $(0, \infty)$.
+
+$g(x)$ is clearly smooth for $x < 0$ as it is constant; in fact on this domain the $k^{th}$
+derivative is 0.
+
+For $x > 0$, we will show that $g^{(n)}(x)$ is a function of the form
+$P(\frac{1}{x})g(x)$, where $P(t)$ is a polynomial in $t$. Consider first the
+base case of $n = 0$, which has $P(\frac{1}{x}) = 1$. Then, in the inductive
+case, we have $f^{(k)}(x) = P(\frac{1}{x})e^{-\frac{1}{x^2}} \implies
+f^{(k+1)}(x) = P'(\frac{1}{x})e^{-\frac{1}{x^2}} + \left( \frac{2}{x^3}
+\right)P(\frac{1}{x})e^{-\frac{1}{x^2}} = (P'(\frac{1}{x}) + \left(
+  \frac{2}{x^3} \right)P(\frac{1}{x}))e^{-\frac{1}{x^2}}$. However, we have that
+$P'(\frac{1}{x})$ is still a polynomial in $\frac{1}{x}$ by the power rule, and
+so $f^{(k+1)}(x) = P(\frac{1}{x})e^{-\frac{1}{x^2}}$ as well.
+
+The final case is that $g$ must be infinitely differentiable at $x = 0$. To do this, we
+will show that $g^{(n)}(x) = 0$ for all $n$. We first show that
+$\lim_{x\rightarrow 0}\frac{e^{-\frac{1}{x^2}}}{x^m} = 0$ for all $m > 0$.
+Putting $t$ to $\frac{1}{x^2}$, the limit becomes $\lim_{t\rightarrow
+  \infty}\frac{t^{\frac{m}{2}}}{e^t}$, which is shown to be 0 in Apostol (as
+mentioned above). Extending, we see that for any polynomial $P(\frac{1}{x})$ we
+have that $\lim_{x\rightarrow 0}P(\frac{1}{x})e^{-\frac{1}{x^2}} = 0$, as the
+sum of limits is the limit of the sum.
+
+We now proceed with induction. The base case is $n = 0$, and we see that $g(0) =
+0$ by definition. We compute the inductive step as follows: assume that
+$g^{(k)}(0) = 0$. Then, $g^{(k+1)}(0) = \lim_{h\rightarrow
+  0}\frac{g^{(k)}(h)}{h} = \lim_{h\rightarrow 0} \frac{g(h)P(\frac{1}{x})}{h} =
+\lim_{h\rightarrow 0} e^{-\frac{1}{h^2}}P(\frac{1}{x}) = 0$, which holds since
+for $h < 0$, we have that the derivative is also 0. The derivative is
+then 0 at $x = 0$, and the function is then smooth.
+
+\subsection*{b}
+
+We will show here that the product of smooth functions is itself smooth. Let
+$a,b$ be smooth functions on an interval $I$. Then the $n^{th}$ derivative is
+given by $\sum_{k=0}^n{n\choose k}a^{(k)}b^{(n-k)}$. To show this identity, we
+can induct on $n$, as the base case holds with n = 0. Then, consider that if
+$(ab)^{(k)} = \sum_{k=0}^n{n\choose k}(a^{(k+1)}b^{(n-k)}+a^{(k)}b^{(n-k+1)}) =
+\sum_{k=1}^{n}({n \choose k-1} + {n \choose k})a^{(k)}b^{(n+1-k)} + a^{(n+1)}b +
+ab^{(n+1)} = \sum_{k=0}^{n+1}{n+1\choose k }a^{(k)}b^{n+1-k}$. These all exist by the
+fact that $a,b$ are themselves smooth.
+
+We have that $h(x) = g(1-x)g(1+x)$ as the product of smooth functions is itself
+smooth, and since $F'(x) = \frac{1}{A}h(x)$ by the fundamental theorem of
+calculus, we have that $F$ also must be smooth.
+
+Further, we have that since $h(x) = 0$ for $x < -1$ as $g(1+x) = 0$ and $h(x) =
+0$ for $x > 1$ as $g(1-x) = 0$, for $x < -1$, $\int_{-1}^xh(t)dt =
+-\int_{x}^{-1}h(t)dt = \int_{x}^{-1}0dt = 0$. Similarly, we have that for $x >
+1$, $\int_{-1}^xh(t)dt = \int_{-1}^1h(t)dt + \int_1^xh(t)dt = A + \int_1^x0dt = A$.
+
+This gives us that for $x < -1$, $F(x) = 0$, for $x > 1$, $F(x) = \frac{1}{A}A =
+1$.
+
+This gives us that for $x < -1$, $F(x) = 0$, for $x > 1$, $F(x) = \frac{1}{A}A =
+1$.
+
+\subsection*{c}
+
+Consider
+
+\[
+  \phi(x) = F(2-x)F(2+x)
+\]
+
+For $x \in \R$, we have that $0 \leq F(2-x), |F(2+x) \leq 1 \implies 0 \leq \phi(x)
+\leq 1$..
+
+For $x < -3$, $F(2+x) = 0 \implies \phi(x) = 0$. For $x > 0$, $F(2-x) = 0
+\implies \phi(x) = 0$.
+
+For $x \in (-1, 1), F(2-x) = F(2+x) = 1 \implies \phi(x) = 1$.
+
+$\phi$ is smooth as the product of smooth functions.
+
+\section*{Problem 10}
+
+Consider
+
+\[
+  f(x) = \phi(\frac{6}{|c-d|}(x - c))g(x) + \phi(\frac{6}{|c-d|}(x - d))h(x)
+\]
+
+For $x \in (c - \frac{|c-d|}{6}, c + \frac{|c-d|}{6})$, we have that $\frac{6}{|c-d|}(x -
+c) \in (-1, 1)$ and for $x \notin (c - \frac{|c-d|}{2}, c + \frac{|c-d|}{2})$,
+we have that $\frac{6}{|c-d|}(x-c) \notin (-3, 3)$ and $f(x) = \phi(\frac{6}{|c-d|}(x - d))h(x)$. 
+
+For $x \in (d - \frac{|c-d|}{6}, d + \frac{|c-d|}{6})$, we have that $\frac{6}{|c-d|}(x -
+d) \in (-1, 1)$ and for $x \notin (d - \frac{|c-d|}{2}, d + \frac{|c-d|}{2})$,
+we have that $\frac{6}{|c-d|}(x-d) \notin (-3, 3)$ and $f(x) = \phi(\frac{6}{|c-d|}(x - c))g(x)$. 
+
+Furthermore, we have that $(d - \frac{|c-d|}{2}, d + \frac{|c-d|}{2}) \cup (c -
+\frac{|c-d|}{2}, c + \frac{|c-d|}{2}) = \emptyset$, so within $\delta =
+\frac{|c-d|}{6}$ of $c$, we have that $f(x) = g(x)$ and within $\delta$ of $d$,
+we have that $f(x) = h(x)$.
+
+\section*{Problem 11}
+
+We will first prove a couple lemmas:
+
+\begin{lemma}
+  Let $U = \{x \in [c,b) \mid \forall y \in [c,x), f(y) = g(y)\}$. Then the supremum $u$ of this set
+  exists and $\exists u' > u \mid f(x) = g(x)$ on $[c, \min(b,u'))$.
+\end{lemma}
+
+\begin{proof}
+  We know that $c + \delta \in U$, and the supremum exists as it is
+  bounded above by $b$. Thus, $\sup(U) = u$ exists.
+  
+  Consider that $f - g$ is also analytic at $u$. Thus, we have that for $R > 0$, within $(u -
+  R, u + R)$, $f - g$ is equal to some power series $\sum_{n=0}^\infty a_n(x -
+  u)^n$. 
+
+  Now we show that if a power series $f$ is convergent on $(c - R, c + R)$ is zero on
+  a sequence $\{x_n\}$ that converges to $c$ on that interval, then the power series must
+  be the zero function. Similarly, since $f - g$ is
+  analytic and thus smooth, we must have that $f^{(k)}(x)$ is continuous, and
+  also has as $\lim_{n\rightarrow \infty}f^{(k)}(x_n) = f^{(k)}(c) = 0$ by the
+  definition of sequential continuity.
+
+  % Induct on $k$ to show that $f^{(k)}(c) = 0$. The base case was just shown. For
+  % the inductive step, assume that $f^{(k)} = 0$. Then, we must have that
+  % $f^{(k+1)}(c) = \lim_{n\rightarrow \infty}\frac{f^{(k)}(x_n) - f^{(k)}(c)}{x_n
+  %   - c} = \lim_{n\rightarrow \infty} \frac{0}{x_n - c} = 0$. Thus, we have that
+  % $f = 0$.
+
+  We now apply the above fact to the power series centered at $u$, which now
+  must vanish as the approximation property furnishes such a sequence
+  converging to $u$, as for any $\epsilon > 0, \exists x \in U \mid u - x <
+  \epsilon$ and $(f-g)(x) = 0$. Thus, we have that on $(u - R, u + R), f - g =
+  0$. The lemma is satisfied with $u' = u + R$.
+\end{proof}
+
+\begin{lemma}
+  Let $V = \{x \in (a,c] \mid \forall y \in (x,c], f(y) = g(y)\}$. Then the infimum $v$ of this set
+  exists and $\exists v' < v \mid f(x) = g(x)$ on $(\max(a,v'), c]$.
+\end{lemma}
+
+\begin{proof}
+  We know that $c-\delta \in V$, and the infimum exists as it is
+  bounded below by $b$. Thus, $\inf(V) = v$ exists.
+  
+  Consider that $f - g$ is also analytic at $v$. Thus, we have that for $R > 0$, within $(v -
+  R, v + R)$, $f - g$ is equal to some power series $\sum_{n=0}^\infty a_n(x -
+  u)^n$. 
+
+  Since we have a sequence within $V$ converging to $v$ from the approximation
+  property, we have that that power series is $0$ and thus the lemma is
+  satisfied with $v' = v - R$.
+\end{proof}
+
+\begin{claim}
+  Let $f, g: (a,b) \rightarrow \R$ be analytic functions. $\exists c \in (a,b),
+  \delta > 0 \implies |x - c| < \delta \implies f(x) = g(x)$. Then $f = g$.
+\end{claim}
+
+\begin{proof}
+  Let $U, V, u, v, u', v'$ be as above. We know that $u \leq b$. Suppose that $u < b$. Then we have
+  from the first lemma that $f = g$ on $[c, \min(b,u'))$, and so $\min(b,u') \in
+  U$ but also $\min(b,u') > \sup(U)$ as well. $\contra$, so $u = b$.
+
+  Similarly, we know that $v \geq a$. Suppose that $v > a$. Then we have from
+  the second lemma that $f = g$ on $(\max(a,v'), c]$, and so $\max(a,v') \in V$
+  but also $\min(a,v') < \inf(V)$ as well. $\contra$, so $v = a$.
+
+  Thus, we have that $f = g$ on $(a,b)$.
+\end{proof}
+
+\end{document}
+
+% LocalWords:  NetID fancyplain LocalWords colorlinks linkcolor linkbordercolor
