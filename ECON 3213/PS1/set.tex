@@ -1,0 +1,191 @@
+
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{xfrac}
+\usepackage{nicefrac}
+\usepackage{xcolor}
+\allowdisplaybreaks
+
+
+\usetikzlibrary{shapes.geometric,fit}
+\usetikzlibrary{patterns}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+\newcommand\course{ECON 3213}
+\newcommand\hwnumber{1}
+\newcommand\NetIDa{dc3451}
+\newcommand\NetIDb{David Chen}
+
+\newcommand\R{\mathbb{R}}
+
+\theoremstyle{definition}
+\newtheorem*{statement}{Statement}
+\newtheorem*{claim}{Claim}
+\newtheorem*{theorem}{Theorem}
+
+\newcommand{\contra}{\Rightarrow\!\Leftarrow}
+\newcommand{\Lag}{\mathcal{L}}
+
+\pagestyle{fancyplain}
+\headheight 35pt
+\lhead{\NetIDa}
+\lhead{\NetIDa\\\NetIDb}
+\chead{\textbf{\Large Problem Set \hwnumber}}
+\rhead{\course \\ \today}
+\lfoot{}
+\cfoot{}
+\rfoot{\small\thepage}
+\headsep 1.5em
+
+\begin{document}
+
+The following \verb!R! code was used to compute the solutions. 
+
+\begin{scriptsize}
+\begin{verbatim}
+growth <- function(start, end, first, last) {
+  return ((end / start) ^ (1 / (last - first)))
+}
+
+present_value <- function(start, end, first, last, years_later, discount) {
+  g <- growth(start, end, first, last)
+  years <- last - first
+  value <- 0
+  for (i in 0:years) {
+    value <- (value + (start * (g ^ i) / ((1 + discount) ^ (i + years_later))))
+  }
+  return (value)
+}
+
+project <- function(start, years, growth) {
+  return ((start) * (growth ^ years))
+}
+
+"Problem 2"
+cat("Irish growth is ", (growth(1775, 2736, 1870, 1913) - 1) * 100, "%.\n")
+cat("American growth is ", (growth(2445, 5301, 1870, 1913) - 1) * 100, "%.\n")
+cat("Argentenian growth is ", (growth(1311, 3797, 1870, 1913) - 1) * 100, "%.\n")
+
+"Problem 3"
+cat("Irish present value is ", present_value(1775, 2736, 1870, 1913, 0, 0.03), ".\n")
+cat("American present value is ", present_value(2445, 5301, 1870, 1913, 0, 0.03) , ".\n")
+cat("Argentenian present value is ", present_value(1311, 3797, 1870, 1913, 0, 0.03), ".\n")
+
+"Problem 4"
+ire_proj <- project(2736, 1929 - 1913, growth(1775, 2736, 1870, 1913))
+ame_proj <- project(5301, 1929 - 1913, growth(2445, 5301, 1870, 1913))
+arg_proj <- project(3797, 1929 - 1913, growth(1311, 3797, 1870, 1913))
+cat("Projected rGDP for Ireland is ", ire_proj, ".\n")
+cat("Projected rGDP for America is ", ame_proj, ".\n")
+cat("Projected rGDP for Argentina is ", arg_proj, ".\n")
+
+"Problem 5"
+cat("Irish present value is ", present_value(2736, ire_proj, 1913, 1929, 0, 0.03), ".\n")
+cat("American present value is ", present_value(5301, ame_proj, 1913, 1929, 0, 0.03) , ".\n")
+cat("Argentenian present value is ", present_value(3797, arg_proj, 1913, 1929, 0, 0.03), ".\n")
+
+"Problem 6"
+cat("Irish present value is ", present_value(1775, 2736, 1870, 1913, 0, 0.03) +
+                               present_value(2736, 2824, 1913, 1929, 1913 - 1870, 0.03) -
+                               (2736 / ((1 + 0.03) ^ (1913 - 1870))), ".\n")
+cat("American present value is ", present_value(2445, 5301, 1870, 1913, 0, 0.03) +
+                                  present_value(5301, 6899, 1913, 1929, 1913 - 1870, 0.03) -
+                                  (5301 / ((1 + 0.03) ^ (1913 - 1870))), ".\n")
+cat("Argentenian present value is ", present_value(1311, 3797, 1870, 1913, 0, 0.03) +
+                                     present_value(3797, 4367, 1913, 1929, 1913 - 1870, 0.03) -
+                                     (3797 / ((1 + 0.03) ^ (1913 - 1870))), ".\n")
+
+\end{verbatim}
+\end{scriptsize}
+
+\subsection*{Problem 1}
+
+The Irish were on average poorer by $\frac{2445-1775}{1775} = 37.7\%$ relative to the
+average American.
+
+The Irish were on average richer by $\frac{1775-1311}{1775} = 26.1\%$ relative to the
+average Argentine.
+
+\subsection*{Problem 2}
+
+Irish growth is  1.011351\%.
+
+American growth is  1.815943\%.
+
+Argentine growth is  2.503906\%.
+
+\subsection*{Problem 3}
+
+Irish present value is 52946.59.
+
+American present value is 84808.94.
+
+Argentine present value is 52094.26.
+
+Thus, we see that the American made the best choice with the benefit of
+hindsight since we see that she has the highest computed value, and the
+Argentine sister made the worst choice due to having the lowest such value.
+
+The reason that these values show the best/worst decisions is because it is a
+measure of the value placed on total earnings in the timespan with future
+earnings devalued properly.
+
+\subsection*{Problem 4}
+
+Projected rGDP for Ireland is 3213.949.
+
+Projected rGDP for America is 7069.854.
+
+Projected rGDP for Argentina is 5640.106.
+
+\subsection*{Problem 5}
+
+Irish projected present value is 39976.77.
+
+American projected present value is 82287.09.
+
+Argentine projected present value is 62120.73.
+
+The best choice was America, then Argentina, then Ireland, for the same reason
+as above (they are ranked descending with respect to present value).
+
+\subsection*{Problem 6}
+
+Irish present value is 62739.85 .
+
+American present value is 106136.5 .
+
+Argentenian present value is 66439.6 .
+
+The sister who when to Argentina made the second best choice because she has
+higher present value that her Ireland-remaining sister.
+
+\subsection*{Problem 7}
+
+What is anachronistic is that we making evaluations from future
+standpoints with econometric data that doesn't yet exist. The stability and
+value of growth rates from 1870 - 1913 cannot be ascertained from 1870, and thus
+doesn't really well reflect the best decision with available information at that time.
+
+
+\end{document}
+% LocalWords:  nodecirc

@@ -1,0 +1,330 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{relsize}
+\usepackage{fancyvrb}
+\usetikzlibrary{shapes.geometric,fit}
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+\newcommand\course{MATH 1208}
+\newcommand\hwnumber{1}
+\newcommand\NetIDa{dc3451}
+\newcommand\NetIDb{David Chen}
+
+\theoremstyle{definition}
+\newtheorem*{statement}{Statement}
+\newtheorem*{claim}{Claim}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+
+\newcommand{\contra}{\Rightarrow\!\Leftarrow}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Zeq}{\mathbb{Z}_{\geq 0}}
+\newcommand{\Zg}{\mathbb{Z}_{>0}}
+\newcommand{\Req}{\mathbb{R}_{\geq 0}}
+\newcommand{\Rg}{\mathbb{R}_{>0}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+
+\pagestyle{fancyplain}
+\headheight 35pt
+\lhead{\NetIDa}
+\lhead{\NetIDa\\\NetIDb}
+\chead{\textbf{\Large Homework \hwnumber}}
+\rhead{\course \\ \today}
+\lfoot{}
+\cfoot{}
+\rfoot{\small\thepage}
+\headsep 1.5em
+
+\begin{document}
+
+\subsection*{Apostol p.451 no.6}
+
+\subsubsection*{a}
+
+The components of $D$ are $(x + z, x + y + z, y + z)$
+
+\subsubsection*{b}
+
+If $D = 0$, then $x + z = 0$, and $ x + y + z = 0$. Then, $y = 0$, and since $y
++ z = 0$, we have that $z = 0$ and finally $x = 0$ as $x + z = 0$. 
+
+\subsubsection*{c}
+
+Take $x = -1, y = 1, z = 2$.
+
+\subsection*{Apostol p.451 no.7}
+
+\subsubsection*{a}
+
+The components of $D$ are $(x + 2z, x + y + z, x + y + z)$.
+
+\subsubsection*{b}
+
+Take $x = -2, y = 1, z = 1$.
+
+\subsubsection*{c}
+
+$D = (1, 2, 3) \implies x + y + z = 2$ and $x + y + z = 3$. $\contra$, so no
+such picks of $x, B, z$ have $D = (1, 2, 3)$.
+
+\subsection*{Apostol p.456 no.4}
+
+\begin{claim}
+  $\forall B \in \R^N, A \cdot B = 0 \implies A = 0$. 
+\end{claim}
+
+\begin{proof}
+  Let the $i^{th}$ component of $A$ be $a_i$.
+  Taking $B = A$, we have that $A \cdot A = 0 \implies \sum_{i=1}^na_i^2 = 0
+  \implies \forall i, a_i = 0 \implies A = 0$.
+\end{proof}
+
+\subsection*{Apostol p.456 no.19}
+
+\begin{claim}
+  $||A + B||^2 - ||A - B||^2 = 4A \cdot B$
+\end{claim}
+
+\begin{proof}
+  Let the $i^{th}$ component of $A$ be $a_i$, and the corresponding component of
+  $B$ be $b_i$.
+  
+  \begin{align*}
+    ||A + B||^2 - ||A - B||^2 &= \sum_{i=1}^n(a_i+b_i)^2 - \sum_{i=1}^n(a_i - b_i)^2 \\
+                              &= \sum_{i=1}^n(a_i + b_i) ^2 - (a_i - b_i)^2 \\
+                              &= \sum_{i=1}^n a_i^2 + 2a_ib_i + b_i^2 - a_i^2 +2a_ib_i - b_i^2 \\
+                              &= \sum_{i=1}^n 4a_ib_i \\
+                              &= 4\sum_{i=1}^n a_ib_i \\
+                              &= 4A \cdot B
+  \end{align*}
+\end{proof}
+
+\subsection*{Apostol p.555 no.9}
+
+Odd functions are indeed a vector space; since they are a subset of
+$\mathcal{F}(\R, \R)$, we have that we only need to show closure under scalar
+multiplication and vector addition.
+
+$f: \R \rightarrow \R$ is odd $\iff$ $f(x) = -f(-x)$, and so $2f(x) = -2f(-x)$,
+and so it is closed under vector multiplication. Similarly, we have that if $g,
+f: \R \rightarrow \R$ are odd, then $(f + g)(x) = f(x) + g(x) = -f(-x) - g(-x) =
+-(f + g)(-x)$, and it is closed under vector addition. 
+
+\subsection*{Apostol p.555 no.10}
+
+This is also a vector space; we prove the same thing as above; for any function $f$ bounded
+by $M$, and scalar multiple $cf$ is bounded by $cM$. Similarly, two functions
+bounded by $M_1, M_2$ has their sum bounded by $M_1 + M_2$.
+
+\subsection*{Apostol p.555 no.11}
+
+This is not a vector space, being not closed under scalar multiplication; any
+function $f$ that is increasing has additive inverse $-f$ deceasing instead.
+
+\subsection*{Apostol p.555 no.21}
+
+We know that the space of all series is a vector space over $\R$.
+
+This set in particular is also a vector space. It is closed as we have that if $\{a_n\}$ converges to
+$L$, then $\{ca_n\}$ converges to $\{cL\}$, and if $\{a_n\}, \{b_n\}$ converge
+to $K, L$, then $\{a_n + b_n\}$ converges to $K + L$.
+
+\subsection*{Apostol p.556 no.29}
+
+We denote $\cdot$ and exponentiation in the usual way, and $xy$ will denote the
+product of $x, y$ in $V$.
+
+Commutativity:
+
+\[
+  x + y = x \cdot y = y \cdot x = y + x
+\]
+
+Associativity:
+
+\[
+  (x + y) + z = (x \cdot y) \cdot z = x \cdot (y \cdot z) = x + (y + z)
+\]
+
+\[
+  (cd)x = x^{cd} = (x^d)^c = c(dx)
+\]
+
+Distributivity:
+
+\[
+  c(x + y) = (x \cdot y)^c = (x^c)\cdot(y^c) = cx + cy
+\]
+
+\[
+  (c + d)x = x^{c + d} = x^c\cdot x^d = cx + cd
+\]
+
+Identity:
+
+\[
+  x + 0 = x \cdot 1 = x
+\]
+
+\[
+  1x = x^1 = x
+\]
+
+Inverse:
+
+\[
+  cx + c^{-1}x = x^c\cdot x^{-c} = 0
+\]
+
+Closure:
+
+\[
+  x, y \in \Rg \implies x + y = (x \cdot y) > 0 \implies x + y \in \Rg
+\]
+
+\[
+  x \in \Rg \implies cx = (x^c) > 0 \implies xc \in \Rg
+\]
+
+\section*{Problem 1}
+
+\begin{claim}
+  For vector spaces $U, V$ over $F$, a function $f: U \rightarrow V$ is linear
+  iff
+  \[
+    f(\sum_{i=1}^nc_iX_i) = \sum_{i=1}^nc_if(X_i).
+  \]
+\end{claim}
+
+\begin{proof}
+  $(\implies)$ Proceed with induction on $n$. The base case $n = 1$ follows immediately
+  from the linearity of $f$: $f(c_iX_i) = c_if(x_i)$.
+
+  Suppose that the above holds for $n = k$. Then,
+  \[
+    f(\sum_{i=1}^{k+1}c_iX_i) =
+    f(\sum_{i=1}^{k}c_iX_i) + f(c_{k+1}X_{k+1})= \sum_{i=1}^kc_if(X_i) +
+    c_{k+1}f(X_{k+1}) = \sum_{i=1}^{k+1}c_if(X_i).
+  \]
+
+  The identity holds for all $n \in \Zg$.
+
+  $(\impliedby)$ Take $n = 1$. Then, $f(c_1X_1) = c_1f(X_1)$. When $n = 2, c_1 =
+  c_2 = 1$, $f(c_1X_1 + c_2X_2) = f(X_1 + X_2) = f(X_1) + f(X_2)$, and so $f$ is
+  linear.
+\end{proof}
+
+\section*{Problem 2}
+
+\begin{claim}
+  For vector spaces $U, V$ over $F$, a linear map $f: U \rightarrow V$ is
+  injective iff $\ker f = \{0\}$.
+\end{claim}
+
+\begin{proof}
+  First we will show that $0 \in \ker f$ in every case of $f$ is linear, as
+  $f(0) = f(0(0)) = 0f(0) = 0$.
+  
+  $(\implies)$ Since $f$ is injective, we have that only one member of the
+  domain is mapped to $0$. Since $f(0) = 0$ always, $\ker f = \{0\}$.
+
+  $(\impliedby)$ Suppose that $f$ is not injective. Then, we must have that
+  $\exists x,y \mid f(x) = f(y), x \neq y$. Then, $f(x) - f(y) = f(x - y) = 0
+  \implies x - y \in \ker f$, which means that $\ker f \neq \{0\}$, and $x - y
+  \neq 0$. 
+\end{proof}
+
+\section*{Problem 4}
+
+\begin{claim}
+  If $f: U \rightarrow V$ and $g: V \rightarrow W$ are linear maps, then $g
+  \circ f$ is also linear.
+\end{claim}
+
+\begin{proof}
+  \begin{align*}
+    (g \circ f)(cu) &= g(f(cu)) \\
+                     &= g(cf(u)) \\
+                     &= cg(f(u)) \\
+                     &= c(g \circ f)(u) \\
+    (g \circ f)(u_1 + u_2) &= g(f(u_1 + u_2) \\
+                    &= g(f(u_1) + f(u_2)) \\
+                    &= g(f(u_1)) + g(f(u_2)) \\
+                    &= (g \circ f)(u_1) + (g \circ f)(u_2)
+  \end{align*}
+\end{proof}
+
+\section*{Problem 5}
+
+\subsection*{a}
+
+\begin{claim}
+  With $g: V \rightarrow W$ is a fixed linear map, then $L_g: \mathcal{L}(U, V)
+  \rightarrow \mathcal{L}(V, W)$ is linear where $L_g(f) = g \circ f$.
+\end{claim}
+
+\begin{proof}
+  \begin{align*}
+    (L_g(cf))(u) &= (g \circ (cf))u) \\
+                 &= g(cf(u)) \\
+                 &= cg(f(u)) \\
+                 &= (c(g \circ f))(u) \\
+                 &= (cL_g(f))(u) \\
+    (L_g(f_1 + f_2))(u) &= (g \circ (f_1 + f_2))(u) \\
+                 &= g((f_1 + f_2)(u)) \\
+                 &= g(f_1(u) + f_2(u)) \\
+                 &= g(f_1(u)) + g(f_2(u)) \\
+                 &= (L_g(f_1))(u) + (L_g(f_2))(u) \\
+  \end{align*}
+
+  We then have that $L_g(cf) = cL_g(f)$ and $L_g(f_1 + f_2) = L_g(f_1) + L_g(f_2)$.
+\end{proof}
+
+\subsection*{b}
+
+\begin{claim}
+  With $f: U \rightarrow V$ is a fixed linear map, then $R_g: \mathcal{L}(V, W)
+  \rightarrow \mathcal{L}(U, W)$ is linear where $R_f(g) = g \circ f$.
+\end{claim}
+
+\begin{proof}
+  \begin{align*}
+    (R_f(cg))(u) &= ((cg) \circ f)u) \\
+                 &= cg(f(u)) \\
+                 &= (c(g \circ f))(u) \\
+                 &= (cR_f(f))(u) \\
+    (R_f(g_1 + g_2))(u) &= ((g_1 + g_2) \circ f)(u) \\
+                 &= ((g_1 + g_2)(f(u)) \\
+                 &= g_1(f(u)) + g_2(f(u)) \\
+                 &= (R_f(g_1))(u) + (R_f(g_2))(u) \\
+  \end{align*}
+
+  We then have that $R_f(cg) = cR_f(g)$ and $R_f(g_1 + g_2) = R_f(g_1) + R_f(g_2)$.
+\end{proof}
+
+\end{document}
+
+% LocalWords:  NetID fancyplain LocalWords colorlinks linkcolor linkbordercolor

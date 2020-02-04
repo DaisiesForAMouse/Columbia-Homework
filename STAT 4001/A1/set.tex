@@ -1,0 +1,217 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{relsize}
+\usepackage{fancyvrb}
+\usetikzlibrary{shapes.geometric,fit}
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+\newcommand\course{STAT 4001}
+\newcommand\hwnumber{1}
+\newcommand\NetIDa{dc3451}
+\newcommand\NetIDb{David Chen}
+
+\theoremstyle{definition}
+\newtheorem*{statement}{Statement}
+\newtheorem*{claim}{Claim}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+
+\newcommand{\contra}{\Rightarrow\!\Leftarrow}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Zeq}{\mathbb{Z}_{\geq 0}}
+\newcommand{\Zg}{\mathbb{Z}_{>0}}
+\newcommand{\Req}{\mathbb{R}_{\geq 0}}
+\newcommand{\Rg}{\mathbb{R}_{>0}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\pr}[1]{\text{Pr}\left(#1\right)}
+
+\pagestyle{fancyplain}
+\headheight 35pt
+\lhead{\NetIDa}
+\lhead{\NetIDa\\\NetIDb}
+\chead{\textbf{\Large Assignment \hwnumber}}
+\rhead{\course \\ \today}
+\lfoot{}
+\cfoot{}
+\rfoot{\small\thepage}
+\headsep 1.5em
+
+\begin{document}
+
+\subsection*{1.4.1}
+Consider $x \in B^C$. Assume that $x \notin A^C$. Then, we have that $x \notin
+A^C \implies x \in A \implies x \in B$. $\contra$, so $x \in A^C$.
+
+\subsection*{1.4.8}
+
+\begin{center}
+  \begin{tabular}{c|c}
+    Blood type & Set representation \\
+    \hline
+    A & $A \cap B^C$ \\
+    B & $B \cap A^C$ \\
+    AB & $A \cap B$ \\
+    O & $A^C \cap B^C$
+  \end{tabular}
+\end{center}
+
+\subsection*{1.5.12}
+
+Note that the $B_i$ are all disjoint; any $B_i$ contains elements in $A_i$ that
+are not seen before as elements of $A_1, A_2, ..., A_{i-1}$.
+
+More formally, suppose that  for $i \neq j, x \in B_i, B_j$. Without loss of generality, take
+$j > i$. Since $x \in B_j, x \in A_i^C$, and since $x \in B_i, x \in A_i$.
+$\contra$, so $B_i, B_j$ are disjoint.
+
+Further, we have that for any $n$, $\bigcup_{i=1}^nA_i = \bigcup_{i=1}^nB_i$.
+For any $x \in \bigcup_{i=1}^nA_i$, let $k$ be the least index such that $x \in
+A_k$. Then, $x \in B_k$ as well; similarly, since $B_k \subset A_k$, we have
+that $\bigcup_{i=1}^nA_i = \bigcup_{i=1}^nB_i$.
+
+We have now that
+\[
+  \sum_{i=1}^n\pr{B_i} = \pr{\bigcup_{i=1}^n B_i} = \pr{\bigcup_{i=1}^n A_i}
+\]
+
+\subsection*{1.5.14.a}
+
+Since there are only four possibilities, we have that $\pr{\text{AB}} = 1 - (0.5
++ 0.12 + 0.34) = 0.04$.
+
+The events below are disjoint, as one can only have a single blood type.
+
+\begin{center}
+  \begin{tabular}{c|c}
+    Antigen & Probability \\
+    \hline
+    anti-A & $\pr{\text{A or AB}} = 0.34 + 0.04 = 0.38$\\
+    anti-B & $\pr{\text{B or AB}} = 0.12 + 0.04$
+  \end{tabular}
+\end{center}
+
+\subsection*{1.5.14.b}
+
+This probability is exactly $\pr{AB} = 0.04$.
+
+\subsection*{1.6.6}
+
+Each outcome of faces is equally likely by assumption, where there are $2^3$ total
+possibilities. There are only two outcomes where all are the same (all heads, all
+tails), so the probability is $\frac{1}{4}$.
+
+\subsection*{1.7.3}
+
+This is simply just $5! = 120$ total ways.
+
+\subsection*{1.7.6}
+
+There are in total $6!$ ways to order $1,2,3,4,5,6$; there are $6^6$ total ways
+to get a sequence of rolls. The odds are $\frac{6!}{6^6} = \frac{5}{324} \approx 0.0154$.
+
+\subsection*{1.7.10.abc}
+
+In any given ordering of the balls, the odds that any given position is occupied
+by a red ball is $\frac{r}{100}$. Thus, the odds for all three parts are all $\frac{r}{100}$.
+
+\subsection*{1.7.11}
+
+\[
+  P_{n,k} =
+  \frac{(2\pi)^{\frac{1}{2}}n^{n+\frac{1}{2}}e^{-n}}{(2\pi)^{\frac{1}{2}}(n-k)^{n-k
+      + \frac{1}{2}}e^{k-n}}
+  = \frac{n^{n+\frac{1}{2}}}{e^k(n-k)^{n-k+\frac{1}{2}}}
+\]
+
+\subsection*{1.8.15.a}
+
+\[
+  \sum_{i=0}^n\binom{n}{i}
+\]
+
+is simply the total amount of subsets of any size of a size of set $n$. This can
+be counted by considering that either an element is in a subset or not, leading
+to a total of $2^n$.
+
+Alternatively, consider that for $f(x, y) = (x + y)^n =
+\sum_{i=0}^n\binom{n}{i}x^iy^{n-i}$ has that $f(1, 1) = 2^n = \sum_{i=0}^n\binom{n}{i}1^i1^{n-i}$.
+
+\subsection*{1.8.15.b}
+
+Take the same function $f(x, y) = (x + y)^n$ again; we see that $f(-1, 1) = 0^n
+= 0 = \sum_{i=0}^n\binom{n}{i}(-1)^i = 0$.
+
+\subsection*{1.8.18}
+
+There are $\binom{20}{2}$ ways to choose the two recipients for each class;
+there are $\binom{100}{10}$ ways to choose the ten recipients.
+
+The probability is then
+
+\[
+  \frac{\binom{20}{2}^5}{\binom{100}{10}} \approx 0.014
+\]
+
+\subsection*{1.9.4}
+
+There is only one correct spelling of statistics; the total amount of ways to do
+such an ordering is
+
+\[
+  \binom{10}{3,3,2,1,1} = \frac{10!}{3!3!2!1!1!} = 50400
+\]
+
+The probability of an ordering spelling statistics is then
+
+\[
+  \frac{1}{\binom{10}{3,3,2,1,1}} = \frac{1}{50400} \approx 0.0000198
+\]
+
+\subsection*{1.10.6}
+
+Put $R, W, B$ as the odds of picking no red, white, and blue balls,
+respectively. We then need to compute $\pr{R \cup W \cup B} = \pr{R} + \pr{W} +
+\pr{B} - \pr{R, W} - \pr{R, B} - \pr{W, B}$.
+
+We have that $\pr{R} = \pr{W} = \pr{B} = \frac{\binom{60}{10}}{\binom{90}{10}}$,
+and that $\pr{R, W} = \pr{R, B} = \pr{W, B} =
+\frac{\binom{30}{10}}{\binom{90}{10}}$, so that
+
+\[
+  \pr{R \cup W \cup B} = 3\frac{\binom{60}{10} - \binom{30}{10}}{\binom{90}{10}}
+\]
+
+
+\subsection*{1.10.10}
+
+The probability of exactly the first envelope being correct is $\frac{1}{6!}$,
+as there is only one such ordering that places only the first envelope correctly
+out of six total orderings; this is disjoint with only the second and third
+envelopes each being correct, so the total probability is $3\frac{1}{6} = \frac{1}{2}$.
+
+\end{document}
+
+% LocalWords:  NetID fancyplain LocalWords colorlinks linkcolor linkbordercolor

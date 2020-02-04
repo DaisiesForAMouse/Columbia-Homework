@@ -1,0 +1,149 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{relsize}
+\usepackage{fancyvrb}
+\usetikzlibrary{shapes.geometric,fit}
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+\newcommand\course{MATH 1208}
+\newcommand\hwnumber{1}
+\newcommand\NetIDa{dc3451}
+\newcommand\NetIDb{David Chen}
+
+\theoremstyle{definition}
+\newtheorem*{statement}{Statement}
+\newtheorem*{claim}{Claim}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+
+\newcommand{\contra}{\Rightarrow\!\Leftarrow}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Zeq}{\mathbb{Z}_{\geq 0}}
+\newcommand{\Zg}{\mathbb{Z}_{>0}}
+\newcommand{\Req}{\mathbb{R}_{\geq 0}}
+\newcommand{\Rg}{\mathbb{R}_{>0}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+
+\pagestyle{fancyplain}
+\headheight 35pt
+\lhead{\NetIDa}
+\lhead{\NetIDa\\\NetIDb}
+\chead{\textbf{\Large Homework \hwnumber}}
+\rhead{\course \\ \today}
+\lfoot{}
+\cfoot{}
+\rfoot{\small\thepage}
+\headsep 1.5em
+
+\begin{document}
+
+\section*{Problem 1}
+
+
+
+\section*{Problem 2}
+
+\subsection*{a}
+
+We will first show that $Id_V - T$ is linear.
+\begin{align*}
+  (Id_v-T)(cx) &= Id_V(cx) - T(cx) \\
+               &= cx - cT(x) \\
+               &= c(Id_V(x)) - cT(x) \\
+               &= c(Id_V(x) - T(x)) \\
+               &= c((Id_v - T)(x)) \\
+  (Id_v - T)(x + y) &= Id_V(x + y) - T(x + y) \\
+               &= x + y - T(x) - T(y) \\
+               &= Id_V(x) - T(x) + Id_V(y) - T(y) \\
+               &= (Id_V - T)(x) + (Id_V - T)(y)
+\end{align*}
+
+It has an inverse, namely $Id_v + T + T^2$:
+
+\begin{align*}
+  (Id_v + T + T^2)((Id_v - T)(x)) &= Id_v(x - T(x)) + T(x - T(x)) + T(T(x - T(x))) \\
+                                  &= x - T(x) + T(x) - T(T(x)) + T(T(x)) - T(T(T(x))) \\
+                                  &= x
+\end{align*}
+
+Via the theorem proved in class, we have that $Id_V - T$ is an isomorphism.
+
+\section*{Problem 3}
+
+\begin{claim}
+  $\{\sin(x), \sin(2x),..., \sin(2^nx),...\}$ is linearly independent.
+\end{claim}
+
+\begin{proof}
+  Suppose that we have some linear combination $\sum_{i=0}^na_isin(2^ix) = 0$.
+  Consider $x = \frac{\pi}{2^{k+1}}$, where $k$ is the least integer such that
+  $a_k \neq 0$.
+
+  Then, we have that $\sin(\frac{2^i\pi}{2^{k+1}}) = \sin(2^{i - k - 1}\pi) = 0$ for
+  any $i > k$; for any $i < k$, we have that $a_i = 0$; for $i = k$, we have
+  that $\sin(\frac{2^k\pi}{2^{k+1}}) = \sin(\frac{\pi}{2}) = 1$.
+\end{proof}
+
+\section*{Problem 4}
+
+\begin{claim}
+  $\{1, 1 + x, 1 + x + x^2, ..., 1 + x + x^2 + ... + x^n, ...\}$ is linearly independent.
+\end{claim}
+
+\begin{proof}
+  % We will show that $\sum_{i=0}^na_i\sum_{j=0}^ix^j = 0 \iff a_i = 0$ for $0
+  % \leq i \leq n$ through induction on $n$. The base case is $n = 0$, where
+  % $\sum_{i=0}^0a_i\sum_{j=0}^ix^j = a_0$. It follows immediately that
+  % $\sum_{i=0}^na_i\sum_{j=0}^ix^j = 0 \iff a_0 = 0$.
+
+  % Suppose that the above hypothesis holds for $n = k$. Then,
+  % $\sum_{i=0}^{k+1}a_i\sum_{j=0}^ix^j = $
+
+  We will show that $\sum_{i=0}^na_i\sum_{j=0}^ix^j =
+  \sum_{i=0}^{n}(x^i\sum_{j=i}^{n}a_j)$ through induction on $n$. The base case,
+  which has $n = 0$, follows immediately as $\sum_{i=0}^0(a_i\sum_{j=0}^ix^j) =
+  a_0$.
+
+  Now assume the above hypothesis for $n = k$. Then,
+  \begin{align*}
+    \sum_{i=0}^{k+1}(a_i\sum_{j=0}^ix^j) &= \sum_{i=0}^k(a_i\sum_{j=0}^ix^j) + a_{k+1}\sum_{j=0}^{k+1}x^j \\
+                                       &= \sum_{i=0}^{k}(x^{i}\sum_{j=i}^{k}a_j) + a_{k+1}\sum_{j=0}^{k+1}x^j \\
+                                         &= \sum_{i=0}^k(x^i\sum_{j=i}^{k+1}a_j) + a_{k+1}  \\
+                                         &= \sum_{i=0}^{k+1}(x^i\sum_{j=i}^{k+1}a_j)  \\
+  \end{align*}
+
+  Since we have from earlier that a polynomial
+  $\sum_{i=0}^{n}(x^i\sum_{j=i}^{n}a_j)$ is zero everywhere if and only if
+  all of its coefficients are zero, we have that all of $\sum_{j=i}^{k+1}a_j$
+  must be zero. Since $i$ ranges from 0 to $n$ inclusive; we can show that these
+  are all $0$ if and only if all $a_j = 0$.
+
+  The base case of $$
+\end{proof}
+
+\end{document}
+
+% LocalWords:  NetID fancyplain LocalWords colorlinks linkcolor linkbordercolor

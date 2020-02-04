@@ -1,0 +1,176 @@
+
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{xfrac}
+\usepackage{nicefrac}
+\usepackage{xcolor}
+\allowdisplaybreaks
+
+
+\usetikzlibrary{shapes.geometric,fit}
+\usetikzlibrary{patterns}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+\newcommand\course{ECON 3213}
+\newcommand\hwnumber{2}
+\newcommand\NetIDa{dc3451}
+\newcommand\NetIDb{David Chen}
+
+\newcommand\R{\mathbb{R}}
+
+\theoremstyle{definition}
+\newtheorem*{statement}{Statement}
+\newtheorem*{claim}{Claim}
+\newtheorem*{theorem}{Theorem}
+
+\newcommand{\contra}{\Rightarrow\!\Leftarrow}
+\newcommand{\Lag}{\mathcal{L}}
+
+\pagestyle{fancyplain}
+\headheight 35pt
+\lhead{\NetIDa}
+\lhead{\NetIDa\\\NetIDb}
+\chead{\textbf{\Large Problem Set \hwnumber}}
+\rhead{\course \\ \today}
+\lfoot{}
+\cfoot{}
+\rfoot{\small\thepage}
+\headsep 1.5em
+
+\begin{document}
+
+% The following \verb!R! code was used to compute the solutions. 
+
+% \begin{scriptsize}
+% \begin{verbatim}
+% \end{verbatim}
+% \end{scriptsize}
+
+\subsection*{Part a}
+
+If we have any positive income to the bottom $90\%$, then $Y_t^{90} > 0$; and
+since we know that $Y_t > 0$, we have that $\alpha_t > 0$.
+
+Since we have that $i < j \implies y_t^i \leq y_t^j$, we have that
+$\sum_{i=k}^{k+9}y_t^i \leq \sum_{i=91}^{100}y_t^i$ for any $k < 91$. Taking $k
+= 1, 11, ..., 81$ and summing, we have that $\sum_{i=1}^{90}y_t^i \leq
+9\sum_{i=91}^{100}$.
+
+\begin{align*}
+  \alpha_t &= \frac{Y_t^{90}}{Y_t} \\ 
+           &= \frac{Y_t^{90}}{Y_t^{90} + Y_t^{10}} \\
+           &= 1 - \frac{Y_t^{10}}{Y_t^{90} + Y_t^{10}} \\
+           &= 1 - \frac{\sum_{i=91}^{100}y_t^i}{\sum_{i=1}^{90}y_t^i + \sum_{i=91}^{100}y_t^i} \\
+           &\leq 1 - \frac{\sum_{i=91}^{100}y_t^i}{10\sum_{i=91}^{100}y_t^i} \\
+           &= 1 - \frac{1}{10} = 0.9
+\end{align*}
+
+\subsection*{Part b}
+
+If there is no income inequailty, for any $i,j$ we have that $y_t^i = y_t^j$.
+
+\begin{align*}
+  \alpha_t &= \frac{Y_t^{90}}{Y_t} \\ 
+           &= \frac{\sum_{i=91}^{100}y_t^i}{\sum_{i=1}^{100}y_t^i} \\
+           &= \frac{90y_t^1}{100y_t^1} \\
+           &= 0.9
+\end{align*}
+
+\subsection*{Part c}
+
+\[
+  \frac{Y_{2018}^{90}}{Y_{1980}^{90}} = \frac{3Y_{1947}^{90}}{2Y_{1947}^{90}}
+  = \frac{3}{2} = 1.5
+\]
+
+This implies that the total amount of income accrued to the bottom $90\%$
+increased by a magnitude of $50\%$ over the $38$ years inbetween 1980 and 2018.
+
+\subsection*{Part d}
+
+\[
+  \frac{Y_{2018}}{Y_{1980}} = \frac{4Y_{1947}}{2Y_{1947}} = 2
+\]
+
+
+This implies that the total amount of income to the entire population doubled
+over the $38$ years inbetween 1980 and 2018; since this is significantly higher
+than the previous $Y_{2018}^{90} / Y_{1980}^{90}$, it implies that income grew
+much faster for the top decile than the rest.
+
+\subsection*{Part e}
+
+\begin{align*}
+  Y_{1980}^{10} &= \alpha_{1980}Y_{1980} \\
+  \frac{Y_{2018}^{10}}{Y_{1980}^{10}} &= \frac{Y_{2018} -
+    Y_{2018}^{10}}{Y_{1980} - Y_{1980}^{10}} \\
+                &= \frac{2Y_{1980} - \frac{3}{2}Y_{1980}^{10}}{Y_{1980} - Y_{1980}^{10}} \\
+                &= \frac{2Y_{1980} - \frac{3\alpha_{1980}}{2}Y_{1980}}{Y_{1980} - \alpha_{1980}Y_{1980}} \\
+                &= \frac{4 - 3\alpha_{1980}}{2 - 2\alpha_{1980}}
+\end{align*}
+
+\subsection*{Part f}
+
+\[
+  \frac{Y_{2018}^{10}}{Y_{1980}^{10}} = \frac{4 - 3\alpha_{1980}}{2 -
+    2\alpha_{1980}} = \frac{4 - 2}{2 - \frac{4}{3}} = 3
+\]
+
+This means that the amount of income accrued to the top decile in 2018 is triple of what
+it was in 1980.
+
+\subsection*{Part g}
+
+\[
+  \alpha_{2018} = \frac{Y_{2018}^{90}}{Y_{2018}} =
+  \frac{\frac{3}{2}Y_{1980}^{90}}{2Y_{1980}} = \frac{3}{4}\alpha_{1980}
+\]
+
+\subsection*{Part h}
+
+We have that
+
+\[
+  Y_t^{90} = \alpha_tY_t = \alpha_t(Y_t^{90} + Y_t^{10}) \implies
+  \frac{Y_t^{10}}{Y_t^{90}} = \frac{1 - \alpha_t}{\alpha_t}
+\]
+
+\begin{align*}
+  \frac{x_t^{10}}{x_t^{90}} &= \frac{9Y_t^{10}}{Y_t^{90}} \\
+                            &= \frac{9 - 9\alpha_t}{\alpha_t}
+\end{align*}
+
+For the respective years, we have that
+
+\[
+  \frac{x_{1980}^{10}}{x_{1980}^{90}} = \frac{3}{\frac{2}{3}} = \frac{9}{2},
+\]
+
+\[
+  \frac{x_t^{10}}{x_t^{90}} = \frac{\frac{9}{2}}{\frac{1}{2}} = 9, 
+\]
+
+We have that inequailty explodes from $1980 - 2018$, as we see that the average
+real income per capita doubles over this period.
+
+\end{document}
+% LocalWords:  nodecirc
