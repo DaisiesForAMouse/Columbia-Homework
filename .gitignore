@@ -8,4 +8,5 @@
 *.fmt
 .~lock*
 _*
+.Rhistory
 auto
