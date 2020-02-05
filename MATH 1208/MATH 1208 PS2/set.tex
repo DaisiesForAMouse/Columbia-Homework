@@ -62,6 +62,19 @@
 
 \section*{Problem 1}
 
+\subsection*{a}
+
+Since we have that $\{v_1, v_2, ..., v_k\} \subseteq \{v_1, ..., v_n\}$ for $n
+\geq k$, if $v \in V$ has $v = \sum_{i=1}^ka_iv_i$, then that same combination
+is a linear combination of $\{v_1, ..., v_n\}$ that equals $v$. Since this is
+not required to be unique, nor with all nonzero coefficients, we are done.
+
+\subsection*{b}
+
+Suppose that $\{v_1, ..., v_k\}$ is linearly dependent, such that
+$\sum_{i=1}^ka_iv_i = 0$. Then, since $n \geq k$, we would have that $\{v_1,
+..., v_n\}$ is linearly dependent as a linear combination of vectors here sum to
+zero. $\contra$, so $\{v_1, ..., v_k\}$ is linearly independent.
 
 
 \section*{Problem 2}
@@ -90,6 +103,22 @@ It has an inverse, namely $Id_v + T + T^2$:
 \end{align*}
 
 Via the theorem proved in class, we have that $Id_V - T$ is an isomorphism.
+
+\subsection*{b}
+
+If $T^n = 0$ for $n \in \Zg$ then $T_0 - T$ is still an isomorphism with inverse
+$\sum_{i=0}^{n-1}T^i$. (Note that if $n = 0$, we have that $Id_V = 0 \implies$
+the vector space is trivial, and this still holds trivially with inverse also $Id_V$)
+
+\begin{align*}
+  (\sum_{i=0}^{n-1}T^i)((T^0-T)(x)) &= (\sum_{i=0}^{n-1}T^i)(T^0(x)-T(x)) \\
+                                    &= \sum_{i=0}^{n-1}T^i(T^0(x) - T(x)) \\
+                                    &= \sum_{i=0}^{n-1}T^i(T^0(x)) - \sum_{i=0}^{n-1}T^i(T(x)) \\
+                                    &= \sum_{i=0}^{n-1}T^i(x) - \sum_{i=0}^{n-1}T^{i + 1}(x) \\
+                                    &= \sum_{i=0}^{n-1}T^i(x) - \sum_{i=1}^{n}T^i(x) \\
+                                    &= T^0(x) - T^n(x) = Id_V
+\end{align*}
+
 
 \section*{Problem 3}
 
@@ -130,7 +159,7 @@ Via the theorem proved in class, we have that $Id_V - T$ is an isomorphism.
   Now assume the above hypothesis for $n = k$. Then,
   \begin{align*}
     \sum_{i=0}^{k+1}(a_i\sum_{j=0}^ix^j) &= \sum_{i=0}^k(a_i\sum_{j=0}^ix^j) + a_{k+1}\sum_{j=0}^{k+1}x^j \\
-                                       &= \sum_{i=0}^{k}(x^{i}\sum_{j=i}^{k}a_j) + a_{k+1}\sum_{j=0}^{k+1}x^j \\
+                                         &= \sum_{i=0}^{k}(x^{i}\sum_{j=i}^{k}a_j) + a_{k+1}\sum_{j=0}^{k+1}x^j \\
                                          &= \sum_{i=0}^k(x^i\sum_{j=i}^{k+1}a_j) + a_{k+1}  \\
                                          &= \sum_{i=0}^{k+1}(x^i\sum_{j=i}^{k+1}a_j)  \\
   \end{align*}
@@ -138,11 +167,178 @@ Via the theorem proved in class, we have that $Id_V - T$ is an isomorphism.
   Since we have from earlier that a polynomial
   $\sum_{i=0}^{n}(x^i\sum_{j=i}^{n}a_j)$ is zero everywhere if and only if
   all of its coefficients are zero, we have that all of $\sum_{j=i}^{k+1}a_j$
-  must be zero. Since $i$ ranges from 0 to $n$ inclusive; we can show that these
+  must be zero. Since $i$ ranges from 0 to $k+1$ inclusive, we can show that these
   are all $0$ if and only if all $a_j = 0$.
 
-  The base case of $$
+  Taking $i = k + 1$, we have that $a_{k+1} = 0$. If $a_{k+1}, a_{k}, ..., a_{l}
+  = 0$, we can induct backwards on $l$ until $l = 0$. Taking $i = l - 1$ shows
+  that $a_{l - 1} = 0$.
+
+  Thus, the only linear combination of the original set that vanishes is the
+  trivial one.
 \end{proof}
+
+\section*{Problem 5}
+
+\subsection*{a}
+
+Let the base be also be the same as $V, W$.
+
+Commutativity:
+
+\[
+  (v, w) + (v', w') = (v + v', w + w') = (v' + v, w' + w) = (v', w') + (v, w)
+\]
+
+Associativity:
+
+\begin{align*}
+  (v, w) + ((v', w') + (v'', w'')) &= (v, w) + (v' + v'', w' + w'') \\
+                                   &= (v + v' + v'', w + w' + w'') \\
+                                   &= (v + v', w + w') + (v'', w'') \\
+                                   &= ((v, w) + (v', w')) + (v'', w'')
+\end{align*}
+
+\[
+  (cd)(v, w) = ((cd)v, (cd)w) = (c(dv), c(dw)) = c(dv, dw) = c(d(v, w))
+\]
+
+Distributivity:
+
+\begin{align*}
+  c((v, w) + (v', w')) &= c(v + v', w + w') \\
+                       &= (c(v + v'), c(w + w')) \\
+                       &= (cv + cv', cw + cw') \\
+                       &= (cv, cw) + (cv', cw') = c(v, w) + c(v', w')
+\end{align*}
+
+\begin{align*}
+  (c + d)(v, w) &= ((c + d)v, (c + d)w) \\
+                &= (cv + dv, cw + dw) \\
+                &= (cv, cw) + (dv, dw) \\
+                &= c(v, w) + d(v, w)
+\end{align*}
+
+Identity:
+
+\[
+  (v, w) + (0_V, 0_W) = (v + 0_V, w + 0_W) = (v, w)
+\]
+
+\[
+  1(v, w) = (1v, 1w) = (v, w)
+\]
+
+Inverse:
+
+\[
+  (v, w) + (-v, -w) = (v - v, w - w) = (0, 0)
+\]
+
+Closure:
+
+Since $(v, w) + (v', w') = (v + v', w + w')$ and $v + v' \in V, w + w' \in W$,
+we have that $(v, w) + (v', w') \in V \oplus W$.
+
+Since $c(v, w) = (cv, cw)$ and $cv \in V, cw \in W$, we have that $c(v, w) \in V
+\oplus W$.
+
+\subsection*{b}
+
+\begin{claim}
+  \[
+    \dim(V \oplus W) = \dim(V) + \dim(W)
+  \]
+\end{claim}
+
+\begin{proof}
+  This is actually a special case of Problem 7, part d, where $V \cap W = \{0\}$. The
+  above follows.
+
+  This isn't obvious by the given definition of the direct product, so here is a
+  more direct proof: consider the set $\{(v_1, 0), (v_2, 0), ..., (v_m, 0),
+  (0, w_1), (0, w_2), ..., (0, w_n)\}$, where $\{v_1, v_2, ..., v_m\}$ and
+  $\{w_1, w_2, ..., w_n\}$ are bases for $V$ and $W$ respectively.
+
+  Any $(v, w) \in V \oplus W$ has:
+
+  \begin{align*}
+    (v, w) &= (\sum_{i=1}^ma_iv_i, \sum_{i=1}^nb_iw_i) \\
+           &= \sum_{i=1}^n(a_iv_i, 0) + \sum_{i=1}^n(0, b_iw_i) \\
+           &= \sum_{i=1}^na_i(v_i, 0) + \sum_{i=1}^nb_i(0, w_i) 
+  \end{align*}
+
+  which yields a basis of size $\dim(V) + \dim(W)$ for $V \oplus W$.
+\end{proof}
+
+\section*{Problem 6}
+
+\subsection*{a}
+
+Suppose that
+
+\[
+  \sum_{i=1}^na_if_{s_i} = 0
+\]
+
+where the $s_i$ are a finite collection of $n$ distinct elements of $S$. For
+any $k$ where $1 \leq k \leq n$, we have that $0 = (\sum_{i=1}^na_if_{s_i})(s_k) =
+a_kf_{s_k}(s_k) = a_k$. Thus, only the trivial solution exists to
+$\sum_{i=1}^na_if_{s_i} = 0$. 
+
+\subsection*{b}
+
+Consider $f: S \rightarrow F$ such that $f(s) = 1$. Then, take any finite linear
+combination $\sum_{i=1}^na_if_{s_i}$ from $C$, and take an element from $S$, $s$,
+such that $s \neq s_k$ for any $k$ that has $1 \leq k \leq n$, which is always
+possible since $S$ is infinite. Then, $(\sum_{i=1}^na_if_{s_i})(s) =
+\sum_{i=1}^na_if_{s_i}(s) = \sum_{i=1}^n 0 = 0$. Thus, $C$ does not span
+$\mathcal{F}(S, F)$, and is therefore not a basis.
+
+
+\section*{Problem 7}
+
+\subsection*{a}
+
+Let set $\{v_1, v_2, ..., v_k\}$ be a basis for $U \cap V$, where $u_1 = v_1,
+u_2 = v_2, ..., u_k = v_k$. This set is then linearly independent, and therefore
+can then be extended to bases for $U$ and $V$ via a theorem proved and used in
+class.
+
+Further, we have that for $i > k$, $v_i \neq u_i$, as these by the invoked
+thereom are linearly independent of $\{v_1, ..., v_k\}$ and being indentical
+would form a basis of size $k + 1$ for $U \cap V$, which would violate another
+theorem used in class.
+
+\subsection*{b}
+
+The span of $U \cup V$ can be written as $\{u + v \mid u \in U, v \in V\}$.
+Then, we have that any such vector in that span is expressed
+\begin{align*}
+  u + v &= \sum_{i=1}^ma_iu_i + \sum_{i=1}b_iv^n \\
+        &= \sum_{i=1}^ma_iu_i + \sum_{i=1}^kb_iv_i + \sum_{i=k+1}^nb_iv_i \\
+        &= \sum_{i=1}^ma_iu_i + \sum_{i=1}^kb_iu_i + \sum_{i=k+1}^nb_iv_i \\
+\end{align*}
+which is a finite linear combination of $u_1, ..., u_m, v_{k+1}, ..., v_{n}$.
+
+Further, this must be linearly independent, as we have that $v_{k+1}, ...,
+v_{n}$ are not in the span of $u_1, ..., u_m$ as well as that $u_1, ..., u_m$
+and $v_{k+1}, ..., v_n$ are all linearly independent within those collections as
+they are bases for vector spaces by assumption.
+
+\subsection*{c}
+
+We have an explicit basis: $u_1, ..., u_m, v_{k+1}, ..., v_{n}$. Since all bases
+are the same size for any given vector space, there are $m + n - k$ elements in
+the basis and so $\dim(U + V) = m + n - k = \dim(U) + \dim(V) - \dim(U \cap V)$
+by the definitions of $m, n$ and $k$.
+
+\subsection*{d}
+
+Consider $U = \{(x, y, 0) \mid x, y \in \R\}, V = \{(0,y,z) \mid y, z \in \R\}$.
+This has $U \cap V = \{(0, y, 0) \mid y \in \R\}$ such that $\dim(U) = \dim(V) =
+2, \dim(U \cap V) = 1$, and $U + V = \R^3$. Thus, $\dim(U + V) = \dim(U) +
+\dim(V) - \dim(U \cap V)$. 
 
 \end{document}
 
