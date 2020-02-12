@@ -1,0 +1,441 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{relsize}
+\usepackage{fancyvrb}
+\usetikzlibrary{shapes.geometric,fit}
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+\newcommand\course{MATH 1208}
+\newcommand\hwnumber{3}
+\newcommand\NetIDa{dc3451}
+\newcommand\NetIDb{David Chen}
+
+\theoremstyle{definition}
+\newtheorem*{statement}{Statement}
+\newtheorem*{claim}{Claim}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+
+\newcommand{\contra}{\Rightarrow\!\Leftarrow}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Zeq}{\mathbb{Z}_{\geq 0}}
+\newcommand{\Zg}{\mathbb{Z}_{>0}}
+\newcommand{\Req}{\mathbb{R}_{\geq 0}}
+\newcommand{\Rg}{\mathbb{R}_{>0}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\id}{\mathrm{Id}}
+\newcommand{\im}{\mathrm{im}}
+
+\pagestyle{fancyplain}
+\headheight 35pt
+\lhead{\NetIDa}
+\lhead{\NetIDa\\\NetIDb}
+\chead{\textbf{\Large Homework \hwnumber}}
+\rhead{\course \\ \today}
+\lfoot{}
+\cfoot{}
+\rfoot{\small\thepage}
+\headsep 1.5em
+
+\begin{document}
+
+\section*{Problem 1}
+\subsection*{a}
+
+\begin{claim}
+  \[
+    W = \left\{  (x_1, ..., x_n) \in \R^n \mid \sum_{i=1}^nx_i = 0 \right\}
+  \]
+  is a subspace of $\R^n$.
+\end{claim}
+
+\begin{proof}
+  We need to show closure under scalar multiplication and vector addition.
+
+  Scalar multiplication:
+  \begin{align*}
+    c(x_1, ..., x_n) &= (cx_1, ..., cx_n) \\
+    \sum_{i=1}^ncx_i &= c\sum_{i=1}^nx_i = c(0) = 0 \\
+  \end{align*}
+
+  Vector addition:
+  \begin{align*}
+    (x_1, ..., x_n) + (y_1, ..., y_n) &= (x_1 + y_1, ..., x_n + y_n) \\
+    \sum_{i=1}^nx_i + y_i &= \sum_{i=1}^nx_i + \sum_{i=1}^ny_i = 0 + 0 = 0
+  \end{align*}
+\end{proof}
+
+\subsection*{b}
+
+\begin{claim}
+  \[
+    \dim W = n - 1
+  \]
+\end{claim}
+
+\begin{proof}
+  Put $e = (0, 0, ..., 0, -1) \in \R^n$ (more specifically, put $x_i$ for the
+  $i^{th}$ component of $e$. Then $x_i = -1 \iff i = n$ and $x_i = 0$
+  otherwise). $W$ is spanned by $\{e_i + e \mid i \in [n-1]\}$, where $[n-1] =
+  1, 2, ..., n-1$.
+
+  To see this, we will first show that this is a linearly independent set. Put
+  $s_i = e_i + e$, and let
+  \[
+    \sum_{i=1}^{n-1} c_is_i = (c_1, c_2, ..., c_{n-1}, -\sum_{i=1}^{n-1}c_i) = 0
+  \]
+  
+  In order for this to hold, $c_i = 0$, so the above set is linearly
+  independent.
+
+  To see that this also spans $W$, let any element $w \in W$ have $i^{th}$
+  component $w_i$. Then, $\sum_{i=1}^nw_i = 0 \implies w_n =
+  -\sum_{i=1}^{n-1}w_i$. Since
+  \[
+    \sum_{i=1}^{n-1} w_is_i = (w_1, w_2, ..., w_{n-1}, -\sum_{i=1}^{n-1}w_i) = w
+  \]
+  we have that the above is a basis for $W$, showing that $\dim W = n - 1$.
+
+  Alternatively, we have that taking $T: \R^n \rightarrow \R$ such that $T((x_1,
+  x_2, ..., x_n)) = \sum_{i=1}^nx_i$ is a linear map with $\ker{T} = W$;
+  rank-nullity has that $\dim(W) = n - \dim(\im(T)) = n - 1$.
+\end{proof}
+
+\section*{Problem 2}
+
+The matrix representative of $\id_V$ must send each component to itself. Thus,
+each basis vector $v_i$ has that $\id_V(v_i) = v_i$, so that $m(\id_V) \in M_{n
+  \times n}(F)$ has that $a_{ij} = 1 \iff i = j$ and $a_{ij} = 0$ otherwise.
+
+\[
+  m(\id_V) = \begin{bmatrix}
+    1 & 0 & \dots & 0 \\
+    0 & 1 & \dots & 0 \\
+    \vdots & \vdots & \ddots & \vdots \\
+    0 & 0 & \dots & 1
+  \end{bmatrix}
+\]
+
+However, if we were to choose a different basis (say $\{-e_i \mid i \in [n]\}$
+in the case of $\R^n$) for the codomain, then this no longer holds. In the
+previously mentioned case of choosing $V = \R^n$, and the basis of the domain to
+be the standard basis $\{e_i\}$ and the basis of the codomain to be $\{-e_i\}$,
+we have that $\id_V(e_i) = e_i = -(-e_i)$, so that now
+\[
+  m(\id_V) = \begin{bmatrix}
+    -1 & 0 & \dots & 0 \\
+    0 & -1 & \dots & 0 \\
+    \vdots & \vdots & \ddots & \vdots \\
+    0 & 0 & \dots & -1
+  \end{bmatrix}
+\]
+
+where $m(\id_V) \in M_{n\times n}(F)$ has that $a_{ij} = 1 \iff i = j$ and
+$a_{ij} = 0$ otherwise.
+
+\section*{Problem 3}
+
+Put $A \in M_{m \times n}, B \in M_{n \times p}$.
+
+\subsection*{a}
+
+\begin{claim}
+  If some row of $A$ is zero then some row of $AB$ will also be zero.
+\end{claim}
+
+\begin{proof}
+  Some row of some matrix $M \in M_{m \times n}$ being zero is equivalent to the statement that for some $i$
+  and $j \in [n]$, $M_{ij} = 0$. Suppose that the $i^{th}$ row of $A$ is zero.
+  Since we have that
+  \begin{align*}
+    (AB)_{ij} &= \sum_{k=1}^nA_{ik}B_{kj} \\
+    \intertext{Since all $A_{ik} = 0$ by assumption,}
+              &= \sum_{k=1}^n0 = 0
+  \end{align*}
+  which implies that the $i^{th}$ row of $AB$ must also be zero.
+\end{proof}
+
+\subsection*{b}
+
+Consider the counterexample
+\[
+  \begin{bmatrix}
+    0 & 1 \\
+    0 & 1
+  \end{bmatrix}
+  \begin{bmatrix}
+    1 & 1 \\
+    1 & 1
+  \end{bmatrix}
+  =
+  \begin{bmatrix}
+    1 & 1 \\
+    1 & 1
+  \end{bmatrix}
+\]
+
+\subsection*{c}
+
+\begin{claim}
+  If some column of $B$ is zero then some column of $AB$ will also be zero.
+\end{claim}
+
+\begin{proof}
+  Some column of some matrix $M \in M_{n \times p}$ being zero is equivalent to the statement that
+  for $i \in [n]$ and some and $j$, $M_{ij} = 0$. Suppose that the $j^{th}$ column of $B$ is zero.
+  Since we have that
+  \begin{align*}
+    (AB)_{ij} &= \sum_{k=1}^nA_{ik}B_{kj} \\
+    \intertext{Since all $B_{kj} = 0$ by assumption,}
+              &= \sum_{k=1}^n0 = 0
+  \end{align*}
+  which implies that the $j^{th}$ column of $AB$ must also be zero.
+\end{proof}
+
+\subsection*{d}
+
+\begin{claim}
+  If two columns of $B$ are identical, then two columns of $AB$ will also be identical.
+\end{claim}
+
+Suppose that the $x^{th}$ and $y^{th}$ columns of $B$ are identical (that is,
+$B_{ix} =B_{iy}$ for $i \in [n]$).
+
+\begin{align*}
+  (AB)_{ix} &= \sum_{k=1}^nA_{ik}B_{kx} \\
+            &= \sum_{k=1}^nA_{ik}B_{ky} \\
+            &= (AB)_{iy}
+\end{align*}
+
+Thus, the $x^{th}$ and $y^{th}$ columns of $AB$ are also identical.
+
+\section*{Problem 4}
+
+\subsection*{a}
+
+\begin{claim}
+  For $P_n$, the set of all polynomials $\R \rightarrow \R$ of degree $\leq n$,
+  the map $G: P_n \rightarrow \R^k$ where $G(f) = (f(1), f(2), ..., f(k))$ is linear, and is also
+  surjective when $k \leq n + 1$.
+\end{claim}
+
+\begin{proof}
+  Put the $i^{th}$ component of any vector $v \in \R^k$ as $v_i$.
+  
+  \begin{alignat*}{2}
+    && G(f + g)_{i} &= f(i) + g(i) \\
+    && &= G(f)_i + G(g)_{i} \\
+    &\implies& G(f + g) &= G(f) + G(g) \\
+    && G(cf)_i &= (cf)(i) \\
+    && &= cf(i) \\
+    && &= cG(f)_i \\
+    &\implies& G(cf) &= cG(f)
+  \end{alignat*}
+
+  The above shows that $G$ is indeed linear.
+
+  To show surjectivity, consider the set of polynomials
+  \[
+    p_i(x) = \prod_{j=1, j \neq i}^k\frac{x - j}{i - j} 
+  \]
+  
+  Since we have that $k \leq n + 1$, we have that $p_i(x) \in P_n$.
+
+  The above has that $p_i(i) = \prod_{j=1, j \neq i}^k\frac{i - j}{i - j} = 1$. 
+  Further, for $l \in \{1, 2, ..., \hat{i}, ..., k\}$, we have that $p_i(l) =
+  \prod_{j=1, j\neq i}^k\frac{l - j}{i - j} = 0$.
+  
+  Now for any element $y = (y_1, y_2, ..., y_k) \in \R^k$, we have that
+  \[
+    f(x) = \sum_{i=1}^ky_ip_i(x) \implies G(f) = y
+  \]
+  as for $l \in [k]$, $f(l) = \sum_{i=1}^ky_ip_i(l) = y_lp_l(l) = y_l$.
+\end{proof}
+
+\subsection*{b}
+
+This follows directly from rank-nullity. The desired quanitity is the dimension
+of the subspace that is killed by $G$, which is exactly $\dim(\ker(G)) =
+\dim(P_n) - \dim(\im(G)) = n + 1 - k$.
+
+\section*{Problem 5}
+
+\subsection*{a}
+
+\begin{claim}
+  There is a linear map $T: V \rightarrow F$ such that $T(v) = 1$ for $v \neq 0$.
+\end{claim}
+
+\begin{proof}
+  Suppose that for some basis $v_1, ..., v_n$ of $V$, $v = \sum_{i=1}^n c_iv_i$.
+  Then, let $c_j$ be the first nonzero coefficient, and consider the
+  transformation
+  \[
+    T(\sum_{i=1}^na_iv_i) = c_j^{-1}a_j
+  \]
+
+  This sends $v \mapsto c_j^{-1}c_j = 1$, and is linear:
+
+  \begin{align*}
+    T(\sum_{i=1}^na_iv_i + \sum_{i=1}^nb_iv_i) &= T(\sum_{i=1}^n(a_i+b_i)v_i) \\
+                                               &= a_j + b_j \\
+                                               &= T(\sum_{i=1}^na_iv_i) + T(\sum_{i=1}^nb_iv_i) \\
+    T(c\sum_{i=1}^na_iv_i) &= T(\sum_{i=1}^nca_iv_i) \\
+                                               &= ca_j \\
+                                               &= cT(\sum_{i=1}^na_iv_i)
+  \end{align*}
+\end{proof}
+
+\subsection*{b}
+
+\begin{claim}
+  There is a linear map $T: V \rightarrow F$ such that $\ker(T) = W$ for $W$
+  some subspace of dimension $n - 1$.
+\end{claim}
+
+\begin{proof}
+  Let $W$ have basis $w_1, w_2, ..., w_{n-1}$. Extend this basis by one more
+  vector to get a basis $v_1 = w_1, v_2 = w_2 , ..., v_{n-1} = w_{n-1}, v_n$ for
+  $V$. Then, consider the transformation from above that sends $v_n \mapsto 1$,
+  i.e. 
+
+  \[
+    T(\sum_{i=1}^n a_iv_i) = a_n
+  \]
+
+  This kills any vector in $W$, as
+  \[
+    T(\sum_{i=1}^{n-1} a_iw_i) = T(\sum_{i=1}^{n-1}a_iv_i + 0v_n) = 0
+  \]
+
+  but is still linear as proved above.
+\end{proof}
+
+\subsection*{c}
+
+\begin{claim}
+  There is a linear map $T: V \rightarrow F$ such that $\ker(T) = W$ for $W$
+  some subspace of $V$.
+\end{claim}
+
+\begin{proof}
+  The approach is the same as above: let $W$ have basis $w_1, w_2, ..., w_{n-k}$
+  and $V$ basis $v_1 = w_1, v_2 = w_2, ..., v_{n-k} = w_{n-k}, v_{n - k + 1}, ...,
+  v_n$. Then, consider
+
+  \[
+    T(\sum_{i=1}^{n} a_iv_i) = (a_{n-k+1}, a_{n-k + 2}, ..., a_{n})
+  \]
+
+  or more specifically, $T(\sum_{i=1}^{n} a_iv_i) = f$, where the $i^{th}$
+  component of $f$ is $a_{n - k + f}$. Any vector in $W$ is killed:
+
+  \[
+    T(\sum_{i=1}^{n-k}a_iw_i) = T(\sum_{i=1}^{n-k}a_iv_i + \sum_{i=n-k +
+      1}^{n}0 v_i) = (0, 0, ..., 0)
+  \]
+
+  This is also linear:
+
+  \begin{align*}
+    T(\sum_{i=1}^{n} a_iv_i + \sum_{i=1}^{n} b_iv_i)_j &= a_j + b_j \\
+                                                       &= T(\sum_{i=1}^{n} a_iv_i)_j + T(\sum_{i=1}^{n} b_iv_i)_j \\
+    T(c\sum_{i=1}^{n} a_iv_i)_j &= T(\sum_{i=1}^{n} ca_iv_i)_j \\
+                                                       &= ca_j \\
+                                                       &= cT(\sum_{i=1}^{n} a_iv_i)_j
+  \end{align*}
+
+  We now have a linear map $T: V \rightarrow F^k$ such that $\ker(T) = W$.
+\end{proof}
+
+\section*{Problem 7}
+
+\subsection*{a}
+
+\begin{claim}
+  $\exists T: U \rightarrow V$ and $T$ surjective and linear $\implies \dim(U) = m \geq
+  \dim(V) = n$.
+\end{claim}
+
+\begin{proof}
+  We have by surjectivity that $\im(T) = V$. Rank nullity has that $\dim(U) =
+  \dim(\ker(T)) + \dim(\im(T)) \implies m = \dim(\ker(T)) + n$, and since
+  dimension is nonnegative, $m \geq n$.
+\end{proof}
+
+\subsection*{b}
+
+\begin{claim}
+  $\exists T: U \rightarrow V$ and $T$ injective and linear $\implies \dim(U) = m \leq
+  \dim(V) = n$.
+\end{claim}
+
+\begin{proof}
+  We have by injectivity that $\ker(T) = {0}$. Rank nullity has that $\dim(U) =
+  \dim(\ker(T)) + \dim(\im(T)) \implies m = \dim(\im(T))$. However, we have that
+  $\im(T)$ is a subspace of $V \implies \dim(\im(T)) \leq \dim(V)$, so we have
+  that $m = \dim(\im(T)) \leq n$.
+\end{proof}
+
+
+\section*{Problem 8}
+
+\begin{claim}
+  Suppose $A \in M_{n \times m}, B \in M_{m \times n}$ are matrices such that
+  $AB = I_n$. Then ,$m \geq n$.
+\end{claim}
+
+\begin{proof}
+  First we  will show that proving the corresponding claim for linear maps:
+  suppose that for $T_A: F^m \rightarrow F^n, T_B: F^n \rightarrow F^m$, we have
+  $T_A \circ T_B = \id_{F^m}$.
+
+  Then, we have that since $T$ is linear, we can pick the standard basis for 
+\end{proof}
+
+\section*{Problem 9}
+
+\begin{claim}
+  Let $A, B \in M_{m \times n}, C \in M_{n \times p}$. Then,
+  \[
+    (A + B)C = AC + BC
+  \]
+\end{claim}
+
+\begin{proof}
+  \begin{align*}
+    ((A + B)C)_{ij} &= \sum_{k=1}^n(A + B)_{ik}C_{kj} \\
+                    &= \sum_{k=1}^n(A_{ik} + B_{ik})C_{kj} \\
+                    &= \sum_{k=1}^nA_{ik}C_{kj} + B_{ik}C_{kj} \\
+                    &= \sum_{k=1}^nA_{ik}C_{kj} + \sum_{k=1}^nB_{ik}C_{kj} \\
+                    &= (AC)_{ij} + (BC)_{ij} \\
+                    &= (AC + BC)_{ij}
+  \end{align*}
+\end{proof}
+
+\end{document}
+
+% LocalWords:  NetID fancyplain LocalWords colorlinks linkcolor linkbordercolor

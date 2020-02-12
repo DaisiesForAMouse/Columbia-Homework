@@ -1,0 +1,237 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{relsize}
+\usepackage{fancyvrb}
+\usetikzlibrary{shapes.geometric,fit}
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+\newcommand\course{STAT 4001}
+\newcommand\hwnumber{2}
+\newcommand\NetIDa{dc3451}
+\newcommand\NetIDb{David Chen}
+
+\theoremstyle{definition}
+\newtheorem*{statement}{Statement}
+\newtheorem*{claim}{Claim}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+
+\newcommand{\contra}{\Rightarrow\!\Leftarrow}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Zeq}{\mathbb{Z}_{\geq 0}}
+\newcommand{\Zg}{\mathbb{Z}_{>0}}
+\newcommand{\Req}{\mathbb{R}_{\geq 0}}
+\newcommand{\Rg}{\mathbb{R}_{>0}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\pr}[1]{\text{Pr}\left(#1\right)}
+
+\pagestyle{fancyplain}
+\headheight 35pt
+\lhead{\NetIDa}
+\lhead{\NetIDa\\\NetIDb}
+\chead{\textbf{\Large Assignment \hwnumber}}
+\rhead{\course \\ \today}
+\lfoot{}
+\cfoot{}
+\rfoot{\small\thepage}
+\headsep 1.5em
+
+\begin{document}
+
+\subsection*{2.1.1}
+
+Since we have that $A \subset B$, $A \cap B = A$. Then,
+\[
+  \pr{A \mid B} = \frac{\pr{A \cap B}}{\pr{B}} = \frac{\pr{A}}{\pr{B}}
+\]
+
+\subsection*{2.1.4}
+
+Odds are parenthetical. He must start with $A$ $(\frac{1}{2})$, then proceed to
+stay $(\frac{1}{3})$, switch $(\frac{2}{3})$, and stay $(\frac{1}{3})$. This
+leaves us with
+\[
+  \frac{1}{2} \cdot \frac{1}{3} \cdot \frac{2}{3} \cdot \frac{1}{3} = \frac{1}{27}
+\]
+
+\subsection*{2.1.11}
+
+Note that since $A \cap B$ and $A^C \cap B$ are disjoint, as no $x$ can be both
+in $A$ and $A^C$, $\pr{A \cap B} + \pr{A^C \cap B} = \pr{(A \cap B) \cup (A^C
+  \cap B)} = \pr{B}$.
+
+\[
+  \pr{A^C \mid B} = \frac{\pr{A^C \cap B}}{\pr{B}} = \frac{\pr{B} - \pr{A \cap
+    B}}{\pr{B}} = 1 - \frac{\pr{A \cap B}}{\pr{B}} = 1 - \pr{A \mid B}
+\]
+
+\subsection*{2.2.2}
+
+We have that $\pr{A^C \cap B^C} = \pr{(A \cup B)^C} = 1 - \pr{A \cup B}$ from De
+Morgan's, which expands to
+\begin{align*}
+  1 - (\pr{A} + \pr{B} - \pr{A \cap B}) &= 1 - \pr{A} - \pr{B} + \pr{A}\pr{B} \\
+                                        &= (1 - \pr{A})(1 - \pr{B}) \\
+                                        &= \pr{A^C}\pr{B^C} = \pr{A^C \cap B^C}
+\end{align*}
+
+This shows that $A^C, B^C$ are independent.
+
+\subsection*{2.2.12a}
+
+From before, we have that complements are also independent if the original
+events were independent; similarly, we have that if $A, B$ are independent, as $A
+\cap B$ and $A \cap B^C$ are disjoint we have $\pr{A \cap B^C} = \pr{A} - \pr{A
+  \cap B} = \pr{A}(1 - \pr{B}) = \pr{A}\pr{B^C}$, so $A, B^C$ are also
+independent.
+
+The odds that none of the three occur:
+
+\[
+  (1 - \frac{1}{4})(1 - \frac{1}{3})(1 - \frac{1}{2}) = \frac{1}{4}
+\]
+
+\subsection*{2.2.12b}
+
+The odds that exactly one occurs:
+
+\[
+  \frac{1}{4}(1 - \frac{1}{3})(1 - \frac{1}{2}) + \frac{1}{3}(1 - \frac{1}{4})(1 -
+  \frac{1}{2}) + \frac{1}{2}(1 - \frac{1}{4})(1 - \frac{1}{3}) = \frac{1}{12} +
+  \frac{1}{8} + \frac{1}{4} = \frac{11}{24}
+\]
+
+\subsection*{2.2.22}
+
+\begin{claim}
+  Suppose that $A_1, A_2, B$ are events such that $\pr{A_1 \cap B} > 0$. Then
+  $A_1, A_2$ are conditionally independent given $B$ $\iff \pr{A_2 \mid A_1 \cap
+  B} = \pr{A_2 | B}$. 
+\end{claim}
+
+\begin{proof}
+  $(\implies)$ We already have that
+  \[
+    \pr{A_1 \cap A_2 \mid B} = \pr{A_1 \mid B}\pr{A_2 \mid B}
+  \]
+  as we assume that $A_1, A_2$ are conditionally independent.
+  
+  Expanding,
+
+  \begin{alignat*}{2}
+    &&\pr{A_1 \cap A_2 \mid B} &= \pr{A_1 \mid B}\pr{A_2 \mid B} \\
+    &\implies& \frac{\pr{A_1 \cap A_2 \cap B}}{\pr{B}} &= \frac{\pr{A_1 \cap
+        B}}{\pr{B}} \cdot \frac{\pr{A_2 \cap B}}{\pr{B}}  \\
+    &\implies& \frac{\pr{A_1 \cap A_2 \cap B}}{\pr{A_1 \cap B}} &=
+      \frac{\pr{A_2 \cap B}}{\pr{B}} \\
+      &\implies& \pr{A_2 \mid A_1 \cap B} &= \pr{A_2 \mid B}
+  \end{alignat*}
+
+  $(\impliedby)$ We have that $\pr{A_2 \mid A_1 \cap B} = \pr{A_2 \mid B}
+  \implies \frac{\pr{A_1 \cap A_2 \cap B}}{\pr{A_1 \cap B}} = \frac{\pr{A_2 \cap B}}{\pr{B}}$.
+
+  \begin{align*}
+    \pr{A_1 \mid B}\pr{A_2 \mid B} &= \frac{\pr{A_1 \cap B}}{\pr{B}} \cdot \frac{\pr{A_1 \cap B}}{\pr{B}}\\
+                                   &= \frac{\pr{A_1 \cap B}}{\pr{B}} \cdot \frac{\pr{A_2 \cap A_2 \cap B}}{\pr{A_1 \cap B}} \\
+                                   &= \frac{\pr{A_1 \cap A_2 \cap B}}{\pr{B}} \\
+                                   &= \pr{A_1 \cap A_2 \mid B}
+  \end{align*}
+\end{proof}
+
+\subsection*{2.3.4}
+
+Let $E_1 = $ sick, $E_2 = $ not sick, and $A = $ a positive test.
+
+\[
+  \pr{E_1 \mid A} = \frac{\pr{E_1}\pr{A \mid E_1}}{\pr{E_1}\pr{A \mid E_1} +
+    \pr{E_2}\pr{A \mid E_2}} = \frac{0.00001 \cdot 0.95}{0.99999 \cdot 0.05} = 0.00019
+\]
+
+\subsection*{2.3.8a}
+
+The odds of arriving at that configuration with coin $n$ is $p_n(1-p_n)^3$, and
+let the event of having coin $n$ have odds $\pr{n} = \frac{1}{5}$.
+Then, Bayes' Theorem tells us that the posterior odds of having coin $n$ are
+
+\[
+  \frac{\pr{n}p_n(1-p_n)^3}{\sum_{i=1}^5\pr{n}p_i(1-p_i)^3} =
+  \frac{p_n(1-p_n)^3}{\sum_{i=1}^5p_i(1 - p_i)^5}
+\]
+
+Actually computing, we have that the posterior odds are $\pr{1 \mid TTTH} = 0$,
+$\pr{2 \mid TTTH} = 0.587$, $\pr{3 \mid TTTH} = 0.347$, $\pr{4 \mid TTTH} =
+0.065$, and $\pr{5 \mid TTTH} = 0$.
+
+\subsection*{2.3.8a}
+
+This can be computed as $\sum_{i=1}^5\pr{i \mid TTTH}p_i(1-p_i)^2$, which comes
+out to be 0.129.
+
+\subsection*{2.5.1}
+
+\begin{alignat*}{2}
+  &&\frac{\pr{A \cap D}}{\pr{D}} &\geq \frac{\pr{B \cap D}}{\pr{D}} \\
+  &\implies& \pr{A \cap D} &\geq \pr{B \cap D} \\
+  &&\frac{\pr{A \cap D^C}}{\pr{D^C}} &\geq \frac{\pr{B \cap D^C}}{\pr{D^C}} \\
+  &\implies& \pr{A \cap D^C} &\geq \pr{B \cap D^C} \\
+  &\implies& \pr{A \cap D} + \pr{A \cap D^C} &\geq \pr{B \cap D} + \pr{B \cap
+    D^C} \\
+  &\implies& \pr{A} &\geq \pr{B}
+\end{alignat*}
+
+\subsection*{2.5.23}
+
+Let $E_1 = $ statistician, $E_2 = $ economist, $A = $ shy.
+
+\[
+  \pr{E_1 \mid A} = \frac{\pr{E_1}\pr{A \mid E_1}}{\pr{E_1}\pr{A \mid E_1} +
+    \pr{E_2}\pr{A \mid E_2}} = \frac{0.8 * 0.1}{0.8 * 0.1 + 0.15 * 0.9} = 0.372
+\]
+
+\subsection*{2.5.29a}
+
+There are $\binom{52}{13}$ ways to choose 13 cards; $\binom{4}{n}\binom{48}{13 -
+n}$ ways to choose 12 cards and $n$ aces.
+
+\[
+  1 - \frac{\binom{4}{1}\binom{48}{12}}{\binom{52}{13} - \binom{48}{13}} = 0.369
+\]
+
+\subsection*{2.5.29b}
+
+Let $H = $ picking the ace of hearts, and $A =$ the number of aces. Then,
+$\pr{H} = \frac{13}{52}$.
+
+\begin{align*}
+  \pr{A \geq 2 \mid H} &= \frac{\pr{A \geq 2 \cap H}}{\pr{H}} \\
+                       &= \frac{\pr{H} - \pr{A < 2 \cap H}}{\pr{H}} \\
+                       &= \frac{\pr{H} - \pr{A = 1 \cap H}}{\pr{H}} \\
+                       &= \frac{\pr{H} - \frac{\binom{48}{12}}{\binom{52}{13}}}{\pr{H}} = 0.561
+\end{align*}
+
+\end{document}
+
+% LocalWords:  NetID fancyplain LocalWords colorlinks linkcolor linkbordercolor
