@@ -1,0 +1,256 @@
+
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{xfrac}
+\usepackage{nicefrac}
+\usepackage{xcolor}
+
+\allowdisplaybreaks
+
+
+\usetikzlibrary{shapes.geometric,fit}
+\usetikzlibrary{patterns}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+\newcommand\course{ECON 3213}
+\newcommand\hwnumber{3}
+\newcommand\NetIDa{dc3451}
+\newcommand\NetIDb{David Chen}
+
+\newcommand\R{\mathbb{R}}
+
+\theoremstyle{definition}
+\newtheorem*{statement}{Statement}
+\newtheorem*{claim}{Claim}
+\newtheorem*{theorem}{Theorem}
+
+\newcommand{\contra}{\Rightarrow\!\Leftarrow}
+\newcommand{\Lag}{\mathcal{L}}
+
+\pagestyle{fancyplain}
+\headheight 35pt
+\lhead{\NetIDa}
+\lhead{\NetIDa\\\NetIDb}
+\chead{\textbf{\Large Problem Set \hwnumber}}
+\rhead{\course \\ \today}
+\lfoot{}
+\cfoot{}
+\rfoot{\small\thepage}
+\headsep 1.5em
+
+\begin{document}
+
+\subsection*{Problem 1}
+
+\subsubsection*{Part 1}
+
+\begin{alignat*}{2}
+  &&Y_{2014}^{us} &= A(K_{2014}^{us})^{0.3}(L_{2014}^{us})^{0.7} \\
+  &\implies& Y_{2014}^{us} &= A(2.5Y_{2014}^{us})^{0.3}(L_{2014}^{us})^{0.7} \\
+  &\implies& (Y_{2014}^{us})^{0.7} &= A2.5^{0.3}(L_{2014}^{us})^{0.7} \\
+  &\implies& (Y_{2014}^{us}/L_{2014}^{us})^{0.7} &= A2.5^{0.3} \\
+  &\implies& A &= \frac{46405.25^{0.7}}{2.5^{0.3}} = 1403.5\\
+\end{alignat*}
+
+\subsubsection*{Part 2}
+
+For both the US and China,
+
+\begin{alignat*}{2}
+  &&Y_{t} &= AK^{\alpha}Y^{1-\alpha} \\
+  &\implies& \frac{Y_{t}}{AL_{t}} &= (\frac{K_{t}}{L_{t}})^\alpha \\
+  &\implies& \frac{K_{t}}{L_{t}} &= (\frac{Y_{t}}{AL_{t}})^{\frac{1}{\alpha}}
+\end{alignat*}
+
+In China, we have that
+
+\[
+  \frac{K_{2014}^{ch}}{L_{2014}^{ch}} = 29.22
+\]
+
+and in the US
+
+\[
+  \frac{K_{2014}^{us}}{L_{2014}^{us}} = 116015.40
+\]
+
+\subsubsection*{Part 3, 4}
+
+We have the following:
+
+\begin{alignat*}{2}
+  && Y_t &= AK^\alpha L^{1-\alpha} \\
+  &\implies& y_t &= Ak_t^{\alpha} \\
+  &\implies& k_{t+1} &= (1 - \delta)k_t + \sigma Ak_t^\alpha
+\end{alignat*}
+
+
+The following \verb!R! code was used to compute and export the table. 
+
+\begin{verbatim}
+library(xtable)
+
+A_computed <- 1403.5
+us_k <- 116015.40
+ch_k <- 29.22
+
+part_three_data <- function(k, alpha, delta, sigma, A, years) {
+  ## Preallocate size because R copies the entire vector...
+  k_t <- double(years)
+  y_t <- double(years)
+  i_t <- double(years)
+
+  k_t[1] <- k
+  y_t[1] <- A * (k ^ alpha)
+  i_t[1] <- sigma * y_t[1]
+
+  for (year in 2:years) {
+    k_t[year] <- k_t[year - 1] * (1 - delta) + i_t[year - 1]
+    y_t[year] <- A * (k_t[year] ^ alpha)
+    i_t[year] <- sigma * y_t[year]
+  }
+
+  return (list(capital=k_t, invest_per_capital=(i_t / k_t), output=y_t))
+}
+
+us_data <- part_three_data(us_k, 0.3, 0.1, 0.25, A_computed, 40)
+ch_data <- part_three_data(ch_k, 0.3, 0.1, 0.25, A_computed, 40)
+
+part_three <- data.frame(us_data$capital, ch_data$capital,
+                         us_data$invest_per_capital, ch_data$invest_per_capital,
+                         us_data$output, ch_data$output, us_data$output / ch_data$output)
+
+colnames(part_three) <- c("US k_i", "CH k_t",
+                          "US i_t/k_t", "CH i_t/k_t",
+                          "US y_t", "CH y_t", "y^{us}_t / y^{ch}_t")
+
+part_four <- data.frame(us_data$output / ch_data$output)
+
+colnames(part_four) <- c("y^{us}_t / y^{ch}_t")
+
+xtable(part_three, type="latex")
+\end{verbatim}
+
+\begin{table}[p]
+\centering
+\begin{tabular}{lrrrrrrr}
+  \hline
+  Year & US $k_i$ & CH $k_t$ & US $i_t/k_t$ & CH $i_t/k_t$ & US $y_t$ & CH $y_t$ & $y^{us}_t / y^{ch}_t$  \\
+  \hline
+1 & 116015.40 & 29.22 & 0.10 & 33.05 & 46405.25 & 3862.93 & 12.01 \\ 
+  2 & 116015.17 & 992.03 & 0.10 & 2.80 & 46405.22 & 11121.67 & 4.17 \\ 
+  3 & 116014.96 & 3673.24 & 0.10 & 1.12 & 46405.20 & 16471.28 & 2.82 \\ 
+  4 & 116014.76 & 7423.74 & 0.10 & 0.69 & 46405.17 & 20342.26 & 2.28 \\ 
+  5 & 116014.58 & 11766.93 & 0.10 & 0.50 & 46405.15 & 23356.69 & 1.99 \\ 
+  6 & 116014.41 & 16429.41 & 0.10 & 0.39 & 46405.13 & 25816.60 & 1.80 \\ 
+  7 & 116014.25 & 21240.62 & 0.10 & 0.33 & 46405.11 & 27884.48 & 1.66 \\ 
+  8 & 116014.10 & 26087.68 & 0.10 & 0.28 & 46405.09 & 29658.08 & 1.56 \\ 
+  9 & 116013.97 & 30893.43 & 0.10 & 0.25 & 46405.08 & 31201.27 & 1.49 \\ 
+  10 & 116013.84 & 35604.40 & 0.10 & 0.23 & 46405.06 & 32558.44 & 1.43 \\ 
+  11 & 116013.72 & 40183.57 & 0.10 & 0.21 & 46405.05 & 33761.91 & 1.37 \\ 
+  12 & 116013.61 & 44605.69 & 0.10 & 0.20 & 46405.03 & 34836.10 & 1.33 \\ 
+  13 & 116013.51 & 48854.15 & 0.10 & 0.18 & 46405.02 & 35799.99 & 1.30 \\ 
+  14 & 116013.41 & 52918.73 & 0.10 & 0.17 & 46405.01 & 36668.68 & 1.27 \\ 
+  15 & 116013.32 & 56794.03 & 0.10 & 0.16 & 46405.00 & 37454.43 & 1.24 \\ 
+  16 & 116013.24 & 60478.23 & 0.10 & 0.16 & 46404.99 & 38167.36 & 1.22 \\ 
+  17 & 116013.17 & 63972.25 & 0.10 & 0.15 & 46404.98 & 38815.92 & 1.20 \\ 
+  18 & 116013.09 & 67279.00 & 0.10 & 0.15 & 46404.97 & 39407.26 & 1.18 \\ 
+  19 & 116013.03 & 70402.92 & 0.10 & 0.14 & 46404.96 & 39947.50 & 1.16 \\ 
+  20 & 116012.97 & 73349.50 & 0.10 & 0.14 & 46404.96 & 40441.90 & 1.15 \\ 
+  21 & 116012.91 & 76125.03 & 0.10 & 0.13 & 46404.95 & 40895.04 & 1.13 \\ 
+  22 & 116012.86 & 78736.29 & 0.10 & 0.13 & 46404.94 & 41310.92 & 1.12 \\ 
+  23 & 116012.81 & 81190.39 & 0.10 & 0.13 & 46404.94 & 41693.06 & 1.11 \\ 
+  24 & 116012.76 & 83494.61 & 0.10 & 0.13 & 46404.93 & 42044.57 & 1.10 \\ 
+  25 & 116012.72 & 85656.30 & 0.10 & 0.12 & 46404.93 & 42368.22 & 1.10 \\ 
+  26 & 116012.68 & 87682.72 & 0.10 & 0.12 & 46404.92 & 42666.46 & 1.09 \\ 
+  27 & 116012.64 & 89581.06 & 0.10 & 0.12 & 46404.92 & 42941.51 & 1.08 \\ 
+  28 & 116012.61 & 91358.33 & 0.10 & 0.12 & 46404.91 & 43195.34 & 1.07 \\ 
+  29 & 116012.57 & 93021.34 & 0.10 & 0.12 & 46404.91 & 43429.74 & 1.07 \\ 
+  30 & 116012.54 & 94576.64 & 0.10 & 0.12 & 46404.91 & 43646.31 & 1.06 \\ 
+  31 & 116012.52 & 96030.55 & 0.10 & 0.11 & 46404.90 & 43846.53 & 1.06 \\ 
+  32 & 116012.49 & 97389.13 & 0.10 & 0.11 & 46404.90 & 44031.71 & 1.05 \\ 
+  33 & 116012.47 & 98658.14 & 0.10 & 0.11 & 46404.90 & 44203.06 & 1.05 \\ 
+  34 & 116012.44 & 99843.09 & 0.10 & 0.11 & 46404.89 & 44361.66 & 1.05 \\ 
+  35 & 116012.42 & 100949.20 & 0.10 & 0.11 & 46404.89 & 44508.53 & 1.04 \\ 
+  36 & 116012.40 & 101981.41 & 0.10 & 0.11 & 46404.89 & 44644.58 & 1.04 \\ 
+  37 & 116012.39 & 102944.42 & 0.10 & 0.11 & 46404.89 & 44770.64 & 1.04 \\ 
+  38 & 116012.37 & 103842.63 & 0.10 & 0.11 & 46404.89 & 44887.47 & 1.03 \\ 
+  39 & 116012.35 & 104680.24 & 0.10 & 0.11 & 46404.88 & 44995.78 & 1.03 \\ 
+  40 & 116012.34 & 105461.16 & 0.10 & 0.11 & 46404.88 & 45096.22 & 1.03 \\ 
+   \hline
+\end{tabular}
+\end{table}
+
+Chinese output seems to converge after about 25 years, or about 2038.
+
+\break
+
+\subsection*{Problem 2}
+
+We have the following:
+
+\begin{alignat*}{2}
+  && Y_t &= AK_t^{\alpha}L_t^{1-\alpha} \\
+  &\implies& y_t &= Ak_t^\alpha \\
+  \intertext{Since we have at equilibrium that $i_t = \delta k^*$,}
+  && \delta k^* &= \sigma A(k^*)^\alpha \\
+  % &\implies& k_t^* &= (\frac{\sigma A}{\delta})^{\frac{1}{1-\alpha}}
+  \intertext{Further, since we  have that $c^* = y^* - i^*$,}
+  && c^* &= A(k^*)^\alpha - \delta k^* \\
+  \intertext{Taking the first order condition,}
+  && \frac{dc^*}{dk^*} &= \alpha A(k^*)^{\alpha-1} - \delta = 0 \\
+  &\implies& \delta &=  A(k^*)^{1-\alpha} \\
+  &\implies& \sigma_{GR} &= \frac{\alpha A(k^*)^{\alpha-1}k^*}{A(k^*)^\alpha} \\
+  && &= \alpha
+\end{alignat*}
+
+Countries that are saving less than $\alpha = 0.26$ are undersaving (GBR, USA,
+PHL, HKG) and the rest are oversaving.
+
+\subsection*{Problem 3}
+
+The above relation still holds; the optimal growth rate per this version of the
+Solow model would be that $\sigma = \alpha = 0.26$; however, China continually
+saves a lot, over $30\%$ every year and over $40\%$ every year beyond 2004.
+
+\subsection*{Problem 4}
+
+This is equivalent to stating that $\frac{dc^*}{d\sigma} < 0$. Taking just
+boundary conditions we already see that this is untrue, as we have non-zero
+consumption at $\sigma \in (0, 1)$ but zero consumption at $\sigma = 0, 1$.
+
+Further, in general if we parameterize $k^*$ as $k^*(\sigma)$, we have:
+\begin{align*}
+  c^* &= Af(k^*(\sigma)) - \delta k^*(\sigma)\\
+  \intertext{Taking the first order condition,}
+  \frac{d c^*}{d \sigma} &= Af'(k^*(\sigma))(k^*)'(\sigma) - \delta (k^*)'(\sigma) = 0\\
+  \intertext{Thus we have that when}
+  \delta &= Af'(k^*(\sigma)) 
+  \intertext{consumption is maximized.}
+\end{align*}
+Note that the above is equivalent to $\sigma_{GR}$, but also shows that for
+$\sigma < \sigma_{GR}, \frac{dc^*}{d\sigma} > 0$, and for $\sigma > \sigma_{GR},
+\frac{dc^*}{d\sigma} < 0$, and thus the statement is true in the case that
+$\sigma > \sigma_{GR}$, and false $\sigma < \sigma_{GR}$
+
+\end{document}
+% LocalWords:  nodecirc

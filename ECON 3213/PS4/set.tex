@@ -1,0 +1,145 @@
+
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{xfrac}
+\usepackage{nicefrac}
+\usepackage{xcolor}
+
+\allowdisplaybreaks
+
+
+\usetikzlibrary{shapes.geometric,fit}
+\usetikzlibrary{patterns}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+\newcommand\course{ECON 3213}
+\newcommand\hwnumber{3}
+\newcommand\NetIDa{dc3451}
+\newcommand\NetIDb{David Chen}
+
+\newcommand\R{\mathbb{R}}
+
+\theoremstyle{definition}
+\newtheorem*{statement}{Statement}
+\newtheorem*{claim}{Claim}
+\newtheorem*{theorem}{Theorem}
+
+\newcommand{\contra}{\Rightarrow\!\Leftarrow}
+\newcommand{\Lag}{\mathcal{L}}
+
+\pagestyle{fancyplain}
+\headheight 35pt
+\lhead{\NetIDa}
+\lhead{\NetIDa\\\NetIDb}
+\chead{\textbf{\Large Problem Set \hwnumber}}
+\rhead{\course \\ \today}
+\lfoot{}
+\cfoot{}
+\rfoot{\small\thepage}
+\headsep 1.5em
+
+\begin{document}
+
+\subsection*{Problem 1}
+
+\subsubsection*{a}
+
+We have that the final overall steady state criterion is that
+
+\begin{alignat*}{2}
+  && K^* &= (1 - \delta)K^* + \sigma I^* \\
+  &\implies& k^* &= \frac{1 - \delta}{(1 + g)(1 + n)}k^* + \frac{\sigma
+    \sqrt{k^*}}{(1 + g)(1 + n)} \\
+  &\implies& \sigma \sqrt{k^*} &= ((1 + g)(1 + n) - (1 - \delta))k^*  \\
+  &\implies& k^* &= \left(\frac{\sigma}{(1 + n)(1 + g) - (1 - \delta)}\right)^2
+\end{alignat*}
+
+\subsubsection*{b}
+
+
+\begin{align*}
+  \intertext{From above, we have that}
+  k^* &= \left(\frac{\sigma}{(1 + n)(1 + g) - (1 - \delta)}\right)^2 \\
+      &= \left( \frac{0.25}{(1 + 0.015)(1 + 0.02) - (1 - 0.10)} \right)^2 \\
+      &= 3.414 \\
+  \intertext{Since we have that in steady state $y^* = \sqrt{k^*}$,} 
+  y^* &= \sqrt{3.414} = 1.847 \\
+\end{align*}
+
+\subsubsection*{c}
+
+\begin{alignat*}{2}
+  && \frac{Y_{t+1}}{L_{t+1}E_{t+1}} &= \frac{Y_t}{L_tE_t} \\
+  &\implies& Y_{t+1} &= (1 + g)(1 + n)Y_t \\
+  && &= 1.0353Y_t
+\end{alignat*}
+
+Thus, it takes $\frac{\log(2)}{\log(1.0353)} = 20$ years for overall output to double.
+
+\subsubsection*{d}
+
+\begin{alignat*}{2}
+  && \frac{Y_{t+1}}{L_{t+1}E_{t+1}} &=  \frac{Y_{t}}{L_tE_t} \\
+  &\implies& \frac{Y_{t+1}}{L_{t+1}} &= (1 + n)\frac{Y_t}{L_t} \\
+  &\implies& \frac{Y_{t+1}}{L_{t+1}} &= 1.015\frac{Y_t}{L_t} \\
+\end{alignat*}
+
+Thus, it takes $\frac{\log(2)}{\log(1.015)} = 46.5$ years for output per capita to double.
+
+\subsubsection*{e}
+
+\begin{alignat*}{2}
+  && \frac{K_{t+1}}{L_{t+1}E_{t+1}} &= \frac{K_t}{L_tE_T} \\
+  &\implies& K_{t+1} &= (1 + g)(1 + n)K_t \\
+\end{alignat*}
+
+From above, it takes also 20 years for the capital stock to double.
+
+\subsection*{Problem 2}
+
+
+\subsubsection*{a}
+
+We have from SGU that as growth in GDP per capita is computed to be near
+constant over 1870 to 2016, and is equal to $1.97 \%$. Thus, GDP per capital
+grew about 18 fold over the mentioned 148 years.
+
+\subsubsection*{b}
+
+No, there is not; in fact, the plot has the lowest values for GDP per capital
+are about $500$ in 1990 \$, and the highest at about $3000$. This is then a
+maximum of a 6-fold increase in any time period shown, so no country sees growth
+like the US from 1870 to 2018.
+
+\subsubsection*{c}
+
+Keynes is mostly correct: there are varations, but all countries on the plotted
+timespan have maximum value about $200\%$ of their minimum value, and so there
+is no such explosive, continual growth.
+
+\subsubsection*{d}
+
+Long flat growth followed by nonzero growth looks like a hockey stick on its
+side when output is plotted logarithmically.
+
+\end{document}
+% LocalWords:  nodecirc

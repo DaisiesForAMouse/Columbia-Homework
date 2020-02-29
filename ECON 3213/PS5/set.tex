@@ -1,0 +1,173 @@
+
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{xfrac}
+\usepackage{nicefrac}
+\usepackage{xcolor}
+
+\allowdisplaybreaks
+
+
+\usetikzlibrary{shapes.geometric,fit}
+\usetikzlibrary{patterns}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+\newcommand\course{ECON 3213}
+\newcommand\hwnumber{5}
+\newcommand\NetIDa{dc3451}
+\newcommand\NetIDb{David Chen}
+
+\newcommand\R{\mathbb{R}}
+
+\theoremstyle{definition}
+\newtheorem*{statement}{Statement}
+\newtheorem*{claim}{Claim}
+\newtheorem*{theorem}{Theorem}
+
+\newcommand{\contra}{\Rightarrow\!\Leftarrow}
+\newcommand{\Lag}{\mathcal{L}}
+
+\pagestyle{fancyplain}
+\headheight 35pt
+\lhead{\NetIDa}
+\lhead{\NetIDa\\\NetIDb}
+\chead{\textbf{\Large Problem Set \hwnumber}}
+\rhead{\course \\ \today}
+\lfoot{}
+\cfoot{}
+\rfoot{\small\thepage}
+\headsep 1.5em
+
+\begin{document}
+
+\subsection*{Part 1}
+
+We see that as they have the same growth / depreciation / savings rates and production
+function, that they converge to the same steady state behaviour. However, we
+have that in country $B$, GDP per capita is much lower, and so we expect them to
+experience faster initial growth as the further from steady state, the faster
+the initial growth.
+
+\subsection*{Part 2}
+
+In the long run, we see that as measured by GDP per capita, that both grow at
+rate $g = 0.02$, as predicted by the Solow model in SGU. In the long run, at
+steady state, we have that they grow at the same rate.
+
+\subsection*{Part 4}
+
+We see that country A is already in the steady state and thus all growth comes
+from technological growth. However, in country B, which starts off far poorer,
+has most of its growth coming in terms of transitional dynamics rather than
+technological growth because it is far below the steady state.
+
+\break
+
+\subsection*{Part 3}
+
+\begin{footnotesize}
+\begin{verbatim}
+library(xtable)
+
+n = 0.01
+g = 0.02
+delta = 0.0698
+sigma = 0.25
+alpha = 0.5
+
+solow <- function(gdp_cap, e, years) {
+  gdp_caps <- double(years)
+  es <- double(years)
+  capital_caps <- double(years)
+  growths <- double(years)
+
+  gdp_caps[1] <- gdp_cap
+  es[1] <- e
+  capital_caps[1] <- ((gdp_cap) / (e ^ (1 - alpha))) ^ (1 / alpha)
+
+  for (year in 2:years) {
+    es[year] <- es[year - 1] * (1 + g)
+    capital_caps[year] <- (capital_caps[year - 1] * (1 - delta) +
+                           gdp_caps[year - 1] * sigma) / (1 + n)
+    gdp_caps[year] <- (capital_caps[year] ^ alpha) * (es[year] ^ (1 - alpha))
+    growths[year] <- (gdp_caps[year] / gdp_cap) ^ (1/(year - 1))
+  }
+
+  tech <- (log(es) - log(e)) / (log(gdp_caps) - log(gdp_cap))
+
+  return (list(gdp=gdp_caps, tech=tech, growth=growths))
+}
+
+A <- solow(2.5, 1, 26)
+B <- solow(0.25, 1, 26)
+
+part_three <- data.frame(A$gdp, A$growth, A$tech, B$gdp, B$growth, B$tech)
+
+colnames(part_three) <- c("A GDP/Capita", "A % growth", "A % from tech",
+                          "B GDP/Capita", "B % growth", "B % from tech")
+
+xtable(part_three, type="latex")
+\end{verbatim}
+\end{footnotesize}
+
+
+\begin{table}[p]
+\centering
+\begin{tabular}{rrrrrrr}
+  \hline
+ & A $Y_t/L_t$ & A growth & A \% from tech & B $Y_t/L_t$ & B growth & B \% from tech \\ 
+  \hline
+1 & 2.50 & 0.00 &  & 0.25 & 0.00 &  \\ 
+  2 & 2.55 & 1.02 & 100 & 0.35 & 1.40 & 6 \\ 
+  3 & 2.60 & 1.02 & 100 & 0.45 & 1.34 & 7 \\ 
+  4 & 2.65 & 1.02 & 100 & 0.56 & 1.31 & 7 \\ 
+  5 & 2.71 & 1.02 & 100 & 0.66 & 1.28 & 8 \\ 
+  6 & 2.76 & 1.02 & 100 & 0.77 & 1.25 & 9 \\ 
+  7 & 2.82 & 1.02 & 100 & 0.88 & 1.23 & 9 \\ 
+  8 & 2.87 & 1.02 & 100 & 0.99 & 1.22 & 10 \\ 
+  9 & 2.93 & 1.02 & 100 & 1.10 & 1.20 & 11 \\ 
+  10 & 2.99 & 1.02 & 100 & 1.21 & 1.19 & 11 \\ 
+  11 & 3.05 & 1.02 & 100 & 1.32 & 1.18 & 12 \\ 
+  12 & 3.11 & 1.02 & 100 & 1.43 & 1.17 & 13 \\ 
+  13 & 3.17 & 1.02 & 100 & 1.54 & 1.16 & 13 \\ 
+  14 & 3.23 & 1.02 & 100 & 1.65 & 1.16 & 14 \\ 
+  15 & 3.30 & 1.02 & 100 & 1.76 & 1.15 & 14 \\ 
+  16 & 3.36 & 1.02 & 100 & 1.87 & 1.14 & 15 \\ 
+  17 & 3.43 & 1.02 & 100 & 1.98 & 1.14 & 15 \\ 
+  18 & 3.50 & 1.02 & 100 & 2.09 & 1.13 & 16 \\ 
+  19 & 3.57 & 1.02 & 100 & 2.20 & 1.13 & 16 \\ 
+  20 & 3.64 & 1.02 & 100 & 2.31 & 1.12 & 17 \\ 
+  21 & 3.71 & 1.02 & 100 & 2.42 & 1.12 & 17 \\ 
+  22 & 3.79 & 1.02 & 100 & 2.53 & 1.12 & 18 \\ 
+  23 & 3.86 & 1.02 & 100 & 2.64 & 1.11 & 18 \\ 
+  24 & 3.94 & 1.02 & 100 & 2.76 & 1.11 & 19 \\ 
+  25 & 4.02 & 1.02 & 100 & 2.87 & 1.11 & 19 \\ 
+  26 & 4.10 & 1.02 & 100 & 2.98 & 1.10 & 20 \\ 
+   \hline
+\end{tabular}
+\end{table}
+
+Growth is given in the form: if each entry is $g$, then $Y_1/L_1 \cdot g^{T - 1}
+= Y_T/L_T$
+
+\end{document}
+% LocalWords:  nodecirc
