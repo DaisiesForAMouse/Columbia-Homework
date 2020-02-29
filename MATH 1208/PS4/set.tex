@@ -1,0 +1,450 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{relsize}
+\usepackage{fancyvrb}
+\usetikzlibrary{shapes.geometric,fit}
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+\newcommand\course{MATH 1208}
+\newcommand\hwnumber{4}
+\newcommand\NetIDa{dc3451}
+\newcommand\NetIDb{David Chen}
+
+\theoremstyle{definition}
+\newtheorem*{statement}{Statement}
+\newtheorem*{claim}{Claim}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+
+\newcommand{\contra}{\Rightarrow\!\Leftarrow}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Zeq}{\mathbb{Z}_{\geq 0}}
+\newcommand{\Zg}{\mathbb{Z}_{>0}}
+\newcommand{\Req}{\mathbb{R}_{\geq 0}}
+\newcommand{\Rg}{\mathbb{R}_{>0}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\id}{\mathrm{Id}}
+\newcommand{\im}{\mathrm{im}}
+\newcommand{\rank}{\mathrm{rank}}
+
+\pagestyle{fancyplain}
+\headheight 35pt
+\lhead{\NetIDa}
+\lhead{\NetIDa\\\NetIDb}
+\chead{\textbf{\Large Homework \hwnumber}}
+\rhead{\course \\ \today}
+\lfoot{}
+\cfoot{}
+\rfoot{\small\thepage}
+\headsep 1.5em
+
+\begin{document}
+
+\subsection*{Apostol pg.68 no.11}
+
+\begin{claim}
+  $
+  \begin{bmatrix}
+    a & b \\
+    c& d 
+  \end{bmatrix}$ is invertible $\iff$ $ad - bc \neq 0$.
+\end{claim}
+
+\begin{proof}
+  $(\impliedby)$
+\begin{align*}
+  \begin{bmatrix}
+    a & b \\
+    c& d 
+  \end{bmatrix}
+  \begin{bmatrix}
+    d & -b \\
+    -c & a 
+  \end{bmatrix} =
+         \begin{bmatrix}
+           ad - bc & -ab + ab \\
+           cd - dc & da - cb \\
+         \end{bmatrix} = 
+  \begin{bmatrix}
+    ad - bc & 0 \\
+    0 & ad - cb \\
+  \end{bmatrix} = (ad - bc)I
+\end{align*}
+
+Then, we have that by the properties of matrix multiplication shown in class
+(i.e. that $A(cB) = c(AB)$), 
+$\begin{bmatrix}
+  a & b \\ c & d
+\end{bmatrix}$ that the inverse is
+$\frac{1}{ad - bc}\begin{bmatrix}
+  d & -b \\ -c & a 
+\end{bmatrix}$ (and this is the only inverse since matrix inverses are unique).
+
+% To show that if $ad -cb = 0 \implies $ the matrix is singular,
+$(\implies)$ Suppose that $ad - bc = 0$. We have that then
+$a = \frac{b}{d}c, b = \frac{a}{c}d$. However, we have that $ad = cb \implies
+\frac{b}{d} = \frac{a}{c}$. Call this $k$, so that the matrix becomes 
+\begin{align*}
+  \begin{bmatrix}
+    kc & kd \\
+    c & d \\
+  \end{bmatrix}
+\end{align*}
+
+which does not have full row rank as $(kc, kd) = k(c, d)$ and so the matrix is
+not invertible. $\contra$, so then $ad - bc \neq 0$.
+\end{proof}
+
+\subsection*{Apostol pg.68 no.12}
+
+\begin{align*}
+  & \begin{bmatrix}
+    2 & 3 & 4 & 1 & 0 & 0 \\
+    2 & 1 & 1 & 0 & 1 & 0 \\
+    -1 & 1 & 2 & 0 & 0 & 1 \\
+  \end{bmatrix} \rightarrow
+  \begin{bmatrix}
+    1 & \frac{3}{2} & 2 & \frac{1}{2} & 0 & 0\\
+    0 & -2 & -3 & -1 & 1 & 0 \\
+    0 & \frac{5}{2} & 4 & \frac{1}{2} & 0 & 1 \\
+  \end{bmatrix} \\
+  \rightarrow &
+                \begin{bmatrix}
+                  1 & 0 & -\frac{1}{4} & -\frac{1}{4} & \frac{3}{4} & 0 \\
+                  0 & 1 & \frac{3}{2} & \frac{1}{2} & -\frac{1}{2} & 0 \\
+                  0 & 0 & \frac{1}{4} & -\frac{3}{4} & \frac{5}{4} & 1 \\
+                \end{bmatrix} \rightarrow
+  \begin{bmatrix}
+    1 & 0 & 0 & -1 & 2 & 1 \\
+    0 & 1 & 0 & 5 & -8 & -6 \\
+    0 & 0 & 1 & -3 & 5 & 4 
+  \end{bmatrix}
+\end{align*}
+
+The inverse is then
+\[
+  \begin{bmatrix}
+    -1 & 2 & 1 \\
+     5 & -8 & -6 \\
+     -3 & 5 & 4
+  \end{bmatrix}
+\]
+
+\subsection*{Apostol pg.68 no.2a}
+
+True:
+
+\begin{align*}
+  AABBB &= A(AB)BB \\
+        &= A(-BA)BB \\
+        &= -ABABB \\
+        &= -(AB)ABB \\
+        &= (BA)ABB \\
+        &= BA(-BA)B \\
+        &= B(BA)AB \\
+        &= BBAAB \\
+        &= BBA(-BA) \\
+        &= BB(BA)A \\
+        &= BBBAA
+\end{align*}
+
+\subsection*{Apostol pg.68 no.2b}
+
+False: take any nonsingular matrix $A$, and its additive inverse $-A$. Then,
+both $A$ and $-A$ are invertible, but $A + -A = O$ is not invertible. 
+
+\subsection*{Apostol pg.68 no.2c}
+
+True: note that $(AB)(B^{-1}A^{-1}) = A(BB^{-1})A^{-1} = AIA^{-1} = AA^{-1} =
+I$. This means that the inverse exists and is equal to $B^{-1}A^{-1}$.
+
+\subsection*{Apostol pg.68 no.2f}
+
+True: From Problem 4 on Part C: $\rank(AB) \leq \min(\rank(A), \rank(B)) \implies
+\rank(\prod A_i) \leq \min(\rank(A_i))$. Now suppose that $A_k$ is nonsingular,
+and that they are all of dimension $n$; then,  we have that $\rank(A_k) \leq n
+\implies \rank(\prod A_i) \leq n$ and so $\prod A_i$ is not invertible.
+$\contra$, so each individual matrix must also be invertible.
+
+\subsection*{Apostol pg.69 no.7}
+
+Let $A \in M_{m \times n}, B \in M_{n \times p}$.
+
+\subsection*{Apostol pg.69 no.7b}
+
+\[
+  (A+B)^T_{ij} = (A+B)_{ji} = A_{ji} + B_{ji} = A^T_{ij} + B^T_{ij}
+\]
+
+\subsection*{Apostol pg.69 no.7d}
+\begin{align*}
+  (B^TA^T)_{ij} &= \sum_{k=1}^nB^T_{ik}A^T_{kj} \\
+                &= \sum_{k=1}^nA_{jk}B_{ki} \\
+                &= (AB)_{ji} \\
+                &= (AB)^T_{ij}
+\end{align*}
+
+\subsection*{Apostol pg.69 no.7e}
+\[
+  A^T(A^{-1})^T = (A^{-1}A)^T = I^T = I, (A^{-1})^TA^T = (AA^{-1})^T = I^T = I
+\]
+
+Thus, we have that $(A^T)^{-1} = (A^{-1})^T$ be the definition and uniqueness of inverses.
+
+\section*{Problem 1}
+
+Consider the following augmented matrix:
+
+\begin{align*}
+  &\begin{bmatrix}
+    2 & 4 & 8 & 6 & a \\
+    5 & 6 & 8 & 7 & b \\
+    6 & 7 & 9 & 8 & c \\
+    5 & 4 & 2 & 3 & d 
+  \end{bmatrix} \rightarrow
+                  \begin{bmatrix}
+                    1 & 2 & 4 & 3 & \frac{a}{2} \\
+                    5 & 6 & 8 & 7 & b \\
+                    6 & 7 & 9 & 8 & c \\
+                    5 & 4 & 2 & 3 & d 
+                  \end{bmatrix} \\
+  \rightarrow&
+  \begin{bmatrix}
+    1 & 2 & 4 & 3 & \frac{a}{2} \\
+    0 & -4 & -12 & -8 & b - \frac{5a}{2} \\
+    0 & -5 & -15 & -10 & c - 3a \\
+    0 & -6 & -18 & -12 & d - \frac{5a}{2} 
+  \end{bmatrix} \rightarrow
+                  \begin{bmatrix}
+                    1 & 2 & 4 & 3 & \frac{a}{2} \\
+                    0 & 1 & 4 & 2 & - \frac{b}{4} + \frac{5a}{8} \\
+                    0 & 1 & 3 & 2 & -\frac{c}{5} + \frac{3a}{5} \\
+                    0 & 1 & 3 & 2 & -\frac{d}{6} + \frac{5a}{12} 
+                  \end{bmatrix} \\
+  \rightarrow&
+  \begin{bmatrix}
+    1 & 0 & -2 & -1 & -\frac{3a}{4} + \frac{b}{2} \\
+    0 & 1 & 3 & 2 & - \frac{b}{4} + \frac{5a}{8} \\
+    0 & 0 & 0 & 0 & -\frac{c}{5} + \frac{3a}{5} + \frac{b}{4} - \frac{5a}{8}\\
+    0 & 0 & 0 & 0 & -\frac{d}{6} + \frac{5a}{12} + \frac{b}{4} - \frac{5a}{8}
+  \end{bmatrix}
+\end{align*}
+
+\subsection*{a}
+
+Taking $a = b = c = d = 0$, we have that $x_3, x_4$ are free; we have then that
+$x_2 = -3x_3 - 2x_4$, and that $x_1 = 2x_3 + x_4$.
+
+\subsection*{b}
+
+Taking $a = 2, b = 9, c = d = 11$, we have that $x_2 = -1 - 3x_3 - 2x_4$, and
+$x_1 = 3 + 2x_3 + x_4$.
+
+\subsection*{c}
+
+Taking $a = 2, b = 9, c = 6, d = 11$, we have that the system is inconsistent as
+we have that $-\frac{c}{5} + \frac{3a}{5} + \frac{b}{4} - \frac{5a}{8} \neq 0$.
+This would imply that $0x_1 + 0x_2 + 0x_3 + 0x_4 \neq 0$, which is obviously $\contra$.
+
+\section*{Problem 2}
+
+\subsection*{a}
+
+\begin{claim}
+  $A$ is symmetric and invertible $\implies A^{-1}$ is symmetric. 
+\end{claim}
+
+\begin{proof}
+  We have that since $AA^{-1} = A^{-1}A = I$, and since $I$ is obviously
+  symmetric such that $I_{ij} = I_{ji}$,
+  \[
+    I_{ij = }\sum_{k=1}^nA_{ik}A^{-1}_{kj} = \sum_{k=1}^nA^{-1}_{jk}A_{ki} = I_{ji} \implies
+    \sum_{k=1}^nA_{ik}A^{-1}_{kj} = \sum_{k=1}^nA^{-1}_{jk}A_{ik} \implies
+    \sum_{k=1}^nA_{ik}(A^{-1}_{kj} - A^{-1}_{jk}) = 0
+  \]
+
+  for any $1 \leq i \leq n$. However, this would mean that
+  \[
+    A\begin{bmatrix}
+      A^{-1}_{k1} - A^{-1}_{1k} \\
+      A^{-1}_{k2} - A^{-1}_{2k} \\
+      \vdots \\
+      A^{-1}_{kn} - A^{-1}_{2n} \\
+    \end{bmatrix} = 0
+  \]
+
+  Since we have that $A$ is invertible, the only solution to the above equation,
+  as proved in class, is $\vec{0}$ as the kernel of the map must be zero
+  dimensional (from rank-nullity, as we have that the matrix is of full rank due
+  to the invertible nature of $A$).
+
+  Thus, $A^{-1}_{ki} - A^{-1}_{ik} = 0 \implies A^{-1}_{ki} = A^{-1}_{ik}$ and
+  $A^{-1}$ is symmetrical.
+\end{proof}
+
+The following example holds, where the inverse is computed as
+
+\[
+  \frac{1}{ad-bc}
+  \begin{bmatrix}
+    d & -c \\
+    -b & a
+  \end{bmatrix}
+\]
+ 
+\[
+  \begin{bmatrix}
+    1 & 2 \\
+    2 & 5
+  \end{bmatrix}
+  \begin{bmatrix}
+    5 & -2 \\
+    -2 & 1
+  \end{bmatrix}
+  =
+  \begin{bmatrix}
+    1 & 0 \\
+    0 & 1
+  \end{bmatrix}
+\]
+
+\subsection*{b}
+
+\begin{claim}
+  $A$ is skew-symmetric and invertible $\implies A^{-1}$ is skew-symmetric. 
+\end{claim}
+
+\begin{proof}
+  This is more or less the same as above, with a few signs changed.
+  
+  We have that since $AA^{-1} = A^{-1}A = I$, and since $I$ is obviously
+  symmetric such that $I_{ij} = I_{ji}$,
+  \[
+    I_{ij = }\sum_{k=1}^nA_{ik}A^{-1}_{kj} = \sum_{k=1}^nA^{-1}_{jk}A_{ki} = I_{ji} \implies
+    \sum_{k=1}^nA_{ik}A^{-1}_{kj} = \sum_{k=1}^nA^{-1}_{jk}-A_{ik} \implies
+    \sum_{k=1}^nA_{ik}(A^{-1}_{kj} + A^{-1}_{jk}) = 0
+  \]
+
+  for any $1 \leq i \leq n$. However, this would mean that
+  \[
+    A\begin{bmatrix}
+      A^{-1}_{k1} + A^{-1}_{1k} \\
+      A^{-1}_{k2} + A^{-1}_{2k} \\
+      \vdots \\
+      A^{-1}_{kn} + A^{-1}_{2n} \\
+    \end{bmatrix} = 0
+  \]
+
+  Since we have that $A$ is invertible, the only solution to the above homogenous equations,
+  as proved in class, is $\vec{0}$ as the kernel of the map must be zero
+  dimensional (from rank-nullity, as we have that the matrix is of full rank due
+  to the invertible nature of $A$).
+
+  Thus, $A^{-1}_{ki} + A^{-1}_{ik} = 0 \implies A^{-1}_{ki} = -A^{-1}_{ik}$ and
+  $A^{-1}$ is skew-symmetrical.
+\end{proof}
+
+The following example holds, where the inverse is computed as
+
+\[
+  \frac{1}{ad-bc}
+  \begin{bmatrix}
+    d & -c \\
+    -b & a
+  \end{bmatrix}
+\]
+ 
+\[
+  \begin{bmatrix}
+    1 & 2 \\
+    -2 & 5
+  \end{bmatrix}
+  \begin{bmatrix}
+    5 & 2 \\
+    -2 & 1
+  \end{bmatrix}
+  =
+  \begin{bmatrix}
+    1 & 0 \\
+    0 & 1
+  \end{bmatrix}
+\]
+
+\section*{Problem 4}
+
+\begin{claim}
+  If $A, B$ are $n \times n$ matrices, then $\rank(AB) \leq \min(\rank(A), \rank(B))$.
+\end{claim}
+
+\begin{proof}
+  Consider the underlying linear transformations: $AB = m(T_A \circ T_B)$. We
+  have from class that the column space is the image of the corresponding linear
+  transformation.
+
+  % Let $T_B: U \rightarrow V, T_A: V \rightarrow W$, where $U, V, W$ are all over
+  % the same field and $V = \im(T_B), W = \im(T_A)$.
+
+  % From an earlier homework, we have that if $T: U \rightarrow V$ is surjective,
+  % then $\dim(V) \leq \dim(U)$.
+
+  Rank-nullity gives that for any $T: U \rightarrow V$, $\dim(\im(T)) \leq
+  \dim(U)$. Then, we have that $\dim(\im(T_B)) \leq n$, and that when $T_A$ is
+  restricted to $\im(T_B), \dim(T_A|_{\im(T_B)}) \leq \dim(\im(T_B)) \leq n$,
+  and since it is a restriction, that $\dim(T_A|_{\im(T_B)}) \leq \dim(T_A)$.
+  Thus, we have that $\dim(T_A \circ T_B) \leq \dim(T_A), \dim(T_B)$. Thus, from
+  the above correspondence between column space and the linear transformation,
+  we have that $\rank(AB) \leq \rank(A), \rank(B) \implies \rank(AB) \leq
+  \min(\rank(A), \rank(B))$.
+
+  Alternatively, with matrices, we have that if $v \in \ker(B)$, then $v \in
+  \ker(AB)$ (as $T_A(T_B(v)) = T_A(0) = 0$). Similarly, if $v \in \ker(A^T)
+  \implies v\in \ker(B^TA^T)$.
+
+  % Now, we will show that $B^TA^T = (AB)^T$:
+  % \begin{align*}
+  %   (B^TA^T)_{ij} &= \sum_{k=1}^nB^T_{ik}A^T_{kj} \\
+  %                 &= \sum_{k=1}^nA_{jk}B_{ki} \\
+  %                 &= (AB)_{ji} \\
+  %                 &= (AB)^T_{ij}
+  % \end{align*}
+
+  Thus, we have that $\ker(B) \subseteq \ker(AB), \ker(A^T) \subseteq \ker((AB)^T)
+  \implies \dim(\ker(B)) \leq \dim(\ker(AB)), \dim(\ker(A^T)) \leq \dim(\ker((AB)^T))$; from
+  rank nullity, we have that for any $M \in M_{n\times n}$, that $\dim(\ker(M)) +
+  \rank(M) = n \implies \dim(\ker(M)) = n - \rank(M)$.
+
+  Thus, we have that $-\rank(B)
+  \leq -\rank(AB), -\rank(A^T) \leq -\rank((AB)^T) \implies \rank(AB) \leq
+  \rank(B), \rank((AB^T)) \leq \rank(A^T)$. However, since column and row rank
+  are the same, $\rank(A) = \rank(A^T)$ and $\rank(AB) = \rank((AB)^T)$. Finally,
+\[
+  \rank(AB) \leq \rank(A), \rank(AB) \leq \rank(B) \implies \rank(AB) \leq \min(\rank(B), \rank(A))
+\]
+\end{proof}
+
+\end{document}
+
+% LocalWords:  NetID fancyplain LocalWords colorlinks linkcolor linkbordercolor

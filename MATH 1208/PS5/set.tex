@@ -1,0 +1,684 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{relsize}
+\usepackage{fancyvrb}
+\usetikzlibrary{shapes.geometric,fit}
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+\newcommand\course{MATH 1208}
+\newcommand\hwnumber{4}
+\newcommand\NetIDa{dc3451}
+\newcommand\NetIDb{David Chen}
+
+\theoremstyle{definition}
+\newtheorem*{statement}{Statement}
+\newtheorem*{claim}{Claim}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+
+\newcommand{\contra}{\Rightarrow\!\Leftarrow}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Zeq}{\mathbb{Z}_{\geq 0}}
+\newcommand{\Zg}{\mathbb{Z}_{>0}}
+\newcommand{\Req}{\mathbb{R}_{\geq 0}}
+\newcommand{\Rg}{\mathbb{R}_{>0}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\id}{\mathrm{Id}}
+\newcommand{\im}{\mathrm{im}}
+\newcommand{\rank}{\mathrm{rank}}
+
+\pagestyle{fancyplain}
+\headheight 35pt
+\lhead{\NetIDa}
+\lhead{\NetIDa\\\NetIDb}
+\chead{\textbf{\Large Homework \hwnumber}}
+\rhead{\course \\ \today}
+\lfoot{}
+\cfoot{}
+\rfoot{\small\thepage}
+\headsep 1.5em
+
+\begin{document}
+
+\subsection*{Apostol p.80 no.2}
+
+Put $A = \begin{bmatrix} x & y & z \\ 3 & 0 & 2 \\ 1 & 1 & 1 \end{bmatrix} = \begin{bmatrix} a_1 \\ a_2 \\ a_3 \end{bmatrix}$. 
+
+\subsubsection*{a}
+
+If $A = \begin{bmatrix} a_1 \\ a_2 \\ a_3 \end{bmatrix}$, then this asks to
+compute $\det(\begin{bmatrix} 2a_1 \\ \frac{1}{2}a_2 \\ a_3 \end{bmatrix}) = 2
+\cdot \frac{1}{2} \cdot \det(A) = \det(A) = 1$.
+
+\subsubsection*{b}
+
+\[
+  \det(\begin{bmatrix} a_1 \\ 3a_1 + a_2 \\ a_1 + a_3 \end{bmatrix}) = \det(A) = 1
+\]
+
+\subsubsection*{c}
+
+\[
+  \det(\begin{bmatrix} a_1 - a_3 \\ a_2 + a_3 \\ a_3 \end{bmatrix}) = \det(A) = 1
+\]
+
+\subsection*{Apostol p.94 no.3}
+
+\subsubsection*{a}
+
+\begin{align*}
+  \det \left( \begin{bmatrix}
+    \lambda & -3 \\
+    -2 & \lambda + 1
+  \end{bmatrix} \right) &= \lambda^2 + \lambda - 6 \\
+            &= (\lambda + 3)(\lambda - 2)
+\end{align*}
+
+The matrix is singular for $\lambda  = -3, 2$
+
+\subsubsection*{b}
+
+\begin{align*}
+  \det \left( \begin{bmatrix}
+      \lambda - 1 & 0 & -2 \\
+      0 & \lambda + 1 & 2 \\
+      -2 & 2 & \lambda
+    \end{bmatrix} \right) &= (\lambda - 1)(\lambda(\lambda + 1) - 4) - 2(2\lambda + 2)\\
+                  &= \lambda^3 - 9\lambda\\
+                  &= \lambda(\lambda + 3)(\lambda - 3)
+\end{align*}
+
+The matrix is singular for $\lambda  = 0, \pm 3$
+
+\subsubsection*{c}
+\begin{align*}
+  \det \left( \begin{bmatrix}
+      \lambda - 11 & 2 & -8 \\
+      -19 & \lambda + 3 & -14 \\
+      8 & -2 & \lambda + 5
+    \end{bmatrix} \right) &= (\lambda - 11)((\lambda + 3)(\lambda + 5) - 28) \\
+                   & -2(-19(\lambda + 5) + 112) -8(-38 - 8(\lambda + 3))\\
+                   &= \lambda^3 -3\lambda^2+\lambda-3 \\
+                  &= (\lambda-3)(\lambda^2+1)
+\end{align*}
+
+The matrix is singular for $\lambda  = 3$. If we take matrix over the complex
+numbers, then it is also singular for $\lambda = \pm i$.
+
+\subsection*{Apostol p.101 no.1}
+
+\subsubsection*{a}
+
+\begin{claim}
+  $T$ has eigenvalue $\lambda \implies aT$ has eigenvalue $a\lambda$.
+\end{claim}
+
+\begin{proof}
+  % Let $x$ be a corresponding eigenvector for $\lambda$. Then,
+  % \[
+  %   Tx = \lambda x \implies a(Tx) = a \lambda x \implies (aT)x = a \lambda x
+  % \]
+
+  % So we have that $a\lambda$ is an eigenvalue for $aT$.
+    
+  $T$ has eigenvalue $\lambda \iff$ $\det(T - \lambda I) = 0$. Using the
+  properties of the determinant, where $n = \dim(T)$,
+  \[
+    0 = \det(T - \lambda I) = a^n \det(T - \lambda I)= \det(a(T - \lambda I)) = \det(aT - a\lambda I)
+  \]
+\end{proof}
+
+\subsubsection*{b}
+
+\begin{claim}
+  If $x$ is an eigenvector for both $T_1, T_2$, then $x$ is a eigenvector for
+  $aT_1 + bT_2$. 
+\end{claim}
+
+\begin{proof}
+  Consider that $x$ is an eigenvector for $T_1, T_2 \implies T_1x = \lambda_1x,
+  T_2x = \lambda_2x$. Then,  $(aT_1 + bT_2)x = (aT_1)x + (bT_2)x = a(T_1x) +
+  b(T_2x) = a\lambda_1x + b\lambda_2x = (a\lambda_1 + b\lambda_2)x$.
+
+  Thus, we have that $a\lambda_1 + b\lambda_2$ is an eigenvalue for $aT_1 +
+  bT_2$, with eigenvector $x$.
+\end{proof}
+
+\subsection*{Apostol p.101 no.2}
+
+\begin{claim}
+  $T: V \rightarrow V$ has an eigenvector $x$ belonging to eigenvalue $\lambda$.
+  Then, $P(T)$ has the same eigenvector belonging to eigenvalue $\lambda$.
+\end{claim}
+
+\begin{proof}
+  First show that $T^n$ has eigenvector $x$ with eigenvalue $\lambda^n$ with
+  induction.
+
+  The base case of $n = 1$ is trivial. Then, assume that the above holds for $n
+  = k$. \[T^{k+1}x = (TT^k)x = T(T^kx) = T(\lambda^k x) = \lambda^k(Tx) =
+    \lambda^k(\lambda x) = \lambda^{k+1}x\]
+
+  Then, let $P(z) = \sum_{i=0}^na_iz^i$. Induct on $n$.
+
+  Note that the case $n = 0$ has $P(T) = a_0T^0 = a_0I_n$, which then has
+  eigenvalue $a_0 = \sum_{i=0}^0a_i\lambda^i$ for any vector $x$, as $I_n$ has eigenvalue $1$ for any vector. 
+
+  Now suppose that the above claim holds for $n = k$. Then,
+  \[
+    \sum_{i=1}^{k+1}a_iT^i = \sum_{i+1}^ka_iT^i + a_{k+1}T^{k+1}
+  \]
+
+  From the inductive hypothesis we have that $\sum_{i=1}^ka_iT^i$ has
+  eigenvector $x$ belonging to eigenvalue $\sum_{i=1}^ka_i\lambda^i$, and from
+  the earlier problem and claim $a_{k+1}T^{k+1}$ has eigenvalue
+  $a_{k+1}\lambda^{k+1}$ with eigenvector $x$.
+
+  Using the second half of the last problem, we have that
+  $\sum_{i=1}^{k+1}a_iT^i$ has eigenvector $x$ and eigenvalue
+  $\sum_{i=1}^{k}a_i\lambda^i + a_{k+1}\lambda^{k+1} = \sum_{i=1}^{k+1}a_i\lambda^i$.
+\end{proof}
+
+\subsection*{Apostol p.101 no.4}
+
+\begin{claim}
+  If $T: V \rightarrow V$ has that $T^2$ has eigenvalue $\lambda^2$, at least
+  one of $\lambda$ and $-\lambda$ is an eigenvalue for $T$.
+\end{claim}
+
+\begin{proof}
+  \begin{align*}
+    \det(T^2 - \lambda^2I) &= \det((T - \lambda I)(T + \lambda I)) \\
+                           &= \det(T - \lambda I)\det(T + \lambda I) 
+  \end{align*}
+
+  However, we know that $ab = 0 \iff a = 0$ or $b = 0$ in a field, so one of
+  $\det(T - \lambda I), \det(T + \lambda I)$ must be 0 and thus $T$ must have at
+  least one of $\pm \lambda$ as an eigenvalue.
+\end{proof}
+
+\subsection*{Apostol p.101 no.6}
+
+\begin{claim}
+  If $V$ is the vector space of all real polynomials of degree $\leq n$, and $q
+  = T(p) \iff q(t) = p(t + 1)$ for all real $t$, then $T$ has only the
+  eigenvalue $1$.
+\end{claim}
+
+\begin{proof}
+  Let $T$ have eigenvector $p$ belonging to eigenvalue $\lambda$. Then, we have
+  that $T(p) = \lambda p \implies p(t + 1) = \lambda p(t)$ for all $t \in \R$,
+  where $p$ is a nonzero polynomial of degree $n$.
+
+  More specifically, we have $\sum_{i=0}^na_i(t+1)^i =
+  \lambda\sum_{i=0}^na_it^i$, where $a_n \neq 0$. Taking a look at the highest
+  degree term, $a_it^i = \lambda a_it^i \implies \lambda = 1$.
+
+  We have that the corresponding eigenspace includes the constant functions, as
+  $p(x) = c = p(x + 1)$.
+
+  To prove that these are all possible eigenvectors, note that $p(r) = 0$ for
+  some $r \in \R$ implies that $p(r \pm n) = 0$, where $n \in \N$. This
+  generates an infinite amount of zeros, and so $p$ must not have any zeros (or
+  be the zero polynomial).
+
+  Furthermore, $p'(t) = p(t) - y$ for any $y \in \R$ must also have no zeros;
+  consider that $p'(t + 1) = p(t + 1) - y = p(t) - y = p'(t)$, and so $p'(t)$ is
+  also an eigenvector and must have no zeros (or be the zero polynomial).
+
+  Take $y = -p(x)$ for some arbitrarily selected $x \in \R$, and so $p'(x)$ has a
+  zero, and thus $p'(x) = 0$, in which case $p(t) = y$, and it is
+  constant.
+
+  Thus, the only eigenvectors are the constant functions (without the zero polynomial).
+
+  % Note that any constant function $p(x) = y$ is an eigenvector belonging to
+  % eigenvalue 1, as $T(p) = p(x+1) = y$.
+
+  % Now, note that $p'(x) = p(x) - y$ for any $y \in \R$ must also be an eigenvector, as
+  % $p'(x + 1) = p(x+1) - y, T(y) = y \implies T(p') = p(x+1) - y = T(p)$
+\end{proof}
+
+\subsection*{Apostol p.108 no.11}
+
+\begin{claim}
+  If $A, B \in M_{n \times n}$, with $A$ nonsingular, then $AB, BA$ have the
+  same set of eigenvalues.
+\end{claim}
+
+\begin{proof}
+  It is shown in Apostol that similar matrices have the same eigenvalues. Then,
+  \[
+    BA = (A^{-1}A)BA =A^{-1}(AB)A 
+  \]
+
+  Since $AB, BA$ are similar, they have the same eigenvalues.
+\end{proof}
+
+\subsection*{Apostol p.113 no.7}
+
+\subsubsection*{a}
+
+\begin{claim}
+  A square matrix $A$ is nonsingular $\iff$ 0 is not an eigenvalue of $A$
+\end{claim}
+
+\begin{proof}
+  $(\implies)$ This is the same as proving the contrapositive that if 0 is an eigenvalue, $A$ is
+  singular.
+
+  Then, if 0 is an eigenvalue, for some $x \neq 0 $,  $Ax = 0x = 0$. This would
+  mean that $\ker(A) \neq \{0\}$, and thus $A$ is singular.
+
+  $(\impliedby)$ 0 is not an eigenvalue of $A$ $\iff$ $\det(A - 0I) \neq 0$.
+  Then $\det(A) \neq 0$, so $A$ is nonsingular.
+\end{proof}
+
+\subsubsection*{b}
+
+\begin{claim}
+  If $A$ is nonsingular, then the eigenvalues of $A^{-1}$ are the reciprocals of
+  the eigenvalues of $A$.
+\end{claim}
+
+\begin{proof}
+  Let $A \in M_{n \times n}$ have eigenvalue $\lambda$. Then, 
+  \begin{alignat*}{2}
+    && \det(A - \lambda I) &= 0 \\
+    &\implies& (\frac{1}{\lambda})^n\det(A - \lambda I) &= (\frac{1}{\lambda})^n 0 \\
+    &\implies& \det(\frac{1}{\lambda}A - I) &= 0 \\
+    &\implies& \det(A^{-1})\det(\frac{1}{\lambda}A - I) &= \det(A^{-1}) 0\\
+    &\implies& \det(\frac{1}{\lambda}I - A^{-1}) &= 0 \\
+    &\implies& \det(A^{-1} - \frac{1}{\lambda}I) &= (-1)^n0 = 0
+  \end{alignat*}
+
+  Thus, $A^{-1}$ has eigenvalue $\frac{1}{\lambda}$.
+
+  Note that this shows that $A$ has eigenvalue $\lambda \implies A^{-1}$ has
+  eigenvalue $\frac{1}{\lambda}$, and substituting $A = A^{-1}, \lambda =
+  \frac{1}{\lambda}$ at the beginning shows that $A^{-1}$ has eigenvalue
+  $\frac{1}{\lambda} \implies A$ has eigenvalue $\lambda$.
+\end{proof}
+
+\subsection*{Apostol p.113 no.8}
+
+We have $A^2 = -I$.
+
+\subsubsection*{a}
+
+\begin{claim}
+  $A$ is nonsingular.
+\end{claim}
+
+\begin{proof}
+  Consider $-A$. $A(-A) = -(AA) = -(-I) = I$, and $(-A)A = -(AA) = I$.
+  Thus, $A^{-1} = -A$.
+\end{proof}
+
+\subsubsection*{b}
+
+\begin{claim}
+  $\dim(A) = n$ is even.
+\end{claim}
+
+\begin{proof}
+  \begin{align*}
+    A^2 &= -I \\
+    \det(A^2) &= \det(-I) \\
+    \det(A)^2 &= (-1)^n\det(I) \\
+    \det(A)^2 &= (-1)^n
+  \end{align*}
+
+  Since we have that $\det(A) \in \R$, $(-1)^n \geq 0$, so $n$ must be even.
+\end{proof}
+
+\subsubsection*{c}
+
+\begin{claim}
+  $A$ has no real eigenvalues.
+\end{claim}
+
+\begin{proof}
+  Suppose that $Ax = \lambda x$, i.e. $A$ has some real eigenvalue $\lambda$
+  with eigenvector $x$. Then, $-x = -Ix = A^2x = \lambda^2 x$, which would means
+  that $\lambda^2 = -1$, which has no real solutions. $\contra$, $A$ has no real eigenvalues.
+\end{proof}
+
+\subsubsection*{d}
+
+\begin{proof}
+  Consider $\det(t\lambda - A)$. We have that this, the characteristic
+  polynomial of $A$, has roots exactly the complex eigenvalues of $A$. In
+  particular,
+
+  \[
+    \det(t\lambda - A) = \prod_{i=1}^n(t - \lambda_i)
+  \]
+
+  where $\lambda_i$ are the eigenvalues of $A$. We know that the characteristic
+  polynomial splits completely over $\C$.
+
+  The sign of the leading coefficient
+  can be seen by the permutation formula; the only way to get $t^n$ from
+  $\prod_{i=1}^na_{i\sigma(i)}\text{sgn}(\sigma)$ is to have the identity
+  permutation, thus taking the product over the diagonal. Then,
+  $\text{sgn}(\id) = 1$, so the leading coefficient is positive.
+
+  Taking $t = 0$,
+
+  \[
+    det(-A) = (-1)^n\det(A) = \det(A) = \prod_{i=1}^n (-1)^n(\lambda_i) = \prod_{i=1}^n \lambda_i
+  \]
+
+  However, we have that since $\lambda^2 = -1$ from above, and that the
+  coefficients of the characteristic polynomial must be real, $\lambda_i = \pm
+  i$ and come in conjugate pairs of $i, \pm i$. Thus, $\prod_{i=1}^n \lambda_i =
+  \prod_{i=1}^{n/2}(i \cdot -i) = 1$.
+\end{proof}
+
+\section*{Problem 1}
+
+\begin{claim}
+  Let $A, B$ be, respectively, column and row vectors of dimension $n$.
+  \[
+    \det(AB) = 0
+  \]
+\end{claim}
+
+\begin{proof}
+  We have that the determinant is linear on each row; further, if any of the
+  rows of its input are identical, then the determinant is 0.
+
+  Compute:
+  \[
+    (AB)_{ij} = \sum_{k=1}^1A_{ik}B_{kj} = A_{i1}B_{1j}
+  \]
+
+  However, note that the $i^{th}$ row is
+  \[
+    \begin{bmatrix}
+      A_{i1}B_{11} & A_{i1}B_{12} & \dots & A_{i1}B_{1n}
+    \end{bmatrix} =
+    A_{i1} \begin{bmatrix}
+      B_{11} & B_{12} & \dots & B_{1n}
+    \end{bmatrix}
+  \]
+
+  This means that $\det(AB) = \prod_{i=1}^nA_{i1}\det(B')$ where
+  \[
+    B' =
+    \begin{bmatrix}
+      B_{11} & B_{12} & \dots & B_{1n} \\
+      B_{11} & B_{12} & \dots & B_{1n} \\
+      \vdots & & & \vdots \\
+      B_{11} & B_{12} & \dots & B_{1n} \\
+    \end{bmatrix}
+  \]
+
+  However, since each row of $B'$ are identical, then $\det(B') = 0 \implies
+  \det(AB) = 0$.
+\end{proof}
+
+\section*{Problem 3}
+
+For each, we need to find the eigenvectors and eigenvalues of the given matrix. 
+
+\subsection*{a}
+
+\begin{align*}
+  \det(A - \lambda I_n) &= \det
+                          \left(\begin{bmatrix}
+                              20 - \lambda & -9 \\
+                              30 & -13 - \lambda \\
+                            \end{bmatrix}\right) \\
+                        &= (20 - \lambda)(-13 - \lambda) + 270 \\
+                        &= \lambda^2 - 7\lambda + 10 \\
+                        &= (\lambda - 5)(\lambda - 2) \\
+  \intertext{Since we want the determinant to be 0,}
+  \lambda &= 2, 5
+\end{align*}
+
+Finding the eigenvectors, we have that
+\begin{align*}
+  \intertext{Take $\lambda = 2$}
+  \begin{bmatrix}
+    18 & -9 \\
+    30 & -15 \\
+  \end{bmatrix} \rightarrow
+  \begin{bmatrix}
+    2 & -1 \\
+    0 & 0 \\
+  \end{bmatrix}
+  \intertext{Then, this has eigenvector $(1, 2)$. Now take $\lambda = 5$}
+  \begin{bmatrix}
+    15 & -9 \\
+    30 & -18 \\
+  \end{bmatrix} \rightarrow
+  \begin{bmatrix}
+    5 & -3 \\
+    0 & 0 \\
+  \end{bmatrix}
+  \intertext{Then, this has eigenvector $(3, 5)$.}
+\end{align*}
+
+Inverting the column matrix 
+$\begin{bmatrix}
+  1 & 3 \\
+  2 & 5
+\end{bmatrix}$, we arrive at
+$\begin{bmatrix}
+  -5 & 3 \\
+  2 & -1
+\end{bmatrix}$
+
+Then, we have that
+\[
+  \begin{bmatrix}
+    20 & -9 \\
+    30 & -13
+  \end{bmatrix} =
+  \begin{bmatrix}
+    -5 & 3 \\
+    2 & -1 
+  \end{bmatrix}
+  \begin{bmatrix}
+    2 & 0 \\
+    0 & 5 
+  \end{bmatrix}
+  \begin{bmatrix}
+    1 & 3 \\
+    2 & 5
+  \end{bmatrix}
+\]
+
+\subsection*{b}
+
+This is not diagonalizable.
+
+\begin{align*}
+  \det(A - \lambda I_n) &= \det
+                          \left(\begin{bmatrix}
+                              8 - \lambda & 4 \\
+                             -9 & -4 - \lambda \\
+                            \end{bmatrix}\right) \\
+                        &= (8 - \lambda)(-4 - \lambda) + 36 \\
+                        &= \lambda^2 - 4\lambda + 4 \\
+                        &= (\lambda - 2)^2 \\
+  \intertext{Since we want the determinant to be 0,}
+  \lambda &= 2
+\end{align*}
+
+However, we have that with $\lambda = 2,$
+
+\[
+  \begin{bmatrix}
+    6 & 4 \\
+    -9 & -6 \\
+  \end{bmatrix} \rightarrow
+  \begin{bmatrix}
+    3 & 2 \\
+    0 & 0 
+  \end{bmatrix}
+\]
+
+The eigenspace is spanned by $(2, -3)$, and since if we want a matrix to be
+diagonalizable the geometric multiplicity must be the algebraic multiplicity,
+the matrix is not diagonalizable.
+
+\subsection*{c}
+
+\begin{align*}
+  \det(A - \lambda I_n) &= \det
+                          \left(\begin{bmatrix}
+                              -1 - \lambda & 4 & 4 \\
+                              0 & -5 - \lambda & -4 \\
+                              0 & 8 & 7 - \lambda
+                            \end{bmatrix}\right) \\
+                        &= (-1 - \lambda)((-5 - \lambda)(7 - \lambda) + 32) \\
+                        &= (-1 - \lambda)(\lambda^2 - 2\lambda - 3) \\
+                        &= (-1 - \lambda)(\lambda - 3)(\lambda + 1) \\
+  \intertext{Since we want the determinant to be 0,}
+  \lambda &= -1, 3
+\end{align*}
+
+Finding the eigenvectors, we have that
+\begin{align*}
+  \intertext{Take $\lambda = -1$}
+  \begin{bmatrix}
+    0 & 4 & 4 \\
+    0 & -4 & -4 \\
+    0 & 8 & 8
+  \end{bmatrix} \rightarrow
+  \begin{bmatrix}
+    0 & 1 & 1 \\
+    0 & 0 & 0 \\
+    0 & 0 & 0
+  \end{bmatrix}
+  \intertext{Then, this has eigenspace spanned by $(1, 0, 0), (0, -1, 1)$. Now take $\lambda = 3$}
+  \begin{bmatrix}
+    -4 & 4 & 4 \\
+    0 & -8 & -4 \\
+    0 & 8 & 4
+  \end{bmatrix} \rightarrow
+  \begin{bmatrix}
+    1 & -1 & -1 \\
+    0 &  2 & 1 \\
+    0 & 0 & 0
+  \end{bmatrix}
+  \intertext{Then, this has eigenspace spanned by $(1, -1, 2)$.}
+\end{align*}
+
+Inverting the column vector matrix,
+\begin{align*}
+  & \begin{bmatrix}
+    1 & 0 & 1 & 1 & 0 & 0\\
+    0 & -1 & -1 & 0 & 1 & 0\\
+    0 & 1 & 2 & 0 & 0 & 1
+  \end{bmatrix} \rightarrow
+                        \begin{bmatrix}
+                          1 & 0 & 1 & 1 & 0 & 0\\
+                          0 & 1 & 1 & 0 & -1 & 0 \\
+                          0 & 0 & 1 & 0 & 1 & 1
+                        \end{bmatrix} \rightarrow 
+                                              \begin{bmatrix}
+                                                1 & 0 & 0 & 1 & -1 & -1\\
+                                                0 & 1 & 0 & 0 & -2 & -1 \\
+                                                0 & 0 & 1 & 0 & 1 & 1
+                                              \end{bmatrix}
+\end{align*}
+
+Then, we have that
+\[
+  \begin{bmatrix}
+    -1 & 4 & 4 \\
+    0 & -5 & -4 \\
+    0 & 8 & 7
+  \end{bmatrix} =
+  \begin{bmatrix}
+    1 & -1 & -1\\
+    0 & -2 & -1 \\
+    0 & 1 & 1
+  \end{bmatrix}
+  \begin{bmatrix}
+    -1 & 0 & 0\\
+    0 & -1 & 0 \\
+    0 & 0 & 3
+  \end{bmatrix}
+  \begin{bmatrix}
+    1 & 0 & 1  \\
+    0 & -1 & -1 \\
+    0 & 1 & 2    
+  \end{bmatrix}
+\]
+
+\section*{Problem 4}
+
+\begin{claim}
+  If $A$ is an upper triangular matrix, then the eigenvalues of $A$ are exactly
+  its diagonal entries.
+\end{claim}
+
+\begin{proof}
+  We first show that the determinant of a diagonal matrix is the product of its
+  diagonal entries.
+
+  Let the dimension of $A$ be $n$, and let the elements be $a_{ij}$ and the
+  corresponding matrix with row $i$ and column $j$ removed be $A_{ij}$. Induct on $n$.
+
+  If $n = 1$, then $A = [a_{11}] \implies \det(A) = a_{11}$, which holds. Now
+  assume the hypothesis for $n = k$, such that $A' \in M_{ k\times k}, A
+  \in M_{(k+1) \times (k+1)}$ where $A_k = A_{(k+1)(k+1)}$:
+  \[
+    \det(A') = \prod_{i=1}^ka_{ii}
+  \]
+
+  Then, from class, the cofactor formula for the determinant has that
+  \[
+    \det(A) = \sum_{j=1}^{k+1}a_{(k+1)j}\det(A_{(k+1)j})
+  \]
+  Since we have that $A', A$ are upper triangular, $a_{(k+1)j} = 0$ for
+  $j < k + 1$. Then,
+  \[
+    \det(A) = a_{(k+1)(k+1)}\det(A_{(k+1)(k+1)}) = a_{(k+1)(k+1)}\det(A')
+    = \prod_{i=1}^{k+1}a_{ii}
+  \]
+
+  Now, we have that $A - \lambda I$ is still diagonal, as any element $(A -
+  \lambda I)_{ij}$ for $i > j$ is still simply $0 + \lambda (0) = 0$.
+
+  Then,
+  \begin{align*}
+    \det(A - \lambda I) = \prod_{i=1}^n(a_{ii} - \lambda)
+  \end{align*}
+
+  The above product is zero $\iff$ $\lambda = a_{ii}$ for some $i \in [1, n]$.
+  Thus, the eigenvalues are exactly all of the $a_{ii}$.
+\end{proof}
+
+\end{document}
+
+% LocalWords:  NetID fancyplain LocalWords colorlinks linkcolor linkbordercolor
+% LocalWords:  Apostol
