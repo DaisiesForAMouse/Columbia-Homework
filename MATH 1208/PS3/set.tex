@@ -62,6 +62,77 @@
 
 \begin{document}
 
+\subsection*{Apostol p.50 no.2a}
+
+\[
+  \begin{bmatrix}
+    1 & 0 & 0 \\
+    0 & 1 & 0 \\
+  \end{bmatrix}
+\]
+
+\subsection*{Apostol p.50 no.2b}
+
+\[
+  \begin{bmatrix}
+    0 & 1 & 0 \\
+    0 & 0 & 1 \\
+  \end{bmatrix}
+\]
+
+\subsection*{Apostol p.50 no.2c}
+
+\[
+  \begin{bmatrix}
+    0 & 1 & 0 & 0 & 0\\
+    0 & 0 & 1 & 0 & 0\\
+    0 & 0 & 0 & 1 & 0\\
+  \end{bmatrix}
+\]
+
+\subsection*{Apostol p.50 no.5a}
+
+\begin{align*}
+  T(i) &= T(i + j + k - j - k) \\
+       &= T(i + j + k) - T(j + k) \\
+       &= j - k - i \\
+  T(j) &= T(j + k - k) \\
+       &= T(j + k) - T(k) \\
+       &= i - (2i + 3j + 5k) \\
+       &= -i -3j -5k \\
+  T(i + 2j + 3k) &= T(i) + 2T(j) + 3T(k) \\
+       &= j -k -i + 2(-i -3j -5k) + 3(2i + 3j + 5k) \\
+       &= 3i + 4j + 4k
+\end{align*}
+
+The rank of the matrix is $3$, and the nullity is then $\dim(V_3) - 3 = 0$. We
+know that the rank is $3$ since if $T$ were to send $T(v = ai + bj + ck) = 0$, then
+\begin{alignat*}{2}
+  && &\begin{cases}
+    -a -b -2c = 0 \\
+    a -3b + 3c = 0 \\
+    -a -5b + 5c = 0 \\
+  \end{cases} \\
+  &\implies& &\begin{cases}
+    -4b +c = 0 \\
+    -2b + 2c = 0 \\
+  \end{cases} \\
+  &\implies& &c = 0 \\
+  &\implies& &b = 0 \\
+  &\implies& &a = 0 \\
+\end{alignat*}
+
+\subsection*{Apostol p.50 no.5b}
+
+The matrix, as given by above, should be
+\[
+  \begin{bmatrix}
+    -1 & -1 & 2 \\
+    1 & -3 & 3 \\
+    -1 & -5 & 5
+  \end{bmatrix}
+\]
+
 \section*{Problem 1}
 \subsection*{a}
 
@@ -277,7 +348,7 @@ Thus, the $x^{th}$ and $y^{th}$ columns of $AB$ are also identical.
 
 \subsection*{b}
 
-This follows directly from rank-nullity. The desired quanitity is the dimension
+This follows directly from rank-nullity. The desired quantity is the dimension
 of the subspace that is killed by $G$, which is exactly $\dim(\ker(G)) =
 \dim(P_n) - \dim(\im(G)) = n + 1 - k$.
 
@@ -405,15 +476,18 @@ of the subspace that is killed by $G$, which is exactly $\dim(\ker(G)) =
 
 \begin{claim}
   Suppose $A \in M_{n \times m}, B \in M_{m \times n}$ are matrices such that
-  $AB = I_n$. Then ,$m \geq n$.
+  $AB = I_n$. Then, $m \geq n$.
 \end{claim}
 
 \begin{proof}
-  First we  will show that proving the corresponding claim for linear maps:
-  suppose that for $T_A: F^m \rightarrow F^n, T_B: F^n \rightarrow F^m$, we have
-  $T_A \circ T_B = \id_{F^m}$.
+  We have from class that $AB = I_n \implies m(T_A)m(T_B) = m(\id) \implies
+  m(T_A \circ T_B) = m(\id) \implies T_A \circ T_B = \id$. Thus, $T_A: V
+  \rightarrow U$, $:T_B: U \rightarrow V$, where $\dim(U) = n, \dim(V) = m$.
 
-  Then, we have that since $T$ is linear, we can pick the standard basis for 
+  Since $\id$ is surjective, we have that $T_A$ must also be surjective.
+  To see this, consider that for any $u \in U$, $(T_A \circ T_B)(u) = \id(u)
+  \implies T_A(T_B(u)) = u$. Then, we have that $m \geq n$ by part a of
+  problem 7.
 \end{proof}
 
 \section*{Problem 9}

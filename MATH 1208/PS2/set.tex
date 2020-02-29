@@ -60,14 +60,76 @@
 
 \begin{document}
 
+\subsection*{Apostol p.14 no.24a}
+
+Suppose that $\dim(S) > \dim(V)$, and put $\dim(V) = v$. We have
+from class that this would imply that $S$ contains a set of $v + 1$ independent
+vectors, by the definition of dimension. However, since $x \in S \implies x \in
+V$, we have that $V$ contains $v + 1$ independent vectors. $\contra$, so
+$\dim(S) \leq \dim(V)$. In particular, since $V$ is finite dimensional, $S$ also
+must be finite dimensional.
+
+\subsection*{Apostol p.14 no.24b}
+
+\begin{claim}
+  $\dim(S) = \dim(V) \iff S = V$
+\end{claim}
+
+\begin{proof}
+  $(\implies)$ Since we have that $S \subseteq V$, let $\{s_1, s_2, ..., s_n\}$
+  be a basis for $S$. We can extend this into a basis for $V$ by a proposition
+  proved in class; fortunately, we have to extend this by zero vectors as
+  $\dim(S) = \dim(V)$, so $V$ is also spanned by $\{s_1, s_2, ..., s_n\}$.
+
+  This means that any $v \in V, v = \sum_{i=1}^na_is_i$ is also in $S$. Since $S
+  \subseteq V, V \subseteq S$, $V = S$.
+
+  $(\impliedby)$ $\dim(V) = \dim(S)$ as $V = S$.
+\end{proof}
+
+\subsection*{Apostol p.14 no.24c}
+
+By a proposition from class, we have that if we have $n$ independent vectors,
+where $n \leq \dim(V)$, we can extend this into a basis for $V$. 
+
+Then, the $\dim(S) \leq \dim(V)$ independent vectors that form a basis for $S$
+can be extended into a basis for $V$.
+
+\subsection*{Apostol p.14 no.24d}
+
+Take the following counterexample to the claim that ``A basis for $V$ contains
+a basis for S'': let $V = \R^2$, $S = \{(0, x) \mid x \in \R\}$. $V$ has as a
+basis $\{(1, 1), (-1, 1)\}$, but neither $(1,1)$ nor $(-1, 1)$ fall in $S$.
+
+\subsection*{Apostol p.35 no.24}
+
+% T(p + q) &= T(\sum_{i=1}^np_ix^i + \sum_{i=1}^nq_ix^i) \\
+% &= \sum_{i=1}^np_i(x + 1)^i + \sum_{i=1}^nq_i(x+1)^i
+% &= T
+
+\begin{align*}
+  T(p(x) + q(x)) &= T((p + q)(x)) \\
+                 &= (p + q)(x + 1) \\
+                 &= p(x + 1) + q(x + 1) \\
+                 &= T(p(x)) + T(q(x)) \\
+  T(cp(x)) &= cp(x + 1) \\
+                 &= c(p(x + 1)) = cT(p(x))
+\end{align*}
+
+$T$ is linear. $\ker T = \{0\}$ as well; $T(p(x)) = 0 \implies p(x + 1) = 0
+\implies \sum_{i=1}^np_i(x + 1)^i = 0 \implies p_i = 0 \implies p(x) = 0$.
+
+Thus, the nullity is 0 and the rank is $\dim V = n$.
+
 \section*{Problem 1}
 
 \subsection*{a}
 
 Since we have that $\{v_1, v_2, ..., v_k\} \subseteq \{v_1, ..., v_n\}$ for $n
 \geq k$, if $v \in V$ has $v = \sum_{i=1}^ka_iv_i$, then that same combination
-is a linear combination of $\{v_1, ..., v_n\}$ that equals $v$. Since this is
-not required to be unique, nor with all nonzero coefficients, we are done.
+is a linear combination of $\{v_1, ..., v_n\}$ that equals $v$ (take $a_{k+1},
+..., a_n = 0$). Since this is not required to be unique, nor with all nonzero
+coefficients, we are done. 
 
 \subsection*{b}
 
@@ -133,7 +195,8 @@ the vector space is trivial, and this still holds trivially with inverse also $I
 
   Then, we have that $\sin(\frac{2^i\pi}{2^{k+1}}) = \sin(2^{i - k - 1}\pi) = 0$ for
   any $i > k$; for any $i < k$, we have that $a_i = 0$; for $i = k$, we have
-  that $\sin(\frac{2^k\pi}{2^{k+1}}) = \sin(\frac{\pi}{2}) = 1$.
+  that $\sin(\frac{2^k\pi}{2^{k+1}}) = \sin(\frac{\pi}{2}) = 1$. Thus, no
+  nontrivial combination sums to 0.
 \end{proof}
 
 \section*{Problem 4}
@@ -251,25 +314,23 @@ Since $c(v, w) = (cv, cw)$ and $cv \in V, cw \in W$, we have that $c(v, w) \in V
   \]
 \end{claim}
 
-\begin{proof}
-  This is actually a special case of Problem 7, part d, where $V \cap W = \{0\}$. The
-  above follows.
+This is actually a special case of Problem 7, part d, where $V \cap W = \{0\}$. The
+above follows.
 
-  This isn't obvious by the given definition of the direct product, so here is a
-  more direct proof: consider the set $\{(v_1, 0), (v_2, 0), ..., (v_m, 0),
-  (0, w_1), (0, w_2), ..., (0, w_n)\}$, where $\{v_1, v_2, ..., v_m\}$ and
-  $\{w_1, w_2, ..., w_n\}$ are bases for $V$ and $W$ respectively.
+This isn't obvious by the given definition of the direct product, so here is a
+more direct proof: consider the set $\{(v_1, 0), (v_2, 0), ..., (v_m, 0),
+(0, w_1), (0, w_2), ..., (0, w_n)\}$, where $\{v_1, v_2, ..., v_m\}$ and
+$\{w_1, w_2, ..., w_n\}$ are bases for $V$ and $W$ respectively.
 
-  Any $(v, w) \in V \oplus W$ has:
+Any $(v, w) \in V \oplus W$ has:
 
-  \begin{align*}
-    (v, w) &= (\sum_{i=1}^ma_iv_i, \sum_{i=1}^nb_iw_i) \\
-           &= \sum_{i=1}^n(a_iv_i, 0) + \sum_{i=1}^n(0, b_iw_i) \\
-           &= \sum_{i=1}^na_i(v_i, 0) + \sum_{i=1}^nb_i(0, w_i) 
-  \end{align*}
+\begin{align*}
+  (v, w) &= (\sum_{i=1}^ma_iv_i, \sum_{i=1}^nb_iw_i) \\
+         &= \sum_{i=1}^n(a_iv_i, 0) + \sum_{i=1}^n(0, b_iw_i) \\
+         &= \sum_{i=1}^na_i(v_i, 0) + \sum_{i=1}^nb_i(0, w_i) 
+\end{align*}
 
-  which yields a basis of size $\dim(V) + \dim(W)$ for $V \oplus W$.
-\end{proof}
+which yields a basis of size $\dim(V) + \dim(W)$ for $V \oplus W$.
 
 \section*{Problem 6}
 
@@ -285,6 +346,16 @@ where the $s_i$ are a finite collection of $n$ distinct elements of $S$. For
 any $k$ where $1 \leq k \leq n$, we have that $0 = (\sum_{i=1}^na_if_{s_i})(s_k) =
 a_kf_{s_k}(s_k) = a_k$. Thus, only the trivial solution exists to
 $\sum_{i=1}^na_if_{s_i} = 0$. 
+
+% To conclude that $\mathcal{F}(\Zg, \R)$ and $\mathcal{F}(\R, \R)$ are infinite
+% dimensional, we have from results in class that for a vector space of dimension
+% $n$, any collection of $n$ independent vectors in the vector space form a basis.
+
+Suppose that $\mathcal{F}(\Zg, \R), \mathcal{F}(\R, \R)$ are $n$-dimensional.
+Then, we can take $n + 1$ independent vectors in the vector space
+by just considering $C = \{f_s \mid s \in [n + 1]\}$, where $[n + 1] = 1, 2, ..., n
++ 1$. $\contra$, since all bases are the same size and contain the maximum
+amount of linearly independent vectors, so they are not finite dimensional.
 
 \subsection*{b}
 
