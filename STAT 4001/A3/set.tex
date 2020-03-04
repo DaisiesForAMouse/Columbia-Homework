@@ -1,0 +1,436 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{relsize}
+\usepackage{fancyvrb}
+\usetikzlibrary{shapes.geometric,fit}
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+\newcommand\course{STAT 4001}
+\newcommand\hwnumber{3}
+\newcommand\NetIDa{dc3451}
+\newcommand\NetIDb{David Chen}
+
+\theoremstyle{definition}
+\newtheorem*{statement}{Statement}
+\newtheorem*{claim}{Claim}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+
+\newcommand{\contra}{\Rightarrow\!\Leftarrow}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Zeq}{\mathbb{Z}_{\geq 0}}
+\newcommand{\Zg}{\mathbb{Z}_{>0}}
+\newcommand{\Req}{\mathbb{R}_{\geq 0}}
+\newcommand{\Rg}{\mathbb{R}_{>0}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\pr}[1]{\text{Pr}\left(#1\right)}
+
+\pagestyle{fancyplain}
+\headheight 35pt
+\lhead{\NetIDa}
+\lhead{\NetIDa\\\NetIDb}
+\chead{\textbf{\Large Assignment \hwnumber}}
+\rhead{\course \\ \today}
+\lfoot{}
+\cfoot{}
+\rfoot{\small\thepage}
+\headsep 1.5em
+
+\begin{document}
+
+\subsection*{3.1.2}
+
+\[
+  \sum_{x=1}^5cx = 1 \implies c\frac{5(5+1)}{2} = 15c = 1 \implies c= \frac{1}{15}
+\]
+
+\subsection*{3.1.5}
+
+The odds of selecting $n \in \Z$ balls is $\frac{\binom{7}{n}\binom{3}{5 -
+    n}}{\binom{10}{5}}$, as there are $\binom{7}{n}$ ways to choose $n$ red
+balls, $\binom{3}{5-n}$ ways to choose the remaining balls, and $\binom{10}{5}$
+ways to choose overall.
+
+\subsection*{3.1.6}
+
+\[
+  \sum_{x=0}^5\binom{15}{x}0.5^x(1-0.5)^{15-x} = 0.1508
+\]
+
+\subsection*{3.2.4}
+
+\subsubsection*{a}
+
+\[
+  \int_{-\infty}^\infty f(x)dx = \int_1^2cx^2dx = \frac{8c}{3} - \frac{c}{3} = 1 \implies c = \frac{3}{7}
+\]
+
+See end for sketches.
+
+\subsubsection*{b}
+
+\[
+  P(X > \frac{3}{2}) = \int_{\frac{3}{2}}^\infty f(x)dx =
+  \int_{\frac{3}{2}}^2\frac{3}{7}x^2dx = \frac{1}{7}x^3\Big|^2_{\frac{3}{2}} = \frac{37}{56}
+\]
+
+\subsection*{3.2.8}
+
+\subsubsection*{a}
+
+\[
+  \int_{-\infty}^\infty f(x)dx = \int_0^\infty ce^{-2x}dx = \frac{c}{2} = 1 \implies c = 2
+\]
+
+See end for sketches.
+
+\subsubsection*{b}
+
+\[
+  P(1 < X < 2) = \int_1^22e^{-2x} = -e^{-2x}\Big|^2_1 = e^{-2} - e^{-4}
+\]
+
+\subsection*{3.3.1}
+
+See end for sketches.
+
+\subsection*{3.5.9}
+
+(It's out of order on the syllabus too!)
+
+\subsubsection*{a}
+
+Note that this area is a rectangle of area 6.
+
+\begin{align*}
+  f(x, y) &= \begin{cases}
+    \frac{1}{6} & (x,y) \in S \\
+    0 & \text{otherwise}
+  \end{cases} \\
+  f_1(x) &= \int_1^4\frac{1}{6}dy = \frac{1}{2} \\
+  f_2(y) &= \int_0^2\frac{1}{6}dy = \frac{1}{3}
+\end{align*}
+
+Both the marginal pdfs are 0 for points not in $S$.
+
+\subsubsection*{b}
+
+Yes; $f(x,y) = f_1(x)f_2(y)$.
+
+\subsection*{3.4.1}
+
+\subsubsection*{a}
+
+\[
+  \int_0^1\int_0^2cdxdy = 2c = 1 \implies c = \frac{1}{2}
+\]
+
+\subsubsection*{b}
+
+\[
+  P(X \geq Y) = \iint_{A}\frac{1}{2}dxdy = \frac{3}{4}
+\]
+
+The area $A$ is the trapezoid formed by the given rectangle below $y = x$.
+
+\subsection*{3.4.6}
+
+\subsubsection*{a}
+
+Every point is equally likely, so the pdf is constant on the given area, which
+is a triangle with height and base $1, 4$, such that
+\[
+  P(x, y) = \frac{1}{2}
+\]
+
+\subsubsection*{b}
+
+\[
+  P((x,y) \in S_0) = \iint_{S_0}\frac{1}{2}dxdy = \frac{1}{2}\alpha
+\]
+
+\subsection*{3.4.10}
+
+\subsubsection*{a}
+
+Note that the Taylor expansion of $e^{2y}$ yields
+\[
+  e^{2y} = \sum_{x=0}^\infty\frac{(2y)^x}{x!}
+\]
+
+Then,
+
+\begin{align*}
+  \int_{0}^\infty(\sum_{x=0}^\infty \frac{(2y)^x}{x!}e^{-3y})dy &= \int_0^\infty e^{2y}e^{-3y}dy \\
+                                                                &= \int_0^\infty e^{-y}dy \\
+                                                                &= -0  + e^0 = 1
+\end{align*}
+
+It is in fact a joint pdf / pf.
+
+\subsubsection*{b}
+
+\[
+  P(X = 0) = \int_0^\infty\frac{(2y)^0}{0!}e^{-3y}dy = \frac{1}{3}e^0 = \frac{1}{3}
+\]
+
+\subsection*{3.5.2}
+
+\subsubsection*{a}
+
+For $x = 0, 1, 2$, we have
+
+\[
+  f_1(x) = \sum_{y=0}^3\frac{1}{30}(x + y) = \frac{1}{30}(4x + 6) = \frac{2x+3}{15}
+\]
+
+For $y = 0, 1, 2, 3$, we have
+
+\[
+  f_2(y) = \sum_{x=0}^2\frac{1}{30}(x + y) = \frac{1}{30}(3y + 3) = \frac{y+1}{10}
+\]
+
+\subsubsection*{b}
+
+\[
+  f_1(x)f_2(y) = \frac{2xy + 3y + 2x + 3}{150} \neq f(x, y)
+\]
+
+Thus, $X, Y$ are not independent.
+
+\subsection*{3.5.10}
+
+\subsubsection*{a}
+
+The circle has area $\pi$, such that the joint pdf $f$ is
+\[
+  f(x, y) = \begin{cases}
+    \frac{1}{\pi} & (x, y) \in S \\
+    0 & \text{otherwise}
+  \end{cases}
+\]
+
+For $0 \leq x \leq 1$, $f(x, y) \neq 0 \iff -\sqrt{1-x^2} \leq y \leq
+\sqrt{1-x^2}$, so
+\[
+  f_1(x) = \int_{-\sqrt{1-x^2}}^{\sqrt{1-x^2}}\frac{1}{\pi}dy = \frac{2}{\pi}\sqrt{1-x^2}
+\]
+and is zero everywhere else.
+
+Similarly,
+\[
+  f_2(y) = \int_{-\sqrt{1-y^2}}^{\sqrt{1-y^2}}\frac{1}{\pi}dx = \frac{2}{\pi}\sqrt{1-y^2}
+\]
+on $-1 \leq y \leq 1$ and vanishes everywhere else.
+
+\subsubsection*{b}
+
+$f_1(x)f_2(y) \neq f(x, y)$, so they are not independent.
+
+\subsection*{3.6.3}
+
+\subsubsection*{a}
+
+Note that the area described is a circle of radius 3. Then,
+
+\begin{align*}
+  P(x, y) &= \begin{cases}
+    \frac{1}{9\pi} & (x, y) \in S \\
+    0 & \text{otherwise}
+  \end{cases} \\
+  f_1(x) &= \int_{-2-\sqrt{9-(x-1)^2}}^{-2+\sqrt{9-(x-1)^2}} \frac{dy}{9\pi} \\
+          &= \frac{2\sqrt{9-(x-1)^2}}{9\pi} \\
+  g_2(y \mid x) &= \frac{f(x,y)}{f_1(x)} \\
+          &= \begin{cases}
+    \frac{1}{2\sqrt{9-(x-1)^2}} & (x, y) \in S \\
+    0 & \text{otherwise} \\
+  \end{cases}
+\end{align*}
+
+\subsubsection*{b}
+
+
+\[
+  g_2(y \mid x = 2) = \begin{cases}
+    \frac{2}{\sqrt{8}} & -2 - \sqrt{8} < y < -2 + \sqrt{8} \\
+    0 & \text{otherwise}
+  \end{cases}
+\]
+
+\subsection*{3.6.8}
+
+\subsubsection*{a}
+
+\[
+  f_1(x) = \int_0^1\frac{2}{5}(2x+3y)dy = \frac{2}{5}(2x + \frac{3}{2}) \implies
+  P(X > 0.8) = \int_{0.8}^1 \frac{2}{5}(2x + \frac{3}{2}) = 0.264
+\]
+
+\subsubsection*{b}
+
+\begin{align*}
+  f_2(y) &= \int_0^1\frac{2}{5}(2x + 3y)dx = \frac{2}{5}(1 + 3y) \\
+  g_1(x \mid y) &= \frac{f(x,y)}{f_2(y)} \\
+                &= \frac{2x + 3y}{1 + 3y} \\
+  g(x > 0.8 \mid y = 0.3) &= \int_{0.8}^1\frac{2x + 0.9}{1 + 0.9}dx =0.284 \\
+\end{align*}
+
+\subsubsection*{c}
+
+\begin{align*}
+  g_2(y \mid x) &= \frac{f(x,y)}{f_1(x)} \\
+         &= \frac{2x + 3y}{2x + 1.5} \\
+  g(y > 0.8 \mid x = 0.3) &= \int_{0.8}^1\frac{0.6 + 3x}{2.1}dx = 0.314 \\
+\end{align*}
+
+\subsection*{3.7.3}
+
+\subsubsection*{a}
+
+\[
+  \int_0^\infty\int_0^\infty\int_0^\infty ce^{-(x_1+2x_2+3x_3)}dx_1dx_2dx_3 = 
+  c\int_0^\infty e^{-3x_3}\int_0^\infty e^{-2x_2}\int_0^\infty e^{-x_1}dx_1dx_2dx_3 = \frac{1}{6}c
+\]
+
+Thus, $\frac{1}{6}c = 1 \implies c = 6$.
+
+\subsubsection*{b}
+
+\[
+  f_{13}(x_1, x_3) = \int_0^\infty6e^{-(x_1 + 2x_2 + 3x_3)}dx_2 =
+  3e^{-(x_1 + 3x_3)}
+\]
+
+\subsubsection*{c}
+
+\begin{align*}
+  f_{23}(x_2, x_3) &= \int_0^\infty6e^{-(x_1 + 2x_2 + 3x_3)}dx_1 = 6e^{-(2x_2 + 3x_3)} \\
+  g_1(x_1 \mid x_2, x_3) &= \frac{f(x_1, x_2, x_3)}{f_{23}(x_2, x_3)} \\
+                   &= e^{-x_1} \\
+  \int_0^1e^{-x_1} = 1 - e^{-1}
+\end{align*}
+
+\subsection*{3.7.12}
+
+\begin{align*}
+  g_1(y, z \mid w) &= \frac{f(y, z, w)}{f_w(w)} \\
+                   &= \frac{f(y,z,w)}{\int_{-\infty}^\infty \int_{-\infty}^\infty f(y, z, w)dydz} \\
+  g_2(y \mid w) &= \frac{f_{y,w}(y, w)}{f_{w}(w)} \\
+                   &=\frac{\int_{\infty}^\infty f(y,z,w)dz}{\int_{-\infty}^\infty\int_{-\infty}^\infty f(y, z, w)dydz} \\
+                   \intertext{Since we have that the denominator is independent of $z$,}
+                   &= \int_{-\infty}^\infty\frac{f(y,z,w)}{\int_{-\infty}^\infty \int_{-\infty}^\infty f(y, z, w)dydz}dz \\
+                   &= \int_{-\infty}^\infty g(y, z \mid w)dz \\
+                   % &= \int_{\infty}^\infty g_1(y, z \mid w)
+  %                  &= \frac{\int_{-\infty}^\infty f(y,z,w)dz}{\int_{-\infty}^\infty \int_{-\infty}^\infty f(y, z, w)dydz} \\
+  %                  &= 
+\end{align*}
+
+\subsection*{3.8.1}
+
+Note that on the interval $0 < x < 1$, $y = 1 - x^2$ is injective, such that the
+cdf of $Y$ can be given by
+\[
+  P(Y \leq y) = P(1-x^2 \leq y) = P(1-y \leq x^2) =
+  \int_{(1-y)^{\frac{1}{2}}}^13x^2dx = 1 - (1-y)^{\frac{3}{2}}
+\]
+
+Then, differentiating, the pdf is
+\[
+  g(y) = \frac{3}{2}(1-y)^{\frac{1}{2}}
+\]
+
+for $0 < y < 1$.
+
+\subsection*{3.8.14}
+
+Put $Y = cX + d$. We compute cdf
+\[
+  P(Y \leq y) = P(cX + d \leq y) = P(x \leq \frac{y - d}{c}) =
+  \int_{a}^{\frac{y-d}{c}}\frac{dx}{b-a} = \frac{1}{b-a}(\frac{y-d}{c} - a)
+\]
+
+Differentiating,
+
+\[
+  g(y) = \frac{1}{c(b-a)}
+\]
+
+for $ca + d \leq y \leq cb + d$, as this is where $cX + d$ maps the interval
+$[a, b]$.
+
+\subsection*{3.9.6}
+
+Start by computing the cdf. On $0 \leq z \leq 1$, we have that
+\[
+  G(z) = \int_0^{\frac{z}{2}}\int_x^{z-x}2(x+y)dydx = \frac{z^3}{3}
+\]
+
+Thus, we have that $g(z) = \frac{dG}{dz} = z^2$ on $0 \leq z \leq 1$. Then,
+on $1 \leq z \leq 2$, we have that
+\[
+  G(z) = 1 - \int_{\frac{z}{2}}^1\int_{z-y}^y2(x+y)dxdy = z^2 - \frac{z^3}{3}
+\]
+
+Thus, we have that $g(z) = 2z-z^2$ for $1 \leq z \leq 2$.
+
+\subsection*{3.9.16}
+
+As a corollary of the factorization, we must have that $f_{12}(x_1, x_2) =
+\lambda g(x_1, x_2), f_{345}(x_3, x_4, x_5) = \lambda^{-1}h(x_3, x_4, x_5)$,
+where $\lambda = \int_{-\infty}^\infty\int_{-\infty}^\infty\int_{-\infty}^\infty h(x_3, x_4, x_5)dx_3dx_4dx_5$.
+
+Then, we have that $f(x_1, x_2, x_3, x_4, x_5) = f_{12}(x_1, x_2)f_{345}(x_3,
+x_4, x_5)$.
+
+\begin{align*}
+  P(Y_1 \in A_1 \land Y_2 \in A_2) &= \int\int\int\int\int_{r_1(x_1, x_2) \in A_1 \land r_2(x_3, x_4, x_5) \in A_2}f(x_1 \dots x_5)dx_1\dots dx_5  \\
+                                   &= \int\int_{r_1(x_1, x_2) \in A_1}f_{12}(x_1,x_2)dx_1dx_2 \int\int\int_{r_2(x_1, x_2, x_3)\in A_2}f_{345}f(x_3, x_4,x_5)dx_3dx_4dx_5 \\
+                                   &= P(Y_1 \in A_1)P(Y_2 \in A_2)
+\end{align*}
+
+\subsection*{3.9.19}
+
+We have by the theorem on convolutions that the pdf is
+\[
+  g(y) = \int_{-\infty}^\infty f(y - z)f(z)dz = \int_{0}^y
+  e^{z-y}e^{-z}dz = \int_0^y e^{-y}dz = ye^{-y}
+\]
+
+For $y < 0,$ we have that $g(y) = 0$, so
+
+\[
+  g(y) = \begin{cases}
+    ye^{-y} & y > 0 \\
+    0 & \text{otherwise} 
+  \end{cases}
+\]
+
+\includegraphics[width=150mm]{/home/david/Nextcloud/InstantUpload/Camera/20200302_234630.jpg}
+
+
+\end{document}
+
+% LocalWords:  NetID fancyplain LocalWords colorlinks linkcolor linkbordercolor
