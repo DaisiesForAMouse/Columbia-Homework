@@ -1,0 +1,779 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{relsize}
+\usepackage{fancyvrb}
+\usetikzlibrary{shapes.geometric,fit}
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+\newcommand\course{MATH 1208}
+\newcommand\hwnumber{6}
+\newcommand\NetIDa{dc3451}
+\newcommand\NetIDb{David Chen}
+
+\theoremstyle{definition}
+\newtheorem*{statement}{Statement}
+\newtheorem*{claim}{Claim}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+
+\newcommand{\contra}{\Rightarrow\!\Leftarrow}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Zeq}{\mathbb{Z}_{\geq 0}}
+\newcommand{\Zg}{\mathbb{Z}_{>0}}
+\newcommand{\Req}{\mathbb{R}_{\geq 0}}
+\newcommand{\Rg}{\mathbb{R}_{>0}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\id}{\mathrm{Id}}
+\newcommand{\im}{\mathrm{im}}
+\newcommand{\tr}{\mathrm{tr}}
+\newcommand{\diag}{\mathrm{diag}}
+\newcommand{\rank}{\mathrm{rank}}
+
+\pagestyle{fancyplain}
+\headheight 35pt
+\lhead{\NetIDa}
+\lhead{\NetIDa\\\NetIDb}
+\chead{\textbf{\Large Homework \hwnumber}}
+\rhead{\course \\ \today}
+\lfoot{}
+\cfoot{}
+\rfoot{\small\thepage}
+\headsep 1.5em
+
+\begin{document}
+
+\subsection*{Apostol p.20 no.3}
+
+\begin{claim}
+  \[
+    (x, y) = 0 \iff ||x + y||  = ||x - y||
+  \]
+\end{claim}
+
+\begin{proof}
+  \begin{align*}
+    ||x + y|| &= \sqrt{(x+y, x+y)} \\
+              &= \sqrt{(x, x+y) + (y, x+y)} \\
+              &= \sqrt{(x, x) + (x, y) + (y, x) + (y, y)} \\
+              &= \sqrt{(x,x) + (y,y) + 2(x, y)} \\
+    ||x - y|| &= \sqrt{(x, x) + (-y, -y) + 2(x, -y)} \\
+              &= \sqrt{(x,x) + (y, y) - 2(x, y)}
+  \end{align*}
+  $(\implies)$ From above, $||x + y|| = \sqrt{(x, x) + (y,y) + 2(0)}, ||x - y||
+  = \sqrt{(x, x) + (y, y) - 2(0)} \implies ||x + y|| = ||x - y||$.
+
+  $(\impliedby)$ From $\sqrt{(x, x) + (y,y) + 2(x, y)} = \sqrt{(x, x) + (y,y) -
+    2(x,y)} \implies (x,x) + (y,y) + 2(x,y) = (x,x) + (y,y) - 2(x,y) \implies 2(x,y) =
+  -2(x,y) \implies 4(x,y) = 0 \implies (x,y) = 0$.
+\end{proof}
+
+\subsection*{Apostol p.20 no.4}
+
+\begin{claim}
+  \[
+    (x, y) = 0 \iff ||x + y||^2 = ||x||^2 + ||y||^2
+  \]
+\end{claim}
+
+\begin{proof}
+  $(\implies)$ From above, we have that $||x + y||^2 = (x,x) + (y,y) + 2(x,y) = (x,x) + (y,y)
+  = ||x||^2 + ||y||^2$.
+
+  $(\impliedby)$ From above, we have that $||x+y||^2 = ||x||^2 + ||y||^2
+  \implies (x,x) + (y,y) + 2(x,y) = (x,x) + (y,y) \implies 2(x,y) = 0 \implies
+  (x,y) =0$.
+\end{proof}
+
+\subsection*{Apostol p.20 no.5}
+
+\begin{claim}
+  \[
+    (x, y) = 0 \iff \forall c \in \R, ||x + cy|| \geq ||x||
+  \]
+\end{claim}
+
+\begin{proof}
+  $(\implies)$ From above, $||x + cy|| = \sqrt{(x,x) + (cy, cy) + 2(x, cy)} =
+  \sqrt{(x,x) + c^2(y,y)}$. Since we have from the axioms that $(y,y) \geq 0$,
+  $(x,x) + c^2(y,y) \geq 0 \implies \sqrt{(x,x) + c^2(y,y)} \geq \sqrt{(x,x)}
+  \implies ||x + cy|| \geq ||x||$. 
+
+  $(\impliedby)$ From above, $\sqrt{(x,x) + c^2(y,y) + 2(x,cy)} \geq \sqrt{(x,x)} \implies
+  (x,x) + c^2(y,y) + 2(x, cy) \geq (x,x) \implies c^2(y,y) + 2c(x,y) \geq 0$.
+
+  If $y = 0$, then $(x, y) = (x, 0) = 0(x, 0) = 0$. Otherwise, $(y,y) > 0$. Take
+  $c = -\frac{(x,y)}{(y,y)}$, such that $\frac{(x,y)^2}{(y,y)} -
+  2\frac{(x,y)^2}{(y,y)} = -\frac{(x,y)^2}{(y,y)} \geq 0$. Since $(y,y) > 0$, we
+  must have that $-(x,y)^2 \geq 0  \implies (x,y)^2 \leq 0 \implies (x,y) = 0$.
+\end{proof}
+
+\section*{Problem 1}
+
+\subsection*{a}
+
+\begin{claim}
+  Let $A \in M_{n \times n}(F)$, $A_{ij}$ the $i,j$ element of $A$, and $A^{ij}$
+  be the submatrix of $A$ with the $i$ row and $j$ column removed. Then,
+
+  \[
+    p_A(\lambda) = \prod_{i=1}^n(\lambda - A_{ii}) + g(\lambda)
+  \]
+
+  where the degree of $g$ is at most $n - 2$.
+\end{claim}
+
+\begin{proof}
+  Induct on $n$.
+
+  For $n = 1$, we have that $\lambda I_1 - A = \begin{bmatrix} \lambda -
+    a_{11} \end{bmatrix}$, and that $\det(\lambda I_1 - A) = \lambda - a_{11}$. 
+
+  Now assume the hypothesis for $n = k$.
+  Since we have that $p_A(\lambda) = \det(\lambda I_{k+1} - A)$, cofactor expansion
+  gives that
+  \[
+    p_A(\lambda) = \det(\lambda I_{k+1} - A) = (\lambda - A_{11})\det((\lambda I_{k+1} -
+    A)^{11}) + \sum_{i=2}^{k+1}(-1)^{i-1}A_{1i}\det((\lambda I_{k+1} - A)^{1i})
+  \]
+
+  
+  Now, we have that the $1,1$ minor of $I_n \in M_{n \times n}$ is $I_{n-1} \in
+  M_{(n-1)\times(n-1)}$. To see this, consider that $(I^{11}_n)_{ij} =
+  (I_n)_{(i+1)(j+1)}$ (as for the $i, j$ cofactor matrix, we have that
+  $A^{kl}_{ij} = A_{(i+1)(j+1)}$ for $i \geq k, j \geq l$). Then, since we have
+  that $(I_n)_{(i+1)(j+1)} = \delta_{(i+1)(j+1)} = \delta_{ij}$, then $I^{11}_n = I_{n-1}$.
+
+
+  Now, $(\lambda I_{k+1} - A)^{11} = \lambda I_{k+1}^{11} - A^{11} =
+  \lambda I_{k} - A^{11}$. Then, by the inductive hypothesis,
+  $p_{A^{11}}(\lambda) = \det((\lambda i_{k+1} - A)^{11}) = 
+  \prod_{i=2}^{k+1}(\lambda - a_{ii}) + g_{11}(\lambda)$, where
+  $g_{11}$ is of degree at most $k - 2$ by assumption. Then,
+  \begin{align*}
+    p_A(\lambda) &= (\lambda - A_{11})(\prod_{i=2}^{k+1}(\lambda - A_{ii}) +
+    g_{11}(\lambda)) + \sum_{i=2}^{k+1}(-1)^{i-1}A_{1i}\det((\lambda I_{k+1} -
+                   A)^{1i}) \\
+                 &= \prod_{i=1}^{k+1}(\lambda - A_{ii}) +
+                   (\lambda - A_{11})g_{11}(\lambda) + \sum_{i=2}^{k+1}(-1)^{i-1}A_{1i}\det((\lambda I_{k+1} -
+                   A)^{1i})
+  \end{align*}
+
+  Now, for any $A_{1i}\det((\lambda I_{k+1} - A)^{1i})$, consider the permutation
+  formula for the determinant; since $\lambda I_{k+1} - A$ has only $k+1$
+  elements with the form $\lambda - x$, i.e. the diagonal elements (as these are the only
+  nonzero elements in the identity matrix). Then, we have that since removing
+  the $1$ row and $j$ column removes $(\lambda I_{k+1} - A)_{11}$ and $(\lambda
+  I_{k+1} - A)_{jj}$, the resulting cofactor matrix can only have at most $k -
+  1$ elements with $\lambda$ (i.e. elements that have the form $\lambda - A_{ij}$).
+
+  Then, since the permutation formula has that \[
+    \det((\lambda I_{k+1} - A)^{1j}) = \sum_{\sigma \in
+      S_k}\prod_{i=1}^k(\lambda I_{k+1} - A)^{1j}_{i\sigma(i)}\text{sgn}(\sigma) 
+  \]
+  any individual $\prod_{i=1}^k(\lambda I_{k+1} -
+  A)^{1j}_{i\sigma(i)}\text{sgn}(\sigma)$ is a polynomial of $\lambda$ of at
+  most degree $k - 1$, as it is a product of $k$ distinct elements of $(\lambda
+  I_{k+1} - A)^{1j}$, which has at most $k - 1$ terms which are binomials of
+  degree 1 in $\lambda$. Call $\det((\lambda I_{k+1} - A)^{1j}) = g_{1j}(\lambda)$.
+  
+  Now,
+  \begin{align*}
+    p_A(\lambda) &= \prod_{i=1}^{k+1}(\lambda - A_{ii}) +
+                   (\lambda - A_{11})g_{11}(\lambda) + \sum_{i=2}^{k+1}(-1)^{i-1}A_{1i}\det((\lambda I_{k+1} -
+                   A)^{1i}) \\
+                 &= \prod_{i=1}^{k+1}(\lambda - A_{ii}) +
+                   (\lambda - A_{11})g_{11}(\lambda) + \sum_{i=2}^{k+1}(-1)^{i-1}A_{1i}g_{1j}(\lambda) \\
+  \end{align*}
+
+  Since we have that $g_{11}(\lambda)$ has degree at most $k - 2$, and $A_{1i}$
+  for $i \neq 1$ has no $\lambda$ term, and that $g_{1j}$ has degree at most $k - 1$,
+  we have that $(\lambda - A_{11})g_{11}(\lambda) +
+  \sum_{i=2}^{k+1}(-1)^{i-1}A_{1i}g_{1j}(\lambda)$ is a polynomial of at most
+  degree $k - 1$. Call that $g(\lambda)$.
+
+  Finally,
+  \[
+    p_A(\lambda) = \prod_{i=1}^{k+1}(\lambda - A_{ii}) + g(\lambda)
+  \]
+  and the induction is finished.
+\end{proof}
+
+\subsection*{b}
+
+\begin{claim}
+  $p_A(\lambda)$ has leading term $1$, second term $-\tr(A)$, and constant term
+  $(-1)^n\det(A)$.
+\end{claim}
+
+\begin{proof}
+  Since we have that 
+  \[
+    p_A(\lambda) = \det(\lambda I - A) = \prod_{i=1}^{n}(\lambda - A_{ii}) + g(\lambda)
+  \]
+  taking $p_A(0) = \det(0I - A) = \det(-A) = (-1)^n\det(A)$ (the $(-1)^n$ comes
+  from multiplying $n$ rows by $-1$ to get from $-A$ to $A$). Further, since
+  $p_A$ is a polynomial, $p_A(0)$ is only the constant term. Thus, the constant
+  term of $p_A$ is $(-1)^n\det(A)$.
+
+  We will now prove the other two via induction on $n$; specifically, if
+  \[
+    p_n(x) = \sum_{i=1}^{n}(x - a_i)
+  \]
+  then the leading and second terms will be $1$ and $-\sum_{i=1}^na_i$ respectively.
+
+  For the base case of $n = 1$, the polynomial is $x - a_1$, and the criteria
+  are met. 
+
+  Assuming the hypothesis for $n = k$, we have that
+  \begin{align*}
+    p_{k+1}(x) &= \sum_{i=1}^{k+1}(x - a_i) \\
+               &= (x - a_{k+1})\sum_{i=1}^{k}(x - a_i) \\
+               &= (x - a_{k+1})(x^k - (\sum_{i=1}^ka_i)x^{k-1} + \sum_{i=1}^{k-2}c_ix^{k-2})  \\
+               &= x^{k+1} - (\sum_{i=1}^ka_i)x^{k} + \sum_{i=1}^{k-2}c_ix^{k-1} - a_{k+1}x^k + (\sum_{i=1}^ka_i)a_{k+1}x^{k-1} + \sum_{i=1}^{k-2}a_{k+1}c_ix^{k-2} \\
+               &= x^{k+1} - (\sum_{i=1}^{k+1}a_i)x^k + \sum_{i=1}^{k-1}c'_ix^i
+  \end{align*}
+
+  Now, notice that $g(\lambda)$ has at most degree $n - 2$, while
+  $\prod_{i=1}^n(\lambda - A_{ii})$ is of degree $n$, so $g$
+  contributes nothing to the first or second terms. Now, from above we have that
+  the leading coefficient is 1 and the second coefficient is
+  $-\sum_{i=1}^nA_{ii} = -\tr(A)$.
+\end{proof}
+
+\section*{Problem 2}
+
+\subsection*{a}
+
+\begin{claim}
+  If $D = \text{diag}(d_1, \dots, d_n)$, then $D^k = \text{diag}(d_1^k, \dots, d_n^k)$.
+\end{claim}
+
+\begin{proof}
+  Induct on $k$. For $k = 1$, it is immediate.
+
+  Now assume the claim for $k = l$. Then,
+  \[
+    D^{l+1} = (D^l)D
+  \]
+  such that
+  \[
+    D^{l+1}_{ij} = \sum_{m=1}^nD^l_{im}D_{mj}
+  \]
+  Note that if $i \neq j$, then either $i \neq m$ or $m \neq j$, so $D^l_{im} =
+  0$ or $D_{mj} = 0$, so the only nonzero entries can be the diagonals. Then,
+  \[
+    D^{l+1}_{ii} = \sum_{m=1}^nD^l_{im}D_{mi} = D^l_{ii}D_{ii} = d_i^ld_i = d_i^{l+1}
+  \]
+  
+  And so $D^{l+1} = \diag({d_1^{l+1},\dots, d_n^{l+1}})$.
+  
+\end{proof}
+
+\subsection*{b}
+
+\begin{claim}
+  Let $A = B^{-1}DB$. Then,
+  \[
+    A^k = B^{-1}D^kB
+  \]
+\end{claim}
+
+\begin{proof}
+  Induct again on $k$. For $k = 1$, it is immediate.
+
+  Assuming the claim for $k = l$, then
+  \[
+    A^{l+1} = A^{l}A = (B^{-1}D^lB)(B^{-1}DB) = (B^{-1}D^l)(BB^{-1})(DB) =
+    B^{-1}(D^lD)B = B^{-1}D^{l+1}B
+  \]
+\end{proof}
+
+\subsection*{c}
+
+We first diagonalize $A$.
+
+\begin{align*}
+  \det(\lambda I - A) &= \det(
+  \begin{bmatrix}
+    \lambda - 3 & -2 \\
+    -3 & \lambda - 4 
+  \end{bmatrix}) \\
+                      &= (\lambda - 3)(\lambda - 4) - 6 \\
+                      &= \lambda^2 - 7\lambda + 6 \\
+                      &= (\lambda - 1)(\lambda - 6) \\
+  \intertext{Taking $\lambda = 1$,}
+  (I - A) &=
+            \begin{bmatrix}
+              -2 & -2 \\
+              -3 & -3 \\
+            \end{bmatrix} \rightarrow
+  \begin{bmatrix}
+    1 & 1 \\
+    0 & 0
+  \end{bmatrix} \\
+  \intertext{Thus, the eigenspace belonging to $\lambda = 1$ is spanned by $(1, -1)$. Taking $\lambda = 6$,}
+  (6I - A) &=
+            \begin{bmatrix}
+              3 & -2 \\
+              -3 & 2 \\
+            \end{bmatrix} \rightarrow
+  \begin{bmatrix}
+    1 & -1 \\
+    0 & 0
+  \end{bmatrix} \\
+  \intertext{Thus, the eigenspace belonging to $\lambda = 6$ is spanned by $(2, 3)$.
+  Finally, inverting $\begin{bmatrix} 1 & 2 \\ -1 & 3\end{bmatrix}$ we have:}
+                                                    A &= \begin{bmatrix}
+                                                      \frac{3}{5} & -\frac{2}{5} \\
+                                                      \frac{1}{5} & \frac{1}{5}
+                                                    \end{bmatrix}
+                                                                    \begin{bmatrix}
+                                                                      1 & 0 \\
+                                                                      0 & 6
+                                                                    \end{bmatrix}
+                                                                          \begin{bmatrix}
+                                                                            1 & 2 \\
+                                                                            -1 & 3
+                                                                          \end{bmatrix}
+\end{align*}
+
+\section*{Problem 3}
+
+We first compute:
+
+\[
+  \begin{bmatrix}
+    a_{11} & a_{12} \\
+    a_{21} & a_{22}
+  \end{bmatrix}
+  \begin{bmatrix}
+    a_{11} & a_{12} \\
+    a_{21} & a_{22}
+  \end{bmatrix} = 
+  \begin{bmatrix}
+    a_{11}^2 + a_{12}a_{21} & a_{12}(a_{11} + a_{22}) \\
+    a_{21}(a_{11} + a_{22}) & a_{22}^2 + a_{12}a_{21}
+  \end{bmatrix} \\
+\]
+
+\subsection*{a}
+
+\begin{claim}
+  The real matrix $
+  \begin{bmatrix}
+    0 & 0 \\
+    0 & 1
+  \end{bmatrix}
+  $ has exactly two square roots.
+\end{claim}
+
+\begin{proof}
+ We see that $a_{22}^2 - a_{11}^2 = 1 \implies (a_{22} - a_{11})(a_{22} + a_{11})
+ = 1$. This means that $a_{11} + a_{22} \neq 0$, and as $a_{12}(a_{11} +
+ a_{22})$ and  $a_{21}(a_{11} + a_{22})$ are both zero, $a_{12} = a_{21} = 0$.
+
+ Then, we have that $a_{11}^2 = 0 \implies a_{11} = 0$, and $a_{22}^2 = 1
+ \implies a_{22} = \pm 1$. Thus, there are only two square roots and they are $
+ \begin{bmatrix}
+   0 & 0 \\
+   0 & -1
+ \end{bmatrix},
+ \begin{bmatrix}
+   0 & 0 \\
+   0 & 1
+ \end{bmatrix}
+$.
+\end{proof}
+
+\subsection*{b}
+
+\begin{claim}
+  The real matrix $
+  \begin{bmatrix}
+    4 & 0 \\
+    0 & 1
+  \end{bmatrix}
+  $ has exactly four square roots.
+\end{claim}
+
+\begin{proof}
+  Similarly to above, we have that $a_{11}^2 - a_{22}^2 = 3 \implies (a_{11} - a_{22})(a_{11} + a_{22})
+  = 3$, such that now $a_{12} = a_{21} = 0$. Further, we have now that $a_{11} =
+  \pm 2$, $a_{22} = \pm1$, so the four square roots are$
+  \begin{bmatrix}
+    2 & 0 \\
+    0 & -1
+  \end{bmatrix},
+  \begin{bmatrix}
+    2 & 0 \\
+    0 & 1
+  \end{bmatrix}
+  \begin{bmatrix}
+    -2 & 0 \\
+    0 & -1
+  \end{bmatrix},
+  \begin{bmatrix}
+    -2 & 0 \\
+    0 & 1
+  \end{bmatrix}
+  $.
+\end{proof}
+
+\subsection*{c}
+
+\begin{claim}
+  The real matrix $
+  \begin{bmatrix}
+    0 & 1 \\
+    0 & 0
+  \end{bmatrix}
+  $ has no square roots.
+\end{claim}
+
+\begin{proof}
+  Suppose that $\begin{bmatrix} a_{11} & a_{12} \\ a_{21} & a_{22}\end{bmatrix}$
+  is a square root.
+
+  We have that $a_{11}^2 + a_{12}a_{21} = a_{22}^2 + a_{12}a_{21} \implies
+  a_{11}^2 = a_{22}^2$. This means that $a_{11} = \pm a_{22}$; however, if
+  $a_{11} = -a_{22}$, $a_{12}(a_{11} + a_{22}) = 0$, $\contra$.
+
+  However, if $a_{11} = a_{22}$, then as $a_{21}(a_{11} + a_{22}) = 0$, we need
+  $a_{21} = 0$. Then, as $a_{11}^2 + a_{12}a_{21} = a_{11}^2 = 0, a_{22}^2 +
+  a_{12}a_{21} = a_{22}^2 = 0$, we need that $a_{11} = a_{22} = 0$. Then,
+  $a_{12}(a_{11} + a_{22}) = 0$, $\contra$.
+
+  Therefore no such square root exists.
+\end{proof}
+
+\subsection*{d}
+
+\begin{claim}
+  The $2 \times 2$ zero matrix has infinitely many square roots.
+\end{claim}
+
+\begin{proof}
+  We must have the following:
+  \[
+    \begin{cases}
+      a_{11}^2 + a_{12}a_{21} = 0 \\
+      a_{21}(a_{11} + a_{22}) = 0 \\
+      a_{12}(a_{11} + a_{22}) = 0 \\
+      a_{22}^2 + a_{12}a_{21} = 0 \\
+    \end{cases}
+  \]
+
+  Thus, $a_{21}(a_{11} + a_{22}) = a_{12}(a_{11} + a_{22}) \implies (a_{12} -
+  a_{21})(a_{11} + a_{22}) = 0$.
+
+  Since we know in any field, $ab = 0 \iff a = 0$ or $b = 0$, we have two cases.
+
+  First, let $a_{12} = a_{21}$. Then, $a_{11}^2 + a_{12}^2 = 0$. Thus, $a_{11} =
+  a_{12} = 0$. Similarly, $a_{22} = 0$.
+
+  Second, let $a_{11} = -a_{22}$. Then, $a_{11}^2 + a_{12}a_{21} = 0 \implies
+  -a_{12}a_{21} = a_{11}^2$. All such roots are then parameterized by \[
+    \begin{bmatrix}
+      x & y \\
+      -\frac{x^2}{y} & -x
+    \end{bmatrix},
+    \begin{bmatrix}
+      x & -\frac{x^2}{y} \\
+      y & -x
+    \end{bmatrix}
+  \] for any $x, y \in \R, y \neq 0$.
+
+  Thus, we have that all square roots are either the above form, or the zero matrix.
+\end{proof}
+
+\section*{Problem 5}
+
+\subsection*{a}
+
+The equivalency between the characteristic polynomial and $\det(\lambda I - A)$
+holds only if $\lambda$ is a scalar in the base field of $A$, since this
+property only holds when $(A - \lambda I)x = 0$ where $x$ is an eigenvector
+belonging to $\lambda \in F$. Taking $\lambda = A$ is very obviously not a
+scalar in the base field of $A$, so the proof fails.
+
+\subsection*{b}
+
+\begin{claim}
+  Cayley-Hamilton holds for $2 \times 2$ matrices.
+\end{claim}
+
+\begin{proof}
+  \begin{align*}
+    p_A(\lambda) =& 
+                   \begin{bmatrix}
+                     \lambda - a_{11} & -a_{12} \\
+                     -a_{21} & \lambda - a_{22} 
+                   \end{bmatrix}\\
+                 =& (\lambda - a_{11})(\lambda - a_{22}) - a_{12}a_{21} \\
+                 =& \lambda^2 - (a_{11} + a_{22}) \lambda + (a_{11}a_{22} - a_{12}a_{21}) \\
+    p_A(A) =& A^2 - (a_{11} + a_{22}) A + (a_{11}a_{22} - a_{12}a_{21}) I \\
+                 =&
+                   \begin{bmatrix}
+                     a_{11}^2 + a_{12}a_{21} & a_{12}(a_{11} + a_{22}) \\
+                     a_{21}(a_{11} + a_{22}) & a_{22}^2 + a_{12}a_{21}
+                   \end{bmatrix} -
+                                               \begin{bmatrix}
+                                                 (a_{11} + a_{22})a_{11} & (a_{11} + a_{22})a_{12} \\
+                                                 (a_{11} + a_{22})a_{21} & (a_{11} + a_{22})a_{22}
+                                               \end{bmatrix} \\
+    &+
+    \begin{bmatrix}
+      a_{11}a_{22} - a_{12}a_{21} & 0 \\
+      0 &  a_{11}a_{22} - a_{12}a_{21}
+    \end{bmatrix} \\
+                 =&
+                   \begin{bmatrix}
+                     a_{11}^2 + a_{12}a_{21} - (a_{11} + a_{22})a_{11} +  a_{11}a_{22} - a_{12}a_{21} & a_{12}(a_{11} + a_{22}) - (a_{11} + a_{22})a_{12}\\
+                     a_{21}(a_{11} + a_{22}) - (a_{11} + a_{22})a_{21}  & a_{22}^2 + a_{12}a_{21} - (a_{11} + a_{22})a_{22} + a_{11}a_{22} - a_{12}a_{21}
+                   \end{bmatrix} \\
+                 =&
+                   \begin{bmatrix}
+                     0 & 0\\
+                     0 & 0 
+                   \end{bmatrix}
+  \end{align*}
+\end{proof}
+
+\section*{Problem 6}
+
+\subsection*{a}
+
+\begin{claim}
+  Cayley-Hamilton holds for diagonal matrices.
+\end{claim}
+
+\begin{proof}
+  The determinant of a diagonal matrix is just the product of the diagonal
+  elements. To see this, consider that
+  \[
+    \det(D) = \sum_{\sigma \in S_n}\prod_{i=1}^nD_{i\sigma(1)}\text{sgn}(\sigma)
+  \]
+
+  There is only one permutation that takes all $A_{i\sigma(i)}$ to a nonzero
+  entry, and that is when $\forall i \in [1, n], i = \sigma(i)$. This is the
+  identity permutation, and thus $\det(D) = \prod_{i=1}^nD_{ii}$.
+
+  Now take any diagonal matrix $D$. For any $i, j, i \neq j$, $(\lambda I -
+  D)_{ij} = \lambda I_{ij} - D_{ij} = 0 - 0 = 0$. Thus, $\lambda I - D$ is also
+  diagonal. Then,
+
+  \[
+    p_D(\lambda) = \det(\lambda I - D) = \prod_{i=1}^n(\lambda - D_{ii})
+    \implies p_D(D) = \prod_{i=1}^n(D - D_{ii}I)
+  \]
+
+  We will show that
+  \[\prod_{i=1}^m\diag(d_{i1}, \dots, d_{in}) =
+  \diag(\prod_{i=1}^md_{i1}, \dots, \prod_{i=1}^nd_{in})\].
+
+  Induct on $m$. For $m = 1$, this is immediate.
+
+  Assume the above for $m = k$. Then,
+  \begin{align*}
+    A = \prod_{i=1}^{k+1}\diag(d_{i1}, \dots, d_{in}) &= (\prod_{i=1}^k\diag(d_{i1},
+                                                    \dots, d_{in}))\diag(d_{(k+1)1}, \dots, d_{(k+1)n}) \\
+                                                      &= \diag(\prod_{i=1}^kd_{i1}, \dots, \prod_{i=1}^nd_{in})\diag(d_{(k+1)1}, \dots, d_{(k+1)n}) \\
+    A_{uv} &= \sum_{l=1}^n(\diag(\prod_{i=1}^kd_{i1}, \dots, \prod_{i=1}^nd_{in}))_{ul}(\diag(d_{(k+1)1}, \dots, d_{(k+1)n}))_{lv} \\
+    \intertext{When $u \neq v$, we have that both factors on the right are zero. Otherwise,}
+    A_{uu} &= \sum_{l=1}^n(\diag(\prod_{i=1}^kd_{i1}, \dots, \prod_{i=1}^nd_{in}))_{ul}(\diag(d_{(k+1)1}, \dots, d_{(k+1)n}))_{lu} \\
+    \intertext{When $u \neq l$, both factors are again zero.}
+                                                      &= (\diag(\prod_{i=1}^kd_{i1}, \dots, \prod_{i=1}^nd_{in}))_{uu}(\diag(d_{(k+1)1}, \dots, d_{(k+1)n}))_{uu} \\
+                                                      &= (\prod_{i=1}^kd_{iu})d_{(k+1)u} \\
+                                                      &= \prod_{i=1}^{k+1}d_{iu}
+  \end{align*}
+
+  Thus,
+  \[\prod_{i=1}^m\diag(d_{i1}, \dots, d_{in}) =
+    \diag(\prod_{i=1}^md_{i1}, \dots, \prod_{i=1}^nd_{in})\].
+
+  Finally, we arrive at that
+  \begin{align*}
+    \prod_{i=1}^n(D - D_{ii}I) &= \diag(\prod_{i=1}^n(D -D_{ii}I)_{11},
+                                 \prod_{i=1}^n(D -D_{ii}I)_{22}, \dots, \prod_{i=1}^n(D -D_{ii}I)_{nn}) \\
+  \end{align*}
+  However, note that for any of these diagonal entries $\prod_{i=1}^n(D
+  -D_{ii}I)_{jj}$, we have that $\prod_{i=1}^n(D -D_{ii}I)_{jj} =
+  (\prod_{i=1,i\neq j}^n(D -D_{ii}I)_{jj})(D-D_{jj}I)_{jj} =
+  (\prod_{i=1,i\neq j}^n(D -D_{ii}I)_{jj})(0) = 0$.
+
+  Thus, we have that $p_D(D) = \prod_{i=1}^n(D - D_{ii}I) = 0$.
+\end{proof}
+
+
+\subsection*{b}
+
+\begin{claim}
+  Cayley-Hamilton holds for diagonalizable matrices.
+\end{claim}
+
+\begin{proof}
+  Let $f(A) = \sum_{i=0}^nc_iA^i$. Then, if $A = P^{-1}BP$, we will show that
+  $f(A) = P^{-1}f(B)P$.
+
+  \begin{align*}
+    P^{-1}f(B)P &= P^{-1}(\sum_{i=0}^nc_iB^i)P \\
+                &= (\sum_{i=0}^nP^{-1}(c_iB^i))P \\
+                &= \sum_{i=0}^nP^{-1}(c_iB^i)P \\
+                &= \sum_{i=0}^nc_iP^{-1}B^iP \\
+                &= \sum_{i=0}^nc_iA^i = f(A)
+  \end{align*}
+
+  The last line comes from problem 2, part b, which doesn't actually rely on $D$
+  being a diagonal matrix.
+
+  The first three lines come from the left/right distributivity of matrix multiplication.
+
+  Now, let $A = P^{-1}DP$, where $D$ is diagonal. Then, since Apostol shows all
+  similar matrices have the same characterizing polynomial, we put $p(\lambda)$
+  for the characterizing polynomials of both $A$ and $D$. Then, $p(A) =
+  P^{-1}p(D)P = P^{-1}0P = 0$.
+\end{proof}
+
+\section*{Problem 7}
+
+\subsection*{a}
+
+\[
+  (1 + i)^2 = 1^2 + 2i + i^2 = 2i
+\]
+
+\subsection*{b}
+
+\[
+  \frac{1}{i} = \frac{i}{i^2} = -i
+\]
+
+\subsection*{c}
+\[
+  \frac{1+i}{1-2i} = \frac{(1+i)(1+2i)}{(1-2i)(1+2i)} = \frac{1 + 3i + 2i^2}{1
+    -4i^2} = -\frac{1}{5} + \frac{3i}{5}
+\]
+\subsection*{d}
+
+\[
+  i^5 + i^{16} = (i^4)i + (i^4)^4 = i + 1
+\]
+
+\section*{Problem 8}
+
+Let $p$ be a polynomial over $\R$.
+
+\subsection*{a}
+
+\begin{claim}
+  \[
+    \overline{f(z)} = f(\overline{z})
+  \]
+\end{claim}
+
+\begin{proof}
+  We will show that conjugation is a automorphism on $\C$.
+
+  First, we show that $\overline{zw} = \overline{z} \cdot \overline{w}$. Let $z
+  = z_1 + z_2i, w = w_1 + w_2i$. Then,
+  \[
+    \overline{zw} = \overline{z_1w_1 - z_2w_2 + (z_1w_2 + z_2w_1)i} = z_1w_1 - z_2w_2 - (z_1w_2 + z_2w_1)i
+  \]
+  and
+  \[
+    \overline{z} \cdot \overline{w} = (z_1 - z_2i)(w_1 - w_2i) = z_1w_1 - z_2w_2
+    - (z_1w_2 + z_2w_1)i
+  \]
+  so we have that $\overline{zw} = \overline{z} \cdot \overline{w}$.
+
+  Further,
+  \[
+    \overline{z + w} = z_1 + w_1 - (z_2 + w_2)i = z_1 - z_2i + w_1 - w_2i =
+    \overline{z} + \overline{w}
+  \]
+
+  Now, induct on the degree $n$ of $f$. For $n = 1,$ we have that $f = c_o$,
+  which has the desired property immediately.
+
+  Now assume the hypothesis for $n = k$. Then,
+  \[
+    \overline{f(z)} = \overline{\sum_{i=0}^{k+1}c_iz^i} = \overline{\sum_{i=0}^kc_iz^i +
+    c_{k+1}z^{k+1}} = \overline{\sum_{i=0}^kc_iz^i} + \overline{c_{k+1}z^{k+1}}
+  = \sum_{i=0}^kc_i\overline{z}^i + \overline{c}\overline{z^{k+1}} \\
+  = \sum_{i=0}^{k+1}c_i\overline{z}^i = f(\overline{z})
+  \]
+\end{proof}
+
+\subsection*{b}
+
+\begin{claim}
+  Any nonreal zeros of $f$ must occur in conjugate pairs.
+\end{claim}
+
+\begin{proof}
+  Suppose that $f(z) = 0, z \in \C$. Then, $f(\overline{z}) = \overline{0} =
+  0$. Thus, any nonreal zero of $f$ must also have that its conjugate is a zero
+  of $f$. In particular, if $z \notin \R$, $z \neq \overline{z}$ and so complex roots
+  come in conjugate pairs.
+\end{proof}
+
+\subsection*{c}
+
+\begin{claim}
+  For $A \in M_{n \times n}(\R)$, any nonreal eigenvectors of $A$ occur in
+  complex conjugate pairs.
+\end{claim}
+
+\begin{proof}
+  Note that the characteristic polynomial of $A$ was shown to be a real valued
+  polynomial in problem 1. Then, as $p_A(\lambda) = \det(\lambda I - A)$, the
+  eigenvalues of $A$ are exactly the roots of $p_A$. Thus, from part b, any
+  nonreal eigenvalues must come in conjugate pairs.
+\end{proof}
+
+\section*{Problem 9}
+
+\begin{claim}
+  \[
+    (x, y) = \frac{1}{4}(||x+y||^2 - ||x -y||^2)
+  \]
+\end{claim}
+
+\begin{proof}
+  \begin{align*}
+    \frac{1}{4}(||x+y||^2 - ||x-y||^2) &= \frac{1}{4}((x+y, x+y) - (x-y, x-y)) \\
+                                       &= \frac{1}{4}((x+y, x) + (x+y, y) - ((x - y, x) - (x - y, y))) \\
+                                       &= \frac{1}{4}((x,x) + (y,x) + (x,y) + (y, y) - ((x, x) - (y,x) - ((x,y) - (y, y)))) \\
+                                       &= \frac{1}{4}((x, x) + (x, y) + (x, y) + (y, y) - (x, x) + (x, y) + (x, y) - (y, y)) \\
+                                       &= \frac{1}{4}(4(x, y)) \\
+                                       &= (x, y)
+  \end{align*}
+\end{proof}
+
+\end{document}
+
+% LocalWords:  NetID fancyplain LocalWords colorlinks linkcolor linkbordercolor
+% LocalWords:  Apostol
