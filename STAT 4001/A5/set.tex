@@ -1,0 +1,371 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{relsize}
+\usepackage{fancyvrb}
+\usetikzlibrary{shapes.geometric,fit}
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+\newcommand\course{STAT 4001}
+\newcommand\hwnumber{5}
+\newcommand\NetIDa{dc3451}
+\newcommand\NetIDb{David Chen}
+
+\theoremstyle{definition}
+\newtheorem*{statement}{Statement}
+\newtheorem*{claim}{Claim}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+
+\newcommand{\contra}{\Rightarrow\!\Leftarrow}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Zeq}{\mathbb{Z}_{\geq 0}}
+\newcommand{\Zg}{\mathbb{Z}_{>0}}
+\newcommand{\Req}{\mathbb{R}_{\geq 0}}
+\newcommand{\Rg}{\mathbb{R}_{>0}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\pr}[1]{\text{Pr}\left(#1\right)}
+\newcommand{\var}[1]{\text{Var}\left(#1\right)}
+\newcommand{\cov}[1]{\text{Cov}\left(#1\right)}
+
+\pagestyle{fancyplain}
+\headheight 35pt
+\lhead{\NetIDa}
+\lhead{\NetIDa\\\NetIDb}
+\chead{\textbf{\Large Assignment \hwnumber}}
+\rhead{\course \\ \today}
+\lfoot{}
+\cfoot{}
+\rfoot{\small\thepage}
+\headsep 1.5em
+
+\begin{document}
+
+\subsection*{4.9.2}
+
+Integration by parts with $u = 1 - F(x), dv = 1$ yields that
+\[
+  \int_0^\infty(1 - F(x))dx = \left( uv \Large|^\infty_0 \right) -
+  \int_0^\infty-xf(x)dx = \int_0^\infty xf(x)dx = E(X)
+\]
+
+\subsection*{4.9.22}
+
+They exhibit a negative linear relationship: that is, $X = Y - 3$ where $X, Y$
+are the lengths of the shorter and longer pieces. Thus, $\rho = -1$.
+
+\subsection*{4.9.26}
+
+\begin{align*}
+  \cov{X, Y} &= E(XY) - E(X)E(Y)\\
+             &= E(E(XY \mid Z)) - E(E(X)(E(Y)) \mid Z) \\
+             &= E(\cov{X, Y \mid Z} + E(X \mid Z)E(Y \mid Z)) - E(E(X) \mid Z)E(E(Y) \mid Z) \\
+             &= E(\cov{X, Y \mid Z}) + E(E(X \mid Z)E(Y \mid Z)) - E(E(X) \mid Z)E(E(Y) \mid Z) \\
+             &= E(\cov{X, Y \mid Z})  + \cov{E(X \mid Z), E(Y \mid Z)}
+\end{align*}
+
+\subsection*{5.2.5}
+
+Let $X$ be the amount of heads.
+
+\begin{align*}
+  P(X = 0) + P(X = 2) + P(X = 4) + P(X = 6) + P(X = 8) = 0.5
+\end{align*}
+
+\subsection*{5.2.9}
+
+Baye's Theorem yields that
+\[
+  P(X_1 = 1 \mid\sum_{i=1}^nX_i =  k) = \frac{P(\sum_{i=1}^nX_i = k \mid X_1 =
+    1)P(X_1 = 1)}{P(\sum_{i=1}^nX_i = k)} = \frac{P(\sum_{i=2}^nX_i = k - 1)P(X_1 = 1)}{P(\sum_{i=1}^nX_i = k)} 
+\]
+
+We have that $P(\sum_{i=1}^nX_i = k) = \binom{k}{n}p^k(1-p)^{n-k}$; similarly, $P(\sum_{i=2}^nX_i = k-1) =
+\binom{k-1}{n-1}p^{k-1}(1-p)^{n-k}$, and finally $P(X_1 = 1) = p$.
+
+The above expression then comes out to
+\[
+  \frac{k}{n}
+\]
+
+\subsection*{5.2.11}
+
+We have that
+\[
+  \sum_{x=2}^nx(x-1)\binom{n}{x}p^x(1-p)^{n-x}  =
+  \sum_{x=2}^nx^2\binom{n}{x}p^x(1-p)^{n-x} - \sum_{x=2}^nx\binom{n}{x}p^x(1-p)^{n-x}
+\]
+
+We can start the sum from $x = 0$, as for $x = 0, 1$ we have that the term is
+simply zero.
+
+Then, the expression works out to be, with $X$ a binomial distribution,
+\[
+  E(X^2) - E(X) = \var{X} + E(X)^2 - E(X) = np(1-p) + (np)^2 - np = (np)^2 -
+  np^2 = (n^2 - n)p^2
+\]
+
+\subsection*{5.3.1}
+
+\[
+  \frac{\binom{10}{10}\binom{24}{1}}{\binom{34}{11}} = 8.39 \cdot 10^{-8}
+\]
+
+\subsection*{5.4.1}
+
+We have that this is a Poisson distribution with mean $0.2 \cdot 0.1 \cdot 100 =
+2$, such that
+\[
+  P(X \geq 2) = 1 - P(X = 1) - P(X = 0) = 1 - 2e^{-2} - e^{-2} = 0.594
+\]
+
+
+\subsection*{5.4.6}
+
+We have that this is a Poisson distribution with mean $3\frac{6}{5} = 3.6$. The
+probability of no defects is $e^{-3.6} = 0.027$.
+
+\subsection*{5.4.16}
+
+\subsubsection*{a}
+
+Let $B = (\{X = k\} \cap (\cup_{i=1}^nA_i))$. Then, we have that $(W_n = k) =
+(\{X = k\} \cap (\cup_{i=1}^nA_i)^C)$, and as the sum of disjoint unions, we
+have that
+\[
+  P(B) + P(W_n = k) = P(X = k)
+\]
+
+\subsubsection*{b}
+
+We have that as the time intervals do not overlap, the $A_i$ are independent.
+Then,
+\begin{align*}
+  P((\cup_{i=1}^nA_i)^C) &= P(\cap_{i=1}^nA_i^C) \\
+                         &= (1 - A_i)^n \\
+                         &= (1 - o(\frac{t}{n}))^n \\
+\end{align*}
+where the last line follows from the second assumption.
+
+Then, we have that
+\[
+  \lim_{n \rightarrow \infty} P(\cup_{i=1}^nA_i) = \lim_{n \rightarrow \infty}
+  1 - (1 - o(\frac{t}{n}))^n = 1 - 1^n = 0
+\]
+
+\subsubsection*{c}
+
+\begin{align*}
+  P(W_n = k) &= \binom{n}{k}(\frac{\lambda t}{n} + o(\frac{t}{n}))^k(1-(\frac{\lambda t}{n} + o(\frac{t}{n})))^{n-k} \\
+             &= (\frac{1}{k!})(\frac{n!}{(n-k)!n^k})((\frac{\lambda t}{n} + o(\frac{t}{n}))n)^k(1-(\frac{\lambda t}{n} + o(\frac{t}{n})))^{n-k} \\
+  \end{align*}
+  Considering the factors of the product here, we have:
+  \begin{gather}
+    \lim_{n\rightarrow \infty} \frac{n!}{(n-k)!n^k} = 1  \\
+    \lim_{n\rightarrow \infty} (1-(\frac{\lambda t}{n} + o(\frac{t}{n})))^{n-k} = e^{-\lambda t} \\
+  \end{gather}
+  The above are given in the book. Further,
+  \begin{align*}
+    \lim_{n\rightarrow \infty} ((\frac{\lambda t}{n} + o(\frac{t}{n}))n)^k &= \lim_{n\rightarrow \infty} n^k\sum_{i=0}^k\binom{k}{i}(\frac{\lambda t}{n})^i(o(\frac{t}{n}))^{k-i} \\
+                                                                           &= \sum_{i=0}^k\binom{k}{i}(\lambda t)^i(\frac{o(\frac{t}{n})}{\frac{1}{n}})^{k-i} \\
+                                                                           &= \binom{k}{k}(\lambda t)^k
+  \end{align*}
+
+  We finally arrive at
+  \[
+    \lim_{n\rightarrow \infty}P(W_n = k) = \frac{(\lambda t)^ke^{-\lambda t}}{k!}
+  \]
+
+\subsubsection*{d}
+
+Since we have that
+\[
+  P(X = k) = P(W_n = k) + P(B)
+\]
+
+we have that
+\[
+  P(X = k) = \lim_{n \rightarrow \infty}P(W_n = k) + \lim_{n \rightarrow
+    \infty}P(B) = \frac{(\lambda t)^ke^{-\lambda t}}{k!}
+\]
+
+\subsection*{5.5.5}
+
+We do this by checking that the moment generating functions are the same. For
+$\sum_{i=1}^kX_i$, we have
+
+\begin{align*}
+  \psi(t) &= \prod_{i=1}^k\psi_i(t) \\
+          &= \prod_{i=1}^k\left( \frac{p}{1 - (1-p)e^t} \right)^{r_i} \\
+          &= \left( \frac{p}{1 - (1-p)e^t} \right)^{\sum_{i=1}^k r_i}
+\end{align*}
+
+which is the mgf of the desired negative binomial distribution.
+
+\subsection*{5.6.1}
+
+From the table at the end of the book, we have the following:
+\begin{center}
+  \begin{tabular}{c|c}
+    0.5 & 0 \\
+    0.75 & 0.675 \\
+    0.25 & -0.675 = 0.325 \\
+    0.9 & 1.285 \\
+    0.1 & -1.285
+  \end{tabular}
+\end{center}
+
+\subsection*{5.6.11}
+
+We have that $\overline{X_n} - \mu$ is normal with mean $0$ and variance
+$\frac{4}{n}$. Then, we have that with the standard normal distribution $Z$,
+\[
+  \overline{X_n} - \mu = \frac{2}{\sqrt{n}}Z \implies |\overline{X_n} - \mu| <
+  0.1 \iff |Z| < 0.05\sqrt{n}
+\]
+
+Looking for the $95^{th}$ quantile, we have that $0.05\sqrt{n} = 1.645 \implies
+n = 1082.41$. Rounding up,
+\[
+  n = 1083
+\]
+
+\subsection*{5.6.14}
+
+Put
+\[
+  X = \frac{1}{2}(X_A + X_A) - \frac{1}{3}(X_B + X_B + X_B)
+\]
+
+$X$ is normally distributed with mean $\mu = \mu_A - \mu_B = 25$ and variance
+$\sigma^2 = \frac{1}{2}\sigma_A^2 + \frac{1}{3}\sigma_B^2 = 100$. Then, we have
+that
+\[
+  X = 10Z + 25 > 0 \iff Z > -2.5
+\]
+
+Then, $P(X > 0) = P(Z < 2.5) = 0.9938$.
+
+\subsection*{5.6.16}
+
+Note that
+\[
+  \int_{-\infty}^\infty\frac{1}{2\pi}e^{-\frac{x^2+y^2}{2}}dx =
+  \frac{1}{2\pi}e^{-\frac{y^2}{2}}\int_{-\infty}^\infty e^{-\frac{x^2}{2}}dx = \frac{1}{\sqrt{2\pi}}e^{-\frac{y^2}{2}}
+\]
+
+Thus, $X$ and $Y$ are both the standard normal distribution, and $X + Y =
+\sqrt{2}Z$. This then means that
+\[
+  P(-\sqrt{2} < X + Y < 2\sqrt{2}) = P(-1 < Z < 2) = 0.8186
+\]
+
+\subsection*{5.6.5}
+
+This is the complement of non lasting 290 hours. Note that $X_i = 10Z + 300$,
+such that
+\[
+  P(X_i < 290) = P(Z < -1) = 0.1587
+\]
+
+The desired probability is then
+\[
+  1 - 0.1587^3 = 0.996
+\]
+
+\subsection*{5.6.9}
+
+We have the overall length is normally distributed with mean $56$ and variance
+$0.09$. Then, we see that
+\[
+  P(55.7 < X < 56.3) = P(-1 < Z < 1) = 0.6827
+\]
+
+\subsection*{5.6.13}
+
+The distribution $X$ of the difference between the hole diameters is normal with
+mean 0.02 and variance 0.0025, such that $X = 0.05Z + 0.02$. Thus, the desired
+probability is
+\[
+  P(0 < X < 0.05) = P(-0.4 < Z < 0.6) = 0.3812
+\]
+
+\subsection*{5.8.5}
+
+\begin{align*}
+  E[X^r(1-X)^s] &= \int_0^1 x^r(1-x)^s\frac{\Gamma(\alpha + \beta)}{\Gamma(\alpha)\Gamma(\beta)}x^{\alpha - 1}(1-x)^{\beta- 1}dx \\
+                &= \frac{\Gamma(\alpha + \beta)\Gamma(\alpha+r)\Gamma(\beta + s)}{\Gamma(\alpha)\Gamma(\beta)\Gamma(\alpha  +\beta + r + s)} 
+\end{align*}
+
+\subsection*{5.10.1}
+
+The conditional distribution of the height of the wife is normal with mean $66.8
++ 0.68 \cdot 2 \cdot \frac{72 - 70}{2} = 68.16$ and variance $(1-0.68)^22^2 =
+2.15$. The 0.95 quantile is then
+\[
+  68.16 + 2.15\frac{1}{2}(1.65) = 70.6
+\]
+
+\subsection*{5.10.11}
+
+We have from the book that $X_1 + X_2, X_1 - X_2$ are bivariate normally
+distributed. Thus, we need only to show that the covariance vanishes:
+\begin{align*}
+  \cov{X_1 + X_2, X_1 - X_2} &= E((X_1 + X_2)(X_1 - X_2)) - E(X_1 + X_2)E(X_1 - X_2) \\
+                             &= E(X_1^2 - X_2^2) - (E(X_1) + E(X_2))(E(X_1) - E(X_2)) \\
+                             &= E(X_1^2) - E(X_1)^2 - E(X_2^2) + E(X_2)^2 \\
+                             &= \var{X_1} - \var{X_2} = 0
+\end{align*}
+
+Thus, they are independent.
+
+\subsection*{5.10.13}
+
+The bivariate normal pdf has the form, for a suitable constant $C$,
+\[
+  Ce^{-\frac{1}{2(1-\rho^2)}((\frac{x_1 - \mu_1}{\sigma_1})^2 - 2\rho(\frac{x_1 - \mu_1}{\sigma_1})(\frac{x_2 - \mu_2}{\sigma_2})+(\frac{x_2 - \mu_2}{\sigma_2})^2)}
+\]
+
+This then yeilds
+\begin{align*}
+  a &= \frac{1}{2\sigma_1(1-\rho^2)} \\
+  b &= \frac{1}{2\sigma_2(1-\rho^2)} \\
+  c &= -\frac{\rho}{\sigma_1\sigma_2(1-\rho^2)} \\
+  e &= -\frac{\mu_1}{\sigma_1^2(1-\rho^2)} + \frac{\mu_2\rho}{\sigma_1\sigma_2(1-\rho^2)} \\
+  g &= -\frac{\mu_2}{\sigma_2^2(1-\rho^2)} + \frac{\mu_1\rho}{\sigma_1\sigma_2(1-\rho^2)} \\
+  \rho &= -\frac{c}{2\sqrt{ab}} \\
+  \sigma_1^2 &= \frac{1}{2a - \frac{c^2}{2b}} \\
+  \sigma_2^2 &= \frac{1}{2b - \frac{c^2}{2a}} \\
+  \mu_1 &= \frac{cg - 2be}{4ab-c^2} \\
+  \mu_2 &= \frac{ce - 2ag}{4ab-c^2} \\
+\end{align*}
+
+The only conditions placed on these coefficients are that $a, b > 0$ and that
+the correlation is $-1 < \rho < 1$. Luckily, we have exactly that: $ab >
+(\frac{c}{2})^2 \implies |\rho| < \frac{2c^2}{2c^2} = 1$.
+
+\end{document}
+
+% LocalWords:  NetID fancyplain LocalWords colorlinks linkcolor linkbordercolor

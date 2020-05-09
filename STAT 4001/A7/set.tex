@@ -1,0 +1,298 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{relsize}
+\usepackage{fancyvrb}
+\usetikzlibrary{shapes.geometric,fit}
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+\newcommand\course{STAT 4001}
+\newcommand\hwnumber{7}
+\newcommand\NetIDa{dc3451}
+\newcommand\NetIDb{David Chen}
+
+\theoremstyle{definition}
+\newtheorem*{statement}{Statement}
+\newtheorem*{claim}{Claim}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+
+\newcommand{\contra}{\Rightarrow\!\Leftarrow}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Zeq}{\mathbb{Z}_{\geq 0}}
+\newcommand{\Zg}{\mathbb{Z}_{>0}}
+\newcommand{\Req}{\mathbb{R}_{\geq 0}}
+\newcommand{\Rg}{\mathbb{R}_{>0}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\pr}[1]{\text{Pr}\left(#1\right)}
+\newcommand{\var}[1]{\text{Var}\left(#1\right)}
+\newcommand{\cov}[1]{\text{Cov}\left(#1\right)}
+
+\pagestyle{fancyplain}
+\headheight 35pt
+\lhead{\NetIDa}
+\lhead{\NetIDa\\\NetIDb}
+\chead{\textbf{\Large Assignment \hwnumber}}
+\rhead{\course \\ \today}
+\lfoot{}
+\cfoot{}
+\rfoot{\small\thepage}
+\headsep 1.5em
+
+\begin{document}
+\subsection*{8.1.1}
+
+We have from the previous chapter that the MLE of such a random sample is
+exactly $\max\{X_1, \dots, X_n\}$. Define $F(t \mid \theta)$ as follows:
+\begin{align*}
+  F(t \mid \theta) &= P(\hat{\theta} \leq t \mid \theta) \\
+                   &= P(\max\{X_1, \dots, X_n\} \leq t \mid \theta) \\
+                   &= \left(\frac{t}{\theta}\right)^n
+\end{align*}
+
+Then, we are seeking to compute
+\[
+  P(|\hat{\theta} - \theta| \leq 0.1 \theta) = F(1.1\theta) - F(0.9\theta) = 1 -
+  F(0.9\theta) = 1- (0.9)^n \geq 0.95
+\]
+
+Computing, we get $n \geq 29$.
+
+\subsection*{8.2.4}
+
+Here, we have that $\overline{X}_n$ is normally distributed with mean $\theta$
+and variance $2/n$. Then, we have that $Z = \sqrt{n}(\overline{X}_n -
+\theta)/2$.
+\[
+  P(|\overline{X}_n -\theta| \leq 0.1) = P(|2Z/\sqrt{n}| \leq 0.1) = P(|Z| \leq
+0.05\sqrt{n}) \geq 0.95
+\]
+
+Computing, we arrive at $n = 1537$.
+
+\subsection*{8.2.6}
+
+Consider the vairable $D^2 = X^2 + Y^2 + Z^2$. Then, we re looking for $P(D^2
+\leq 16\sigma^2)$, but $D' = D^2 / 2\sigma^2$ is the $\chi^2$ distribution with 3
+degrees of freedom, so we arrive at $P(D' \leq 8) = 0.95$.
+
+\subsection*{8.3.6}
+
+\subsubsection*{a}
+
+Let $X$ have $\chi^2$ distribution with 16 degrees of freedom. Then, we wish to find
+
+\[
+  P(n/2 \leq X \leq 2n) = P(8 \leq X \leq 32) = 0.94
+\]
+
+\subsubsection*{b}
+
+Let $X$ have $\chi^2$ distribution with $16 - 1$ degrees of freedom. Then, we wish to find
+
+\[
+  P(n/2 \leq X \leq 2x) = 0.91
+\]
+
+\subsection*{8.3.8}
+
+Consider $X$ as $\sum_{i=1}^{200}X_i$, where each $X_i$ is a $\chi^2$
+distribution with 1 degree of freedom, but the central limit theorem yields that
+$X$ is normally distributed, with mean $\mu = 200, \sigma^2 = 400$. Then, $P(160
+< X < 240) \approx P(-2 < Z < 2) = 0.954$ where $Z$ is the standard normal distribution.
+
+\subsection*{8.4.2}
+
+Put $T$ as a variable with the $t-$distribution with $17 - 1 = 16$ degrees of freedom.
+
+\[
+  P(\hat{\mu} > \mu + k\hat{\sigma}) = P(\frac{\hat{X}- \mu}{\hat{\sigma}} > k)
+  = P(T > k\sqrt{n - 1}) = P(T > 4k) > 0.95
+\]
+
+Computing, we get $k = -0.436$.
+
+\subsection*{8.4.6}
+
+As above, we are looking, in terms of $T$ with $t-$distribution with $20 - 1
+=19$ degrees of freedom,
+\[
+  P(\hat{\mu} > \mu + c\sigma') = P(T > c\sqrt{20})
+\]
+
+Then, we want $c\sqrt{20} = 1.729 \implies c = 0.387$.
+
+\subsection*{8.5.1}
+
+\begin{align*}
+  &P\left( \overline{X}_n - \Phi^{-1}\left( \frac{1 + \gamma}{2} \right)\frac{\sigma}{n^{1/2}} < \mu < \overline{X}_n + \Phi^{-1}\left( \frac{1 + \gamma}{2} \right)\frac{\sigma}{n^{1/2}} \right) \\
+  = &P\left(- \Phi^{-1}\left( \frac{1 + \gamma}{2} \right) < \frac{n^{1/2}(\mu - \overline{X}_n)}{\sigma} < \overline{X}_n + \Phi^{-1}\left( \frac{1 + \gamma}{2} \right) \right) \\
+\end{align*}
+
+However, the middle term is the standard normal distribution; therefore, the
+probability is then
+\[
+  \frac{1 + \gamma}{2} - (1 - \frac{1 + \gamma}{2}) = \gamma
+\]
+
+\subsection*{8.5.5}
+
+We have that $\frac{\sum(X_i - \overline{X}_n)^2}{\sigma^2}$ has a $\chi^2$
+distribution with $n - 1$ degrees of freedom, let $c_1 =
+C^{-1}(-\frac{1+\gamma}{2}), c_2 = C^{-1}(\frac{1+\gamma}{2})$, where $C^{-1}$
+is the inverse of the cdf of the corresponding $\chi^2$ distribution. Then,
+the confidence interval
+\[
+  (\frac{\sum(x_i - \overline{X}_n)^2}{c_1}, \frac{\sum(x_i - \overline{X}_n)^2}{c_2})
+\]
+
+will suffice.
+
+\subsection*{8.6.1}
+
+% With the hyperparameters as denoted in the chapter, we have that $E(\tau) =
+% \alpha / \beta, \var{\tau} = \alpha / \beta^2 \implies \alpha = 1, \beta = 2$.
+% However, $\var{\mu}$ is defined only if $\alpha > 1$.
+
+$Y$ must be the normal distribution with mean $a\mu + b$ and variance
+$\frac{a^2}{\tau}$, which is the same as a precision of $\frac{\tau}{a^2}$.
+
+\subsection*{8.6.2}
+
+In chapter seven, we get the following relationships:
+\begin{align*}
+  \mu_1 &= \frac{(1/\tau)\mu_0 + n(1/\lambda_0)\overline{x}_n}{(1/\tau) + n(1/\lambda_0)} = \frac{\lambda_0\mu + n\tau\overline{x}_n}{\lambda_0 + n\tau}\\
+  v_1^2 &= \frac{(1/\tau)(1/\lambda_0)}{(1/\tau) + n(1/\lambda_0)} = \frac{1}{\lambda_0 + n\tau} \\
+  \tau_1 &= \frac{1}{v^2} = \lambda_0 + n\tau 
+\end{align*}
+
+\subsection*{8.6.3}
+
+With the theorems regarding the joint pdf, as well as the prior and posteriors
+in the text, we get that
+
+\begin{align*}
+  \xi(\tau \mid \mathbf{x}) &\propto f_n(\mathbf{x} \mid \tau)\xi{\tau} \\
+                            &\propto \tau^{n/2}e^{-\frac{\tau}{2}\sum(x_i - \mu)^2}\tau^{\alpha_0-1}e^{-\beta_0\tau} \\
+                            &= \tau^{\alpha_0 + n/2 - 1}e^{-tau(\beta_0 + \frac{1}{2}\sum(x_i-\mu)^2)}
+\end{align*}
+
+which is the desired gamma distribution.
+
+\subsection*{8.7.1}
+
+\subsubsection*{a}
+
+The desired variance of a Poisson distribution is also the mean of the
+distribution. Thus,
+\[
+  \sigma^2 = g(\theta) = \theta
+\]
+
+\subsubsection*{b}
+
+The MLE is then derived as follows:
+\begin{align*}
+  f(x \mid \theta) &= \prod_{i=1}^n\frac{\theta^{x_i}e^{-\theta}}{x_i!} \\
+  \log(f) &= \sum_{i=1}^n(x_i\log(\theta) - \theta - \log(x_i!)) \\
+  \frac{df}{d\theta} &= \sum_{i=1}^n(\frac{x_i}{\theta} - 1) \\
+                   &= \frac{\sum_{i=1}^nx_i}{\theta} - n = 0\\
+  \theta &= \frac{\sum_{i=1}^nx_i}{n} = \overline{x}_n
+\end{align*}
+
+Further, $E(\overline{x}_n) = \theta = E(X_i) = g(\theta)$, so it is unbiased.
+
+\subsection*{8.8.1}
+
+\begin{align*}
+  f(x \mid \mu) &= \frac{1}{\sqrt{2\pi \sigma^2}}e^{-\frac{1}{2\sigma^2}(x-\mu)^2} \\
+  f'(x \mid \mu) &= -\frac{1}{\sqrt{2\pi \sigma^2}}\frac{x-\mu}{\sigma^2}e^{-\frac{1}{2\sigma^2}(x-\mu)^2} = \frac{x-\mu}{\sigma^2}f(x\mid \mu)\\
+  f''(x \mid \mu) &= \frac{1}{\sigma^2}f(x \mid \mu) + \frac{x-\mu}{\sigma^2} f'(x\mid \mu) = \left( \frac{1}{\sigma^2}  - \left(\frac{x - \mu }{\sigma}\right)^2\right)f(x \mid \mu) \\
+  \int_{-\infty}^\infty f'(x \mid \mu)dx &= \frac{1}{\sigma^2}\int_{-\infty}^\infty(x-\mu)f(x \mid \mu)dx = \frac{1}{\sigma^2}E(x - \mu) = \frac{1}{\sigma^2}(\mu - \mu) = 0 \\
+  \int_{-\infty}^\infty f''(x \mid \mu)dx &= \int_{-\infty}^\infty \frac{f(x\mid u)}{\sigma^2}dx - \int_{-\infty}^\infty \frac{(x-\mu)^2}{\sigma^4}f(x \mid \mu) = \frac{1}{\sigma^2} - \frac{E((x-\mu)^2)}{\sigma^4} = \frac{1}{\sigma^2} - \frac{1}{\sigma^2} = 0
+\end{align*}
+
+\subsection*{8.8.3}
+
+\begin{align*}
+  \lambda(x \mid \theta) &= x\log(\theta) -\theta - \log(x!) \\
+  \lambda''(x \mid \theta) &= -\frac{x}{\theta^2} \\
+  I(\theta) &= -E(\lambda''(X \mid \theta)) = \frac{E(X)}{\theta^2} = \frac{1}{\theta}
+\end{align*}
+
+\subsection*{8.8.7}
+
+We first compute $I(P)$
+
+\begin{align*}
+  \lambda(x \mid P) &= x\log(p) + (1-x)\log(1-p) \\
+  \lambda''(x \mid P) &= -\frac{x}{p^2} - \frac{1-x}{(1-p)^2} \\
+  -E(\lambda''(X \mid \theta)) &= \frac{E(X)}{p^2} + \frac{1-E(X)}{1-p^2} \\
+                    &= \frac{1}{p(1-p)}
+\end{align*}
+
+Then, we know that $E(\overline{X_n}) = p, \var{\overline{X_n}}=
+\frac{p(1-p)}{n}$. Then, we have that $\var{\overline{X_n}} = \frac{1}{nI(P)}$
+and is thus an efficient estimator.
+
+\subsection*{8.8.17}
+
+
+\begin{align*}
+  \lambda(x \mid P) &= \log(\binom{n}{x}) + x\log(p) + (n-x)\log(1-p) \\
+  \lambda''(x \mid P) &= -\frac{x}{p^2} - \frac{n-x}{(1-p)^2} \\
+  -E(\lambda''(X \mid \theta)) &= \frac{E(X)}{p^2} + \frac{n-E(X)}{1-p^2} \\
+                    &= \frac{n}{p} + \frac{n-np}{(1-p)^2} \\
+                    &= \frac{n}{p(1-p)}
+\end{align*}
+
+\subsection*{8.9.15}
+
+\begin{align*}
+  \lambda(x \mid \theta) &= \log(\theta) + (\theta - 1)\log(x) \\
+  \lambda''(x \mid \theta) &= -\frac{1}{\theta^2} \\
+  I(\theta) &= \frac{1}{\theta^2}
+\end{align*}
+
+Then the theorem on asymptotic normality yields that
+\[
+  \sqrt{nI(\theta)}(\hat{\theta}_n - \theta) = \frac{\sqrt{n}}{\theta}(\hat{\theta}_n - \theta) 
+\]
+
+is standard normal, and thus $\hat{\theta_n}$ is normal with mean $\theta$ and
+variance $\theta^2/n$.
+
+\subsection*{8.9.16}
+
+\begin{align*}
+  \lambda(x \mid \theta) &= -\log(\theta) - \frac{x}{\theta} \\
+  \lambda''(x \mid \theta) &= \frac{1}{\theta^2} - \frac{2x}{\theta^3} \\
+  I(\theta) &= -(\frac{1}{\theta^2} - \frac{2}{\theta^2}) = \frac{1}{\theta^2} 
+\end{align*}
+
+
+\end{document}
+
+% LocalWords:  NetID fancyplain LocalWords colorlinks linkcolor linkbordercolor

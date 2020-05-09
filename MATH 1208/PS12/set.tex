@@ -1,0 +1,334 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{tikz-3dplot}
+\usepackage{relsize}
+\usepackage{fancyvrb}
+\usetikzlibrary{shapes.geometric,fit}
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+\newcommand\course{MATH 1208}
+\newcommand\hwnumber{12}
+\newcommand\NetIDa{dc3451}
+\newcommand\NetIDb{David Chen}
+
+\theoremstyle{definition}
+\newtheorem*{statement}{Statement}
+\newtheorem*{claim}{Claim}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+
+\newcommand{\contra}{\Rightarrow\!\Leftarrow}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Zeq}{\mathbb{Z}_{\geq 0}}
+\newcommand{\Zg}{\mathbb{Z}_{>0}}
+\newcommand{\Req}{\mathbb{R}_{\geq 0}}
+\newcommand{\Rg}{\mathbb{R}_{>0}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\id}{\mathrm{Id}}
+\newcommand{\im}{\mathrm{im}}
+\newcommand{\tr}{\mathrm{tr}}
+\newcommand{\diag}{\mathrm{diag}}
+\newcommand{\rank}{\mathrm{rank}}
+\newcommand{\spn}{\mathrm{span}}
+
+\pagestyle{fancyplain}
+\headheight 35pt
+\lhead{\NetIDa}
+\lhead{\NetIDa\\\NetIDb}
+\chead{\textbf{\Large Homework \hwnumber}}
+\rhead{\course \\ \today}
+\lfoot{}
+\cfoot{}
+\rfoot{\small\thepage}
+\headsep 1.5em
+
+\begin{document}
+
+\subsection*{Apostol p.385 no.1a}
+
+Let $R = C \cup \text{int } C$.
+
+\begin{align*}
+  \oint_C y^2dx + xdy &= \int_R 1 - 2y \\
+                                  &= \int_0^2\int_0^2(1-2y)dydx \\
+                                  &= \int_0^2\left[ y-y^2 \right]\Big|_{y=0}^{y=2}dx \\
+                                  &= \int_0^2 -2dx \\
+                                  &= -4
+\end{align*}
+
+\subsection*{Apostol p.385 no.1d}
+
+Let $R = C \cup \text{int } C$.
+
+\begin{align*}
+  \oint_C y^2dx + xdy &= \int_R 1 - 2y \\
+                                  &= \int_{-2}^2\int_{-\sqrt{4-x^2}}^{\sqrt{4-x^2}}(1-2y)dydx \\
+                                  &= \int_{-2}^2\left[ y-y^2 \right]\Big|_{y=-\sqrt{4-x^2}}^{y=\sqrt{4-x^2}}dx \\
+                                  &= \int_{-2}^2 (2\sqrt{4-x^2}dx \\
+                                  &= 4\pi
+\end{align*}
+
+Note that the last equality follows from the fact that
+$\int_{-2}^2\sqrt{4-x^2}dx$ is the area of the semicericle with center at the
+origin and radius two, and is thus $2\pi$.
+
+\subsection*{Apostol p.386 no.5}
+
+\begin{claim}
+  If $f,g$ are continuously differentiable in an open connected set $S \subset \R^2$, then
+  \[
+    \oint_C f \nabla g \cdot d\alpha = -\oint_C g\nabla f\cdot d\alpha
+  \]
+  for every piecewise smooth Jordan curve $C$ in $S$.
+\end{claim}
+
+\begin{proof}
+  Let $R = C \cup \text{int } C$.
+
+  \begin{align*}
+    \oint_Cf \nabla g \cdot d\alpha + \oint_Cg\nabla f\cdot d\alpha &= \oint_C \left(  f\frac{\partial g}{\partial x} + g\frac{\partial f}{\partial x}, f\frac{\partial g}{\partial y} + g\frac{\partial f}{\partial y}\right)\cdot d\alpha \\
+                                                                    &= \oint_C \left( \frac{\partial}{\partial x} fg, \frac{\partial }{\partial y}fg \right) \\
+                                                                    &= \int_R (\frac{\partial^2 fg}{\partial x \partial y}) - \frac{\partial^2 fg}{\partial y \partial x}dydx \\
+                                                                    &= \int_R 0 dydx \\
+                                                                    &= 0
+  \end{align*}
+  The last equalities follow from equality of mixed partials.
+\end{proof}
+
+\subsection*{Apostol p.386 no.8a}
+
+\begin{align*}
+  \oint_C \frac{\partial g}{\partial n} &= \oint_C \nabla g \cdot n ds\\
+                                                 &= \oint_C \frac{1}{||(X'(t), Y'(t))||}\left( \frac{\partial g}{\partial x}(X(t),Y(t))Y'(t) - \frac{\partial g}{\partial y}(X(t),Y(t))X'(t) \right)ds \\
+                                        &= \oint_C \left( -\frac{\partial g}{\partial y}(X(t),Y(t),  \frac{\partial g}{\partial x}(X(t),Y(t))) \cdot (X'(t), Y'(t))\right)dt \\
+                                                 &= \oint_C (-\frac{\partial g}{\partial y}, \frac{\partial g}{\partial x})\cdot d\gamma \\
+                                                 &= \int_R \left(\frac{\partial^2g}{\partial y^2} + \frac{\partial^2g}{\partial x^2}\right)dydx\\
+                                                 &= \int_R \nabla^2gdxdy
+\end{align*}
+
+\subsection*{Apostol p.386 no.8b}
+
+\begin{align*}
+  \oint_C f\frac{\partial g}{\partial n} &= \oint_C f(\nabla g \cdot n)ds \\
+                                         &= \oint_C \left( -f\frac{\partial g}{\partial y}, f\frac{\partial g}{\partial x} \right)\cdot d\gamma \\
+                                         &= \int_R \left( \frac{\partial f}{\partial x}\frac{\partial g}{\partial x} + f\frac{\partial^2 g}{\partial x} + \frac{\partial f}{\partial x}\frac{\partial g}{\partial x} + f\frac{\partial^2 g}{\partial x} \right)dydx \\
+                                         &= \int_R \left( f\nabla^2 g + \nabla f \cdot \nabla g \right) dydx
+\end{align*}
+
+\subsection*{Apostol p.400 no.9}
+
+\begin{align*}
+  \int_0^a\left(\int_0^{\sqrt{a^2-y^2}} (x^2+y^2)dx\right)dy &= \int_{0}^{\frac{\pi}{2}}\int_0^ar^3drd\theta \\
+                                                              &= \int_{0}^{\frac{\pi}{2}}\frac{a^4}{4}d\theta \\
+                                                              &= \frac{\pi}{8}a^4
+\end{align*}
+
+\subsection*{Apostol p.400 no.16a}
+
+\begin{align*}
+  I^2(r) &= \left(\int_{-r}^re^{-x^2}dx\right)\left( \int_{-r}^re^{-y^2}dy \right) \\
+         &= \int_{-r}^r\left( \int_{-r}^re^{-x^2}dx\right)e^{-y^2}dy \\
+         &= \int_{-r}^r\left( \int_{-r}^r e^{-x^2}e^{-y^2}dx \right)dy \\
+         &= \int_R e^{-(x^2+y^2)}dxdy
+\end{align*}
+
+\subsection*{Apostol p.400 no.16b}
+
+Consider the extensions $C_2 \rightarrow \R$
+\begin{gather*}
+  \alpha(x,y) =
+  \begin{cases}
+    e^{-(x^2+y^2)} & (x,y) \in R \\
+    0 & \text{otherwise}
+  \end{cases} \\
+  \beta(x,y) =
+  \begin{cases}
+    e^{-(x^2+y^2)} & (x,y) \in C_1 \\
+    0 & \text{otherwise}
+  \end{cases} \\
+  \gamma(x,y) = e^{-(x^2+y^2)}
+\end{gather*}
+
+Then we have that the claim is reduced to
+\[
+  \int_{C_2}\alpha < \int_{C_2} \beta < \int_{C_2} \gamma
+\]
+
+However, note that on $R \setminus C_1$, $\beta - \alpha = e^{-(x^2+y^2)} > 0$
+and $\beta - \alpha = 0$ everywhere else, and thus $\int_{C_2}\beta - \alpha >
+0$.
+
+Similarly, on $C_2 \setminus R$, $\gamma - \beta = e^{-(x^2+y^2)} > 0$
+and $\gamma - \beta = 0$ everywhere else, and thus $\int_{C_2}\gamma - \beta >
+0$.
+
+
+\subsection*{Apostol p.400 no.16c}
+
+$C_1, C_2$ are respectively the circles of radius $r$ and $r\sqrt{2}$ centered
+on the origin, respectively. Then,
+
+\begin{align*}
+  \int_{C_1}e^{-(x^2+y^2)}dxdy &= \int_0^{2\pi}\int_0^re^{-r^2}rdrd\theta \\
+                               &= \int_0^{2\pi} \frac{1}{2}(1 -e^{-r^2}) d\theta \\
+                               &= \pi(1-e^{-r^2})
+\end{align*}
+
+\begin{align*}
+  \int_{C_1}e^{-(x^2+y^2)}dxdy &= \int_0^{2\pi}\int_0^{r\sqrt{2}}e^{-r^2}rdrd\theta \\
+                               &= \int_0^{2\pi} \frac{1}{2}(1 -e^{-2r^2}) d\theta \\
+                               &= \pi(1-e^{-2r^2})
+\end{align*}
+
+Then, we have that as $r\rightarrow \infty$,
+\[
+  \lim_{r\rightarrow \infty}\pi(1-e^{-r^2}) \leq \lim_{r\rightarrow \infty}I^2(r) \leq
+  \lim_{r\rightarrow \infty}\pi(1-e^{-2r^2}) \implies \pi \leq
+  \lim_{r\rightarrow \infty}I^2(r) \leq \pi
+\]
+
+Since we know that $I(r) > 0, as e^{-(x^2+y^2)} > 0$, we have that $I(r)
+\rightarrow \sqrt{\pi}$ as $r \rightarrow \infty$.
+
+\subsection*{Apostol p.437 no.5}
+
+\begin{align*}
+  \frac{\partial r}{\partial x} \times \frac{\partial r}{\partial y} &= \det
+                                                                       \begin{bmatrix}
+                                                                         i & j & k \\
+                                                                         1 & 0 & \frac{\partial f}{\partial x} \\
+                                                                         0 & 1 & \frac{\partial f}{\partial y} \\
+                                                                       \end{bmatrix} \\
+                                                                     &= -\frac{\partial f}{\partial x}j - \frac{\partial f}{\partial y}j + k \\
+  \int_S F \cdot n\ dS &= \int_TF(r(x,y)) \cdot \left( \frac{\partial r}{\partial x} \times \frac{\partial r}{\partial y}  \right)dxdy \\
+                       &= \int_T(-P\frac{\partial f}{\partial x} - Q\frac{\partial f}{\partial y} + R) dxdy
+\end{align*}
+
+
+\subsection*{Apostol p.437 no.7}
+
+We are computing the integral $\int_SF \cdot dr^2$ where $F(x,y,z) = (xy, yz, x^2)$.
+
+Consider that the sphere must be split into two halves in the parameterization,
+namely $S_1 = (x,y,\sqrt{a^2-x^2-y^2})$ which is the positive hemisphere and
+$S_2 = (x,y, -\sqrt{a^2-x^2-y^2})$ which is the negative hemisphere. The
+integrals over these two hemispheres will be equal and opposite.
+
+Consider some point $(x,y,z) \in S_1$ and some other point $(-x,-y,-z) \in S_2$.
+Then, $F(x,y,z) = F(-x,-y,-z)$, but the normal vector must point in the opposite
+direction, which inverts the sign of $F \cdot n$. Then,
+\[
+  \int_SF \cdot dr^2 = \int_{S_1}F \cdot dr^2 + \int_{S_2}F \cdot dr^2 = 0
+\]
+
+\section*{Problem 2}
+
+Consider the parameterization of $z = \sqrt{f(x)^2 - y^2}$. Then, we have from
+Apostol that the surface area is
+
+\begin{align*}
+  \int_a^b\int_{-f(x)}^{f(x)}\sqrt{1 + \left(\frac{\partial f}{\partial
+  x}\right)^2 + \left(\frac{\partial f}{\partial
+  y}\right)^2 }dydx &= \int_a^b\int_{-f(x)}^{f(x)} \sqrt{1 +
+                      \frac{(f'(x)f(x))^2+y^2}{f(x)^2-y^2}}dydx \\
+                    &= \int_a^b\int_{-f(x)}^{f(x)}f(x)\sqrt{\frac{1 + f'(x)^2}{f(x)^2-y^2}}dydx \\
+                    &= \int_a^bf(x)\sqrt{1+f'(x)}\left(\int_{-f(x)}^{f(x)}(f(x)^2-y^2)^{-\frac{1}{2}}dy\right)dx \\
+                    &= \int_a^bf(x)\sqrt{1+f'(x)}\left(\arcsin(\frac{y}{f(x)})\Big|_{y=-f(x)}^{y=f(x)}\right)dx \\
+                    &= \int_a^bf(x)\sqrt{1+f'(x)}\left(\pi\right)dx \\
+                    &= \pi\int_a^bf(x)\sqrt{1+f'(x)}dx
+\end{align*}
+
+The $\arcsin$ integral is in Apostol, as is the expression for surface area.
+
+Since we have that this is only the surface area of the top half of the
+revolution, we have that the total area is
+
+\[
+  2\pi \int_a^bf(x)\sqrt{1 + f'(x)}dx
+\]
+
+\section*{Problem 3}
+
+\begin{claim}
+  Let $r: T \rightarrow S \subset \R^3$ be a parametric surface and $\gamma:
+  [a,b] \rightarrow T$ a path in the plane. The tangent vector to $r \circ
+  \gamma$ at each $t$ is orthogonal to the outward normal vector of the surface.
+\end{claim}
+
+\begin{proof}
+  The tangent vector to $r \circ \gamma$ at $t$ can be given by $(r \circ
+  \gamma)'(t)$ (from Apostol). Suppose that $r = r(u,v)$, and $\gamma =
+  \gamma(t)$. Then, computing, $(r \circ \gamma)'$ is
+
+  \[
+    \begin{bmatrix}
+      D_1r_1 & D_2r_1 \\
+      D_1r_2 & D_2r_2 \\
+      D_1r_3 & D_2r_3 \\
+    \end{bmatrix}
+    \begin{bmatrix}
+      D_1\gamma_1 \\
+      D_1\gamma_2 \\
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+      D_1r_1D_1\gamma_1 + D_2r_1D_2\gamma_2 \\
+      D_1r_2D_1\gamma_1 + D_2r_2D_2\gamma_2 \\
+      D_1r_3D_1\gamma_1 + D_2r_3D_2\gamma_2 \\
+    \end{bmatrix}
+    =
+    \frac{\partial r}{\partial u}\frac{\partial \gamma_1}{\partial t} + 
+    \frac{\partial r}{\partial v}\frac{\partial \gamma_2}{\partial t}
+  \]
+  where
+  \[
+    \frac{\partial r}{\partial u} =
+    \begin{bmatrix}
+      D_1r_1 \\
+      D_1r_2 \\
+      D_1r_3
+    \end{bmatrix},
+    \frac{\partial r}{\partial v} =
+    \begin{bmatrix}
+      D_2r_1 \\
+      D_2r_2 \\
+      D_2r_3
+    \end{bmatrix}
+  \]
+  Then, evaluating at $t$, we see that $(r \circ \gamma)'(t)$ is a linear
+  combination of $\frac{\partial r}{\partial u}$ and $\frac{\partial r}{\partial
+    v}$, as we have that $\frac{\partial \gamma_i}{\partial t}$ evaluated at $t$
+  is in $\R$. Then, since the outward normal vector is defined to be
+  $\frac{\partial r}{\partial u} \times \frac{\partial r}{\partial v}$, and that
+  the linear combination of orthogonal vectors is still orthogonal, $(r \circ
+  \gamma)'(t)$ is still orthogonal.
+\end{proof}
+
+\end{document}
+
+% LocalWords:  NetID fancyplain LocalWords colorlinks linkcolor linkbordercolor
+% LocalWords:  Apostol
+  

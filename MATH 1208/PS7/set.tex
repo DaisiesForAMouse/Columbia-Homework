@@ -1,0 +1,311 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{relsize}
+\usepackage{fancyvrb}
+\usetikzlibrary{shapes.geometric,fit}
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+\newcommand\course{MATH 1208}
+\newcommand\hwnumber{6}
+\newcommand\NetIDa{dc3451}
+\newcommand\NetIDb{David Chen}
+
+\theoremstyle{definition}
+\newtheorem*{statement}{Statement}
+\newtheorem*{claim}{Claim}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+
+\newcommand{\contra}{\Rightarrow\!\Leftarrow}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Zeq}{\mathbb{Z}_{\geq 0}}
+\newcommand{\Zg}{\mathbb{Z}_{>0}}
+\newcommand{\Req}{\mathbb{R}_{\geq 0}}
+\newcommand{\Rg}{\mathbb{R}_{>0}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\id}{\mathrm{Id}}
+\newcommand{\im}{\mathrm{im}}
+\newcommand{\tr}{\mathrm{tr}}
+\newcommand{\diag}{\mathrm{diag}}
+\newcommand{\rank}{\mathrm{rank}}
+\newcommand{\spn}{\mathrm{span}}
+
+\pagestyle{fancyplain}
+\headheight 35pt
+\lhead{\NetIDa}
+\lhead{\NetIDa\\\NetIDb}
+\chead{\textbf{\Large Homework \hwnumber}}
+\rhead{\course \\ \today}
+\lfoot{}
+\cfoot{}
+\rfoot{\small\thepage}
+\headsep 1.5em
+
+\begin{document}
+
+\subsection*{Apostol p.30 no.2}
+
+\subsubsection*{a}
+
+Proceed with Gram-Schmidt:
+
+\begin{align*}
+  u_1 &= (1, 1, 0, 0) \\
+  e_1 &= \frac{1}{\sqrt{2}}(1, 1, 0, 0) = (\frac{1}{\sqrt{2}}, \frac{1}{\sqrt{2}}, 0, 0)\\
+  u_2 &= (0, 1, 1, 0) - \frac{1}{\sqrt{2}}(\frac{1}{\sqrt{2}}, \frac{1}{\sqrt{2}}, 0, 0) = (-\frac{1}{2}, \frac{1}{2}, 1, 0)\\
+  e_2 &= \sqrt{\frac{2}{3}}(-\frac{1}{2}, \frac{1}{2}, 1, 0) = (-\frac{1}{\sqrt{6}}, \frac{1}{\sqrt{6}}, \sqrt{\frac{2}{3}}, 0) \\
+  u_3 &= (0,0,1,1) - \sqrt{\frac{2}{3}}(-\frac{1}{\sqrt{6}}, \frac{1}{\sqrt{6}}, \frac{2}{3}, 0) = (\frac{1}{3}, -\frac{1}{3}, \frac{1}{3}, 1)\\
+  e_3 &= \frac{\sqrt{3}}{2}(\frac{1}{3}, -\frac{1}{3}, \frac{1}{3}, 1) = (\frac{1}{2\sqrt{3}}, -\frac{1}{2\sqrt{3}}, \frac{1}{2\sqrt{3}}, \frac{\sqrt{3}}{2}) \\
+\end{align*}
+
+Note that $(1, 0,0,1) = (1,1,0,0) + (0,0,1,1) - (0,1,1,0)$, so it is linearly
+dependent. Thus, $e_1, e_2, e_3$ form an orthonormal basis.
+
+\subsubsection*{b}
+
+Proceed with Gram-Schmidt:
+
+\begin{align*}
+  u_1 &= (1, 1, 0, 1) \\
+  e_1 &= \frac{1}{\sqrt{3}}(1,1,0,1) = (\frac{1}{\sqrt{3}}, \frac{1}{\sqrt{3}}, 0, \frac{1}{\sqrt{3}}) \\
+  u_2 &= (1,0,2,1) - \frac{2}{\sqrt{3}}(\frac{1}{\sqrt{3}}, \frac{1}{\sqrt{3}}, 0, \frac{1}{\sqrt{3}}) = (\frac{1}{3}, -\frac{2}{3}, 2, \frac{1}{3})\\
+  e_2 &= \sqrt{\frac{3}{14}}(\frac{1}{3}, -\frac{2}{3}, 2, \frac{1}{3}) = (\frac{1}{\sqrt{42}}, -\frac{2}{\sqrt{42}}, \sqrt{\frac{6}{7}}, \frac{1}{\sqrt{42}})
+\end{align*}
+
+Note that $(1, 2, -2 ,1) = 2(1, 1, 0, 1) - (1, 0, 2, 1)$, so $e_1, e_2$ form an
+orthonormal basis.
+
+\subsection*{Apostol p.30 no.5}
+
+First we will show that $\int_0^\infty e^{-t}t^ndt = n!$ for $n \in \Zg$.
+
+With integration by parts, $\int_0^\infty e^{-t}t^{n+1}dt =
+[-e^{-t}t^{n+1}]\Big|_0^\infty - n\int_0^\infty e^{-t}t^ndt = n\int_0^\infty
+-e^{-t}t^ndt$.
+
+Inducting on $n$, for $n = 0$ we have that $\int_0^\infty = e^{-t}dt =
+[-e^{-t}]\Big|_0^\infty = 1$. Then, assuming the above for $n = k$,
+$\int_0^\infty e^{-t}t^{k+1}dt = (k+1)\int_0^\infty e^{-t}t^{k}dt = (k+1)(k!) = (k+1)!$.
+
+\begin{align*}
+  y_0 &= 1 \\
+  y_1 &= t - \int_0^\infty e^{-t}tdt \\
+      &= t - 1 \\
+  y_2 &= t^2 - \frac{\langle t^2, 1 \rangle}{\langle 1,1 \rangle} - \frac{\langle t^2, t-1 \rangle}{\langle t-1,t-1 \rangle}(t-1) \\
+      &= t^2 - 2! - \frac{3! - 2!}{2! - 2! + 1!}(t-1) = t^2 -4t +  2 \\
+  y_3 &= t^3 - \frac{\langle t^3, 1 \rangle}{\langle 1,1 \rangle} - \frac{\langle t^3, t-1 \rangle}{\langle t-1,t-1 \rangle}(t-1) - \frac{\langle t^3, t^2 - 4t + 2 \rangle}{\langle t^2 - 4t + 2 \rangle}(t^2 - 4t + 2) \\
+      &= t^3 - 3! - (4! - 3!)(t-1) - \frac{5! - 4(4!)+2(3!)}{4! - 8(3!) - 20(2!) - 16 + 4}(t^2 - 4t + 2) \\
+      &= t^3 - 6 - 18(t-1)  - 9(t^2 - 4t + 2) \\
+      &= t^3 - 9t^2 + 18t - 6
+  % z_2 &= x_2 - \int_0^\infty e^{-t}x_2dt - \int_0^\infty e^{-t} x_2(t-1)dt \\
+  %     &= t^2 - \int_0^\infty e^{-t}t^2 dt - \int_0^\infty e^{-t}t^2(t-1)dt (t - 1) \\
+  %     &= t^2 - (-e^{-t}(2+2t+t^2)\Big|_0^\infty) - (-e^{-t}(4+4t+2t^2+t^3)\Big|_0^\infty)(t-1)\\
+  %     &= t^2 - 2 - 4(t - 1) = t^2 - 4t + 2 \\
+  % z_3 &= x_3 - \int_0^\infty e^{-t}x_3dt - \int_0^\infty e^{-t}(t-1)x_3dt(t-1) - \int_0^\infty e^{-t}(t^2 - 4t+2)x_3dt(t^2-4t+2) \\
+  %     &= t^3 - \int_0^\infty e^{-t}t^3dt - \int_0^\infty e^{-t}(t-1)t^3dt(t-1) - \int_0^\infty e^{-t}(t^2 - 4t+2)t^3dt(t^2-4t+2) \\
+  %     &= t^3 - (-e^{-t}(6+6+3t^2+t^3))\Big|_0^\infty - (-e^{-t}(18+18t+9t^2+3t^3+t^4))\Big|_0^\infty(t-1) - (-e^{-t}(36+36t+18t^2+6t^3+t^4+t^5))\Big_0^\infty(t^2-4t+2) \\
+  %     &= t^3 - 6 - 18(t-1) - 36(t^2 - 4t+2) \\
+\end{align*}
+
+\section*{Problem 1}
+
+\begin{claim}
+  Let $V$ be a finite dimensional inner product space, and $U \subseteq V$ any
+  subspace. Then, $\dim(U) + \dim(U^\perp) = V$.
+\end{claim}
+
+\begin{proof}
+  We will show sometihng stronger:
+  \[
+    U + U^\perp = V
+  \]
+  where $U + U^\perp = \{u+v \mid u \in U, v \in U^\perp \}$.
+
+  We have from class that for any vector $v \in V$, $\exists x, x^\perp \mid x +
+  x^\perp = v$ where $ x \in U, x^\perp \in U^\perp$, so $V \subseteq U + U^\perp$. Further, since $U, U^\perp$
+  are subspaces of $V$, if $u \in U, v \in V^\perp, u, v \in V \implies u + v 
+  \in V$, so $U + U^\perp \subseteq V$.
+
+  Then, $U + U^\perp = V$, and from an ealier homework, $\dim(U) + \dim(U^\perp)
+  - \dim(U \cap U^\perp) = V$. However, if $x \in U, U^\perp, \langle x, x
+  \rangle = 0 \implies x = 0$. Thus, $\dim(U \cap U^\perp) = 0,$ and the initial
+  claim follows.
+\end{proof}
+
+\section*{Problem 3}
+
+Let $S: U \rightarrow V$ be a linear map with adjoint $S^*$.
+
+\subsubsection*{a}
+
+\begin{claim}
+  $S^*$ has an adjoint and $(S^*)^* = S$. 
+\end{claim}
+
+\begin{proof}
+  \[
+    \langle S(u), v \rangle = \langle u, S^*(v) \rangle \implies
+    \overline{\langle v, S(u) \rangle} = \overline{\langle S^*(v), u \rangle}
+    \implies  \langle v, S(u) \rangle = \langle S^*(v), u \rangle
+  \]
+
+  The last part holds by taking the complex conjugate of both sides, which is a
+  bijective operation as shown on an earlier homework. Further, since adjoints are unique, $(S^*)^* = S$.
+\end{proof}
+
+\subsubsection*{b}
+
+\begin{claim}
+  \[
+    \ker(S^*) = (\im S)^\perp
+  \]
+\end{claim}
+
+\begin{proof}
+  If $x \in \ker(S^*)$, then we have that
+  \[
+    \langle S(u), x \rangle = \langle u, S(x) \rangle = \langle u, 0 \rangle = 0
+  \]
+
+  Then $x \in (\im S)^\perp$.
+
+  Similarly, if $x \in (\im S)^\perp$ then
+  \[
+    0 = \langle S(u), x \rangle = \langle u, S^*(x) \rangle 
+  \]
+
+  Then, one of $u, S^*(x) = 0$. Since this holds for any $u$, we have that
+  $S^*(x) = 0$.
+
+  Thus, $x \in \ker(S^*) \iff x \in (\im S)^\perp$.
+\end{proof}
+
+\subsubsection*{c}
+
+\begin{claim}
+  \[
+    \ker(S) = (\im S^*)^\perp
+  \]
+\end{claim}
+
+\begin{proof}
+  This follows from part a and b immediately, as we simply take part b and apply
+  it to $S^*$. Then, since we have that $(S^*)^* = S$, part b gives that
+  \[
+    \ker((S^*)^*) = \ker(S) = (\im S^*)^\perp
+  \]
+\end{proof}
+
+\subsubsection*{d}
+
+\begin{claim}
+  If $S$ is invertible, then $S^*$ is invertible, $S^{-1}$ has an adjoint, and
+  $(S^*)^{-1} = (S^{-1})^*$.
+\end{claim}
+
+\begin{proof}
+
+  We know that the adjoint exists, as it is equivalent to the conjugate
+  transpose of the original matrix representing the linear transformation.
+
+  Further, since $I^T = I$, and $I$ is a real matrix, then the adjoint of $I$ is
+  still $I$.
+
+  In general, we have that
+  \[
+    \langle u, v  \rangle = \langle u, \id^*(v) \rangle
+  \]
+
+  we easily see that $\id^* = \id$ works, and so $\id^* = \id$ as adjoints are unique.
+
+
+  Now, from problem 2, we have that
+  \[
+    (T \circ S)^*= S^* \circ T^*
+  \]
+
+  Taking $T = S^{-1}$, we have that $\id^* = S^* \circ (S^{-1})^*$. By the
+  definition of inverse, we have that $(S^{-1})^* = (S^*)^{-1}$.
+\end{proof}
+
+\section*{Problem 4}
+
+\begin{claim}
+  Let $S: U \rightarrow V$ be a linear map between finite inner product spaces.
+  Then,
+  \[
+    \dim(\im S^*) = \dim(\im S).
+  \]
+\end{claim}
+
+\begin{proof}
+  We have that as $\ker(S^*) = (\im(S))^\perp$, $\dim(\ker(S^*)) =
+  \dim((\im(S))^\perp)$. From problem 1, we have that $\dim((\im(S))^\perp) =
+  \dim(V) - \dim(\im(S))$, and so \[
+    \dim(\ker(S^*)) = \dim(V) - \dim(\im(S))
+  \]  From rank-nullity, we have that \[
+    \dim(V) = \dim(\im(S^*)) + \dim(\ker(S^*))
+  \]
+
+  Combining the two, we get that $\dim(\im(S^*)) = \dim(\im(S))$.
+
+  Now, we have from the email that $S^*$ is the complex conjugate of the
+  transpose of $A$, where $A$ is the matrix representing $S$ for a choice of
+  basis. Further, put $\overline{A}$ for the matrix with entries the complex
+  conjugate of $A$.
+
+  Then, $\dim(\im(S^*)) = \dim(\im(S))$, where the image of $S$ is simply the
+  column space of $A$, and the image of $S^*$ is then the column space of
+  $\overline{A^T}$ (as this is a property of column spaces shown in class).
+
+  Now, we have that the dimension of the span of a set of vectors $v_1, \dots
+  v_n$ is the same as the dimension of the space of $\overline{v_1}, \dots,
+  \overline{v_n}$.
+
+  To see this, note that for $x = \sum_{i=1}^nc_iv_i$, $\overline{x} =
+  \sum_{i=1}^nc_i\overline{v_i}$, by a property proved on a past homework.
+
+  Then, any basis of $v_1, \dots
+  v_n$, say $x_1, \dots, x_k$, has a corresponding basis $\overline{x_1}, \dots
+  \overline{x_n}$ for $\overline{v_1}, \dots
+  \overline{v_n}$, and so they must be of the same dimension.
+
+  Then, the column space of $A^T$ has the same dimension as the column space of
+  $\overline{A^T}$; since the column rank of $\overline{A^T} = \dim(\im(S^*))$,
+  we have that $\dim(\im(S^*)) = $ the column rank of $A^T$.
+
+  The column rank of $A^T$, however, is also the row rank of $A$, by the
+  definition of transposes, and
+  so the row rank of $A = \dim(\im(S^*)) = \dim(\im(S)) = $ the column rank of
+  $A$.
+
+  Thus, we have that row and column rank are the same.
+\end{proof}
+
+\end{document}
+
+% LocalWords:  NetID fancyplain LocalWords colorlinks linkcolor linkbordercolor
+% LocalWords:  Apostol

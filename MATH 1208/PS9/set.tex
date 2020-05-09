@@ -1,0 +1,386 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{relsize}
+\usepackage{fancyvrb}
+\usetikzlibrary{shapes.geometric,fit}
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+\newcommand\course{MATH 1208}
+\newcommand\hwnumber{9}
+\newcommand\NetIDa{dc3451}
+\newcommand\NetIDb{David Chen}
+
+\theoremstyle{definition}
+\newtheorem*{statement}{Statement}
+\newtheorem*{claim}{Claim}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+
+\newcommand{\contra}{\Rightarrow\!\Leftarrow}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Zeq}{\mathbb{Z}_{\geq 0}}
+\newcommand{\Zg}{\mathbb{Z}_{>0}}
+\newcommand{\Req}{\mathbb{R}_{\geq 0}}
+\newcommand{\Rg}{\mathbb{R}_{>0}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\id}{\mathrm{Id}}
+\newcommand{\im}{\mathrm{im}}
+\newcommand{\tr}{\mathrm{tr}}
+\newcommand{\diag}{\mathrm{diag}}
+\newcommand{\rank}{\mathrm{rank}}
+\newcommand{\spn}{\mathrm{span}}
+
+\pagestyle{fancyplain}
+\headheight 35pt
+\lhead{\NetIDa}
+\lhead{\NetIDa\\\NetIDb}
+\chead{\textbf{\Large Homework \hwnumber}}
+\rhead{\course \\ \today}
+\lfoot{}
+\cfoot{}
+\rfoot{\small\thepage}
+\headsep 1.5em
+
+\begin{document}
+
+\subsection*{Apostol p.263 no.10}
+
+\subsubsection*{a}
+
+\begin{claim}
+  If $\nabla f(x) = 0$ for every $x$ in $B(a)$, then $f(x)$ is constant on $B(a)$.
+\end{claim}
+
+\begin{proof}
+  We have that $f'(x;y) = \nabla f(x) \cdot y = 0$, so $f'(x;y) = 0$ on $B(a)$
+  for any $x \in B(a)$.
+  
+  The mean value theorem then yields for some $0 < \theta < 1$ that on any point
+  $x \in B(a)$,
+  \[
+    f(a) - f(x) = f'(x+\theta(a-x);a-x) = 0 \implies f(x) = f(a)
+  \]
+
+  Thus, $f(x)$ is constant everywhere in $B(a)$.
+\end{proof}
+
+\subsubsection*{b}
+
+\begin{claim}
+  If $f(x) \leq f(a)$ for all $x \in B(a)$, then $\nabla f(a) = 0$.
+\end{claim}
+
+\begin{proof}
+  Suppose that $\nabla f(a) \neq 0$. Then, we have that
+  \[
+    f'(a; \nabla f(a)) = \nabla f(a) \cdot \nabla f(a) > 0
+  \]
+
+  Then, let 
+  \[
+    f'(a; \nabla f(a)) = \lim_{t\rightarrow 0}\frac{f(a + t\nabla f(a)) -
+      f(a)}{t} = c > 0 
+  \]
+
+  In particular, this limit implies that $\exists \delta > 0$ such that $0 < |t|
+  < \delta \implies |\frac{f(a + t\nabla f(a)) -
+    f(a)}{t} - c| < \frac{c}{2} \implies \frac{f(a + t\nabla f(a)) -
+    f(a)}{t} > 0$. Then, $f(a + t\nabla f(a)) > f(a)$, which $\contra$, as we
+  can always pick this $t$ such that $0 < |t| < \delta$ and $a + t \nabla f(a) \in
+  B(a)$ (if $B(a)$ has radius $\delta'$, then pick $t \mid |t| < \min(\delta,
+  \frac{\delta'}{\nabla f(a)})$).
+  
+
+  Thus, we have that $\nabla f(x) = 0$.
+\end{proof}
+
+\subsection*{Apostol p.269 no.12}
+
+\begin{claim}
+  If $\nabla f(x,y,z)$ is always parallel to $(x, y, z)$, then $f$ must assume
+  equal values at the points $(0,0,a)$ and $(0,0,-a)$.
+\end{claim}
+
+\begin{proof}
+  Consider
+  \[
+    g(x) = f((0, a\cos(x), a\sin(x)))
+  \]
+
+  Then, from the chain rule in Apostol,
+  \[
+    g'(x) = \nabla f(0,a\cos(x),a\sin(x)) \cdot (0,-a\sin(x),a\cos(x)) =- \alpha
+    a \cos(x)\sin(x) + \alpha a \sin(x)\cos(x) = 0
+  \]
+
+  where $\nabla f(0,a\cos(x),a\sin(x)) = \alpha(0,a\cos(x),a\sin(x))$. Then, we
+  have that $g$ is constant and that $f(0,0,a) = g(\frac{\pi}{2}) =
+  g(\frac{-\pi}{2}) = f(0,0,-a)$.
+
+\end{proof}
+
+\subsection*{Apostol p.276 no.3ab}
+
+\subsubsection*{a}
+
+From the chain rule given in Apostol that applies to scalar fields,
+
+\begin{gather*}
+  \frac{\partial F}{\partial s} = \frac{\partial f}{\partial x}\frac{\partial
+    X}{\partial s} + \frac{\partial f}{\partial s} \frac{\partial Y}{\partial s} \\
+  \frac{\partial F}{\partial t} = \frac{\partial f}{\partial x}\frac{\partial
+    X}{\partial t} + \frac{\partial f}{\partial s} \frac{\partial Y}{\partial t}
+\end{gather*}
+
+\subsubsection*{b}
+
+Applying the chain rule to the above,
+
+\begin{align*}
+  \frac{\partial^2F}{\partial s^2} &= \frac{\partial}{\partial s}\left(\frac{\partial f}{\partial x}\right)\frac{\partial X}{\partial s} + \frac{\partial f}{\partial x}\frac{\partial}{\partial s}\left({\frac{\partial X}{\partial s}}\right) + \frac{\partial}{\partial s}\left(\frac{\partial f}{\partial y}\right)\frac{\partial Y}{\partial s} + \frac{\partial f}{\partial y}\frac{\partial}{\partial s}\left({\frac{\partial Y}{\partial s}}\right) \\
+                                   &= \frac{\partial}{\partial s}\left(\frac{\partial f}{\partial x}\right)\frac{\partial X}{\partial s} + \frac{\partial f}{\partial x}{\frac{\partial^2 X}{\partial s^2}} + \frac{\partial}{\partial s}\left(\frac{\partial f}{\partial y}\right)\frac{\partial Y}{\partial s} + \frac{\partial f}{\partial y}\frac{\partial^2 Y}{\partial s^2} \\
+  \intertext{Computing $\frac{\partial}{\partial s}\left( \frac{\partial f}{\partial x} \right)$ with the chain rule,}
+  \frac{\partial}{\partial s}\left( \frac{\partial f}{\partial x} \right) &= \frac{\partial D_1f}{\partial x}\frac{\partial X}{\partial s} + \frac{\partial D_1f}{\partial y}\frac{\partial Y}{\partial s} \\
+                                   &= \frac{\partial^2 f}{\partial x^2}\frac{\partial X}{\partial s} + \frac{\partial^2 f}{\partial x \partial y}\frac{\partial Y}{\partial s} \\
+  \intertext{Similarly,}
+  \frac{\partial}{\partial s}\left( \frac{\partial f}{\partial y} \right) &= \frac{\partial D_2f}{\partial x}\frac{\partial X}{\partial s} + \frac{\partial D_2f}{\partial y}\frac{\partial Y}{\partial s} \\
+                                   &=  \frac{\partial^2 f}{\partial x \partial y}\frac{\partial X}{\partial s} + \frac{\partial^2 f}{\partial y^2}\frac{\partial Y}{\partial s}\\
+  \intertext{Substituting, we arrive at}
+  \frac{\partial^2F}{\partial s^2} &= \frac{\partial^2 f}{\partial x^2}\left( \frac{\partial X}{\partial s} \right)^2 + \frac{\partial^2f}{\partial x \partial y}\frac{\partial Y}{\partial s}\frac{\partial X}{\partial s} + \frac{\partial f}{\partial x}\frac{\partial^2 X}{\partial s^2} + \frac{\partial^2 f}{\partial x \partial y}\frac{\partial X}{\partial s}\frac{\partial Y}{\partial s} + \frac{\partial^2 f}{\partial y^2}\left(\frac{\partial Y}{\partial s}\right)^2 + \frac{\partial f}{\partial y}\frac{\partial^2 Y}{\partial s^2} \\
+                                   &= \frac{\partial f}{\partial x}\frac{\partial^2 X}{\partial s^2} + \frac{\partial^2 f}{\partial x^2}\left( \frac{\partial X}{\partial s} \right)^2 + 2\frac{\partial^2f}{\partial x \partial y}\frac{\partial Y}{\partial s}\frac{\partial X}{\partial s} +  \frac{\partial f}{\partial y}\frac{\partial^2 Y}{\partial s^2} + \frac{\partial^2 f}{\partial y^2}\left(\frac{\partial Y}{\partial s}\right)^2
+\end{align*}
+
+
+\subsection*{Apostol p.276 no.14}
+
+\subsubsection*{a}
+
+\begin{align*}
+  Df &=
+       \begin{bmatrix}
+         D_1f_1 & D_2f_1 \\
+         D_1f_2 & D_2f_2
+       \end{bmatrix} \\
+     &=
+       \begin{bmatrix}
+         e^{x + 2y} &  2e^{x + 2y}\\
+         2\cos(y + 2x) & \cos(y + 2x)
+       \end{bmatrix} \\
+  Dg &=
+       \begin{bmatrix}
+         D_1g_1 & D_2g_1 & D_3g_1 \\
+         D_1g_2 & D_2g_2 & D_3g_2\\
+       \end{bmatrix} \\
+     &=
+       \begin{bmatrix}
+         1 & 4v & 9w^2 \\
+         -2u & 2 & 0 \\
+       \end{bmatrix}
+\end{align*}
+
+\subsubsection*{b}
+
+\[
+  h(u,w,v) = e^{u + v^2 + 3w^3 + 4v - 2u^2}i + \sin(2v - u^2 + 2u + 4v^2 + 6w^3)j
+\]
+
+\subsubsection*{c}
+
+\[
+  Dh(1, -1, 1) =
+  \begin{bmatrix}
+    1 & 2 \\
+    2\cos(9) & \cos(9)
+  \end{bmatrix}
+  \begin{bmatrix}
+    1 & -4 & 9 \\
+    -2 & 2 & 0
+  \end{bmatrix} =
+  \begin{bmatrix}
+    -3 & 0 & 9 \\
+    0 & -6\cos(9) & 9\cos(9)
+  \end{bmatrix}
+\]
+
+\subsection*{Apostol p.281 no.1}
+
+Consider
+\[
+  f(x,y) =
+  \begin{cases}
+    0 & xy = 0 \\
+    \frac{3}{2}(x + y) &\text{ otherwise} \\
+  \end{cases}
+\]
+
+Then,
+\begin{align*}
+  D_1f(0,0) &= \lim_{t\rightarrow 0}\frac{f(t, 0) - f(0,0)}{t} = 0 \\
+  D_2f(0,0) &= \lim_{t\rightarrow 0}\frac{f(0, t) - f(0,0)}{t} = 0 \\
+  f((0,0); (1,1)) &= \lim_{t\rightarrow 0}\frac{f(t,t) - f(0,0)}{t} = \lim_{t\rightarrow 0}\frac{3t}{t} = 3
+\end{align*}
+
+It cannot be differentiable as if it were, we would know that $f'((0,0); (1,1)) =
+D_1f(0,0) + D_2f(0,0) = 0$.
+
+\subsection*{Apostol p.281-282 no.12a}
+
+We have that $||\mathbf{r}|| = r(x,y,z) = \sqrt{x^2 + y^2 + z^2}$. Then, for $r \neq 0$,
+\begin{align*}
+  A \cdot \nabla\left( \frac{1}{r} \right) &= A \cdot \nabla \left( (x^2 + y^2 + z^2)^{-\frac{1}{2}} \right) \\
+                                           &= A \cdot \left( -x(x^2 + y^2 + z^2)^{-\frac{3}{2}}, -y(x^2 + y^2 + z^2)^{-\frac{3}{2}}, -z(x^2 + y^2 + z^2)^{-\frac{3}{2}} \right) \\
+                                           &= A \cdot \left( - \frac{1}{r^3} \left( x,y,z \right)\right) \\
+                                           &= -\frac{A \cdot\mathbf{r}}{r^3}
+\end{align*}
+
+\section*{Problem 1}
+
+\begin{claim}
+  Let $F: \R^n \rightarrow \R^m$ be linear. The derivative of $F$ at any $x \in \R^n$ is just $F$ itself.
+\end{claim}
+
+\begin{proof}
+  We want for a total derivative $T$ that
+  \begin{align*}
+    \lim_{H\rightarrow 0}\frac{||F(x + H) - F(x) - T(H)||}{||H||} &= \lim_{H\rightarrow 0}\frac{||F(x) + F(H) - F(x) - T(H)||}{||H||}\\
+                                                              &= \lim_{H\rightarrow 0} \frac{||F(H) - T(H)||}{||H||} = 0
+  \end{align*}
+
+  Then, we see that taking $T = F$ clearly works, and since we proved the
+  uniqueness of total derivatives in class, we are done.
+\end{proof}
+
+\section*{Problem 2}
+
+\begin{claim}
+  Let $G: \R^n \rightarrow \R$ be homogeneous and continuous. $G$ is
+  differentiable $\iff G$ is linear.
+\end{claim}
+
+\begin{proof}
+  $(\implies)$ Now, consider that since $G$ is differentiable, we have that for
+  any fixed $y$, putting $T$ as the derivative,
+  \[
+    \lim_{t \rightarrow 0}\frac{G(x + ty) - G(x) - T(ty)}{||ty||} = 0
+  \]
+
+  In particular, if we select $y = x$,
+
+  \begin{align*}
+    \lim_{t \rightarrow 0}\frac{G(x + tx) - G(x) - T(tx)}{||tx||} &=  \lim_{t \rightarrow 0}\frac{(t+1)G(x) - G(x) - tT(x)}{t||x||} \\
+                                                                  &= \lim_{t \rightarrow 0}\frac{t(G(x) -T(x))}{t||x||}\\
+                                                                  &= \frac{G(x)-T(x)}{||x||} = 0
+  \end{align*}
+  Then we have that $G = T$ for any $x$.
+
+  The mean value theorem yields that for any $a,b \in \R^n$ and some $0 < \theta < 1$,
+  \[
+    G(a) - G(b) = G'(b+\theta(a-b);a-b) 
+  \]
+
+  However, we have that $G'(b+\theta(a-b); a-b) = (G'(b+\theta(a-b)))(a-b)$, but
+  the total derivative anywhere is just $G$ itself, and thus
+  \[
+    G(a) - G(b) = G(a-b)
+  \]
+  
+  So we finally have that $G(a) - G(b) = G(a - b)$; replacing $b$ with $-b$,
+  since this holds for any $b$, we have that $G(a + b) = G(a) + G(b)$, and that
+  $G(tx) = tG(x)$, and so $G$ is linear.
+
+  $(\impliedby)$ As in the first problem, we have that the derivative of $G$ at
+  any point is $G$ itself, and is thus differentiable.
+\end{proof}
+
+\section*{Problem 3}
+
+\begin{claim}
+  Suppose that $G: \R^n \rightarrow \R^m$, with $U$ open in $\R^n$, is written
+  with coordinates as
+  \[
+    F = (F_1, F_2, \dots, F_m)
+  \]
+  where $F_i:U \rightarrow \R$ for $1 \leq i \leq m$. Then, for any point $x \in
+  U$, $F$ is differentiable at $x \iff F_i$ is differentiable at $x$ for all $1
+  \leq i\leq m$. 
+\end{claim}
+
+\begin{proof}
+  $(\implies)$
+  The total derivative $T$ satisfies that
+  \[
+    \lim_{H\rightarrow 0}\frac{||F(x + H) - F(x) - T(x)||}{||H||} = 0 \iff \lim_{H\rightarrow 0}\frac{F(x + H) - F(x) - T(x)}{||H||} = 0
+  \]
+
+  In particular, we have that this means that each individual component must
+  approach $0$, i.e. for some $X = (x_1, x_2, \dots, x_n)$, $\lim_{H\rightarrow
+    0} X = 0 \iff \lim_{H\rightarrow 0}x_i = 0$. This was shown in class.
+
+  Then, putting $T(x) = (T_1(x), T_2(x), \dots, T_m(x))$ in the same way as $F$,
+  \begin{align*}
+    &\lim_{H\rightarrow 0}\frac{F(x + H) - F(x) - T(H)}{||H||}\\
+    = &\lim_{H\rightarrow 0}\frac{(F_1(x + H),\dots,F_m(x+H)) - (F_1(x),\dots,F_m(x)) - (T_1(H),\dots,T_m(H))}{||H||}  \\
+    =&\lim_{H\rightarrow 0}\left( \frac{F_1(x+H)-F_1(x)-T_1(H)}{||H||}, \dots, \frac{F_m(x+H)-F_m(x)-T_m(H)}{||H||} \right) \\
+    =& 0
+  \end{align*}
+
+  From above, we have that for $1 \leq i \leq m$,
+  \[
+    \lim_{H\rightarrow 0}\frac{F_i(x+H)-F_i(x)-T_i(H)}{||H||} = 0
+  \]
+
+  Then, we must have that $F_i$ is differentiable with derivative $T_i$.
+  
+  $(\impliedby)$ Consider $T = (T_1, T_2, \dots, T_n)$, where $F_i$ has
+  derivative $T_i$. Then, the above relation
+  \[
+    \lim_{H\rightarrow 0}\frac{F(x + H) - F(x) - T(H)}{||H||} =
+    \lim_{H\rightarrow 0}\left( \frac{F_1(x+H)-F_1(x)-T_1(H)}{||H||}, \dots, \frac{F_m(x+H)-F_m(x)-T_m(H)}{||H||} \right) \\
+  \]
+  still holds, and we have that $T$
+  is the total derivative of $F$ as each component of $\frac{F(x + H) - F(x) -
+    T(x)}{||H||}$ is 0 in the limit, and thus $\frac{F(x + H) - F(x) -
+    T(x)}{||H||}$ must then be zero itself as $H \rightarrow 0$.
+\end{proof}
+
+\section*{Problem 4}
+
+\begin{claim}
+  If $F: U \rightarrow \R^m$ is a function such that all of the entries of its
+  Jacobian matrix are well-defined and continuous, then $F$ is differentiable.
+\end{claim}
+
+\begin{proof}
+  We have that each $F_i$ is differentiable, as all of its partial derivatives,
+  which is the $i^{th}$ row of the Jacobian, are continuous, and thus $F_i$ is
+  $C^1$ on $U$ by assumption. Since we showed in class that $F_i$ being $C^1$ on
+  $U \implies F$ is differentiable on $U$, from the above problem, $F$ itself is differentiable.
+\end{proof}
+
+\end{document}
+
+% LocalWords:  NetID fancyplain LocalWords colorlinks linkcolor linkbordercolor
+% LocalWords:  Apostol

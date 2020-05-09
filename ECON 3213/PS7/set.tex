@@ -1,0 +1,199 @@
+
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{xfrac}
+\usepackage{nicefrac}
+\usepackage{xcolor}
+
+\allowdisplaybreaks
+
+
+\usetikzlibrary{shapes.geometric,fit}
+\usetikzlibrary{patterns}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+\newcommand\course{ECON 3213}
+\newcommand\hwnumber{7}
+\newcommand\NetIDa{dc3451}
+\newcommand\NetIDb{David Chen}
+
+\newcommand\R{\mathbb{R}}
+
+\theoremstyle{definition}
+\newtheorem*{statement}{Statement}
+\newtheorem*{claim}{Claim}
+\newtheorem*{theorem}{Theorem}
+
+\newcommand{\contra}{\Rightarrow\!\Leftarrow}
+\newcommand{\Lag}{\mathcal{L}}
+
+\pagestyle{fancyplain}
+\headheight 35pt
+\lhead{\NetIDa}
+\lhead{\NetIDa\\\NetIDb}
+\chead{\textbf{\Large Problem Set \hwnumber}}
+\rhead{\course \\ \today}
+\lfoot{}
+\cfoot{}
+\rfoot{\small\thepage}
+\headsep 1.5em
+
+\begin{document}
+
+\section*{Problem 1}
+
+\subsection*{a}
+
+The budget constraint in period one and two satisfy that
+\begin{gather*}
+  P_1C_1 + S = P_1Y_1 \\
+  P_2C_2 = P_2Y_2 + (1 + i)S
+\end{gather*}
+
+The intertemporal budget constraint is the same as the model with sticky prices with $P_1 =
+P_2 = 1$:
+\[
+  C_1 + \frac{C_2}{1 + i} = Y_1 + \frac{Y_2}{1 + i} = y
+\]
+
+\subsection*{b}
+
+\begin{align*}
+  \mathcal{L}(C_1, C_2, \lambda) &= \log(C_1) + \beta \log(C_2) - \lambda(C_1 + \frac{C_2}{1+i} - y)\\
+  \frac{\partial \mathcal{L}}{\partial C_1} &= \frac{1}{C_1} - \lambda = 0\\
+  \frac{\partial \mathcal{L}}{\partial C_2} &= \frac{\beta}{C_2} - \frac{\lambda}{1+i} = 0 \\
+  \frac{\partial \mathcal{L}}{\partial \lambda} &= C_1 + \frac{C_2}{1+i} - y = 0\\
+  \intertext{Taking that $\lambda = C_1$, }
+  \frac{C_2}{C_1} &= \beta(i + i) \\
+\end{align*}
+
+Then, we have that if the central bank wishes to ensure $C_1 = Y_1, C_2 = Y_2$,
+then $\beta(1 + i) = \implies i = 0.1$. In equilibrium, we have that $C_1 = Y_1
+= 10,$ and that savings is $0$.
+
+\subsection*{c}
+
+\[
+  E_1(\overline{Y_2}) = \frac{1}{2}(6) + \frac{1}{2}(12) = 9
+\]
+
+\subsection*{d}
+
+We are subject to the following constraints, assuming that nominal prices are
+fixed at $1$:
+
+\begin{gather*}
+  C_1 + S = Y_1 \implies C_1 = Y_1 - S\\
+  C_2^g = Y_2^g + (1 + i)S \\
+  C_2^b = Y_2^b + (1 + i)S \\
+\end{gather*}
+
+We now have expected utility
+\[
+  V(S) = \log(Y_1 - S) + \frac{\beta}{2}\log(Y_2^g + (1 + i)S) + \frac{\beta}{2}\log(Y_2^b + (1 + i)S)
+\]
+
+Maximizing with respect to savings,
+\begin{gather*}
+  \frac{\partial V}{\partial S} = 0 = \frac{1}{Y_1 - S} + \frac{\beta(1+i)}{2(Y_2^g
+    + (1+i)S)} + \frac{\beta(1+i)}{2(Y_2^b + (1+i)S)} \\
+  \frac{1}{Y_1 - S} = \frac{\beta(1+i)}{2(Y_2^g
+    + (1+i)S)} + \frac{\beta(1+i)}{2(Y_2^b + (1+i)S)}
+\end{gather*}
+
+If the central bank does not adjust monetary policy (i.e. keeps rates at $i =
+0.1$), then we have that
+\[
+  \frac{1}{10 - S} = \frac{1}{2(6 + 1.1S)} + \frac{1}{2(12 + 1.1S)}
+\]
+
+This results in $S = 0.905$, and so $C_1 = 9.095$.
+
+\subsection*{e}
+
+In this class, we have worked with the assumption that the market clears, such
+that $S = 0$. Then, we have that
+\[
+  \frac{1}{1+i} = \frac{\beta}{Y_1}(\frac{1}{2Y_2^g} + \frac{1}{2Y_2^b}) = 0.011
+\]
+
+Thus, we have that we are in a liquidity trap, and the optimal policy is $i = 0$.
+
+At the zero lower bound, we have that
+\[
+  \frac{1}{10 - S} = \frac{\beta}{2(6 + 1.1S)} + \frac{\beta}{2(12 + 1.1S)}
+\]
+such that $S = 0.514$, and thus $C_1 = 9.486$.
+\section*{Problem 2}
+
+\subsection*{a}
+
+This is identical to before; $i^* = 0.1$.
+
+\subsection*{b}
+
+We still have that, since the market clears and is in full employment in the
+long run, $C_1 = Y_1, C_2 = \overline{Y}$
+\[
+  \frac{C_2}{C_1} = \beta(1 + i) \implies Y_1 = \frac{\overline{Y}}{\beta(1 + i)}
+\]
+
+Thus, we have that $Y_1 = 8.18$, and that the output gap is
+\[
+  \left(  \frac{\overline{Y}}{Y_1} - 1\right)100 = 22.2
+\]
+
+\subsection*{c}
+
+If the bank acts quickly, then we have that $\beta(1 + i) = 1 \implies i < 0$,
+such that we are in a liquidity trap. At $i = 0$, we have that $Y_1 =
+0.9\overline{Y}$, and so the output gap is $11.1$.
+
+\subsection*{d}
+
+We wish to spend $G^*$ such that at $i = 0$, $Y_1 = \overline{Y}$. In particular,
+since we still have that
+\[
+  \frac{C_2}{C_1} = \beta(1 + i)
+\]
+we now arrive at
+\[
+  Y_1 = \frac{\overline{Y}}{\beta(1 + i)} + G^*
+\]
+
+Thus, if we want that $Y_1 = \overline{Y}$, it must be that $G^* = 0.1\overline{Y}
+= 1$.
+
+\subsection*{e}
+
+If instead $\tilde{G} = 0.11\overline{Y}$ is spent, then the central bank will raise interest
+rates to compensate, such that
+\[
+  1 = \frac{1}{\beta(1 + i)} + 0.11 \implies i = 0.123
+\]
+
+Private consumption is now $\overline{Y} - G = 0.89\overline{Y} = 8.9$.
+
+We see that government fiscal spending has crowded out private consumption due
+to its miscalculation, such that the government spending multiplier is now $< 1$.
+
+\end{document}

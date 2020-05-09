@@ -1,0 +1,250 @@
+
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{xfrac}
+\usepackage{nicefrac}
+\usepackage{xcolor}
+
+\allowdisplaybreaks
+
+
+\usetikzlibrary{shapes.geometric,fit}
+\usetikzlibrary{patterns}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+\newcommand\course{ECON 3213}
+\newcommand\hwnumber{8}
+\newcommand\NetIDa{dc3451}
+\newcommand\NetIDb{David Chen}
+
+\newcommand\R{\mathbb{R}}
+
+\theoremstyle{definition}
+\newtheorem*{statement}{Statement}
+\newtheorem*{claim}{Claim}
+\newtheorem*{theorem}{Theorem}
+
+\newcommand{\contra}{\Rightarrow\!\Leftarrow}
+\newcommand{\Lag}{\mathcal{L}}
+
+\pagestyle{fancyplain}
+\headheight 35pt
+\lhead{\NetIDa}
+\lhead{\NetIDa\\\NetIDb}
+\chead{\textbf{\Large Problem Set \hwnumber}}
+\rhead{\course \\ \today}
+\lfoot{}
+\cfoot{}
+\rfoot{\small\thepage}
+\headsep 1.5em
+\allowdisplaybreaks
+
+\begin{document}
+
+\section*{Problem 1}
+
+\subsection*{1}
+
+We have the following maximization problem on households:
+\[
+  \max_{C_1, C_2}\{\log(C_1) + \log(C_2)\} \mid C_1 + \frac{C_2}{1 + r} = Y_1 -
+  T_1 + \frac{Y_2 - T_2}{1 + r}
+\]
+
+In particular, we have that $G_1 = 2, G_2 = 0, Y_1 = 1, T_1 + \frac{T_2}{1 + r}
+= G_1 = 2$. Further, for the given technology we have the following optimality
+condition for investment:
+\[
+  \frac{5}{\sqrt{I_1}} = 1 + r \implies I_1 = \left(\frac{5}{1+r}\right)^2
+\]
+
+Then,
+\begin{align*}
+  \mathcal{L}(C_1, C_2, \lambda) &= \log(C_1) + \log(C_2) - \lambda(C_1 +
+  \frac{C_2}{1+r} - 8 - \frac{\Pi_2}{1 + r}) \\
+  \frac{\partial \mathcal{L}}{\partial C_1} &= \frac{1}{C_1} - \lambda = 0 \\
+  \frac{\partial \mathcal{L}}{\partial C_1} &= \frac{1}{C_2} -
+  \frac{\lambda}{1+r} = 0 \\ 
+  \intertext{The above two conditions yield that $(1+r)C_1 = C_2$. Then, }
+  \frac{\partial \mathcal{L}}{\partial \lambda} &= C_1 + \frac{C_2}{1 + r} - 8 -
+  \frac{\Pi_2}{1+r} =  0 \\
+  \intertext{Here, we have that $C_1 = 4 + \frac{\Pi_2}{2(1 + r)}, C_2 = C_1(1 + r)$. Furthermore, we have that private savings is}
+  S^p &= Y_1 - T_1 - C_1 \\
+                                 &= 5 - \frac{\Pi_2}{2(1 + r)} \\
+  \intertext{With government savings $T_1 - G_1 = -1,$ we have total savings}
+  S &= 4 - \frac{\Pi_2}{2(1+r)} \\
+  \intertext{Since in equilibrium we have that savings is identical to investment,}
+  \left(\frac{5}{1+r}\right)^2 &= 4 - \frac{25}{2(1+r)^2} \\
+  \intertext{The equilibrium interest rate is then}
+  r &= 2.06 = 206\% \\
+  \intertext{With corresponding investment and consumption}
+  I_1 &= 2.67, C_1 = 5.33
+\end{align*}
+
+\subsection*{2}
+
+We take the same process as before, and note that we now have $T_1 +
+\frac{T_2}{1+r} = G_1 = 2.2$, and that
+\begin{align*}
+  S &= 3.9 - \frac{\Pi_2}{2(1 + r)} \\
+  \left(\frac{5}{1+r}\right)^2 &= 3.9 - \frac{25}{2(1+r)^2} \\
+\end{align*}
+and arrive at equilibrium values
+\[
+  r = 2.10 = 210\%, I_1 = 2.60, C = 5.2
+\]
+
+We have essentially lower investment (as there are less savings due to government
+deficit spending), which creates a situation of higher equilibrium interest
+rates and also lower consumption in period one (in line with higher interest rates).
+
+\section*{Problem 2}
+
+\subsection*{1}
+
+In period one, households face the following
+\[
+  Y_1 - T_1 = C_1 + S 
+\]
+
+In period two, they face the following
+\[
+  Y_2 - T_2 + S(1 + r) = C_2 
+\]
+
+The intertemporal budget constraint is then
+\[
+  C_1 + \frac{C_2}{1 + r} = Y_1 - T_1 + \frac{Y_2 - T_2}{1 + r}
+\]
+
+\subsection*{2}
+
+If firms borrow $I_1$ in period one, then
+\[
+  \frac{T_2}{1 + r} = \tau^I(1 + r)I_1 \implies T_2 = \tau^I(1 + r)^2I_1 
+\]
+
+\subsection*{3}
+
+\[
+  \max_{I_1}\{2\sqrt{I_1} - (1 - \tau^I)(1 + r)I_1\}
+\]
+
+\subsection*{4}
+
+The firm must have that
+\[
+  f'(I_1) = \frac{1}{\sqrt{I_1}} = (1 - \tau^I)(1 + r) \implies I_1 =
+  \frac{1}{(1 - \tau^I)^2(1 + r)^2}
+\]
+
+Note that this means that the optimal level of investment is a strictly
+decreasing function of $r$, but a strictly increasing function of $\tau^I$ for
+$0 < \tau^I < 1$, as
+\[
+  \frac{\partial I_1}{\partial \tau^I} = \frac{2}{(1 + r)^2(1 - \tau^I)^3} > 0
+\]
+
+This makes sense: borrowing is more expensive at higher interest rates, but
+cheaper the larger the subsidy.
+
+For $\tau \geq 1$, we have negative costs to borrowing: they do it
+infinitely in this case.
+
+\subsection*{5}
+
+If the subsidy is zero, then all taxes and spending vanish, such that
+equilibrium investment follows
+\[
+  I_1 = \frac{1}{(1+r)^2}, \Pi = \frac{1}{1 + r}
+\]
+and has savings
+\[
+  S = Y_1 - C_1 = Y_1 - \frac{1}{2}(Y_1 + \frac{\Pi}{1 + r}) = \frac{1}{2} -
+  \frac{1}{2(1 + r)^2} 
+\]
+
+In equilibrium, we have that the above quantities are equal, such that
+\[
+  r = 0.732 = 73.2\%, I_1 = 0.33, C_1 = 0.67, C_2 = 1.15
+\]
+
+\subsection*{6}
+
+In the case of $\tau^I = 0.5$, we have that
+\[
+  I_1 = \frac{1}{(1 - \tau^I)^2(1+r)^2}, \Pi = \frac{1}{(1-\tau^I)(1 + r)}
+\]
+
+For government spending, we have, when firms profit maximize
+\[
+  T_2 = \tau^I(1 + r)^2I_1 = \frac{\tau^I}{(1 - \tau^I)^2}
+\]
+
+Then, we have savings
+\[
+  S = Y_1 - G_1 - C_1 = 1 - \frac{\tau^I}{(1+r)(1-\tau^I)^2} - \frac{1}{2}(1 + \frac{\Pi -\frac{\tau^I}{(1 -
+      \tau^I)^2}}{1 + r}) = \frac{1}{2} - \frac{1 + \tau^I r}{2(1-\tau^I)(1+r)^2}
+  %     \tau^I)^2}}{1 + r}) = \frac{1}{2} -
+  % \frac{1-2\tau^I-\tau^Ir}{2(1-\tau^I)^2(1+r)^2}
+\]
+
+% Equating, we have
+% \[
+%   \frac{1}{(1 - \tau^I)^2(1+r)^2} = \frac{1}{2} -
+%   \frac{1}{2(1-\tau^I)(1+r)^2} \implies 1 + r = \frac{\sqrt{3-\tau}}{1-\tau^I}
+% \]
+
+% With $\tau^I = 0.5$, we have that
+% \[
+%   r = 3.32 = 332\%, I_1 = 0.215, C_1 = 0.255, C_2 = 0.591
+% \]
+
+% \subsection*{7}
+
+% We do have higher investment, moving from $I_1 = 0.33$ to $I_1 = 0.743$. In terms
+% of welfare, we have in the first case utility $\log(0.67) + \log(1.15) = -0.26$, and the
+% second $\log(0.257) + \log(1.72) = -1.896$, which is a decrease!
+
+% This decrease stem from the fact that the amount of investment incurs a heavy
+% tax burden in period two, turning $\Pi - T_2$ negative, and thus causing a loss
+% of consumption in both periods.
+
+% \subsection*{8}
+
+% There is probably a clever way to do this; I don't see it. I will however hazard
+% a guess that it is $\tau^I = 0$ in lieu of actually doing the math.
+
+% % Note that we have $C_1(1 + r) = C_2 \implies
+% % C_1\frac{\sqrt{3-\tau^I}}{1-\tau^I}= C_2$. Then.
+% % \begin{align*}
+% %   U = \log(C_1) + \log(C_2) &= \log(\frac{\sqrt{3-\tau^I}}{1-\tau^I}C_1^2) \\
+% %                         &= \log(\frac{\sqrt{3-\tau^I}}{1-\tau^I}(1 - I_1)^2) \\
+% %                         &= \log(\frac{\sqrt{3-\tau^I}}{1-\tau^I}(1 - \frac{1}{3-\tau^I})^2) \\
+% %                             &= \log((1-\tau^I)^{-1}(2-\tau^I)^2(3-\tau^I)^{-1.5}) \\
+% %                             &= -\log(1-\tau^I) + 2\log(2-\tau^I) - \frac{3}{2}\log(3-\tau^I) \\
+% %   \frac{dU}{d\tau^I} &= \frac{1}{1-\tau^I} - \frac{2}{2 - \tau^I} + \frac{3}{2(3-\tau^I)} > 0 \forall x \in (0, 1)
+% % \end{align*}
+
+% % Thus, the utility maximizing subsidy is 
+
+\end{document}

@@ -1,0 +1,317 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{relsize}
+\usepackage{fancyvrb}
+\usetikzlibrary{shapes.geometric,fit}
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+\newcommand\course{STAT 4001}
+\newcommand\hwnumber{4}
+\newcommand\NetIDa{dc3451}
+\newcommand\NetIDb{David Chen}
+
+\theoremstyle{definition}
+\newtheorem*{statement}{Statement}
+\newtheorem*{claim}{Claim}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+
+\newcommand{\contra}{\Rightarrow\!\Leftarrow}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Zeq}{\mathbb{Z}_{\geq 0}}
+\newcommand{\Zg}{\mathbb{Z}_{>0}}
+\newcommand{\Req}{\mathbb{R}_{\geq 0}}
+\newcommand{\Rg}{\mathbb{R}_{>0}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\pr}[1]{\text{Pr}\left(#1\right)}
+\newcommand{\var}[1]{\text{Var}\left(#1\right)}
+\newcommand{\cov}[1]{\text{Cov}\left(#1\right)}
+
+\pagestyle{fancyplain}
+\headheight 35pt
+\lhead{\NetIDa}
+\lhead{\NetIDa\\\NetIDb}
+\chead{\textbf{\Large Assignment \hwnumber}}
+\rhead{\course \\ \today}
+\lfoot{}
+\cfoot{}
+\rfoot{\small\thepage}
+\headsep 1.5em
+
+\begin{document}
+
+\subsection*{4.1.1}
+
+\[
+  E(X) = \int_a^bx\frac{1}{b-a}dx = \frac{1}{b-a}(\frac{1}{2}(b^2 - a^2)) = \frac{a+b}{2}
+\]
+
+
+\subsection*{4.1.11}
+
+We first compute the pdf's of $Y_1, Y_n$. For $Y_1$, we have that
+\[
+  G_1(y) = \int \dots \int_{S_1} dx_1, \dots, dx_n
+\]
+
+where $S_1$ is the $n-$dimensional cube that stretches from $(1,\dots, 1)$ to the
+point $(y, \dots, y)$. Then, this has area $(1-y)^n$. Similarly,
+\[
+  G_n(y) = \int \dots \int_{S_n} dx_1, \dots, dx_n
+\]
+
+has $S_n$ the $n-$dimensional cube from the origin to $(y, \dots, y)$. This has
+area $y^n$.
+
+Then, on $0 < y < 1$,
+\[
+  g_1(y) = n(1-y)^{n-1}, g_2(y) = ny^{n-1}
+\]
+
+and
+
+\[
+  E(Y_1) = n\int_0^1y(1-y)^{n-1}dy = n(-(\frac{y(1-y)^n}{n})\Big|_0^1 -
+  \int_0^1\frac{(1-y)^ndy}{n+1}) = n(-\frac{(1-y)^{n+1}}{n(n+1)}\Big|_0^1) =
+  \frac{1}{n+1}
+\]
+
+\[
+  E(Y_2) = n\int_0^1y^ndy = \frac{n}{n+1}
+\]
+
+\subsection*{4.1.12}
+
+This is exactly the same problem as 4.1.11, as we have that the probability
+integral transform that each $F(X_i)$ is the uniform distribution on the unit
+interval; furthermore,
+% we have that $F(y_1) = P(\min(x_i) < y_1) = $, and
+% $F(y_2) = P(\max(x_i) < y_2)$. 
+since $F(Y_1), F(Y_2)$ are just the minimal and maximal
+elements of these, then
+\[
+  E(F(Y_1)) = \frac{1}{n+1}, E(F(Y_2)) = \frac{n}{n+1}
+\]
+
+\subsection*{4.2.2}
+
+We have that
+\[
+  E(2X_1 - 3X_2 + X_3 - 4) = 2E(X_1) - 3E(X_2) + E(X_3) - 4 = 10 -15 +5 - 4 = -4
+\]
+
+\subsection*{4.2.8}
+
+Put
+\[
+  X_i =
+  \begin{cases}
+    1 & \text{ the $n^{th}$ student is a boy } \\
+    0 & \text{ otherwise }
+  \end{cases}
+\]
+and $Y_i$ similarly.
+
+We have that $E(X_1) = \frac{10}{25}$
+Then, we wish to calculate $X = E(\sum_{i=1}^8 X_i) = 8\frac{10}{25} = \frac{16}{5}
+= 3.2$, and $Y = E(\sum_{i=1}^8 Y_i) = 8\frac{15}{25} = \frac{24}{5} = 4.8$.
+Then, $E(X - Y) = -1.6$.
+
+\subsection*{4.3.1}
+
+\[
+  \var{X} = \int_0^1(x - \frac{1}{2})^2 dx = \int_0^1x^2 - x^1 + \frac{1}{4} dx
+  = \frac{1}{3} - \frac{1}{2} + \frac{1}{4} = \frac{1}{12}
+\]
+
+\subsection*{4.3.6}
+
+\[
+  E((X - Y)^2) = E(X^2 - 2XY + Y^2) = E(X^2) - 2E(XY) + E(Y^2)
+\]
+
+Since they are independent, we have that $2E(XY) = E(X)E(Y) + E(X)E(Y)$, and
+since $E(X) = E(Y)$, $E(X)E(Y) + E(X)E(Y) = E(X)^2 + E(Y)^2$. Then,
+
+\[
+  E(X^2) - 2E(XY) + E(Y^2) = E(X^2) - (E(X))^2 + E(Y^2) - (E(Y))^2 = \var{X} - \var{Y}
+\]
+
+\subsection*{4.3.9}
+
+\begin{align*}
+  \var{X} &= E(X^2) - E(X)^2 \\
+          &= \frac{1}{n}\sum_{i=1}^n i^2 - (\frac{1}{n}\sum_{i=1}^n i)^2 \\
+          &= \frac{(n+1)(2n+1)}{6} - \frac{(n+1)^2}{4} \\
+          &= \frac{(n+1)(n-1)}{12} = \frac{n^2 - 1}{12}
+\end{align*}
+
+\subsection*{4.4.3}
+
+\[
+  E((X-\mu)^3) = E(X^3 - 3\mu X^2 + 3\mu^2X - \mu^3) = E(X^3) - 3E(X^2) + 3E(X)
+  - 1 = 1
+\]
+
+\subsection*{4.4.7}
+
+(4.3.7 is listed in the syllabus, instead of this problem. A similar thing was
+on problem set number 3 as well, where 3.5.9 is listed in the syllabus and 3.3.9
+is in the problem set!)
+
+The mean is simply $\psi'(0) = \frac{1}{4}(3 - 1) = \frac{1}{2}$, and the second
+moment is $\psi''(0) = \frac{1}{4}(3 + 1) = 1$ and the variance is $E((X - \mu))^2 = E(X^2) -
+\mu^2 = 1^2 - (\frac{1}{2})^2 = \frac{3}{4}$.
+
+\subsection*{4.4.10}
+
+(Same as above.)
+
+Put $Z' = 2X - 3Y = Z - 4$. Then,
+\[
+  \psi_{Z'} = \psi_{2X}(t)\psi_{-3Y}(t) = \psi(2t)\psi(-3t)
+\]
+
+We have that $\psi_Z(t) = e^{4t}\psi_{Z'}(t) = e^{4t}\psi(2t)\psi(-3t) =
+e^{4t}e^{4t^2 + 6t}e^{9t^2-9t} = e^{13t^2+t}$
+
+\subsection*{4.5.3}
+
+We have that
+\[
+  \int_0^me^{-x}dx = 1 - e^{-m} = \frac{1}{2} \implies m = \log(2)
+\]
+
+\subsection*{4.5.11}
+
+The smaller $M.S.E.$ is just the one with the lower variance; this can be
+computed to be, for a binomial distrubution $X$, to be
+\[
+  \var{X} = \sum_{i=1}^n \var{X_i} = \sum_{i=1}^n (E(X_i^2) - (E(X_i))^2) =
+  \sum_{i=1}^n(p - p^2) = np(1-p)
+\]
+
+For $n = 7, p = 1/4$, we have that the variance is $\frac{21}{16}$, for $n = 5, p
+= 1/2$, we have that the variance is $\frac{5}{4} < \frac{21}{16}$. Thus, the
+MSE can be predicited smaller for $n = 5, p = 1/2$.
+
+\subsection*{4.5.13}
+
+If $X$ is symmetric around $X$, then we have that $P(X \leq m) = P(X \geq m)$,
+(as in general we have that $P(X \leq m - x) = P(X \geq m - x)$ for any $x$ from
+the definition of symmetric distrubutions). Then, since the probability of the
+entire space is 1, $P(X \leq m) + P(X \geq m) = 1 \implies P(X \leq m) = P(X
+\geq m) = 1/2,$, and so $m$ is a median.
+
+\subsection*{4.6.12}
+
+\begin{align*}
+  E(X) &= \int_0^1\int_0^2 x \frac{1}{3}(x+y) dy dx = \frac{5}{9}\\
+  E(Y) &= \int_0^1\int_0^2 y \frac{1}{3}(x+y) dy dx = \frac{11}{9}\\
+  E(X^2) &= \int_0^1\int_0^2 x^2 \frac{1}{3}(x+y) dy dx = \frac{7}{18}\\
+  E(Y^2) &= \int_0^1\int_0^2 y^2 \frac{1}{3}(x+y) dy dx = \frac{16}{9} \\
+  E(XY) &= \int_0^1\int_0^2xy \frac{1}{3}(x+y) dy dx = \frac{2}{3} \\
+  \var{X} &= \frac{7}{18} - \frac{25}{81} = \frac{13}{162} \\
+  \var{Y} &= \frac{16}{9} - \frac{121}{81} = \frac{46}{162}  \\
+  \cov{X,Y} &= \frac{2}{3} - (\frac{5}{9}) (\frac{11}{9}) = -\frac{2}{162}\\
+  \var{2X - 3Y + 8} &= 4\var{X} + 9\var{Y} - 12\cov(X, Y) = \frac{490}{182} = \frac{245}{81}
+\end{align*}
+
+\subsection*{4.6.15}
+
+\begin{align*}
+  \var{\sum_{i=1}^n X_i} &= \sum_{i=1}^n\var{X_i} + \sum_{i=1}^n\sum_{j=1,j\neq1}^n\cov(X_i, X_j) \\
+                         &= n + \frac{1}{4}(n(n-1)) = \frac{n^2+3n}{4}
+\end{align*}
+
+\subsection*{4.7.3}
+
+Let $E(X \mid Y) = c$. Then, $E(E(X \mid Y)) = E(X) = c$. Since $\cov{X, Y} =
+E(XY) - E(X)E(Y)$, and $E(XY) = E(E(XY \mid Y)) = E(YE(X \mid Y)) = E(cY) =
+cE(Y)$, we have that $\cov{X,Y} = cE(Y) - cE(Y) = 0$. Then, since $\rho_{X, Y} =
+\cov(X, Y)/(\sigma_X\sigma_Y)$, we have that $\rho_{X,Y} = 0$.
+
+\subsection*{4.7.7}
+
+The marginal pdf of $X$ is
+\[
+  f(x) =\int_0^1(x + y) dy = x + \frac{1}{2}
+\]
+
+Then, we have that the conditional pdf of $Y$ is
+\[
+  g(y \mid x) = \frac{f(x,y)}{f(x)} = \frac{x + y}{x + \frac{1}{2}} =
+  \frac{2(x+y)}{2x + 1}
+\]
+
+Then, we have that
+\begin{center}
+  \[
+    E(Y \mid X) = \int_0^12y \frac{x+y}{2x + 1}dy = \frac{3x+2}{6x+3}
+  \]  
+  \[
+    E(Y^2 \mid X) = \int_0^1 2y^2 \frac{x+y}{2x + 1}dy = \frac{4x+3}{12x+6}
+  \]
+  \[
+    \var{Y \mid X} = \frac{4x+3}{12x+6} - (\frac{3x+2}{6x+3})^2 = \frac{6x^2 -
+      6x +1}{18(2x+1)^2}
+  \]
+\end{center}
+
+\subsection*{4.7.11}
+
+Since $\var{Y \mid X} = E(Y^2 \mid X) - E(Y \mid X)^2$, we have that
+\[
+  E(\var{Y \mid X}) = E(E(Y^2\mid X) - E(Y\mid X)^2) = E(E(Y^2 \mid X)) - E(E(Y
+  \mid X)^2) = E(Y^2) -  E(E(Y \mid X)^2) 
+\]
+
+Further,
+\[
+  \var{E(Y \mid X)} = E(E(Y \mid X)^2) - E(E(Y \mid X))^2 = E(E(Y \mid X)^2) - E(Y)^2
+\]
+
+Then, summing, we have that
+\begin{align*}
+  E(\var{Y \mid X}) + \var{E(Y \mid X)} = E(Y^2) - E(Y)^2 = \var{Y}
+\end{align*}
+
+% Then, note that
+% \begin{align*}
+%   \var{Y} &= E((Y - E(Y))^2) \\
+%           &= E((Y + (E(Y \mid X) - E(Y \mid X)) - E(Y))^2) \\
+%           &= E((Y-E(Y\mid X))^2) - 2E((Y - E(Y \mid X))(E(Y \mid X) - E(Y))) + E((E(Y \mid X) - E(Y))^2) \\
+%           &= E(\var{Y \mid X}) + \var{E(Y \mid X)} - 2E((Y - E(Y \mid X))(E(Y \mid X) - E(Y)))
+% \end{align*}
+
+% Now, we have that
+% \begin{align*}
+%   E((Y - E(Y \mid X))(E(Y \mid X) - E(Y))) &= 
+% \end{align*}
+
+\end{document}
+
+% LocalWords:  NetID fancyplain LocalWords colorlinks linkcolor linkbordercolor

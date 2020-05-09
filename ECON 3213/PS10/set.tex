@@ -1,0 +1,217 @@
+
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{xfrac}
+\usepackage{nicefrac}
+\usepackage{xcolor}
+
+\allowdisplaybreaks
+
+
+\usetikzlibrary{shapes.geometric,fit}
+\usetikzlibrary{patterns}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+\newcommand\course{ECON 3213}
+\newcommand\hwnumber{10}
+\newcommand\NetIDa{dc3451}
+\newcommand\NetIDb{David Chen}
+
+\newcommand\R{\mathbb{R}}
+
+\theoremstyle{definition}
+\newtheorem*{statement}{Statement}
+\newtheorem*{claim}{Claim}
+\newtheorem*{theorem}{Theorem}
+
+\newcommand{\contra}{\Rightarrow\!\Leftarrow}
+\newcommand{\Lag}{\mathcal{L}}
+
+\pagestyle{fancyplain}
+\headheight 35pt
+\lhead{\NetIDa}
+\lhead{\NetIDa\\\NetIDb}
+\chead{\textbf{\Large Problem Set \hwnumber}}
+\rhead{\course \\ \today}
+\lfoot{}
+\cfoot{}
+\rfoot{\small\thepage}
+\headsep 1.5em
+\allowdisplaybreaks
+
+\begin{document}
+
+\section*{Problem 1}
+
+\subsection*{a}
+
+In 2007,
+\[
+  NIIP = A - L = 20705 - 21984 = -1279 \text{ billions of \$}
+\]
+
+In 2018,
+\[
+  NIIP = A - L = 25241 - 34796 = -9555 \text{ billions of \$}
+\]
+
+\subsection*{b}
+
+In 2007,
+\[
+  NII = r^AA - r^LL \implies r^A = 2.85 \%
+\]
+
+In 2018,
+\[
+  NII = r^AA - r^LL \implies r^A = 4.12 \%
+\]
+
+\subsection*{c}
+
+The exorbitant privilege has increased in the US; $NII$ has increased while
+$NIIP$ has declined, which is reflected in the fact that the difference between
+asset and liability returns has increased from $2.85\%$ to $4.12\%$.
+
+\subsection*{d}
+
+If $r^A = 2.85, r^L = 4.12$,
+\[
+  NII = r^AA - r^LL = -62.9 \text{ billions of \$}
+\]
+
+We see that if the return differential had not increased, then the $NII$ of the
+US would've been negative in 2018.
+
+\subsection*{e}
+
+\[
+  NII = r^AA - r^LL \implies A = 36497
+\]
+
+Then, we can give a quantitative value to exorbitant privilege, which is the
+counterfactual difference of observed $A$ and the needed $A$ to generate the
+same $NII$ holding $r^A, r^L,$ and $L$ constant. In this case, it is $36497 -
+25241 = 11256$ in billions of USD.
+
+\section*{Problem 2}
+
+\subsection*{1}
+
+We have that $CA_1 = -0.5(120) = -6$.
+
+Since we have that $CA_t = TB_t + rB_{t-1}^*$,
+\[
+  TB_1 = CA_1 - rB_{0}^* = -6 + 10 = 4
+\]
+
+Then, $B_1^* = CA_1 + B_0^* = -6 - 100 = -106$
+
+\subsection*{2}
+
+We compute $B_2^* = CA_2 + B_1^* = 0 \implies CA_2 = 106$. Then, we have that
+\[
+  TB_2 = CA_2 - rB_1^* = 106 + 10.6 = 116.6
+\]
+
+They are barely living within their means; they would have to export practically
+all of their production in period 2.
+
+\subsection*{3}
+
+We have that $CA_1 = -0.1(120) = -12$.
+
+Then, $B_1^* = CA_1 + B_0^* = -12  - 100= -112$, and $B_2^* = 0\implies CA_2 =
+112$. Then, the needed trade balance would be
+\[
+  TB_2 = CA_2 - rB_1^* = 112 + 11.2 = 123.2 > GDP
+\]
+
+so they are living beyond their means.
+
+\section*{Problem 3}
+
+\subsection*{1}
+
+We care about the domain $C_1, C_2 > 0$. Then, both partial derivatives exist
+and are positive, with $\frac{\partial U}{\partial C_i} = C_i^{-2}$ and
+both partial second derivatives are also extant and negative, with
+$\frac{\partial^2 U}{\partial C_i^2} = -C_i^{-3}$ ($i = 0,1$).
+
+\subsection*{2}
+
+We have that the optimality condition is
+\[
+  U'(C_1) + \beta(1+r_1) U'((1+r_1)(\overline{Y} - C_1)) = C_1^{-2} -
+  (1+r_1)^{-1}(\overline{Y} - C_1)^{-2} = 0
+\]
+
+Solving, we get that the optimal consumption is
+\[
+  C_1 = \overline{Y}\left(\frac{1+r_1 - \sqrt{1+r_1}}{r_1}\right), C_2 = \overline{Y}(1+r_1)\left(\frac{\sqrt{1+r_1}-1}{r_1}\right)
+\]
+
+Abbreviating $\sqrt{1+r_1}$ to $\rho$, we get that
+\[
+  C_1 = \overline{Y}\left( \frac{\rho}{\rho+1} \right), C_2 = \overline{Y}\left( \frac{\rho^2}{\rho+1} \right)
+\]
+
+
+\subsection*{3}
+
+\begin{gather*}
+  \Delta C_1 = \frac{\rho}{\rho+1} \Delta \overline{Y} = 
+    \frac{\rho}{\rho+1} \Delta Q_1 \\
+  \Delta TB_1 = \Delta Q_1 - \Delta C_1 = \Delta Q_1 - \left(
+    \frac{\rho}{\rho+1} \right)\Delta Q_1 = \frac{1}{\rho + 1}\Delta Q_1 \\
+  \Delta CA_1 = \Delta TB_1 + \Delta(r_0B_0) = \Delta TB_1 = \frac{1}{\rho +
+    1}\Delta Q_1
+\end{gather*}
+
+\subsection*{4}
+
+Putting $\Delta Q_1 = \Delta Q_2 = \Delta Q$,
+
+\begin{gather*}
+  \Delta C_1 =  \frac{\rho}{\rho+1} \Delta \overline{Y} = \left(
+    \frac{\rho}{\rho+1} \right)\left(\frac{2 + r_1}{1+r_1}\right)\Delta Q =
+   \frac{\rho^2+1}{\rho^2 + \rho} \Delta Q \\
+  \Delta TB_1 = \Delta Q_1 - \Delta C_1 = \Delta Q_1 - \left(
+    \frac{\rho^2+1}{\rho^2+\rho} \right)\Delta Q_i = \frac{\rho-1}{\rho^2 + \rho}\Delta Q_1 \\
+  \Delta CA_1 = \Delta TB_1 + \Delta(r_0B_0) = \Delta TB_1 = \frac{\rho-1}{\rho^2 + \rho}\Delta Q_1
+\end{gather*}
+
+\subsection*{5}
+
+Note that for realistic values of $r_1$, $\rho = \sqrt{1 + r_1} \approx 1$, such that
+changes look a lot like they do with logarithmic preferences. We get the same
+conclusions that temporary shocks to endowment in period one yields nontrivial changes in
+consumption funded by either deterioration or improvement in the trade
+balance; in either set of preferences, this fall in consumption and
+corresponding increase in the trade balance is about half of the shock in
+magnitude.
+
+For permanent shocks, we get that consumption eats almost all of the shock, just
+as with logarithmic preferences.
+
+
+\end{document}

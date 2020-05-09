@@ -1,0 +1,315 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{relsize}
+\usepackage{fancyvrb}
+\usetikzlibrary{shapes.geometric,fit}
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+\newcommand\course{STAT 4001}
+\newcommand\hwnumber{8}
+\newcommand\NetIDa{dc3451}
+\newcommand\NetIDb{David Chen}
+
+\theoremstyle{definition}
+\newtheorem*{statement}{Statement}
+\newtheorem*{claim}{Claim}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+
+\newcommand{\contra}{\Rightarrow\!\Leftarrow}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Zeq}{\mathbb{Z}_{\geq 0}}
+\newcommand{\Zg}{\mathbb{Z}_{>0}}
+\newcommand{\Req}{\mathbb{R}_{\geq 0}}
+\newcommand{\Rg}{\mathbb{R}_{>0}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\pr}[1]{\text{Pr}\left(#1\right)}
+\newcommand{\var}[1]{\text{Var}\left(#1\right)}
+\newcommand{\cov}[1]{\text{Cov}\left(#1\right)}
+
+\pagestyle{fancyplain}
+\headheight 35pt
+\lhead{\NetIDa}
+\lhead{\NetIDa\\\NetIDb}
+\chead{\textbf{\Large Assignment \hwnumber}}
+\rhead{\course \\ \today}
+\lfoot{}
+\cfoot{}
+\rfoot{\small\thepage}
+\headsep 1.5em
+
+\begin{document}
+
+\subsection*{9.1.1}
+
+\subsubsection*{a}
+\[
+  \pi(\beta \mid \delta) = P(X \geq 1\mid \beta) = 1 - (1 - e^{-\beta}) = e^{-\beta}
+\]
+
+\subsubsection*{b}
+
+The size of the test is
+\[
+  \sup_{\beta \geq 1}\left\{ e^{-\beta} \right\} = e^{-1}
+\]
+
+\subsection*{9.1.3}
+
+\[
+  \pi(p \mid \delta) = P(Y \geq 7) + P(Y \leq 1) =
+  \sum_{i=7}^{20}\binom{20}{i}p^i(1-p)^{20-i}  + (1-p)^{20} + p(1-p)^{19}
+\]
+
+Computing, we arrive at
+
+\begin{center}
+\begin{tabular}{c|c}
+  $p$ & $\pi(p \mid \delta)$ \\
+  \hline
+  0 & 1 \\
+  0.1 & 0.394 \\
+  0.2 & 0.158 \\
+  0.3 & 0.399 \\
+  0.4 & 0.751 \\
+  0.5 & 0.942 \\
+  0.6 & 0.993 \\
+  0.7 & 0.999 \\
+  0.8 & 0.999 \\
+  0.9 & 0.999 \\
+  1 & 1
+\end{tabular}
+\end{center}
+
+\subsection*{9.1.20}
+
+Let $\theta_0 \in \Omega$ be a random element of the sample space. Then,
+$g(\theta_0) = g_0 \in \omega(x)$ if $\delta_{g_0}$ does not reject the null
+$H_{0,g_0}: g(\theta) \leq g_0$ when $X = x$ is observed. Since the level of the test is $\alpha_0 = 1 -
+\gamma$, the probability that $\delta_{g_0}$ does not reject is at least $1 -
+\alpha_0 = \gamma$.
+
+\subsection*{9.2.2}
+
+\subsubsection*{a}
+
+From the chapter, we ought to reject if $f_0(x) < 2f_1(x) \implies 1 < 2(2x)
+\implies x > \frac{1}{4}$. Thus, the procedure is to reject the null if $x >
+\frac{1}{4}$, and to not reject the null otherwise.
+
+\subsubsection*{b}
+
+The minimum value is
+
+\[
+  2\int_0^{\frac{1}{4}}f_1(x)dx + \int_{\frac{1}{4}}^1f_0(x)dx = \frac{1}{8} +
+  \frac{3}{4} = \frac{7}{8}
+\]
+
+\subsection*{9.2.11}
+
+We reject if $f_1(x) > f_0(x)$, where
+\begin{gather*}
+  f_0(x) = \prod_{i=1}^n\frac{1}{\sqrt{8\pi}}e^{-\frac{(x_i+1)^2}{8}} \\
+  f_1(x) = \prod_{i=1}^n\frac{1}{\sqrt{8\pi}}e^{-\frac{(x_i-1)^2}{8}} \\
+\end{gather*}
+
+Then,
+\[
+  f_1(x) - f_0(x) = C(e^{-\sum_{i=1}^n\frac{(x_i+1)^2}{8}} -
+  e^{-\sum_{i=1}^n\frac{(x_i-1)^2}{8}}) > 0 \implies \sum (x_i-1)^2 < \sum (x_i+1)^2
+\]
+for some constant $C$; since $\sum (x_i-1)^2 - \sum (x_i+1)^2 = -4\sum x_i$, we
+have that we reject if $\overline{x_i} > 0$.
+
+Further, $\overline{x_i}$ will be normally distributed,
+such that $\sqrt{n}(\overline{x_i} + \mu)/2$ will be standard normal. Then,
+$\alpha(\delta) = 1 - \Phi(\sqrt{n}/2)$, $\beta(\delta) = 1 - \Phi(\sqrt{n}/2)$,
+such that
+\[
+  \alpha(\delta) + \beta(\delta) = 2(1 - \Phi(\sqrt{n}/2))
+\]
+
+Computing, we get the following:
+
+\begin{center}
+  \begin{tabular}{c|c}
+    $n$ & $\alpha(\delta) + \beta(\delta)$ \\
+    \hline 
+    1 & 0.617 \\
+    4 & 0.317 \\
+    16 & 0.045 \\
+    36 & 0.003
+  \end{tabular}
+\end{center}
+
+\subsection*{9.3.1}
+
+Let $y = \sum_{i=1}^nx_i$.
+We have that
+\[
+  f_n(x \mid \lambda) = \prod_{i=1}^n\frac{\lambda^{x_i}e^{-\lambda}}{x_i!} =
+  \frac{\lambda^ye^{-n\lambda}}{\prod x_i!}
+\]
+
+Then,
+\[
+  \frac{f_n(x \mid \lambda_2)}{f_n(x\mid\lambda_1)} =
+  \frac{\lambda_2^ye^{-n\lambda_2}}{\lambda_1^ye^{-n\lambda_1}} = \left( \frac{\lambda_2}{\lambda_1} \right)^y\frac{e^{-n\lambda_2}}{e^{-n\lambda_1}}
+\]
+which is a stictly increasing function of $y$.
+
+\subsection*{9.3.7}
+
+The power is the likelihood of rejection; thus $\pi(\theta \mid \delta) = 0.05$.
+
+\subsection*{9.3.11}
+
+Let $y = \sum_{i=1}^nx_i$.
+From the chapter, we have that the UMP test occurs when we have some $c$ such
+that $P(y > c|\theta = 1) = 0.0143$, and we reject if $y > c$. In particular, we have that
+$y$ has Poisson distribution with parameter $n\lambda = 10$. Computing, we have
+that we need $c = 18$.
+
+\subsection*{9.4.12}
+
+\subsubsection*{a}
+
+We must have that
+\[
+  P(x \leq c_1 \mid \beta = 1) + P(x \geq c_2 \mid \beta = 1) = 1 - e^{-c_1} + e^{-c_2} = \alpha_0
+\]
+
+\subsubsection*{b}
+
+For any $c_1, c_2$, we can have $c_1 = -\log(1 - \alpha_0/2), c_2 =
+-\log(\alpha_0/2)$, such that $c_1 = 0.051, c_2 = 3$.
+
+
+\subsection*{9.5.1}
+
+\subsubsection*{a}
+
+The test statistic is
+\[
+  U = \sqrt{10}\frac{1.379 - 1.2}{0.3277} = 1.73
+\]
+
+Then, we reject $H_0$ at $\alpha_0 = 0.05$ if $U \geq 1.833$, which it is not.
+Thus, we do not reject $H_0$ at level $0.05$.
+
+\subsubsection*{b}
+
+The $p$-value is, where $\Phi$ is the cdf of a $t-$distribution with $9$ degrees
+of freedom,
+\[
+  p = 1-\Phi(1.73) = 0.0589
+\]
+
+% We wish to compute $U = \sqrt{n}\frac{\overline{X_n} - \mu_0}{\sigma'}$.
+% \begin{gather*}
+%   \overline{X_n} = \frac{-11.2}{8} = -1.4 \\
+%   \sigma' = \left( \frac{\sum_i (X_i - \overline{X_n})^2}{n-1}
+%   \right)^{\frac{1}{2}} = \left( \frac{\sum_i X_i^2  - 8X_i\overline{X_n} +
+%       \overline{X_n}^2}{7} \right) = 2 \\
+%   U = -1.98
+% \end{gather*}
+
+% Computing, we need $U \leq c_1 = -2.998, U \geq 1.4$ to reject; thus we do not reject.
+
+\subsection*{9.5.2}
+
+\subsubsection*{a}
+
+First we compute $U = \sqrt{9}\frac{2}{3} = 2$. Then, we reject if $H_0 \geq 1.86$,
+so we do reject.
+
+\subsubsection*{b}
+
+We reject if $|U| \geq 2.306$, so we do not reject.
+
+\subsubsection*{c}
+
+We have the confidence interval with bounds $22 \pm 2.306 = (19.694, 24.306)$.
+
+\subsection*{9.5.18}
+
+We first identify $\Omega_0 = \{(\mu, \sigma^2) \mid \mu \geq \mu_0\}, \Omega =
+\{(\mu, \sigma^2)\}$. Then, if $\overline{x_n} \geq \mu_0$, $\Lambda(x) = 1$.
+Otherwise, we have from the chapter that $\Lambda(x) = \left(
+  \frac{\sigma^2}{\sigma_0^2} \right)^{\frac{n}{2}}$. Thus, $\Lambda$ is a
+nondecreasing function of $u$, and for $k < 1$, we have that $\Lambda(x) \leq k \iff U
+\leq c$ via the same algebra as the book.
+
+\subsection*{9.6.2}
+
+We have hypotheses:
+\[
+  H_0: \mu_1 \geq \mu_2 \\
+  H_1: \mu_1 < \mu_2
+\]
+where the subscripts $1,2$ denote the mean concentrations of drugs A and B
+respectively. Then, we compute
+\[
+  U = \frac{\sqrt{m+n-2}(\overline{x_n} - \overline{y_n})}{\sqrt{\frac{1}{m} +
+      \frac{1}{n}}\sqrt{S_X^2 +  S_Y^2}} = -1.692
+\]
+
+We reject if $U < -1.356$; thus, we reject the null.
+
+\subsection*{9.6.8}
+
+We now have that $\psi = \left( \frac{1}{m} + \frac{1}{n} \right)^{-\frac{1}{2}}
+= 2.108$. Computing, we get that
+\[
+  \pi(\mu_1, \mu_2, \sigma^2 \mid \delta) = T_{16}(-2.921) + 1 - T_{16}(2.921) = 0.247
+\]
+
+\subsection*{9.9.2}
+
+% We have that when $\mu = 0$, $\sqrt{10000}\overline{X_n} = 100\overline{X_n}$ is
+% the standard normal distribution. 
+
+For some real value $\mu'$, $Z = 100(\overline{X_n} - \mu')$ has the standard normal
+distribution, and $c$ must be the $97.5^{th}$ quintile of the normal
+distribution, $1.96$, such that
+\begin{align*}
+  P(|\overline{X}| \geq c \mid \mu = \mu') &= P(100\overline{X} \leq -1.96, 1.96\leq 100 \overline{X} \mid \mu = \mu') \\
+                                        &= P(Z \leq -1.96 - 100\mu', 1.96 - 100\mu' \leq Z) \\
+                                           &= \Phi(-1.96 - 100\mu') + 1 - \Phi(1.96 - 100\mu')
+\end{align*}
+
+\subsubsection*{a}
+
+Computing, we get the probability of rejection to be $0.17$.
+
+\subsubsection*{b}
+
+Computing, we get the probability of rejection to be $0.516$.
+
+\end{document}
+
+% LocalWords:  NetID fancyplain LocalWords colorlinks linkcolor linkbordercolor
