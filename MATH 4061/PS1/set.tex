@@ -1,0 +1,321 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{relsize}
+\usepackage{fancyvrb}
+\usepackage{import}
+\usetikzlibrary{shapes.geometric,fit}
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+\theoremstyle{definition}
+\newtheorem*{statement}{Statement}
+\newtheorem*{claim}{Claim}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+
+\newcommand{\contra}{\Rightarrow\!\Leftarrow}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Zeq}{\mathbb{Z}_{\geq 0}}
+\newcommand{\Zg}{\mathbb{Z}_{>0}}
+\newcommand{\Req}{\mathbb{R}_{\geq 0}}
+\newcommand{\Rg}{\mathbb{R}_{>0}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+
+\newcommand{\incfig}[1] {%
+    % \def\svgwidth{\columnwidth}
+    \import{./figures/}{#1.pdf_tex}
+}
+
+\title{MATH 4061 HW 1}
+\author{David Chen, dc3451}
+
+\begin{document}
+
+\maketitle
+\today
+
+\section*{Ch 1, Q2}
+
+Euclid's lemma is that if $p \mid ab$, then $p \mid a$ or $p \mid b$. In
+particular, an easy corollary (the contrapositive) is that if $p \nmid a$ and $p \nmid b$, then
+we have that $p \nmid ab$.
+
+Let $(p / q)^2 = 12$, where $p,q$ are relatively prime, such that $\nexists n \in \N$ such that $n > 1$
+and $n \mid p$, $n \mid q$. 
+
+Then, we have that $p^2 = 12q^2 = 3(4q^2)$. Clearly $3 \mid p^2$, and so $3 \mid
+p$ (if $3 \nmid p$, then $3 \nmid p^2$ as well as a consequence of the earlier
+stated corollary to Euclid's lemma). Then, if $p = 3k$, we have that
+$9k^2 = 3(4q^2) \implies 3k^2 = 4q^2$. Since $3 \mid 4q^2$, and $3 \nmid 4$, by
+Euclid's lemma we have that $3 \mid q^2$, and from the same logic as earlier, we
+have that $3 \mid q$. 
+
+Since we have that 3 divides both $p$ and $q$, we have $\contra$ as we earlier
+assumed that $p, q$ were relatively prime.
+
+\subsection*{Lemma}
+
+Now, we first show that for any set $X \subset \R$ bounded above there is an element
+$\epsilon-$close to $\sup X$ that is contained in $X$ (that is, $\forall \epsilon
+> 0, \exists x \in X
+\mid x > \sup X - \epsilon$). To see this, note that if
+we no such element, then we would have $\sup X - \epsilon$ as a lower upper
+bound of $X$.
+
+In particular, this shows that if $\sup(X) > y$, then $\exists x \in X \mid y <
+x \leq \sup(X)$.
+
+\section*{Ch 1, Q6}
+
+\subsection*{a}
+
+% Note that it is good enough to show this for nonnegative rationals, as we have that 
+% $b^{-m / n}$ is the multiplicative inverse of $b^{m / n}$. However, these
+% inverses are unique, and as $b^{-m / n}b^{n / m}$
+
+First, for $a,b \geq 0$, we have that since the $n^{th}$ root of $a,b$ is
+distinct. This shows the following: if $a^n = b^n$, then the $n^{th}$ root of 
+$b^n = a^n$ is $a$, and the $n^{th}$ root of $a^n = b^n$ is also $b$. Since these roots are
+unique, we must have that $a = b$.
+
+For $n, m \in \N$, we see that $x^{nm} = x \cdot x \cdot \dots \cdot x$ $nm$
+times. However, we also have that $(x^n)^m = (x \cdot x \cdot \dots \cdot x)
+\cdot \dots \cdot (x \cdot \dots \cdot x)$, where each group in side the
+parentheses contains $n$ $x$'s and there are $m$ groups, for a total of $nm$
+$x$'s. However, since multiplication is associative, we have that $(x^n)^m$ is
+then the same as $x^{nm}$.
+
+If $n,m \in \Z$, $nm < 0$, we have the same thing as above, but with $x$
+replaced by $1 / x$, and we still have $(x^n)^m = x^{nm}$. This allows us to justify the following
+manipulations.
+
+Consider now $((b^m)^{1 / n})^{nq} = b^{mq}$ and $((b^p)^{1 / q})^{nq} =
+b^{pn}$. However, we have that $m / n = p / q \implies mq = pn$, so we have that
+$b^{mq} = b^{pn}$. From the earlier statement about distinct $n^{th}$ roots,
+this suggests that $(b^m)^{1 / n} = (b^p)^{1 / q}$.
+
+\subsection*{b}
+
+Let $r = p_r / q_r$ and $s = p_s / q_s$. Then, we have that
+\[
+  b^{r + s} = b^{\frac{p_rq_s + p_sq_r}{q_sq_r}} = (b^{p_rq_s + p_sq_r})^{1 /
+  q_rq_s} = (b^{p_rq_s}b^{p_sq_r})^{1 / q_rq_s}
+\]
+
+The last step follows from multiplication commuting, and the next step
+distributing the exponent is
+justified by Rudin in the book:
+\[
+  (b^{p_rq_s}b^{p_sq_r})^{1 / q_rq_s} = (b^{p_rq_s})^{1 / q_rq_s}(b^{p_sq_r})^{1
+  / q_rq_s} = (b^{\frac{p_rq_s}{q_rq_s}})(b^{\frac{p_sq_r}{q_rq_s}}) =
+  b^{\frac{p_r}{q_r}}b^{\frac{p_s}{q_s}} = b^rb^s
+\]
+
+\subsection*{c}
+
+First, we will show that for $b > 1, r > 0$ with $b \in \R, r \in \Q$ that $b^r > 1$.
+Put that $r = p / q$. Since $b > 1$, we have that $b^p > 1$ (Rudin claims $0 < y_1 <
+y_2 \implies y_1^n < y_2^n$ earlier).
+
+Then, since we have that $b^r$ is $q^{th}$ root of $b^p$, and we know that for
+$0 < y \leq 1$ that $y^n \leq 1$, we have that $b^r > 1$ (otherwise, we would
+have that $(b^r)^q < 1$, but we have that $(b^r)^q = b^p > 1$).
+
+Now, consider $r,s \in \Q$, and $r > s$. Then, we have that $b^r - b^s =
+b^s(b^{r-s}-1)$. Since we have that $b^s > 0$, and that $b^{r-s} > 1$, $b^r -
+b^s > 0$, and so $b^r > b^s$.
+
+We will show that $b^r$ is an upper bound of $B(r)$ first. For any $b^t \in
+B(r)$, we have that $t \leq r \implies b^t \leq b^r$. Then, $b^r$ is an upper
+bound of $B(r)$. To see that it is the least upper bound, note that $b^r \in
+B(r)$, such that any real number $< b^r$ is not an upper bound for $B(r)$.
+
+\subsection*{d}
+
+We have that $b^{x+y} = \sup B(x + y)$. We will show that $b^xb^y = \sup B(x)
+\sup B(y)$ is the least upper bound of $B(x + y)$. 
+
+First, to see that it is in fact an upper bound, consider any $t \leq x + y$. We
+want to construct two rationals $r,s$ such that $r \leq x$, $s \leq y$ and $r +
+s = t$. 
+
+I realized when I'm about to submit that there is an easier construction than
+what I originally did: pick
+some rational $r$ in the interval $[t-y,x]$ (since we have $t - y \leq x$ and
+one such rational is guaranteed to exist by the density $\Q$ as shown by Rudin), and
+take $s = t-r$. Then, we have
+that $r < x$ and $s = t - r \leq t - (t-y) = y$ which gives $r,s$ as desired. The boxed
+construction \textit{should also} work, but it's irrelevant.
+
+\fbox{\begin{minipage}{\textwidth}
+  To do this, consider that the denseness of $\Q$ in $\R$ (as shown earlier by Rudin)
+  gives some rational $x'$ in the interval $[\frac{x-y+t}{2},x]$ and some other rational $y'$
+  in $[\frac{y-x+t}{2},y]$. Note that $x' + y' \geq \frac{x-y+t}{2} +
+  \frac{y-x+t}{2} = t$. Then, consider the quantities
+  \[
+    r = x' - \frac{x' + y' - t}{2}, s = y' - \frac{x' + y' - t}{2}
+  \]
+
+  Note that $r + s = t$, and since $r\leq x' \leq x, s\leq y' \leq y$, we
+  have our desired $r,s$.
+\end{minipage}}
+
+Now, we have that $b^t = b^rb^s$, with $b^t \in B(x+y), b^r \in B(x), b^s \in
+B(y)$. Now, we have that $\sup B(x) \geq b^r, \sup B(y) \geq b^s$, such that
+$\sup B(x) \sup B(y) \geq b^rb^s = b^t$. This shows that $\sup B(x) \sup B(y)$
+is a upper bound.
+
+
+Now consider any real $a$ that is less than $\sup B(x) \sup
+B(y)$. Then, we have that $a < \sup B(x) \sup B(y)$. Then, by the earlier
+lemma, we have some $b^{\beta} \in B(x)$ such that $\alpha / \sup B(y) <
+b^{\beta}$, and now some $b^{\gamma} \in B(y)$ such that $\alpha / b^{\beta} <
+b^{\gamma}$ with $\beta, \gamma$ rational. Now, we have that $\alpha < b^\beta
+b^\gamma = b^{\beta + \gamma}$. However, since we have that $\beta \leq x$ and
+$\gamma \leq y$ from the definitions of $B(x), B(y)$, we have that $\beta +
+\gamma \leq x + y \implies b^{\beta\gamma} \in B(x + y)$. Then, we have that $a$
+cannot be an upper bound for $\sup B(x + y)$, and thus $\sup B(x) \sup B(y) = \sup B(x + y)$.
+
+\section*{Ch1, Q5}
+
+% To show that $\inf A = - \sup (-A)$, we need to show that $\inf A + \sup(-A) =
+% 0$. First, we will show that $\inf A + \sup(-A) \leq 0$: consider any $a_p \in A,
+% a_n \in -A$. Then, we have that 
+
+We will show first that $- \sup(-A)$ is a lower bound of $A$. In particular,
+for any element $a \in A$, we have that $-a \in -A$, and by definition $-a \leq
+\sup(-A)$. Then, $-(-a) = a \geq -\sup(-A)$. 
+
+To see that it is the greatest lower bound, consider any $x > -\sup(-A)$. Then,
+we would have that $-x < \sup(-A)$. Now, in an
+earlier problem we showed that there is some element $a \in -A$ such that
+$\sup(-A) - a < \sup(-A) - (-x) \implies -a < x$. However, since we have that
+$-A$ has the form of $\{ -\alpha \mid \alpha \in A\}$, we have that any $a \in
+-A \implies -a \in A$. However, since $-a < x$, $x$ cannot be a lower bound for
+$A$.
+
+Thus, we have that $-\sup(-A)$ is the greatest lower bound of $A$, $\inf A$.
+
+% pick any element of $a_n \in -A$, and note that $a_n = -(a_p)$ for some $a_p \in
+% A$. Then, we have that $-a_n = -(-a_p) = a_p$, and since $\sup(-A) \geq a_n
+% \implies -a_n \geq -\sup(-A)$, we have that $-\sup (-A) \leq $
+
+\section*{Ch1, Q7}
+
+\subsection*{a}
+
+We have the identity that for any positive integer $n$, $x^n - y^n =
+(x-y)(x^{n-1} + x^{n-2}y + \dots + y^{n-1})$ as used by Rudin earlier. Then,
+taking $x = b, y = 1$, we have that $b^n - 1 = (b-1)(b^{n-1} + b^{n-2} + \dots +
+1)$. In particular, since $b > 1, b^n > 1$ (for $n$ any positive
+integer) and taking the convention
+that $b^0 = 1$, we have that
+\[
+  \frac{b^n - 1}{b-1} = \frac{(b-1)\left(\sum_{i=0}^{n-1}b^i\right)}{b-1} =
+  \sum_{i=0}^{n-1}b^i \geq \sum_{i=0}^{n-1} 1 = n
+\]
+
+Then, this gives us what we wanted, as $\frac{b^n - 1}{b-1} \geq n \implies b^n
+- 1 \geq n(b-1)$.
+
+\subsection*{b}
+
+We have that the above holds for any $b > 1$. In particular, if we wish to show
+that $b - 1 \geq n(b^{1 / n} - 1)$, then we simply take part a and apply it to
+$b^{1 / n}$, which gives us what we wanted.
+
+The only thing to check is that for any $b > 1$, we still have that $b^{1 / n} >
+1$. Suppose otherwise; then we what that $b^{1 / n} \leq 1 \implies (b^{1 /
+n})^n \leq 1^n = 1$, $\contra$.
+
+\subsection*{c}
+
+Applying the above, we have
+\[
+  n > \frac{b-1}{t-1} \implies n(t-1) > b - 1 \geq n(b^{1 / n} - 1) \implies t -
+  1 > b^{1 / n} - 1 \implies t > b^{1 / n}
+\]
+
+\subsection*{d}
+
+As Rudin suggests, applying the above with $t = yb^{-w}$ yields that for any
+positive integer $n$, we have that
+\[
+  n > \frac{b-1}{t-1} \implies yb^{-w} > b^{1 / n} \implies yb^{-w}b^w > b^{1 /
+  n}b^w \implies y > b^{w + 1 / n}
+\]
+
+In particular, since $b, y, w$ are fixed (meaning that $(b-1) / (t-1)$ is some
+fixed real) and that the integers have no greatest
+element, there exists some positive integer $n > (b-1) / (t-1)$.
+
+The only thing left to check is that $t = yb^{-w} > 1$, but this is directly
+given by $b^w > y \implies b^{w}b^{-w} = 1 > yb^{-w}$.
+
+\subsection*{e}
+
+Using the same trick as before but with $t = b^w / y$ (note that $b^w > y
+\implies b^w / y > 1$), we have that for any
+positive integer $n$,
+
+\[
+  n > \frac{b-1}{t-1} \implies \frac{b^{w}}{y} > b^{1 / n} \implies b^{w}b^{- 1
+  / n} > b^{-1 / n}b^{1 / n}y \implies b^{w - 1 / n} > y
+\]
+
+Again, we have some fixed bound $(b-1) / (t-1)$ above which $b^{w - 1 / n} > y$.
+
+\subsection*{f,g}
+
+We will first show part g.
+
+If $x > 0$, we have that $b^x > 1$ as there is some rational $r = p / q$ in the
+interval $(0, x)$ such that $r \in B(x)$, and we show in Q5, part c that $b^r >
+0$. Then, since $b^x = \sup B(x)$, we have that $b^x \geq b^r > 1$.
+Correspondingly, $b^x > 1 \implies b^xb^{-x} = 1 < b^{-x}$. Now, if $b^x
+= y$ and $x' > x$, $b^{x'} = b^xb^{x'-x} = yb^{x'-x} > y$. Similarly, if $x' <
+x$, we have that $b^{x'} = b^xb^{x'-x} = yb^{-(x'-x)} < y$. Then, $b^x = b^{x'}
+\iff x = x'$.
+
+
+First, we have to see that $A$ is nonempty: for any $y > 1$, $0 \in A$.
+Otherwise, $\exists n$ such
+that $b^n > 1 / y$; in particular, we know that $n$ such that $n(b - 1) > 1 / y$ from
+the Archimedean property, which gives some $b^n \geq n(b-1) > 1 / y$. Then, we have
+that $b^{-n} < y$.
+
+Now, if $b^x > y$, then we have that $\exists n \in \Z^+$ such that $b^{x - 1 / n}
+> y > b^w \implies x - 1 / n > w$ for any $w \in A$ via the proof of part g, and so $x - 1 / n$ is a lower upper bound of $A$.
+$\contra$
+
+If $b^x < y$, then we have that $\exists n \in \Z^+$ such that $b^{x + 1 / n} <
+y$, which means that $x + 1 / n \in A$, and $x$ cannot be an upper bound of $A$.
+$\contra$
+
+This only leaves $b^x = y$.
+
+
+\end{document}
+% LocalWords:  NetID fancyplain LocalWords colorlinks linkcolor linkbordercolor
