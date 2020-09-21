@@ -1,0 +1,619 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{relsize}
+\usepackage{fancyvrb}
+\usepackage{import}
+\usetikzlibrary{shapes.geometric,fit}
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+\theoremstyle{definition}
+\newtheorem*{statement}{Statement}
+\newtheorem*{claim}{Claim}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+
+\newcommand{\contra}{\Rightarrow\!\Leftarrow}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Zeq}{\mathbb{Z}_{\geq 0}}
+\newcommand{\Zg}{\mathbb{Z}_{>0}}
+\newcommand{\Req}{\mathbb{R}_{\geq 0}}
+\newcommand{\Rg}{\mathbb{R}_{>0}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+
+\newcommand{\incfig}[1] {%
+    % \def\svgwidth{\columnwidth}
+    \import{./figures/}{#1.pdf_tex}
+}
+
+\title{MATH 4041 HW 2}
+\author{David Chen, dc3451}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section*{Problem 1}
+
+Let $g$ be a left inverse of $f: X \rightarrow Y$, and take any $x_1, x_2$ in
+$X$ such that $f(x_1) = f(x_2)$. Then, we have that $g(f(x_1)) = g(f(x_2))
+\implies x_1 = x_2$, and so $f$ is injective.
+
+Fixing any arbitrary element $x' \in
+X$ (since $X \neq \emptyset$), we can define $g: Y \rightarrow X$ as follows:
+\[
+  g(y) = \begin{cases}
+    x & \exists x \mid f(x) = y \\
+    x' & \text{otherwise}
+  \end{cases}
+\]
+
+To check that this is well defined for every element in $Y$, we can partition
+$Y$ into two groups. If $y$ is in the image of $f$, then we have that $y = f(x)$
+for exactly one $x$, as otherwise $f$ would not be injective, which means that $g(y) =
+x$. If $y$ is not in
+the image of $f$, then we have that $g(y) = x'$.
+
+Note that only the empty function exists that takes $\emptyset \rightarrow Y$,
+and is injective, but since a left inverse would take $Y \rightarrow \emptyset$,
+which does not exist for nonempty $Y$, no left inverse can exist.
+% Note that since this function is well defined since injectivity supplies the
+% fact that if $f(x) = y$, $\nexists x_2$ such that $x_2 \neq x_1$ and
+% $f(x_2) = y$, so $g$ maps each input $y$ to a single output.
+
+To check that this is a left inverse, pick any $x \in X$. Then, $(g \circ f)(x)
+= g(f(x)) = x$, as we see that $x$ clearly satisfies the first condition in the
+definition of $g$.
+
+Now, if $f: X \rightarrow Y$ has a right inverse $g$, then we can explicitly
+give a preimage under $f$ in $X$ to every $y \in Y$; namely, $g(y)$, as we have
+by the definition of right inverse that for all $y \in Y$, $f(g(y)) = y$,
+meaning that $g(y)$ is a preimage of $y$.
+
+
+\section*{Problem 2}
+\subsection*{i}
+
+To show that $h$ is a right inverse, take any natural number $n$, and note that
+$h(n) = 1 \implies 1 = n + 1 \implies n < 1$, but $1$ is the least natural number, so $\contra$
+and $\nexists n \in \N$ such that $h(n) = 1$. Then,
+\begin{align*}
+  f(h(n)) &=
+  \begin{cases}
+    30 & h(n) = 1 \\
+    h(n) - 1 & \text{otherwise}
+  \end{cases} \\
+  \intertext{Since the first case is impossible,}
+          &= h(n) - 1 \\
+          &= (n + 1) - 1 = n
+\end{align*}
+
+% Note that $f$ already fixes almost all of any right inverse $h$. For any $n \neq
+% 30$, we have that $f(n+1) = n$, 
+
+We have that any right inverse $h$ of $f$ satisfies that $f(h(n)) = n$, which
+yields
+\[
+  f(h(n)) =
+  \begin{cases}
+    30 & h(n) = 1 \\
+    h(n) - 1 & \text{otherwise}
+  \end{cases} 
+\]
+
+which means that we need at the least that if $1$ is not in the range of $h$,
+then $f(h(n)) = h(n) - 1 = n$, which gives $h(n) = n + 1$ which is the right
+inverse from earlier. Now, if $1$ is in the
+range of $h$ (let $h(m) = 1$), then we have that $30 = f(1) = f(h(m)) = m$, so
+we have that 
+\[
+  h(n) =
+  \begin{cases}
+    1 & n = 30 \\
+    n + 1 & \text{otherwise}
+  \end{cases}
+\]
+is a right inverse, as
+\[
+  f(h(n)) =
+  \begin{cases}
+    30 & h(n) = 1 \\
+    h(n) - 1 & \text{otherwise}
+  \end{cases} =
+  \begin{cases}
+    30 & n = 30 \\
+    h(n) - 1 & \text{otherwise}
+  \end{cases} = n
+\]
+
+This gives all two possible right inverses for $f$.
+
+\subsection*{ii}
+
+Let $f$ be a left inverse of $h$. Then, let any $n \in \N, n > 1$ be written as
+$n = m + 1$. Then, we have that $f(h(m)) = m \implies f(m + 1) = m \implies
+f(n) = m$. This completely fixes $f$ for any input $n > 1$. However, note that
+we can freely pick $f(1)$ to be any value we want, since (as proved in the first
+part) $1$ is not in the image of $h$. This creates an infinite amount of left
+inverses of $h$.
+
+Checking that any such $f$ is indeed an inverse, pick any $m \in \N$:
+\begin{align*}
+  f(h(n)) &=
+  \begin{cases}
+    m & h(n) = 1 \\
+    h(n) - 1 & \text{otherwise}
+  \end{cases} \\
+  \intertext{Since the first case is impossible,}
+          &= h(n) - 1 \\
+          &= (n + 1) - 1 = n
+\end{align*}
+
+\section*{Problem 3}
+
+\subsection*{i}
+
+There are two elements, namely the two given by
+\[
+  f_1(x) = x, f_2(x) = 
+  \begin{cases}
+    1 & x = 2 \\
+    2 & x = 1
+  \end{cases}
+\]
+
+We can just check that $f_1 \circ f_2 = f_2 \circ f_1$ directly by computing
+both:
+\begin{align*}
+  (f_1 \circ f_2)(1) &= f_1(f_2(1)) \\
+                     &= f_1(2) = 2 \\
+  (f_1 \circ f_2)(2) &= f_1(f_2(2)) \\
+                     &= f_1(1) = 1 \\
+  (f_2 \circ f_1)(1) &= f_2(f_1(1)) \\
+                     &= f_2(1) \\
+                     &= 2 = (f_1 \circ f_2)(1) \\
+  (f_2 \circ f_1)(2) &= f_2(f_1(2)) \\
+                     &= f_2(2) \\
+                     &= 1 = (f_1 \circ f_2)(2)
+\end{align*}
+
+\subsection*{ii}
+
+There are 6 elements of $S_3$, as there are $3$ choices for the image of $1$,
+$2$ choices (since injectivity) for the image of $2$, and only one remaining
+choice for the image of $3$. Note that choosing this way also hits every element
+in the codomain, as we selected 3 distinct elements in the codomain, which
+contains exactly 3 elements.
+
+Take
+\[
+  f(x) =
+  \begin{cases}
+    2 & x = 1 \\
+    3 & x = 2 \\
+    1 & x = 3
+  \end{cases},
+  g(x) = 
+  \begin{cases}
+    3 & x = 1 \\
+    2 & x = 2 \\
+    1 & x = 3
+  \end{cases}
+\]
+
+Then, $(f \circ g)(1) = 1$, but $(g \circ f)(1) = 2$, so $f \circ g \neq g \circ
+f$.
+
+\section*{Problem 4}
+
+We compute all $e^{i\frac{2k\pi}{n}}$ for $k \in \{1,2,\dots,n\}$ to get $\mu_k$:
+
+\begin{center}
+  \begin{tabular}{c|c|c}
+    $\mu_3$ & $\mu_4$ & $\mu_8$ \\ \hline
+    1 & 1 & 1 \\ \hline
+    & & $\frac{\sqrt{2}}{2} + \frac{\sqrt{2}i}{2}$ \\ \hline
+    & $i$ & $i$ \\ \hline
+    $-\frac{1}{2} + \frac{\sqrt{3}i}{2}$ & & \\ \hline
+    & & $-\frac{\sqrt{2}}{2} + \frac{\sqrt{2}i}{2}$ \\ \hline
+    & $-1$ & $-1$ \\ \hline
+    & & $-\frac{\sqrt{2}}{2} - \frac{\sqrt{2}i}{2}$ \\ \hline
+    $-\frac{1}{2} - \frac{\sqrt{3}i}{2}$ & & \\ \hline
+    & $-i$ & $-i$ \\ \hline
+    & & $\frac{\sqrt{2}}{2} - \frac{\sqrt{2}i}{2}$ \\
+  \end{tabular}
+\end{center}
+
+\section*{Problem 5}
+
+\subsection*{i}
+
+\begin{align*}
+  \begin{bmatrix}
+    1 & 2 \\
+    3 & 4 \\
+  \end{bmatrix} \cdot
+  \begin{bmatrix}
+    1 & -1 \\
+    1 & 1
+  \end{bmatrix} &=
+  \begin{bmatrix}
+    1 + 2 & -1 + 2 \\
+    3 + 4 & -3 + 4 \\
+  \end{bmatrix} = 
+  \begin{bmatrix}
+    3 & 1 \\
+    7 & 1
+  \end{bmatrix} \\
+  \begin{bmatrix}
+    1 & -1 \\
+    1 & 1
+  \end{bmatrix} \cdot
+  \begin{bmatrix}
+    1 & 2 \\
+    3 & 4 \\
+  \end{bmatrix} &=
+  \begin{bmatrix}
+    1 - 3 & 2 - 4 \\
+    1 + 3 & 2 + 4 \\
+  \end{bmatrix} = 
+  \begin{bmatrix}
+    -2 & -2 \\
+    4 & 6
+  \end{bmatrix}
+\end{align*}
+
+This is an example of matrix multiplication not commuting.
+
+\subsection*{ii}
+
+\[
+  \begin{bmatrix}
+    1 & 2 \\
+    1 & 2
+  \end{bmatrix} \cdot
+  \begin{bmatrix}
+    -2 & 6 \\
+    1 & -3
+  \end{bmatrix} = 
+  \begin{bmatrix}
+    -2 + 2 & 6 - 6 \\
+    -2 + 2 & 6 - 6
+  \end{bmatrix} =
+  \begin{bmatrix}
+    0 & 0 \\
+    0 & 0
+  \end{bmatrix}
+\]
+
+Neither matrix is invertible; this is easily seen by the fact that they both
+have determinant $0$. But in general for $A, B$ in some ring (in this case,
+$\mathbb{M}_2(\Z)$), if $AB = 0$ and $A, B \neq 0$ then neither
+$A$ nor $B$ is invertible. To see this suppose that $A^{-1}$ is an inverse to
+$A$: then, we have that $A^{-1}AB = A^{-1}0 \implies B = 0$, $\contra$.
+Similarly, if $B^{-1}$ is a suitable inverse for $B$, then $ABB^{-1} = 0B^{-1}
+\implies A = 0$, $\contra$.
+
+\section*{Problem 6}
+
+Only properties of the inner product (bilinearity, symmetry) will be used.
+
+\subsection*{a}
+
+First compute that the $(\alpha,1)^{th}$ entry of $Ae_j$ is
+$(Ae_j)_{\alpha 1} = \sum_{k=1}^n a_{\alpha k}(e_j)_{k1} = a_{\alpha j}$, and
+similarly for $^tAe_i$, $({^tA})_\alpha = \sum_{k=1}^m a_{k \alpha}(e_i)_{k1} =
+a_{i\alpha}$.
+
+Then,
+
+\[
+  Ae_j =
+  \begin{bmatrix}
+    a_{1j} \\
+    a_{2j} \\
+    \vdots \\
+    a_{mj}
+  \end{bmatrix} =
+  \sum_{k=1}^m a_{kj}e_k \text{ and }
+  {^tAe_i} = 
+  \begin{bmatrix}
+    a_{i1} \\
+    a_{i2} \\
+    \vdots \\
+    a_{in}
+  \end{bmatrix} = 
+  \sum_{k=1}^n a_{ik}e_k
+\]
+which gives that
+\begin{align*}
+  \left\langle e_i, Ae_i \right\rangle &= \left\langle e_i, \sum_{k=1}^m a_{kj}e_k \right\rangle \\
+                            &= \sum_{k=1}^m \left\langle e_i, a_{kj}e_k \right\rangle \\
+                            &= \sum_{k=1}^m a_{kj} \left\langle e_i, e_k \right\rangle \\
+                            \intertext{However, since $i \neq j \implies
+                            \left\langle e_i, e_j \right\rangle = 0$,}
+                            &= a_{ij}\langle e_i, e_i \rangle = a_{ij}
+\end{align*}
+
+Similarly,
+
+\begin{align*}
+  \left\langle {^tAe_i}, e_i \right\rangle &= \left\langle \sum_{k=1}^n a_{ik}e_k, e_j \right\rangle \\
+                            &= \sum_{k=1}^n \left\langle  a_{ik}e_k,e_j \right\rangle \\
+                            &= \sum_{k=1}^n a_{ik} \left\langle e_k, e_j \right\rangle \\
+                            &= a_{ij}\langle e_j, e_j \rangle = a_{ij}
+\end{align*}
+
+\subsection*{b}
+
+For any $v \in \R^m, w \in \R^n$, we have that the standard basis vectors give
+some representations
+\[
+  v = \sum_{i=1}^m v_ie_i, w = \sum_{j=1}^n w_je_j
+\]
+
+Then, as matrix multiplication distributes, that
+\[
+  Aw = A\sum_{j=1}^n w_je_j = \sum_{j=1}^n Aw_je_j
+\]
+Similarly, $^tAv = \sum_{i=1}^m {^tA}v_ie_i$. Then,
+\begin{align*}
+  \left\langle v, Aw \right\rangle &= \left\langle \sum_{i=1}^mv_ie_i, \sum_{j=1}^nAw_je_j
+  \right\rangle \\
+                        &= \sum_{i=1}^m v_i\left\langle e_i, \sum_{j=1}^n Aw_je_j
+                        \right\rangle \\
+                        &= \sum_{i=1}^mv_i\left(\sum_{j=1}^n w_j \left\langle e_i, Ae_j\right\rangle
+                        \right) \\
+                        &= \sum_{i=1}^m \sum_{j=1}^n v_iw_j \left\langle e_i, Ae_j
+                        \right\rangle \\
+                        &= \sum_{i=1}^m \sum_{j=1}^n v_iw_j \left\langle {^tA}e_i, e_j
+                        \right\rangle \\
+                        &= \sum_{i=1}^m v_i \left( \sum_{j=1}^n w_j\left\langle
+                        {^tA}e_i, e_j \right\rangle \right) \\
+                        &= \sum_{i=1}^m v_i \left\langle
+                        {^tA}e_i, \sum_{j=1}^n w_je_j \right\rangle \\
+                        &= \left\langle \sum_{i=1}^m {^tA}v_ie_i, \sum_{j=1}^nw_je_j
+                        \right\rangle \\
+                        &= \left\langle {^tA}v, w \right\rangle
+\end{align*}
+
+To show that $^tA$ is the unique matrix that has this property, let $B = {^tA} +
+C$. Then, if we have that if $\langle v, Aw \rangle = \langle Bv, w \rangle$,
+\[
+  \langle Bv, w \rangle = \langle ({^tA} + C)v, w \rangle
+                        = \langle {^tA}v, w \rangle + \langle Cv, w \rangle
+\]
+Since we assumed earlier that $\langle {^tA}v, w \rangle = \langle v, Aw
+\rangle = \langle Bv, w \rangle$, we have that $\langle Cv, w \rangle = 0$. 
+
+From the fact given on the homework, we have that $Cv = 0$ for all $v \in \R^m$.
+However, note that if we consider $v = e_i$, we show that $Cv =
+{^t\begin{bmatrix}c_{1i} & c_{2i} & \dots & c_{ni} \end{bmatrix}} = 0$, which
+suggests that every entry of $C$, $c_{ij}$ must be zero as $Ce_j = 0$.
+
+Then, this gives that $B = {^t A}$, which was what we wanted.
+
+\subsection*{c}
+
+We have that
+\[
+  \langle {^tB}{^tA}v, w \rangle = \langle {^tB}({^tA}v), w \rangle = \langle
+  {^tA}v, Bw \rangle = \langle v, ABw \rangle
+\]
+
+However, we have from part b that the only such matrix $C$ that satisfies
+$\langle Cv, w \rangle = \langle v, ABw \rangle$ is $^t(AB)$, so we have that
+${^tB}{^tA} = {^t(AB)}$.
+
+\section*{Problem 7}
+
+\[
+  \begin{bmatrix}
+    0 & 0 \\
+    0 & 1
+  \end{bmatrix} \cdot
+  \begin{bmatrix}
+    0 & 1\\
+    1 & 2
+  \end{bmatrix} =
+  \begin{bmatrix}
+    0 & 0 \\
+    1 & 2
+  \end{bmatrix}
+\]
+
+\section*{Problem 8}
+
+We can compute the inverse of a $2 \times 2$ matrix $\begin{bmatrix} a & b \\ c
+& d \end{bmatrix}$ to be $\frac{1}{ad - bc}\begin{bmatrix} d & -b \\ -c
+& a \end{bmatrix}$, which yields that
+\[
+  A^{-1}_\theta = \frac{1}{\cos^2(\theta) + \sin^2(\theta)}
+  \begin{bmatrix}
+    \cos(\theta) & \sin(\theta) \\
+    -\sin(\theta) & \cos(\theta)
+  \end{bmatrix}
+  =
+  \begin{bmatrix}
+    \cos(-\theta) & -\sin(-\theta) \\
+    \sin(-\theta) & \cos(-\theta)
+  \end{bmatrix}
+  = A_{-\theta}
+\]
+
+\begin{align*}
+  A_{\theta_1}A_{\theta_2} &=
+  \begin{bmatrix}
+    \cos(\theta_1) & -\sin(\theta_1) \\
+    \sin(\theta_1) & \cos(\theta_1)
+  \end{bmatrix} \cdot
+  \begin{bmatrix}
+    \cos(\theta_2) & -\sin(\theta_2) \\
+    \sin(\theta_2) & \cos(\theta_2)
+  \end{bmatrix} \\
+             &=
+  \begin{bmatrix}
+    \cos(\theta_1) \cos(\theta_2) - \sin(\theta_1) \sin(\theta_2) & -( \sin(\theta_2) \cos(\theta_1) + \sin(\theta_1) \cos(\theta_2)) \\
+    \sin(\theta_1) \cos(\theta_2) + \sin(\theta_2) \cos(\theta_1) & \cos(\theta_1) \cos(\theta_2) - \sin(\theta_1) \sin(\theta_2)
+  \end{bmatrix}
+  \intertext{With angle addition formulas,}
+             &=
+  \begin{bmatrix}
+    \cos(\theta_1 + \theta_2) & -\sin(\theta_1 + \theta_2) \\
+    \sin(\theta_1 + \theta_2) & \cos(\theta_1 + \theta_2)
+  \end{bmatrix} \\
+             &= A_{\theta_1+\theta_2}
+\end{align*}
+
+Then, taking $\theta = \theta_1 = \theta_2$, we get that 
+
+\[
+  A^2_\theta = A_\theta A_\theta = 
+  \begin{bmatrix}
+    \cos(\theta + \theta) & -\sin(\theta + \theta) \\
+    \sin(\theta + \theta) & \cos(\theta + \theta)
+  \end{bmatrix} = A_{2\theta}
+\]
+
+\begin{align*}
+  B^2_\theta &=
+  \begin{bmatrix}
+    \cos(\theta) & \sin(\theta) \\
+    \sin(\theta) & -\cos(\theta)
+  \end{bmatrix} \cdot
+  \begin{bmatrix}
+    \cos(\theta) & \sin(\theta) \\
+    \sin(\theta) & -\cos(\theta)
+  \end{bmatrix} \\
+             &=
+  \begin{bmatrix}
+    \cos^2(\theta) + \sin^2(\theta) & \sin(\theta)\cos(\theta) - \sin(\theta)\cos(\theta) \\
+    \sin(\theta)\cos(\theta) - \sin(\theta)\cos(\theta) & \sin^2(\theta) + \cos^2(\theta)
+  \end{bmatrix} \\
+             &=
+             \begin{bmatrix}
+               1 & 0 \\
+               0 & 1
+             \end{bmatrix} = I
+\end{align*}
+
+This immediately suggests that $B_\theta B_\theta = I \implies B^{-1}_\theta =
+B_\theta = \begin{bmatrix} \cos(\theta) & \sin(\theta) \\ -\sin(\theta) &
+\cos(\theta) \end{bmatrix}$.
+
+\begin{align*}
+  A_\theta R &=
+  \begin{bmatrix}
+    \cos(\theta) & -\sin(\theta) \\
+    \sin(\theta) & \cos(\theta)
+  \end{bmatrix} \cdot
+  \begin{bmatrix}
+    1 & 0 \\
+    0 & -1
+  \end{bmatrix}\\
+             &=
+             \begin{bmatrix}
+               1(\cos(\theta)) + 0(-\sin(\theta)) & 0(\cos(\theta)) +
+               (-1)(-\sin(\theta)) \\
+               1(\sin(\theta)) + 0(\cos(\theta)) & 0(\sin(\theta)) +
+               (-1)(\cos(\theta))
+             \end{bmatrix} \\
+             &=
+             \begin{bmatrix}
+               \cos(\theta) & \sin(\theta) \\
+               \sin(\theta) & -\cos(\theta)
+             \end{bmatrix} = B_\theta
+\end{align*}
+
+\begin{align*}
+  R^2 &=
+  \begin{bmatrix}
+    1 & 0 \\
+    0 & -1
+  \end{bmatrix} \cdot
+  \begin{bmatrix}
+    1 & 0 \\
+    0 & -1
+  \end{bmatrix} = 
+  \begin{bmatrix}
+    1^2 + 0^2 & 1(0) + 0(-1) \\
+    0(1) + -1(0) & 0^2 + (-1)^2
+  \end{bmatrix} = 
+  \begin{bmatrix}
+    1 & 0 \\
+    0 & 1
+  \end{bmatrix} = I
+\end{align*}
+
+We have by matrix associativity that $R^{-1}A_\theta R = R^{-1}(A_\theta R)$,
+and the earlier identity gives $R^{-1}(A_\theta R) = R^{-1}B_\theta$, and since
+$R^2 = I$, $R^{-1}B_\theta = RB_\theta$. This gives us the first half of the
+desired chain of equalities, and we can see from the earlier identities that
+\[
+  A_\theta R B_\theta = (A_\theta R)B_\theta = B_\theta B_\theta = I
+\]
+which gives us that $RB_\theta$ is the multiplicative inverse to $A_\theta$.
+Then, since we showed earlier that $A^{-1}_\theta = A_{-\theta}$, we have that
+$R^{-1}A_\theta R = RB_\theta = A_\theta^{-1} = A_{-\theta}$.
+
+I am not quite sure what is meant by ``another computation''  in the problem
+set. I guess that we have $A_\theta R A_\theta R = A_\theta (R^{-1} A_\theta R) =
+  A_\theta A_{-\theta} = A_{\theta - \theta} = A_0 = \begin{bmatrix}\cos(0) &
+  -\sin(0) \\ \sin(0) & \cos(0) \end{bmatrix} = \begin{bmatrix} 1 & 0 \\ 0 & 1
+\end{bmatrix} = I$?
+
+We showed $A_{\theta_1}A_{\theta_2} = A_{\theta_1 + \theta_2}$ earlier.
+\[
+  B_{\theta_1}B_{\theta_2} = A_{\theta_1}R A_{\theta_2}R =
+  A_{\theta_1}(R^{-1}A_{\theta_2}R) = A_{\theta_1}A_{-\theta_2} = A_{\theta_1 -
+  \theta_2}
+\]
+
+\[
+  A_{\theta_1}B_{\theta_2} = A_{\theta_1}(A_{\theta_2}R) =
+  (A_{\theta_1}A_{\theta_2})R = A_{\theta_1 + \theta_2}R = B_{\theta_1 +
+  \theta_2}
+\]
+
+\[
+  B_{\theta_1}A_{\theta_2} = (A_{\theta_1}R)A_{\theta_2}I =
+  A_{\theta_1}RA_{\theta_2}RR^{-1}
+\]
+
+Since $R = R^{-1}$, 
+\[
+  A_{\theta_1}RA_{\theta_2}RR^{-1} = A_{\theta_1}(R^{-1}A_{\theta_2}R)R =
+  A_{\theta_1}A_{-\theta_2}R = A_{\theta_1 - \theta_2}R = B_{\theta_1 -
+  \theta_2}
+\]
+
+We have the final identity $A_\theta R A_\theta^{-1} = A_\theta R A_{-\theta}$
+by the earlier computation that gave $A_\theta^{-1} = A_{-\theta}$. Then, we
+have that $B_\theta = A_\theta R \implies A_\theta R A_{-\theta} = B_\theta
+A_{-\theta} = B_{\theta - (-\theta)} = B_{2\theta}$, which was what we wanted.
+
+\end{document}
+% LocalWords:  NetID fancyplain LocalWords colorlinks linkcolor linkbordercolor

@@ -1,0 +1,364 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{relsize}
+\usepackage{fancyvrb}
+\usepackage{import}
+\usetikzlibrary{shapes.geometric,fit}
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+\theoremstyle{definition}
+\newtheorem*{statement}{Statement}
+\newtheorem*{claim}{Claim}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+
+\newcommand{\contra}{\Rightarrow\!\Leftarrow}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Zeq}{\mathbb{Z}_{\geq 0}}
+\newcommand{\Zg}{\mathbb{Z}_{>0}}
+\newcommand{\Req}{\mathbb{R}_{\geq 0}}
+\newcommand{\Rg}{\mathbb{R}_{>0}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+
+\newcommand{\incfig}[1] {%
+    % \def\svgwidth{\columnwidth}
+    \import{./figures/}{#1.pdf_tex}
+}
+
+\title{MATH 4041 HW 1}
+\author{David Chen, dc3451}
+\date{September 10, 2020}
+
+\begin{document}
+
+\maketitle
+
+\section*{Problem 1}
+
+In class it was stated that $X \subseteq Y \iff \forall x \in X, x \in Y$.
+
+\subsection*{i}
+
+Consider any $x_1 \in X_1$. Then, since $X_1 \cup X_2$ is defined to be $\{x \mid
+x\in X_1 \lor x \in X_2\}$, we have that $x_1 \in X_1 \cup X_2$. From the
+definition of $\subseteq$, we have that $X_1 \subseteq X_1 \cup X_2$.
+
+Consider any $x_2 \in X_2$. Then, since $X_1 \cup X_2$ is defined to be $\{x \mid
+x\in X_1 \lor x \in X_2\}$, we have that $x_2 \in X_1 \cup X_2$. From the
+definition of $\subseteq$, we have that $X_2 \subseteq X_1 \cup X_2$.
+
+To show that $X_1 \cup X_2$ is the smallest set containing $X_1, X_2$, consider
+any $x \in X_1 \cup X_2$. In that case, via the definition of the union of two sets,
+we have that $x \in X_1$ or $x \in X_2$ (or both). In either case, we have that
+since $X_1 \subseteq Y \implies \forall x_1 \in X_1, x_1 \in Y$ and $X_2 \subseteq Y
+\implies \forall x_2 \in X_2, x_2 \in Y$, that $x \in Y$. From the definition of
+$\subseteq$, we have that $(X_1 \cup X_2) \subseteq Y$.
+
+\subsection*{ii}
+
+Consider any $x \in X_1 \cap X_2$. Then, since $X_1 \cap X_2$ is defined to be $\{x \mid
+x\in X_1 \land x \in X_2\}$, we have that $x \in X_1 \cap X_2 \implies x \in
+X_1$ and $x \in X_2$. From the definition of $\subseteq$, we have that $X_1 \cap X_2
+\subseteq X_1, X_1 \cap X_2 \subseteq X_2$.
+
+To show that $X_1 \cap X_2$ is the largest set contained in $X_1, X_2$, consider
+any $y \in Y$. Then, we have that $Y \subseteq X_1 \implies y \in X_1$ and $Y
+\subseteq X_2 \implies y \in X_2$. Since $X_1 \cap X_2$ is defined to be $\{x
+\mid x \in X_1 \land x \in X_2\}$, we have that $y \in X_1 \cap X_2$. From the
+definition of $\subseteq$, we have that $Y \subseteq (X_1 \cap X_2)$.
+
+\section*{Problem 2}
+
+Let $x_1, x_2$ be any two distinct elements of $X$. Then, $(x_1, x_2) \notin
+\Delta_X$, (if it were in fact in the diagonal, we would have that $x_1 = x_2$, which contradicts the
+earlier assumption).
+
+However, we have that $(x_1, x_1), (x_2, x_2) \in \Delta_X$. Now, suppose that
+$\Delta_X = A \times B$ for some $A,B \subseteq X$. Then, since $A \times B$ is
+defined to be $\{(a,b) \mid a \in A, b \in B\}$, and $(x_1, x_1) \in A \times
+B$, we must have that $x_1 \in A, x_1 \in B$. Similarly, since $(x_2, x_2) \in A \times
+B$, we must have that $x_2 \in A, x_2 \in B$. 
+
+Then, again recalling that $A \times B = \{(a,b) \mid a \in A, b \in B\}$, we
+have that $(x_1, x_2) \in A \times B$. However, we showed earlier that $(x_1,
+x_2) \notin \Delta_X$, so $\contra$, and $\Delta_X \neq A \times B$ for any $A,B
+\subseteq X$.
+
+\section*{Problem 3}
+
+\subsection*{i}
+
+$g(x) = e^x$ is injective, as the inverse function $g^{-1}(x) = \ln(x)$ shows.
+It is not surjective, as $e^x > 0$ on the real line. Since it is not surjective,
+it is not a bijection.
+
+The image of $g$ is the positive reals $\R^+$.
+
+\subsection*{ii}
+
+$g(x) = 5x-12$ is a bijection: for injectivity, we see that if we have $x,y$
+such that $g(x) = g(y)$, $5x - 12 = 5y - 12 \implies 5x = 5y \implies x = y$.
+
+For surjectivity, we have that $f^{-1}(x) = \frac{x + 12}{5}$ gives a preimage
+to any given $x \in \R$.
+
+The image of $g$ is the entire real line $\R$.
+
+\subsection*{iii}
+
+$g(x) = x^3$ is also a bijection: for injectivity, we see that if we have $x,y$
+such that $g(x) = g(y)$, $x^3 = y^3 \implies x = y$. For surjectivity, we have
+that $g^{-1}(x) = x^{\frac{1}{3}}$ furnishes a preimage for any given input $x$.
+{
+The image of $g$ is the entire real line $\R$.
+
+\subsection*{iv}
+
+$g(x) = x^3 - 3x$ is not a bijection: it is surjective, but not injective. To
+see that it is surjective, consider for any $y \in \R$, $g(|y| + 2) =
+|y|^3 + 2|y|^2 + |y| + 8 \geq |y|$ and $g(-|y|
+- 2) = -|y|^3 - 2|y|^2 - |y| - 8 \leq -|y|$. Intermediate value theorem gives
+some preimage of $y$ between those $|y| + 2$ and $-|y| - 2$, since $-|y| \leq y \leq |y|$.
+
+To see that it is not injective, note that $g(-\sqrt{3}) = g(0) = g(\sqrt{3}) =
+0$.
+
+The image of $g$ is the entire real line $\R$.
+
+\begin{figure}[ht]
+  \centering
+  \incfig{3g}
+  \caption{$g(x) = x^3 - 3x$}
+\end{figure}
+
+\section*{Problem 4}
+
+$f$ is surjective, but not injective. Note that for any $n$, $n + 1$ is a
+preimage of $n$, but $f(1) = f(31) = 30$.
+
+\subsection*{a}
+
+\[
+  f(\{1,2,3,4,5\}) = \{30,1,2,3,4\}
+\]
+
+\subsection*{b}
+
+\[
+  f(\{1,31\}) = \{30\}
+\]
+
+\subsection*{c}
+
+\[
+  f^{-1}(1) = \{2\}
+\]
+
+\subsection*{d}
+
+\[
+  f^{-1}(\{1,2,3\}) = \{2,3,4\}
+\]
+
+\subsection*{e}
+
+\[
+  f^{-1}(30) = \{1,31\}
+\]
+
+\subsection*{f}
+
+\[
+  f^{-1}(\{1,30\}) = \{1,2,31\}
+\]
+
+\section*{Problem 5}
+
+If $X$ is nonempty:
+
+A constant function $f: X \rightarrow Y$ is surjective only if $Y$ is a
+singleton set $\{c\}$ (otherwise, if $Y$ has more than one element, then those
+other elements have no preimage).
+
+$f$ is injective only if $X$ is a singleton set as well (otherwise, if $X$ has
+more than one element, then for two distinct elements $x_1, x_2$, we have that
+$f(x_1) = f(x_2)$).
+\
+Combining the two above conditions, we see that $f:X \rightarrow Y$ is bijective between two
+nonempty sets if $X,Y$ both consist of a single element.
+
+If $X = \emptyset$, then the empty function $f = \emptyset$ is constant
+irregardless of $Y$ so long as $Y$ is nonempty. Picking any arbitrary element of
+$Y$, we would have that $\forall x \in X, f(x) = c$.
+
+Then, the empty function is always injective, as $\nexists x_1, x_2 \in
+\emptyset$ such that $f(x_1) = f(x_2)$, but never surjective (as long as $Y$ is
+nonempty) as no element in $Y$ can have a preimage in the empty set. Consequentially, the empty
+function is never a bijection from the empty set to any nonempty range.
+
+\section*{Problem 6}
+
+Recall the definition of a function $f: X \rightarrow Y$ as a subset $G$ of $X \times Y$ such that
+$\forall x \in X, \exists ! y \in Y$ such that $(x,y) \in G$.
+
+Now consider the empty function with graph $\emptyset$. Then, the above
+condition with quantifier $\forall x \in X$ holds vacuously (note that
+$\emptyset \times Z = Z \times \emptyset = \emptyset$ for any set $Z$), and as
+such the empty function is a function.
+
+As mentioned earlier, the empty function is always injective, but only
+surjective if $Y$ is also the empty set. Then, the empty function $f: \emptyset
+\rightarrow Y$ is bijective only if $Y = \emptyset$.
+
+For a function $f: X \rightarrow \emptyset$, note that if $X = \emptyset$, we
+showed earlier that the empty function is such a function $\emptyset \rightarrow
+\emptyset$.
+
+Suppose that we have some function $f: X \rightarrow \emptyset$ and that $X$ is
+nonempty. Then we have that for any given $x \in X$, there must be
+some $(x,y) \in G_f \subset X \times \emptyset$. However, since $X \times \emptyset = \emptyset$, we have
+that $\contra$, so no such function can exist.
+
+\section*{Problem 7}
+
+If either $X$ or $Y$ is the empty set, we have that $X \times Y = \emptyset$.
+Then, from earlier, we showed that $\pi_1: X \times Y \rightarrow X$ is
+well-defined only if $X = \emptyset$ (in which case it is a bijection), and that similarly, $\pi_2$ is
+well-defined only if $Y = \emptyset$ (in which case it is a bijection).
+
+Now, if neither is empty:
+
+$\pi_1$ is injective when $Y$ is a singleton set; otherwise, let $y_1, y_2 \in
+Y$ be distinct. Then, $\pi_1(x,y_1) = \pi_1(x,y_2) = x$.
+
+Similarly, $\pi_2$ is injective when $X$ is a singleton set.
+
+$\pi_1$ is always surjective, as $x$ has the preimage $\{(x,y) \mid y \in Y\}$
+which is nonempty for nonempty $Y$.
+
+Similarly, $\pi_2$ is also always surjective.
+
+
+\section*{Problem 8}
+
+Remember that $(x,y) \in X \times Y$ for \textit{any} $x \in X, y \in Y$. In
+particular, note that this suggests that $(x,y) \in X \times Y \implies x \in X,
+y \in Y \implies (y,x) \in Y \times X$.
+
+To show surjectivity, note that for any element in the range $(y,x) \in Y \times
+X$, we have that $(x,y) \in X \times Y$ satisfies $t(x,y) =
+(y,x)$.
+
+For injectivity, we will need to show that if $t(x_1,y_1) = t(x_2,y_2)$ then
+$(x_1,y_1) = (x_2,y_2)$. Suppose that $t(x_1,y_1) = t(x_2,y_2)$. Then, we have
+that $(y_1, x_1) = (y_2, x_2)$. By the definition of ordered pairs we have that
+$y_1 = y_2$ and $x_1 = x_2$, which also gives that $(x_1,y_1) = (x_2,y_2)$,
+which is what we wanted. Hence, $t$ is a bijection.
+
+\section*{Problem 9}
+\subsection*{i}
+
+We have that $\chi_A^{-1}(0) = \{x \in X \mid \chi_A(x) = 0\}$. However, from
+the definition of $\chi_A$, we have that $\chi_A(x) = 0 \iff x \notin A$. Then,
+we have that $\chi_A^{-1}(0) = \{x \in X \mid x \notin A\}$, which is exactly $X
+\setminus A$.
+
+We have that $\chi_A^{-1}(1) = \{x \in X \mid \chi_A(x) = 1\}$. However, from
+the definition of $\chi_A$, we have that $\chi_A(x) = 1 \iff x \in A$. Then,
+we have that $\chi_A^{-1}(1) = \{x \in X \mid x \in A\} = \{x \in A\}$, which is
+exactly $A$.
+
+$\chi_A$ is a constant function when $X$ is empty, or when $A = X$ or $A =
+\emptyset$. We showed
+earlier that $\chi_A: \emptyset \rightarrow \{0,1\}$ is a constant function.
+
+If $X$ is nonempty and $A$ is a proper nonempty subset of $X$, then let $a \in
+A$ and $x \in X \setminus A$. Then, $\chi_A(a) = 1, \chi_A(x) = 0$, and so
+$\chi_A$ is nonconstant.
+
+Now we also verify that $\chi_A$ is constant for $A = X$ and $A = \emptyset$. In the first
+case, $a \in X \implies a\in A$, so $\chi_A(x) = 1$ for every $x \in X$ if $A =
+X$. Similarly, no $x \in X$ has $x \in \emptyset$, so $\chi_A(x) = 0$ for every $x
+\in X$ if $A = \emptyset$.
+
+Again, if $X = \emptyset$ then the function is injective but not surjective, as
+shown earlier. Otherwise, $\chi_A$ is injective in the following cases:
+\begin{enumerate}
+  \item $X$ is a singleton. In this case, there is only one element of the domain, so
+  the preimage of both 0 and 1 has at most one element, irregardless of $A$.
+  \item $X$ has two elements, and $A$ has one element. Then, for the unique $a
+    \in A$, we have that $\chi_A(a) = \{1\}$ and the preimage of the other
+    element in $X$ is $\{0\}$.
+\end{enumerate}
+
+ If $X$ has more than 2 elements, then one of the two sets $A$ and $X
+ \setminus A$ has at least 2 elements. Then, letting $b_1, b_2$ be two
+ distinct elements of the larger of $A$ and $X \setminus A$, we have that
+ $\chi_A(b_1) = \chi_A(b_2)$.
+
+ $X$ is surjective only if $A \neq \emptyset$ and $A \neq X$. To show
+ this, we have that $A$ is nonempty, and that there exists some $x \in X$
+ that also has $x \notin A$. Then, we have that $\chi_A(a) = 1$ for some $a \in
+ A$, and that $\chi_A(x) = 0$, which covers the entire range.
+
+ Now, if $X$ is a singleton, then the only subsets of $X$ are $\emptyset$ and
+ $X$ itself, so $\chi_A$ cannot be surjective. Then, for $\chi_A$ to be
+ surjective, we must have that $X$ contains two elements, and that $A$ must
+ contain exactly one element. This satisfies the conditions for being both
+ injective and surjective, such that $\chi_A$ is a bijection.
+
+\subsection*{ii}
+
+Take any $x \in X$. Then, we have two cases: $x \in S_f$ or $x \notin S_f$. In
+the first case, we have that $x \in S_f \implies x \in f^{-1}(1) \implies f(x) =
+1 = \chi_{S_f}(x)$. In the second case, we have that $x \notin S_f \implies x \notin f^{-1}(1)$;
+however, since every element of the domain gets mapped to some element of the
+range, we have that $f(x) = 0 = \chi_{S_f}(x)$.
+
+Thus, for every $x \in X$, we have that $f(x) = \chi_{S_f}(x)$.
+
+\subsection*{iii}
+
+We have already shown that $X_{S_f} = f$ in the last part.
+
+% To show that $S_{\chi_A} = A$, we have that $x \in S_{\chi_A} \implies \chi_A(x)
+% = 1$ from the earlier shown relationship with $f = \chi_A$. Then, $\chi_A(x) = 1
+% \implies x \in A$ from definition of the characteristic function, and so
+% $S_{\chi_A} \subseteq A$.
+
+% Similarly, if $x \in A$, then we have that $\chi_A(x) = 1 \implies x \in
+% \chi_A^{-1}(1) = f^{-1}(1) = S_{\chi_A}$, and so $A \subseteq S_{\chi_A}$. However, since
+% $S_{\chi_A} \subseteq A$, we have that $A = S_{\chi_A}$.
+
+The first
+part (i) showed that $\chi_A^{-1}(1) = A$, and the second part (ii) has by definition of
+$S_{\chi_A}$ that $\chi_A^{-1}(1) = S_{\chi_A}$. Then, we have that
+\[
+  A = \chi_A^{-1}(1) = S_{\chi_A}.
+\]
+
+\end{document}
+% LocalWords:  NetID fancyplain LocalWords colorlinks linkcolor linkbordercolor
