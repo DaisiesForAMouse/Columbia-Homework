@@ -1,0 +1,281 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{relsize}
+\usepackage{fancyvrb}
+\usepackage{import}
+\usetikzlibrary{shapes.geometric,fit}
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+\theoremstyle{definition}
+\newtheorem*{statement}{Statement}
+\newtheorem*{claim}{Claim}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+
+\newcommand{\contra}{\Rightarrow\!\Leftarrow}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Zeq}{\mathbb{Z}_{\geq 0}}
+\newcommand{\Zg}{\mathbb{Z}_{>0}}
+\newcommand{\Req}{\mathbb{R}_{\geq 0}}
+\newcommand{\Rg}{\mathbb{R}_{>0}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\DeclareMathOperator{\Id}{id}
+
+\newcommand{\incfig}[1] {%
+    % \def\svgwidth{\columnwidth}
+    \import{./figures/}{#1.pdf_tex}
+}
+
+\title{MATH 4041 HW 3}
+\author{David Chen, dc3451}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section*{Problem 1}
+
+$u_i$ will be the $i^{th}$ column of the matrix. Note that since we have that the inner product is symmetric (at least over $\mathbb{M}_n(\R)$), we only need to check that $\langle u_1, u_2 \rangle = 0$ and that $\langle u_1, u_1 \rangle = \langle u_2, u_2 \rangle = 1$.
+
+Also since, it is unspecified which inner product, the dot product will be used.
+
+\begin{enumerate}
+  \item $\begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}$: We have that $\langle u_1, u_1 \rangle = 1^2 + 0^2 = 1, \langle u_2, u_2, \rangle = 0^2 + 1^2 = 1$, and that $\langle u_1, u_2 \rangle = (1)0 + 0(1) = 0$, so $\begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}$ is orthogonal.
+  \item $\begin{bmatrix} 0 & 1 \\ 1 & 0 \end{bmatrix}$: We have that $\langle u_1, u_1 \rangle = 0^2 + 1^2 = 1, \langle u_2, u_2, \rangle = 1^2 + 0^2 = 1$, and that $\langle u_1, u_2 \rangle = (0)1 + 1(0) = 0$, so $\begin{bmatrix} 0 & 1 \\ 1 & 0 \end{bmatrix}$ is orthogonal.
+  \item $\begin{bmatrix} 2 & 3 \\ -3 & 2 \end{bmatrix}$: We have that $\langle u_1, u_1 \rangle = 2^2 + (-3)^2 = 13$, so $\begin{bmatrix} 2 & 3 \\ -3 & 2 \end{bmatrix}$ is not orthogonal.
+  \item $\begin{bmatrix} 4 & 5 \\ 1 & 1 \end{bmatrix}$: We have that $\langle u_1, u_1 \rangle = 4^2 + 1^2 = 17$, so $\begin{bmatrix} 4 & 5 \\ 1 & 1 \end{bmatrix}$ is not orthogonal.
+  \item $\begin{bmatrix} 1 & 1 \\ 0 & 1 \end{bmatrix}$: We have that $\langle u_2, u_2 \rangle = 1^2 + 1^2 = 2$, so $\begin{bmatrix} 1 & 1 \\ 0 & 1 \end{bmatrix}$ is not orthogonal.
+  \item $\begin{bmatrix} \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{2}} \end{bmatrix}$: We have that $\langle u_1, u_1 \rangle = (\frac{1}{\sqrt{2}})^2 + (\frac{1}{\sqrt{2}})^2 = 1$, $\langle u_2, u_2 \rangle = (\frac{1}{\sqrt{2}})^2 + (-\frac{1}{\sqrt{2}})^2 = 1$, and $\langle u_1, u_2 \rangle = (\frac{1}{\sqrt{2}})(\frac{1}{\sqrt{2}}) + (-\frac{1}{\sqrt{2}})(\frac{1}{\sqrt{2}}) = 0$ so $\begin{bmatrix}  \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{2}} \end{bmatrix}$ is orthogonal.
+\end{enumerate}
+
+For $A = \begin{bmatrix} \frac{1}{\sqrt{6}} & -\frac{1}{\sqrt{2}} & \frac{1}{\sqrt{3}} \\ \frac{1}{\sqrt{6}} & \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{3}} \\ \frac{2}{\sqrt{6}} & 0 & -\frac{1}{\sqrt{3}} \\ \end{bmatrix}$, we have $u_1 = \frac{1}{\sqrt{6}}(1, 1, 2), u_2 = \frac{1}{\sqrt{2}}(-1, 1, 0), u_3 = \frac{1}{\sqrt{3}}(1,1,-1)$.
+
+We need to check that $\langle u_1, u_1 \rangle = \langle u_2, u_2 \rangle = \langle u_3, u_3 \rangle = 1$, and that $\langle u_1, u_2 \rangle = \langle u_1, u_3 \rangle = \langle u_2, u_3 \rangle = 0$ (which is good enough since the inner product is symmetric).
+
+\begin{align*}
+  \langle u_1, u_1 \rangle &= \frac{1}{6}(1^2 + 1^2 + 2^2) = \frac{1}{6}(6) = 1 \\
+  \langle u_2, u_2 \rangle &= \frac{1}{2}((-1)^2 + 1^2 + 0^2) = \frac{1}{2}(2) = 1 \\
+  \langle u_3, u_3 \rangle &= \frac{1}{3}(1^2 + 1^2 + (-1)^2) = \frac{1}{3}(3) = 1 \\
+  \langle u_1, u_2 \rangle &= \frac{1}{\sqrt{12}}(1(-1) + 1(1) + 2(0)) = \frac{1}{\sqrt{12}}(0) = 0 \\
+  \langle u_1, u_3 \rangle &= \frac{1}{\sqrt{18}}(1(1) + 1(1) + 2(-1)) = \frac{1}{\sqrt{18}}(0) = 0 \\
+  \langle u_2, u_3 \rangle &= \frac{1}{\sqrt{6}}(-1(1) + 1(1) + 0(-1)) = \frac{1}{\sqrt{6}}(0) = 0 \\
+\end{align*}
+
+which was what we wanted.
+
+\section*{Problem 2}
+
+We can check that $u_1, u_2$ are orthogonal by computing directly (morally, you can tell that they're orthogonal by noting that they are just the standard basis vectors both rotated by $\theta / 2$). We have that
+\[
+  u_1 = \begin{bmatrix} \cos(\frac{\theta}{2}) & -\sin(\frac{\theta}{2}) \\ \sin(\frac{\theta}{2}) & \cos(\frac{\theta}{2}) \end{bmatrix}\begin{bmatrix}1 \\ 0 \end{bmatrix} = \begin{bmatrix} \cos(\frac{\theta}{2}) \\ \sin(\frac{\theta}{2}) \end{bmatrix}, u_2 = \begin{bmatrix} \cos(\frac{\theta}{2}) & -\sin(\frac{\theta}{2}) \\ \sin(\frac{\theta}{2}) & \cos(\frac{\theta}{2}) \end{bmatrix}\begin{bmatrix} 0 \\ 1 \end{bmatrix} = \begin{bmatrix} -\sin(\frac{\theta}{2}) \\ \cos(\frac{\theta}{2}) \end{bmatrix}
+\]
+Then,
+\begin{align*}
+  \langle u_1, u_1 \rangle &= \cos^2\left(\frac{\theta}{2}\right) + \sin^2\left(\frac{\theta}{2}\right) = 1 \\
+  \langle u_2, u_2 \rangle &= \left(-\sin\left(\frac{\theta}{2}\right)\right)^2 + \cos^2\left(\frac{\theta}{2}\right) = 1 \\
+  \langle u_1, u_2 \rangle &= \cos\left(\frac{\theta}{2}\right)\left(-\sin\left(\frac{\theta}{2}\right)\right) + \sin\left(\frac{\theta}{2}\right)\cos\left(\frac{\theta}{2}\right) = 0 \\
+\end{align*}
+which was what we wanted.
+
+First, we compute that
+\[
+  Re_1 = \begin{bmatrix} 1 & 0 \\ 0 & -1 \end{bmatrix}\begin{bmatrix}1 & 0\end{bmatrix} = \begin{bmatrix}1 & 0\end{bmatrix} = e_1, Re_2 = \begin{bmatrix} 1 & 0 \\ 0 & -1 \end{bmatrix}\begin{bmatrix}0 & 1\end{bmatrix} = \begin{bmatrix}0 & -1\end{bmatrix} = -e_2
+\]
+
+Now, we have that $B_\theta u_1 = (A_{\theta / 2}RA^{-1}_{\theta / 2})(A_{\theta / 2}e_1) = A_{\theta / 2}R(A^{-1}_{\theta / 2}A_{\theta / 2})e_1 = A_{\theta / 2}(Re_1) = A_{\theta / 2}e_1 = u_1$.
+
+Similarly, $B_\theta u_2 = (A_{\theta / 2}RA^{-1}_{\theta / 2})(A_{\theta / 2}e_2) = A_{\theta / 2}R(A^{-1}_{\theta / 2}A_{\theta / 2})e_2 = A_{\theta / 2}(Re_2) = A_{\theta / 2}(-e_2) = -(A_{\theta / 2}e_2) = -u_2$.
+
+The eigenvalues of $A_\theta$ can be computed: $\begin{vmatrix}\cos(\theta) - \lambda & -\sin(\theta) \\ \sin(\theta) & \cos(\theta) - \lambda \end{vmatrix} = \lambda^2 - 2\cos(\theta)\lambda + \cos^2(\theta) + \sin^2(\theta) = \lambda^2 - 2\cos(\theta)\lambda + 1 = 0$. Then, this has real roots when $4\cos^2(\theta) - 4 \geq 0 \iff \cos(\theta) = \pm1$, so $\theta = 0 \pm \pi k$ for integral $k$. In particular, we care about $\theta = 0$ and $\theta = \pi$, as $A_{2\pi + \theta} = A_\theta, B_{2\pi + \theta} = B_{\theta}$.
+
+In the case that $\theta = 0$, $A_\theta = I$ and all vectors are mapped to themselves ($Av = v$). In the case that $\theta = \pi$, $A_\theta = -I$ and all vectors are mapped to their additive inverses ($Av = -v$). 
+
+Geometrically, an eigenvector of a linear transformation is a vector that remains pointing in the same direction both before and after the transformation. In the case of a rotation matrix, which rotates the vector thereby changing its direction, the only way for this to happen is if the vector rotates back onto itself, or rotates into the straight opposite direction, which correspond to $\theta = 0$ and $\theta = \pi$, respectively.
+
+\section*{Problem 3}
+
+\subsection*{a}
+
+Reflexivity: we have that $I \in O_2$, so $v = Iv \implies v \sim v$.
+
+Symmetry: $v \sim w \implies v = Aw$. Then, since $A \in O_2$, we have that $^t A = A^{-1} \in O_2$ as well (as $^t(^t A) = A$, so $A = (A^{-1})^{-1} = {^t}(A^{-1})$) and that $A^{-1}v = A^{-1}Aw = w$, so $w \sim v$.
+
+Transitivity: $u \sim v, v \sim w \implies u = A_1v, v = A_2w \implies u = A_1(A_2)w = (A_1A_2)w$. Since we have that $A_1, A_2 \in O_2$, their product is also in $O_2$, as shown in class, and $u \sim w$.
+
+Geometrically, an equivalence class consists of all vectors of the same magnitude (in some sense, any equivalence class here is a circle).
+
+\subsection*{b}
+
+We have from class (or at least the posted linear algebra review notes) that $A$ is orthogonal $\implies$ $A$ is an isometry. Then, we can check that $u \sim v \implies F(u) = F(v)$ (where, as in class, $F(x) = f([x]))$ which means that $f: (\R^2 / \sim) \rightarrow \R$ is well defined.
+
+If $u \sim v$, then $u = Av$, so $F(u) = ||u|| = ||Av||$. However, since $A$ is an isometry, we have that $||Av|| = ||v||$, so $F(u) = F(v)$, which was what we wanted. 
+
+% The image of $f$ is the nonnegative reals $\R_{\geq 0}$. In particular, we have that if two vectors $u,v$ have different norms, then $F(u) \neq F(v)$ which implies that $u \notin [v]$ from the contrapositive of the earlier statement. 
+The image of $f$ is the nonnegative reals. If we can find an explicit preimage for any given $t \in \R_{\geq 0}$, we can conclude that the image of $f$ is at least $\R_{\geq 0}$.
+
+Then, we have that $f([te_1]) = |t|||e_1|| = |t|$, so for any $t \in \R_{\geq 0}$, $te_1$ is a preimage of $t$ under $f$. We cannot have $f(v) < 0$ since we know that $||v||$ is nonnegative, so $\R_{\geq 0}$ is exactly the image.
+
+\subsection*{c}
+
+Consider $u = \begin{bmatrix} 1 \\ 0 \end{bmatrix}, v = \begin{bmatrix} 0 \\ 1 \end{bmatrix}$. Then, we have that $v = B_{\pi / 2}u$ (which can be checked as $B_{\pi / 2}u = \begin{bmatrix} 0 & 1 \\ 1 & 0\end{bmatrix}\begin{bmatrix} 1 \\ 0 \end{bmatrix} = \begin{bmatrix} 0(1) + 1(0) \\ 1(1) + 0(0) \end{bmatrix} = v$). We checked that $B_{\pi / 2} = \begin{bmatrix} 0 & 1 \\ 1 & 0\end{bmatrix}$ was orthogonal in the first problem.
+
+Then, we have that $u \sim v$, but $g(u) = 1, g(v) = 0$, and so $g$ does not induce a well defined function $g: (\R^2 / \sim) \rightarrow \R$.
+
+\subsection*{d}
+
+There are two equivalence classes here: one that contains the zero vector, and one that contains everything else. In the first case, we have that if $u \sim 0$, then $u = A0 = 0$. In the second case, we can show that any nonzero vector $u$ satisfies $u \sim e_1$. In particular, if $u = \begin{bmatrix} u_1 \\ u_2 \end{bmatrix},$ we have that $A = \begin{bmatrix} u_1& -u_2 \\ u_2 & u_1 \end{bmatrix}$ satisfies that $Ae_1 = u$, and $\det(A) = u_1^2 + u_2^2$, which means that $\det(A) \neq 0$ for any $u \neq 0$. Then, we have that $A \in GL_2(\R)$, and $u \sim e_1$ for any nonzero $u$. This implies by transitivity that $u \sim v$ for any two nonzero $u, v$.
+
+\section*{Problem 4}
+
+We already showed in class that the addition and multiplication induced from $\Z$ are well defined between residue classes. Then, we have that
+\begin{enumerate}
+  \item $[3] + [14] = [17] = [0]$
+  \item $[3] \cdot [14] = [42] = [17 \cdot 2 + 8] = [8]$
+  \item $[12] + [12] = [24] = [17 + 7] = [7]$
+  \item $[12] \cdot [12] = [-5] \cdot [-5] = [25] = [17 + 8] = [8]$
+\end{enumerate}
+
+In $\Z / 17\Z$, we have that $[3] \cdot [6] = [18] = [17 + 1] = [1]$.
+
+In $\Z / 12\Z$, we have that
+\begin{enumerate}
+  \item $[3] \cdot [4] = [12] = [0]$
+  \item $[2] \cdot [6] = [12] = [0]$
+\end{enumerate}
+
+You cannot find $k$ such that $[3] \cdot [k] = [1]$ in $\Z / 12 \Z$. To see this, note that we have $[3] \cdot [k] = [1] \iff [3k] = [1] \iff 3k = 12n + 1$ for some $n \in \Z$. However, we have that $3k - 12n = 1 \implies 3(k - 4n) = 1$. Since we have that $(k - 4n) \in \Z$, and $3$ does not divide $1$, no such $k$ can exist.
+
+\section*{Problem 5}
+\subsection*{a}
+
+($\implies$) $[a + k]_n = [a]_n \implies a + k \equiv a \mod n$. Then, by definition $\exists m \in \Z \mid (a+k) - a= k = mn$, and so $n|k$ by definition.
+
+($\impliedby$) $n|k \implies \exists m \in \Z \mid mn = k$. Then, we have that $(a + k) - a = k = mn \implies a + k \equiv a \mod n \implies [a + k]_n = [a]_n$, which was what we wanted.
+
+\subsection*{b}
+
+($\implies$) If $f([a]_n) = [a]_m$ is well defined, then we have that since $a + n \in [a]_n$, $f([a + n]_n) = f([a]_n) \implies [a + n]_m = [a]_m$, which from the last problem yields that $m | n$.
+
+($\impliedby$) To show that $f$ is well defined, we need to show that for any $a_1 \equiv a_2 \mod n$, then $a_1 \equiv a_2 \mod m$, as this gives that for any $a_1 \equiv a_2 \mod n$, $f([a_1]_n) = f([a_2]_n)$. Then, $a_1 \equiv a_2 \mod n \implies a_1 - a_2 = kn$ for some $k \in \Z$. Then, since we have that $m | n$, we have that $n = k'm$ for some $k' \in \Z$, so $a_1 - a_2 = kk'm$, so $a_1 \equiv a_2 \mod m$. (This is equivalent to applying part 1 with $a_1 = a_2 + kn$ and $m | n$.)
+
+\section*{Problem 6}
+
+For each of the following, we need to check that if $\theta_1 \equiv \theta_2 \mod 2\pi$, then $f(\theta_1) \equiv f(\theta_2) \mod 2\pi$. Since $\theta_1 \equiv \theta_2\mod 2\pi \iff \exists k \in \Z \mid \theta_1 - \theta_2 = 2k\pi$, we need to check that for any $k \in \Z$, any $\theta \in \R$, $f(\theta) \equiv f(\theta + 2k\pi) \mod 2\pi$.
+
+\subsection*{i}
+
+$f(\theta) - f(\theta + 2k\pi) = -\theta - (-\theta + 2k\pi) = -2k\pi$, and $-k \in \Z$, so $f(\theta) \equiv f(\theta + 2k\pi) \mod 2\pi$ and $f$ induces a well-defined function.
+
+\subsection*{ii}
+
+$f(\theta) - f(\theta + 2k\pi) = 2\theta - 2(\theta + 2k\pi) = -4k\pi = 2(-2k)\pi$, and $-2k \in \Z$, so $f$ induces a well-defined function.
+
+\subsection*{iii}
+
+Consider $f(2\pi) = \pi \not\equiv f(0) = 0 \mod 2\pi$, despite $2\pi \equiv 0 \mod 2\pi$, so $f$ does not induce a well-defined function.
+
+\subsection*{iv}
+
+Consider $f(2\pi) - f(0) = 4\pi^2  - 0 = 2(2\pi)\pi$. We need, for $f$ to induce a well-defined function, that $2\pi \in \Z$; however, this would clearly show that $\pi \in \Q$, so $\contra$, and $f$ does not induce a well-defined function.
+
+\section*{Problem 7}
+
+We know that $\sin, \cos$ are periodic with period $2\pi$. Then, we have that if $a_1 \equiv a_2 \mod n$, then $f([a_1]_n) = \cos(2a_1\pi / n) + i\sin(2a_1\pi / n)$ and, putting $a_2 = a_1 + kn$ for some $k \in \Z$, 
+\begin{align*}
+  f([a_2]_n) &= \cos(2(a_1 + kn)\pi / n) + i\sin(2(a_1 + kn)\pi / n) \\
+             &= \cos(2a_1\pi / n + 2k\pi) + i\sin(2a_1\pi / n + 2k\pi) \\ 
+             &= \cos(2a_1\pi / n) + i\sin(2a_1\pi / n) = f([a_1]_n)
+\end{align*}
+which means that $f$ is well-defined.
+
+To show that it is an isomorphism, we first need to show that it is a bijection. Since $f$ is well defined, we can show that for any two $a_1, a_2 \in \Z$, $f([a_1]_n) = f([a_2]_n) \iff a_1 \equiv a_2 \mod n$, which gives us injectivity since $f$ is defined on equivalence classes. Then, supposing that $f([a_1]_n) = f([a_2]_n)$,
+  %In particular, we can pick $0 \leq a_1, a_2  < n$ to be representatives, in which case if $f([a_1]_n) = f([a_2]_n)$ we only need to show that $a_1 = a_2$. In that case, we have that as
+\[
+  0 = f([a_1]_n) - f([a_2]_n) = (\cos(2a_1\pi / n) - \cos(2a_2\pi / n)) - i(\sin(2a_1\pi / n) - \sin(2a_2\pi / n))
+\]
+
+With the trigonometric knowledge that up to an integral multiple of $2\pi$, $\cos(x) = \cos(y) \implies x = y$ or $x = - y$ and $\sin(x) = \sin(y) \implies x=y$ or $x = \pi - y$, we have that the only options for the real component to vanish are $2a_1\pi / n = 2a_2\pi /n + 2k\pi \implies a_1 = a_2 + kn$, or $2a_1\pi /n = 2k\pi - 2a_2\pi / n \implies a_1 = kn - a_2$. Since we also need the imaginary component to be zero, we need that either $2a_1\pi / n = 2a_2\pi /n +2k\pi \implies a_1 = a_2 + kn$, or $2a_1\pi / n = \pi - 2a_2\pi / n + 2k\pi \implies a_1 =  n / 2 + kn - a_2$.
+
+Since we cannot have both $a_1 = n / 2 + kn -a_2$ and $a_1 = kn - a_2$ (they reduce differently $\mod n$), we need that $a_1 = a_2 + kn$, so $a_1 \equiv a_2 \mod n$, and $f$ is injective, since $f([a_1]_n) = f([a_2]_n) \implies a_1 \equiv a_2 \mod n \implies [a_1]_n = [a_2]_n$.
+
+Surjectivity is much quicker: any root of unity $\cos(2k\pi / n) + i\sin(2k\pi / n)$ has a preimage of $[k]_n$.
+
+We only need to show that $f$ respects the operations of $\Z / n\Z$ and $\mu_n$: 
+
+\begin{align*}
+  f([a_1]_n + [a_2]_n) &= f([a_1 + a_2]_n) \\
+                       &= \cos(2(a_1 + a_2)\pi / n) + i\sin(2(a_1 + a_2)\pi / n) \\
+                       &= e^{2(a_1 + a_2)\pi / n} \\
+                       &= e^{2a_1 \pi / n}e^{2a_2 \pi / n} \\
+                       &= (\cos(2a_1)\pi / n) + i\sin(2a_1\pi / n))(\cos(2a_2)\pi / n) + i\sin(2a_2\pi / n)) \\
+                       &= f([a_1]_n)f([a_2]_n)
+\end{align*}
+which was what we wanted.
+
+% Since $f$ is w
+
+% for some $k \in \Z$, $2a_1\pi / n = 2a_2 \pi /n + 2k\pi \implies a_1 = a_2 + nk$ or $2a_1\pi / n = 2k\pi - 2a_2\pi / n \implies a_1 = nk - a_2$.
+
+% Then, since we also need that $\sin(2a-1 \pi / n) - \sin(2a_2 \pi / n)
+
+\section*{Problem 8}
+\subsection*{i}
+
+We first need to show that $g \circ f$ is a bijection. To show surjectivity, we have that for any $x_3 \in (X_3, *_3)$, the fact that $g$ is a bijection gives some preimage of $x_3$ under $g$, say $x_2 \in (X_2, *_2)$ and the fact that $f$ is a bijection gives some preimage of $x_2$ under $f$, say $x_1 \in (X_1, *_1)$. We then have that $g(f(x_1)) = g(x_2) = x_3$.
+
+For injectivity, we have that since $g$ and $f$ are both injective themselves, $g(f(x)) = g(f(x')) \implies f(x) = f(x') \implies x = x'$. Thus, $g \circ f$ is a bijection.
+
+\begin{align*}
+  (g \circ f)(x *_1 x') &= g(f(x *_1 x')) \\
+  \intertext{Since $f$ is an isomorphism,}
+                        &= g(f(x) *_2 f(x')) \\
+                        \intertext{Since $g$ is an isomorphism,}
+                        &= g(f(x)) *_3 g(f(x')) \\
+                        &= (g \circ f)(x) *_3 (g \circ f)(x')
+\end{align*}
+and so $g \circ f$ is also an isomorphism.
+
+\subsection*{ii}
+
+The identity function is obviously a bijection (every element is a preimage of itself, and $\Id(x) = \Id(y) \implies x = y$ directly).
+
+Then, we have that $\Id(x * y) = x * y = \Id(x) * \Id(y)$, so $\Id: (X, *) \rightarrow (X, *)$ is an isomorphism.
+
+\subsection*{iii}
+
+$f^{-1}$ must be injective, as $f^{-1}(x) = f^{-2}(x') \implies f(f^{-1}(x)) = f(f^{-2}(x')) \implies x = x'$. Similarly, $f^{-1}$ must also be surjective, as $f^{-1}(f(x)) = x$, meaning that $f(x)$ is a preimage of $x$ under $f^{-1}(x)$.
+
+Since $f^{-1}$ is bijective, we can show that $f^{-1}(x *_2 x') = f^{-1}(x) *_1 f^{-1}(x')$ by just checking that $f^{-1}(x) *_1 f^{-1}(x')$ is a preimage to $x *_2 x'$ under $f$.
+
+Since $f$ is an isomorphism,
+\begin{align*}
+  f(f^{-1}(x) *_1 f^{-1}(x')) &= f(f^{-1}(x)) *_2 f(f^{-1}(x')) \\
+                              &= x *_2 x'
+\end{align*}
+
+\end{document}
+% LocalWords:  NetID fancyplain LocalWords colorlinks linkcolor linkbordercolor
