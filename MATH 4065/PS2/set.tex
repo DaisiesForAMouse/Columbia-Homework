@@ -1,0 +1,327 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{relsize}
+\usepackage{fancyvrb}
+\usepackage{import}
+\usepackage{float}
+\usepackage{xifthen}
+\usepackage{pdfpages}
+\usepackage{transparent}
+\usetikzlibrary{shapes.geometric,fit}
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+\theoremstyle{definition}
+\newtheorem*{statement}{Statement}
+\newtheorem*{claim}{Claim}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+
+\newcommand{\contra}{\Rightarrow\!\Leftarrow}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Zeq}{\mathbb{Z}_{\geq 0}}
+\newcommand{\Zg}{\mathbb{Z}_{>0}}
+\newcommand{\Req}{\mathbb{R}_{\geq 0}}
+\newcommand{\Rg}{\mathbb{R}_{>0}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\DeclareMathOperator{\ima}{im}
+\DeclareMathOperator{\spn}{span}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\real}{Re}
+\DeclareMathOperator{\imag}{Im}
+\DeclareMathOperator{\diver}{div}
+\DeclareMathOperator{\curl}{curl}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\inter}{int}
+\DeclareMathOperator{\Dr}{Dr}
+\DeclareMathOperator{\Jac}{Jac}
+
+\newcommand{\incfig}[1]{\input{./figures/#1.pdf_tex}}
+\graphicspath{ {./figures/} }
+
+\title{MATH 4065 HW 2}
+\author{David Chen, dc3451}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\subsection*{8}
+
+We can just bash this one out in terms of real partial derivatives (there's probably an easier way than this, but this is the obvious route). Let
+\[
+  f(x + iy) = f_{1}(x,y) + if_{2}(x,y), g(x + iy) = g_{1}(x,y) + ig_{2}(x,y), h(x + iy) = h_{1}(x,y) + ih_{2}(x,y).
+\]
+Note that from the chain rule in real multivariable calculus, and treating $a + bi$ as $(a,b)$, we have that
+
+\[
+  \begin{bmatrix}
+    \frac{\partial h_{1}}{\partial x} & \frac{\partial h_{1}}{\partial y} \\
+    \frac{\partial h_{2}}{\partial x} & \frac{\partial h_{2}}{\partial y} \\
+  \end{bmatrix} =
+  Dh = Dg \cdot Df =
+  \begin{bmatrix}
+    \frac{\partial g_{1}}{\partial x} & \frac{\partial g_{1}}{\partial y} \\
+    \frac{\partial g_{2}}{\partial x} & \frac{\partial g_{2}}{\partial y} \\
+  \end{bmatrix}
+  \begin{bmatrix}
+    \frac{\partial f_{1}}{\partial x} & \frac{\partial f_{1}}{\partial y} \\
+    \frac{\partial f_{2}}{\partial x} & \frac{\partial f_{2}}{\partial y} \\
+  \end{bmatrix}
+\]
+
+This gives
+\begin{align*}
+  \frac{\partial h}{\partial z} =& \frac{1}{2}\left( \frac{\partial h}{\partial x} + \frac{1}{i}\frac{\partial h}{\partial y} \right) = \frac{1}{2}\left( \frac{\partial h_{1}}{\partial x} + \frac{\partial h_{2}}{\partial y} + i\left(\frac{\partial h_{2}}{\partial x} - \frac{\partial h_{1}}{\partial y}\right)\right)\\
+  \frac{\partial h}{\partial \bar{z}} =& \frac{1}{2}\left( \frac{\partial h}{\partial x} - \frac{1}{i}\frac{\partial h}{\partial y} \right) = \frac{1}{2}\left( \frac{\partial h_{1}}{\partial x} - \frac{\partial h_{2}}{\partial y} + i\left(\frac{\partial h_{2}}{\partial x} + \frac{\partial h_{1}}{\partial y}\right)\right)
+\end{align*}
+We can now compute, from the above matrix,
+\begin{align*}
+  \frac{\partial h}{\partial z} =& \frac{1}{2}\left(\left(\frac{\partial g_{1}}{\partial x}\frac{\partial f_{1}}{\partial x} + \frac{\partial g_{1}}{\partial y}\frac{\partial f_{2}}{\partial x}\right) + \left(\frac{\partial g_{2}}{\partial x}\frac{\partial f_{1}}{\partial y} + \frac{\partial g_{2}}{\partial y}\frac{\partial f_{2}}{\partial y}\right)\right) \\
+  &+ \frac{i}{2}\left(\left(\frac{\partial g_{2}}{\partial x}\frac{\partial f_{1}}{\partial x} + \frac{\partial g_{2}}{\partial y}\frac{\partial f_{2}}{\partial x}\right) - \left(\frac{\partial g_{1}}{\partial y}\frac{\partial f_{1}}{\partial y} + \frac{\partial g_{1}}{\partial x}\frac{\partial f_{2}}{\partial y}\right)\right) \\
+  \intertext{Which factors nicely into the obvious guess, given what we are trying to prove (it is tedious, but easy to check that the following results in the last expression)}
+  =& \frac{1}{4}\left(\frac{\partial g_{1}}{\partial x} + \frac{\partial g_{2}}{\partial y} + i\left(\frac{\partial g_{2}}{\partial x} - \frac{\partial g_{1}}{\partial y}\right)\right)\left(\frac{\partial f_{1}}{\partial x} + \frac{\partial f_{2}}{\partial y} + i\left(\frac{\partial f_{2}}{\partial x} - \frac{\partial f_{1}}{\partial y}\right)\right) \\
+  &+ \frac{1}{4}\left(\frac{\partial g_{1}}{\partial x} - \frac{\partial g_{2}}{\partial y} + i\left(\frac{\partial g_{2}}{\partial x} + \frac{\partial g_{1}}{\partial y}\right)\right)\left(\frac{\partial f_{1}}{\partial x} - \frac{\partial f_{2}}{\partial y} + i\left(-\frac{\partial f_{2}}{\partial x} - \frac{\partial f_{1}}{\partial y}\right)\right) \\
+  \intertext{From the first line showing how $\frac{\partial h}{\partial z}$ decomposes, but applied to f, g, we have that this simplies to}
+  =& \frac{\partial g}{\partial z}\frac{\partial f}{\partial z} + \frac{\partial g}{\partial \bar{z}}\frac{\partial \bar{f}}{\partial z}
+\end{align*}
+
+Similarly,
+\begin{align*}
+  \frac{\partial h}{\partial \bar{z}} =& \frac{1}{2}\left(\left(\frac{\partial g_{1}}{\partial x}\frac{\partial f_{1}}{\partial x} + \frac{\partial g_{1}}{\partial y}\frac{\partial f_{2}}{\partial x}\right) - \left(\frac{\partial g_{2}}{\partial x}\frac{\partial f_{1}}{\partial y} + \frac{\partial g_{2}}{\partial y}\frac{\partial f_{2}}{\partial y}\right)\right) \\
+  &+ \frac{i}{2}\left(\left(\frac{\partial g_{2}}{\partial x}\frac{\partial f_{1}}{\partial x} + \frac{\partial g_{2}}{\partial y}\frac{\partial f_{2}}{\partial x}\right) + \left(\frac{\partial g_{1}}{\partial y}\frac{\partial f_{1}}{\partial y} + \frac{\partial g_{1}}{\partial x}\frac{\partial f_{2}}{\partial y}\right)\right) \\
+  =& \frac{1}{4}\left(\frac{\partial g_{1}}{\partial x} + \frac{\partial g_{2}}{\partial y} + i\left(\frac{\partial g_{2}}{\partial x} - \frac{\partial g_{1}}{\partial y}\right)\right)\left(\frac{\partial f_{1}}{\partial x} - \frac{\partial f_{2}}{\partial y} + i\left(\frac{\partial f_{2}}{\partial x} + \frac{\partial f_{1}}{\partial y}\right)\right) \\
+  &+ \frac{1}{4}\left(\frac{\partial g_{1}}{\partial x} - \frac{\partial g_{2}}{\partial y} + i\left(\frac{\partial g_{2}}{\partial x} + \frac{\partial g_{1}}{\partial y}\right)\right)\left(\frac{\partial f_{1}}{\partial x} + \frac{\partial f_{2}}{\partial y} + i\left(-\frac{\partial f_{2}}{\partial x} + \frac{\partial f_{1}}{\partial y}\right)\right) \\
+  =& \frac{\partial g}{\partial z}\frac{\partial f}{\partial \bar{z}} + \frac{\partial g}{\partial \bar{z}}\frac{\partial \bar{f}}{\partial \bar{z}}
+\end{align*}
+
+\subsection*{20}
+
+Via a theorem from class, we have that for any power series
+\[
+  f(z_{0} + h) = \sum_{n=0}^{\infty}a_{n}h^{n}, \text{ we have } f'(z_{0}+h) = \sum_{n=1}^{\infty}na_{n}h^{n-1} = \sum_{n=0}^{\infty} (n+1)a_{n+1}h^{n}
+\]
+In general, we have that $f^{(n)}(z_{0}+h) = \sum_{n=0}^{\infty}\frac{(n+m)!}{n!}a_{n+m}h^{n}$. We can induct, as the earlier formula gives the $m = 1$ case; if it holds for $m$, then applying the formula in the base case of $f'(z_{0} + h)$, which follows the same pattern:
+\[
+  f^{(m+1)} = \sum_{n=1}^{\infty}n\left(\frac{(n+m)!}{n!}\right)a_{n+m}h^{n-1} = \sum_{n=0}^{\infty}\frac{(n+1+m)!}{n!}a_{n+m+1}h^{n}
+\]
+so it holds for $m+1$.
+
+Then, if a function is given by a power series on some region centered at $z_{0}$, $f^{(m)}(z_{0}) = \sum_{n=0}^{\infty}\frac{(n+m)!}{n!}a_{n+m}0^{n} = m!a_{m}$, so $a_{m} = \frac{f^{(m)}(z_{0})}{m!}$.
+
+Then, to expand $f_{m}(z) = (1-z)^{-m}$ to a power series, we need to find, for the $n^{th}$ term $a_{n}$, $\frac{f^{n}(z_{0})}{n}$. We have that since $1 - z$ is holomorphic, $(1-z)^{-m}$ is holomorphic everywhere but $z = 1$, and so on the appropriate domain, $f_{m}'(z) = \frac{d}{dz}(1-z)^{-m}$. By the power rule (and the fact given in class that $\frac{d}{dz}$ works as expected here),
+\[
+  f_{m}^{(n)}(z) = \frac{(n+m-1)!}{(m-1)!(1-z)^{n+m}}
+\]
+Note that this for $n = 1$ is just a simple power rule application, and if it holds for $k$, then $f^{(k+1)}_{m}(z) = \frac{(k+m-1)!}{(m-1)!}\left(\frac{k+m}{(1-z)^{k+1+m}}\right) = \frac{((k+1)+m-1)!}{(m-1)!(1-z)^{n+k+1}}$, so it holds for $k+1$.
+
+Then, we have that, centered at $z_{0}$, the coefficients of the power series are
+\[
+  a_{n} = \frac{f^{(n)}(z_{0})}{n!} = \frac{(n+m-1)!}{n!(m-1)!(1-z_{0})^{n+1}} = \binom{n+m-1}{m-1}\frac{1}{(1-z_{0})^{n+1}}
+\]
+
+Thus, we have that
+\[
+  f_{m}(z_{0}+h) = \frac{1}{(1-(z_{0}+h))^{m}} = \sum_{n=0}^{\infty}\binom{n+m-1}{m-1}\frac{h^{n}}{(1-z_{0})^{n+1}}
+\]
+
+Further,
+\begin{align*}
+  \lim_{n \rightarrow \infty}\frac{|a_{n+1}|}{|a_{n}|} &= \lim_{n \rightarrow \infty} \frac{n+m}{n+1}\frac{1}{|1-z_{0}|} = \frac{1}{|1-z_{0}|}
+\end{align*}
+so we have a radius of convergence of $|1 - z_{0}|$.
+
+Everything above only applies for $z_{0} \neq -1$, as $f_{m}$ is not defined at $-1$.
+
+For the second half of the problem, note that we take $z_{0} = 0$, and
+\begin{align*}
+  \lim_{n \rightarrow \infty}\frac{\binom{n+m-1}{m-1}}{\frac{1}{(m-1)!}n^{m-1}} &= \lim_{n \rightarrow \infty}\frac{\binom{n+m-1}{m-1}}{\frac{1}{(m-1)!}n^{m-1}} \\
+                                                                                &= \lim_{n \rightarrow \infty}\frac{(n+m-1)!}{n^{m-1}n!} \\
+                                                                                &= \lim_{n \rightarrow \infty}\frac{\prod_{i=1}^{m-1}(n+i)}{n^{m-1}} \\
+                                                                                &= \lim_{n \rightarrow \infty}\prod_{i=1}^{m-1}\frac{n+i}{n} \\
+                                                                                &= \prod_{i=1}^{m-1}\lim_{n \rightarrow \infty}\frac{n+i}{n} = 1\\
+\end{align*}
+
+So we have that $a_{n} \sim \frac{1}{(m-1)!}n^{m-1}$.
+
+\subsection*{21}
+
+We can compute the partial sums; if these partial sums converge to $z / (1-z)$, then we are done. In particular, we can induct on $n$ to show that $\sum_{i=0}^{n}\frac{z^{2^{i}}}{1-z^{2^{i+1}}} = \frac{\sum_{i=1}^{2^{n+1}-1}z^{i}}{1-z^{2^{n+1}}}$. In particular, for $n = 0$, the sum is only one term, which is $\frac{z}{1-z^{2}}$, which is of the correct form. Then, if it holds for $n$, we can see that
+\begin{align*}
+  \sum_{i=0}^{n+1}\frac{z^{2^{i}}}{1-z^{2^{i+1}}} &=  \frac{\sum_{i=1}^{2^{n+1}-1}z^{i}}{1-z^{2^{n+1}}} + \frac{z^{2^{n+1}}}{1 - z^{2^{n+2}}}\\
+                                                  &=  \frac{(1+z^{2^{n+1}})\sum_{i=1}^{2^{n+1}-1}z^{i}}{(1-z^{2^{n+1}})(1+z^{2^{n+1}})} + \frac{z^{2^{n+1}}}{1 - z^{2^{n+2}}}\\
+                                                  &= \frac{(1+z^{2^{n+1}})\sum_{i=1}^{2^{n+1}-1}z^{i}+z^{2^{n+1}}}{1-z^{2^{n+2}}} \\
+                                                  &= \frac{\sum_{i=1}^{2^{n+1}-1}z^{i} +z^{2^{n+1}}+ \sum_{i=1}^{2^{n+1}-1}z^{i+2^{n+1}}}{1-z^{2^{n+2}}} \\
+                                                  &= \frac{\sum_{i=1}^{2^{n+2}-1}z^{i}}{1-z^{2^{n+2}}} \\
+\end{align*}
+
+We have that for $|z| < 1$,
+\[
+  \lim_{n \rightarrow\infty}\frac{\sum_{i=1}^{2^{n+2}-1}z^{i}}{1-z^{2^{n+2}}} = \frac{\lim_{n \rightarrow\infty} \sum_{i=1}^{2^{n+2}-1}z^{i}}{\lim_{n \rightarrow \infty}1-z^{2^{n+2}}}
+\]
+as long as the numerator and denominator are both finite (and the denominator is non-zero).
+
+Then, we have that the top is $z(\sum_{i=0}^{\infty}z^{i}) = z\frac{1}{1-z}$, as the radius of convergence for the power series $\sum_{i=0}^{\infty} z^{i}$ associated to $\frac{1}{1-z}$ centered at $0$ being $1$ as a special case of last problem's result and allows us to evaluate the numerator limit. Further, since we have that $|z| < 1 \implies \lim_{n \rightarrow\infty}|z|^{n} = 0 \implies \lim_{n \rightarrow \infty} z^{n} = 0$, so the limit in the denominator goes to 1, and we know that
+\[
+  \sum_{i=0}^{\infty}\frac{z^{2^{i}}}{1-z^{2^{i+1}}} =
+  \lim_{n \rightarrow\infty}\frac{\sum_{i=1}^{2^{n+2}-1}z^{i}}{1-z^{2^{n+2}}} = \frac{\lim_{n \rightarrow\infty} \sum_{i=1}^{2^{n+2}-1}z^{i}}{\lim_{n \rightarrow \infty}1-z^{2^{n+2}}} = \frac{z}{1-z}
+\]
+
+To see the second one, consider the following:
+
+\begin{align*}
+  \frac{2^{n}z^{2^{n}}}{1 + z^{2^{n}}} &= \frac{2^{n}z^{2^{n}}(1-z^{2^{n}})}{1-z^{2^{n+1}}} \\
+                                       &= \frac{2^{n}z^{2^{n}}-2^{n}z^{2^{n+1}}}{1-z^{2^{n+1}}} \\
+                                       &= \frac{2^{n}z^{2^{n}} + 2^{n+1}z^{2^{n+1}}-2^{n}z^{2^{n+1}}}{1-z^{2^{n+1}}} \\
+                                       &= \frac{2^{n}z^{2^{n}}(1-z^{2^{n}}) + 2^{n+1}z^{2^{n+1}}}{1-z^{2^{n+1}}} \\
+                                       &= \frac{2^{n}z^{2^{n}}(1-z^{2^{n}})}{1-z^{2^{n+1}}} + \frac{2^{n+1}z^{2^{n+1}}}{1-z^{2^{n+1}}} \\
+                                       &= \frac{2^{n}z^{2^{n}}}{1-z^{2^{n}}} + \frac{2^{n+1}z^{2^{n+1}}}{1-z^{2^{n+1}}} \\
+\end{align*}
+
+This means that $\sum_{i=1}^{n}\frac{2^{i}z^{2^{i}}}{1+z^{2^{i}}}$ can be seen to be $\frac{z}{1-z} - \frac{2^{n+1}z^{2^{n+1}}}{1-z^{2^{n+1}}}$, as the sum telescopes; in particular, we can see the base case of $n = 0$ from just apply $n=0$ to the above identity. Then, if it holds for $n$, then
+
+\[
+  \sum_{i=1}^{n+1}\frac{2^{i}z^{2^{i}}}{1+z^{2^{i}}} = \frac{z}{1-z} - \frac{2^{n+1}z^{2^{n+1}}}{1-z^{2^{n+1}}} + \frac{2^{n+1}z^{2^{n+1}}}{1-z^{2^{n+1}}} = \frac{z}{1-z} + \frac{2^{n+1}z^{2^{n+1}}}{1-z^{2^{n+1}}}
+\]
+so it holds for $n+1$.
+
+Then, we have that the limit of the partial sums is
+\[
+  \lim_{n \rightarrow\infty}\frac{z}{1-z} + \frac{2^{n+1}z^{2^{n+1}}}{1-z^{2^{n+1}}} = \frac{z}{1-z} + \lim_{n \rightarrow \infty} \frac{2^{n+1}z^{2^{n+1}}}{1-z^{2^{n+1}}}
+\]
+
+Then, if we can show that $\lim_{n \rightarrow \infty} \frac{2^{n+1}z^{2^{n+1}}}{1-z^{2^{n+1}}} = 0$, we are done. Since we have that if the numerator and the denominator are finite, and the denominator is nonzero that $\lim_{n \rightarrow \infty} \frac{2^{n+1}z^{2^{n+1}}}{1-z^{2^{n+1}}} = \frac{\lim_{n \rightarrow \infty}2^{n+1}z^{2^{n+1}}}{\lim_{n \rightarrow \infty}1-z^{2^{n+1}}}$, and we saw the same denominator go to one in the first part of the problem, we have that if we can show that $\lim_{n \rightarrow \infty}2^{n+1}z^{2^{n+1}} = 0$, we are done. In particular, we have that if $\lim_{n \rightarrow\infty}|2^{n+1}z^{2^{n+1}}| = 0$, we will be done.
+
+We can further reduce this limit, as if $\lim_{m \rightarrow \infty}|mz^{m}| = 0$, then for any $\epsilon > 0$, $\exists M \mid \forall m > M$, $|mz^{m}| < \epsilon$; then, we have that for all $n > \log_{2}(M)$, $2^{n+1} > M \implies |2^{n+1}z^{2^{n+1}}| < \epsilon$. However, this is fairly easy to see: we have that
+\[
+  \lim_{m \rightarrow \infty}|mz^{m}| = \lim_{m \rightarrow \infty}|m||z|^{m} = \lim_{m \rightarrow \infty} \frac{|m|}{\left(\frac{1}{|z|}\right)^{m}} = \lim_{m \rightarrow \infty} \frac{m}{\left(\frac{1}{|z|}\right)^{m}}
+\]
+since it is enough to show this for $m > 0$. Then, L'Hopital gives that
+\[
+  \lim_{m \rightarrow \infty} \frac{m}{\left(\frac{1}{|z|}\right)^{m}} = \lim_{m \rightarrow \infty}\frac{1}{\log(\frac{1}{|z|})(\frac{1}{|z|})^{m}} = 0
+\]
+as the denominator approaches $\infty$ as $\frac{1}{|z|} > 1$.
+
+This finally gives us what the limit of the partial sums is $\frac{z}{1-z}$, and we are done.
+
+\subsection*{25b}
+
+% We can check that $f(z) = \frac{z^{n+1}}{n+1}$ is a suitable primitive for $z^{n}$; we have that it is a product of entire funcions (namely $n+1$ copies of $z$, or $-n+1$ copies of $\frac{1}{z}$ when $n < -1$ and a constant), so it itself is entire, and it satisfies that $f'(z) = z^{n}$ for $n \neq -1$. Then, we have that when
+
+Let $\gamma$ have radius $r$ and be centered at $z$ such that $|z| < r$. Then, we can parameterize $\gamma(\theta) = re^{i\theta} + z$, and so
+\begin{align*}
+  \int_{\gamma}z^{n}dz &= \int_{0}^{2\pi}(re^{i\theta} + z)^{n}ire^{i\theta}d\theta \\
+  \intertext{If $n \geq 0$, with the convention that $0^{0} = 1$,}
+                       &= \int_{0}^{2\pi}\left(ire^{i\theta}\sum_{j=0}^{n}\binom{n}{j}r^{j}e^{ij\theta}z^{n-j}\right)d\theta \\
+                       &= \sum_{j=0}^{n}\binom{n}{i}\int_{0}^{2\pi}r^{j+1}ie^{i(j+1)\theta}z^{n-j}d\theta \\
+                       &= \sum_{j=0}^{n}\binom{n}{i}\int_{0}^{2\pi}r^{j+1}ie^{i(j+1)\theta}z^{n-j}d\theta \\
+                       &= \sum_{j=0}^{n}\binom{n}{i}\int_{0}^{2\pi}r^{j+1}i(\cos((j+1)\theta) - i\sin((j+1)\theta))z^{n-j}d\theta \\
+  \intertext{However, we have that $\int_{0}^{2\pi}\cos((j+1)\theta)d\theta = \int_{0}^{2\pi}\sin((j+1)\theta)d\theta = 0$ for integer $j \neq 0$,}
+                       &= \sum_{j=0}^{n}\binom{n}{i} 0 = 0
+\end{align*}
+
+In particular, we actually have that any circle, not necessarily containing the origin, satisfies that $\int_{\gamma}z^{n} = 0$ for nonnegative $n$.
+
+Then, for $n < 0$, we have to use the earlier problem; we can consider the expansion of $\frac{1}{1-z}$ centered at $z_{0} = 0$, which gives
+\[
+  (1-z)^{-m} = \sum_{n=0}^{\infty}\binom{n+m-1}{m-1}z^{n}
+\]
+
+Let us actually rename the circle to have center $-z$, such that $\gamma(\theta) = re^{i\theta} - z$ instead. Then,
+\begin{align*}
+  \int_{\gamma}z^{n}dz &= \int_{0}^{2\pi}(re^{i\theta} - z)^{n}ire^{i\theta}d\theta = \int_{0}^{2\pi}(re^{i\theta})^{n}\left(1 - \frac{ze^{-i\theta}}{r}\right)^{n}ire^{i\theta}d\theta \\
+                       &= ir^{n+1}\int_{0}^{2\pi}e^{i(n+1)\theta}\left(1 - \frac{ze^{-i\theta}}{r}\right)^{n}d\theta \\
+  \intertext{We have that the circle encloses the origin, so we have that $|ze^{-i\theta}| = |z| < r$, so we can use the earlier expansion but confusingly, with $m,n$ swapped since I'm bad at planning indices:}
+                       &= ir^{n+1}\int_{0}^{2\pi}e^{i(n+1)\theta}\sum_{m=0}^{\infty}\binom{m - n - 1}{-n - 1}\left(\frac{ze^{-i\theta}}{r}\right)^{m}d\theta \\
+                       &= ir^{n+1}\sum_{m=0}^{\infty}\binom{m - n - 1}{-n - 1}\left(\frac{z}{r}\right)^{m}\int_{0}^{2\pi}e^{i(n+1-m)\theta}d\theta \\
+                       &= ir^{n+1}\sum_{m=0}^{\infty}\binom{m - n - 1}{-n - 1}\left(\frac{z}{r}\right)^{m}\int_{0}^{2\pi}(\cos((n+1-m)\theta) + i\sin((n+1-m)\theta))d\theta \\
+  \intertext{But, we know, as in the case shown in class, that the integral vanishes if $n + 1 - m \neq 0$, as $\int_0^{2\pi}\cos(k\theta)d\theta = \int_{0}^{2\pi}\sin(k\theta)d\theta = 0$ for integral $k \neq 0$. Finally, $n + 1 - m < 0$ for $n < -1$, $m \geq 0$, so in these cases,}
+                       &= 0 \\
+  \intertext{Thus, we have that for any $n \neq -1$, $\int_{\gamma}z^{n}dz = 0$. In the case of $n = -1$, we have that}
+                       &= ir^{n+1}\sum_{m=0}^{\infty}\binom{m - n - 1}{-n - 1}\left(\frac{z}{r}\right)^{m}\int_{0}^{2\pi}(\cos((n+1-m)\theta) + i\sin((n+1-m)\theta))d\theta \\
+                       &= ir^{-1+1}\sum_{m=0}^{\infty}\binom{m - n - 1}{-n - 1}\left(\frac{z}{r}\right)^{m}\int_{0}^{2\pi}(\cos((-m)\theta) + i\sin((-m)\theta))d\theta \\
+  \intertext{Again, this integral is only nonzero when $m = 0$, so}
+                       &= i\binom{0}{0}\left(\frac{z}{r}\right)^{0}\int_{0}^{2\pi}(\cos(0) + i\sin(0))d\theta \\
+                       &= 2\pi i
+\end{align*}
+
+We have finally reached the conclusion:
+\[
+  \int_{\gamma}z^{n}dz = \begin{cases}
+    0 & n \neq -1 \\
+    2i\pi & n = -1
+  \end{cases}
+\]
+
+\subsection*{25c}
+
+Taking the parameterization $\gamma(\theta) = re^{i\theta}$, we have that
+\begin{align*}
+  \int_{\gamma}\frac{1}{(z-a)(z-b)}dz &= \int_{0}^{2\pi}\frac{1}{(re^{i\theta}-a)(re^{i\theta}-b)}rie^{i\theta}d\theta \\
+                                      &= \frac{i}{a-b}\int_{0}^{2\pi} \left( \frac{a}{re^{i\theta} - a} - \frac{b}{re^{i\theta} - b} \right)d\theta \\
+                                      &= \frac{i}{a-b}\int_{0}^{2\pi} \frac{a}{re^{i\theta} - a}d\theta - \frac{i}{a-b}\int_{0}^{2\pi}\frac{b}{re^{i\theta} - b} d\theta \\
+                                      &= \frac{1}{a-b}\int_{0}^{2\pi} \left(\frac{rie^{i\theta}}{re^{i\theta} - a} - 1\right)d\theta - \frac{1}{a-b}\int_{0}^{2\pi}\left(\frac{rie^{i\theta}}{re^{i\theta} - b} - 1\right) d\theta \\
+                                      &= \frac{1}{a-b}\int_{0}^{2\pi} \frac{rie^{i\theta}}{re^{i\theta} - a} d\theta - \frac{1}{a-b}\int_{0}^{2\pi}\frac{rie^{i\theta}}{re^{i\theta} - b} d\theta \\
+  \intertext{However, consider $\gamma_{1}(\theta) = re^{i\theta} - a$ and $\gamma_{2}(\theta) = re^{i\theta} - b$; we have that}
+                                      &= \frac{1}{a-b}\left(\int_{\gamma_{1}}z^{-1}dz - \int_{\gamma_{2}}z^{-1}dz\right) \\
+  \intertext{Since we have that $|a| < r < |b|$, $\gamma_{1}$ encloses the origin, but $\gamma_{2}$ does not. By the last problem we have that}
+                                      &= \frac{1}{a-b}\left(2\pi i - \int_{\gamma_{2}}z^{-1}dz\right) = \frac{2\pi i}{a-b} - \frac{1}{a-b}\int_{\gamma_{2}}z^{-1}dz\\
+  \intertext{Further, we have that $1/z$ as a quotient of two entire functions, is holomorphic wherever $z \neq 0$; however, we have that on and inside $\gamma_{2}$, $z \neq 0$ as $\gamma_{2}$ does not enclose the origin. In particular, we actually have that $1/z$ is holomorphic on $D_{|b|}(b)$, which does not include the origin, but does contain $\gamma_{2}$. Then (I am slightly cheating, using a theorem from chapter 2), we can find some F holomorphic that satisfies $F' = f$. Thus, we have $\int_{\gamma_{2}}z^{-1}dz = 0$, and}
+  &= \frac{2\pi i}{a-b}
+\end{align*}
+
+\subsection*{22}
+
+Take $|z| < 1$.
+
+First, we will show that we can encode some sequence $\{a, a+d, a+2d, \dots\}$ as $\frac{z^{a}}{1-z^{d}}$. We have that $\frac{1}{1-z} = \sum_{i=0}^{\infty}z^{i}$. Then, replacing $z$ with $z^{d}$, we get $\frac{1}{1-z^{d}} = \sum_{i=0}^{\infty}z^{id}$; further multiplying by $z^{a}$ gives us
+\[
+  \frac{z^{a}}{1-z^{d}} = \sum_{i=0}^{\infty}z^{a + id}
+\]
+
+This gives us a way to represent any arithmetic progression with start $a$ and step $d$ by $\frac{z^{a}}{1-z^{d}}$. In particular, some subset $E \subseteq \N$ is represented by a power series $\sum_{i=0}^{\infty}a_{i}z^{i}$ if for any $i \in \N$, $i \in E \iff a_{i} = 1$, where $a_{i} \in \{0, 1\}$. This suggests that $\N$ is represented by $\frac{z}{1-z}$.
+
+Further, we can represent the union of two disjoint sets by the sum of their representative functions. To see this, let $S_{1}$ be represented by $\sum_{i=0}^{\infty}a_{i,1}z^{i}$ and $S_{2}$ by $\sum_{i=0}^{\infty}a_{i,2}z^{i}$, and finally $S_{1} \cup S_{2}$ by $\sum_{i=0}^{\infty}a_{i}z^{i}$. We will show that taking $a_{i} = a_{i,1} + a_{i,2}$ is sufficient.
+
+We have that $a_{i} = 1 \implies i \in S_{1} \cup S_{2}$; further, since $i$ is in the union of two disjoint sets, $i$ is in exactly one of $S_{1}$ or $S_{2}$, so $a_{i,1} + a_{i,2} = a_{i}$. Similarly, $a_{i} = 0 \implies i \notin S_{1}, \notin S_{2} \implies a_{i,1} + a_{i,2} = 0 + 0 = a_{i}$. Thus, at every index, $a_{i} = a_{i,1} + a_{i,2}$, which was what we wanted.
+
+Now, suppose that $\N$ could be partitioned into a finite number, say $n$, of arithmetic progressions with distinct steps; in particular, assign a random order and let the $i^{th}$ progression be denoted $S_{i}$ have step $d_{i}$ and start $a_{i}$. Since this is a partition, we have that all such $S_{i}$ are disjoint, and their union must be $\N$. Then, we have the earlier properties of the representative functions,
+\[
+  \sum_{i=1}^{n} \frac{z^{a_{i}}}{1-z^{d_{i}}} = \frac{z}{1-z}
+\]
+
+The above statement holds in each respective ball of convergence, so $|z|^{d_{i}} < 1 \implies |z| < 1$. Now, since we disallowed the trivial case $a = d =  1$, $n \geq 2$. In that case, let $d$ be the maximal step of all the $S_{i}$, and $\mu$ be a primitive $d^{th}$ root of unity. Then, since we know that $\mu$ lies on $|z| = 1$ and is a limit point of $|z| < 1$, we can see that as $z \rightarrow \mu$, $\sum_{i=1}^{n}\frac{z^{a_{i}}}{1-z^{d_{i}}} \rightarrow \infty$, but $\frac{z}{1-z} \rightarrow \frac{\mu}{1-\mu}$, which satisfies $|\frac{\mu}{1-\mu}| = \frac{|\mu|}{|1-\mu|} = \frac{1}{|1 - \mu|}$. Further, since $\mu$ is a primitive $d^{th}$ root of unity for $d > 1$, $\mu \neq 1$, so $|\frac{\mu}{1-\mu}|$ is bounded. Then, the left hand side and the right hand side go to different limits, so $\contra$. $\N$ thus cannot be partitioned in such a way.
+% \[
+%   \frac{z^{a_{i}}}{1-z^{d_{i}}} = \frac{\mu'}{1 - \mu'}
+% \]
+% where $\mu'$ is some non-1 $d^{th}$ root of unity. Since we know that the minimal distance between distinct two $d^{th}$ roots of unity is by law of cosines $\sqrt{2 - 2\cos(2\pi / d)}$, we have that $|\frac{z^{a_{i}}}{1-z^{d^{i}}}| < 1 / \sqrt{2 - 2\cos(2\pi / d)}$. However, in the case of $d_{i} = d$,
+
+In particular, we need the largest step, otherwise two of the $\frac{z^{a_{i}}}{1-z^{d_{i}}}$ could blow up, and the behaviour here is unclear. But the largest step works, so we are done!
+
+
+\end{document}
+
+% LocalWords:  NetID fancyplain LocalWords colorlinks linkcolor linkbordercolor
