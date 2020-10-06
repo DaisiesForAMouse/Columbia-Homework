@@ -1,0 +1,160 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{relsize}
+\usepackage{fancyvrb}
+\usepackage{import}
+\usetikzlibrary{shapes.geometric,fit}
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+\theoremstyle{definition}
+\newtheorem*{statement}{Statement}
+\newtheorem*{claim}{Claim}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+
+\newcommand{\contra}{\Rightarrow\!\Leftarrow}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Zeq}{\mathbb{Z}_{\geq 0}}
+\newcommand{\Zg}{\mathbb{Z}_{>0}}
+\newcommand{\Req}{\mathbb{R}_{\geq 0}}
+\newcommand{\Rg}{\mathbb{R}_{>0}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+
+\newcommand{\incfig}[1] {%
+    % \def\svgwidth{\columnwidth}
+    \import{./figures/}{#1.pdf_tex}
+}
+
+\title{MATH 4061 HW 2}
+\author{David Chen, dc3451}
+
+\begin{document}
+
+\maketitle
+
+\section*{Ch 2, Q9}
+\subsection*{a}
+
+We have that any $p \in E^{\circ}$ is an interior point of $E$, by the definition of $E^{\circ}$. By the definition of interior point, there is some $r > 0$ such that $B_{r}^{\circ}(p) \subset E$. Take any point $q$ in $B_{r}^{\circ}(p)$, and note that we have $B_{r - d(p,q)}^{\circ}(q) \subset B_{r}^{\circ}(p)$, as any $x \in B_{r - d(p,q)}^{\circ}(q)$ satisfies that $d(x, q) < r - d(p,q) \implies d(x,q) + d(q,p) < r\implies d(x,p) < r \implies x \in B_{r}^{\circ}(p)$.
+
+Then, we have that $q$ is also an interior point of $E$, so $q \in E^{\circ}$, so $B_{r}^{\circ}(p) \subset E^{\circ}$ so $E^{\circ}$ is open as every point in $E^{\circ}$ is an interior point of $E^{\circ}$.
+
+\subsection*{b}
+
+This is simply the definition of open sets; recall that $E$ is defined to be open if all of its points are internal points, so we have $(\implies)$ immediately from the definition, as $E$ open $\implies \forall p \in E$, $p$ is interior $\implies p \in E^{\circ}$, so $E^{\circ} \subset E$ and $E \subset E^{\circ}$, so $E = E^{\circ}$.
+
+If $E^{\circ} = E$, then no point of $E$ is not an interior point by defintition of $(E^{\circ})$, so all $p \in E$ are interior points, so $E$ is open, so we get ($\impliedby$).
+
+\subsection*{c}
+
+Since $G \subset E$, if $B_{r}^{\circ}(p) \subset G$, then $B_{r}^{\circ}(p) \subset E$, so any interior point of $G$ is an interior point of $E$ and therefore a member of $E^{\circ}$ (so $G^{\circ} \subset E^{\circ}$). But since $G$ is open, we have by the last part that $G = G^{\circ}$, so we have $G = G^{\circ} \subset E$.
+
+\section*{Ch 2, Q11}
+
+$d_{1}(-1,1) = 2^{2} > 2 = d_{1}(-1,0) + d_{1}(0,1)$, so $d_{1}$ fails the triangle inequality.
+
+For the rest of the problems, note that
+\[
+  |x - y| =
+  \begin{cases}
+    -(x - y) & x - y < 0 \\
+    x - y & x - y > 0 \\
+    0 & x - y = 0
+  \end{cases} =
+  \begin{cases}
+    y - x & y - x > 0 \\
+    -(y - x) & y - x < 0\\
+    0 & y - x = 0
+  \end{cases} =
+  |y - x|
+\]
+
+This also shows $|x - y|$ satisfies $|x - y| = 0$ if $x = y$ and $|x - y| > 0$ otherwise.
+
+This immediately gives that $d_{2}$ is symmetric, and also $d_{2}(x,y) > 0$ for $x \neq y$ and $d_{2}(x,x) = 0$.
+
+Then, we can check that the triangle inequality holds since
+\[
+  \sqrt{|x - y|} \leq \sqrt{|x - r|} + \sqrt{|r - y|} \iff |x-y| \leq |x-r| + |r-y| + 2\sqrt{|x-r||r-y}
+\]
+
+However, we know that $2\sqrt{|x-r||r-y|} \geq 0$, and Rudin shows that $|x-y|$ satisfies the triangle inequality earlier in the book, so the right hand side holds, so the left hand side holds, so $d_{2}$ is a valid metric.
+
+For $d_{3}$, note that $d_{3}(1,-1) = |1^{2} - (-1)^{2}| = 0$, so $d_{3}$ is not a metric.
+
+For $d_{4}$, note that $d_{4}(1, 1 / 2) = |1 - 1| = 0$, so $d_{4}$ is not a metric.
+
+Since we know that $|x-y|$ is symmetric, we have that $\frac{|x-y|}{1 + |x-y|} = \frac{|y-x|}{1 + |y-x|}$, and since $|x-y| > 0$ for $x\neq y$, and $1 + |x - y| > 1$, $d_{5}(x,y) > 0$ for $x \neq y$. Similarly, we have that $d_{5}(x,x) = 0 / 1 = 0$.
+
+The last thing to check is the triangle inequality: we have that in general, for some metric $d(x,y)$, we have that
+\begin{align*}
+  \frac{d(x,y)}{1+d(x,y)} &\leq \frac{d(x,r)}{1+d(x,r)} + \frac{d(r,y)}{1+d(r,y)} \\
+  \intertext{Multiplying by $(1+d(x,y))(1+d(x,r))(1+d(t,y)) > 0$,}
+  d(x,y)(1+d(x,r))(1+d(r,y)) &\leq d(x,r)(1+d(x,y))(1+d(r,y)) + d(r,y)(1+d(x,y))(1+d(x,r)) \\
+  \intertext{Expanding,}
+  d(x,y) + d(x,y)d(x,r) + d(x,y)d(r,y) &\\
+  + d(x,y)d(x,r)d(r,y) &\leq d(x,r) + d(x,y)d(x,r) + d(x,r)d(r,y) + d(x,y)d(x,r)d(r,y) \\
+                            &+ d(r,y) + d(x,y)d(r,y) + d(x,r)d(r,y) + d(x,y)d(x,r)d(r,y) \\
+  \intertext{Which finally leaves us with}
+  d(x,y) &\leq d(x,r) + d(r,y) + 2d(x,r)d(r,y) + 2d(x,y)d(x,r)d(r,y) \\
+\end{align*}
+Since we have that $d(x,y) \leq d(x,r) + d(r,y)$ since $d(x,y)$ is a metric, and $d(x,r), d(r,y)$ are positive, so the last inequality holds we have that $\frac{d(x,y)}{1+d(x,y)}$ obeys the triangle inequality. In particular, taking $d(x,y) = |x-y|$, which was shown to be an metric earlier in the book, shows that $d_{5}$ obeys the triangle inequality and is thus a metric.
+
+\section*{Ch 2, Q22}
+
+We can show that $\Q^{k} \subset \R^{k}$ is dense. In particular, we already know this for $k = 1$, and we can use that to bootstrap to $k$ dimensions. For any $r > 0$ and $p = (p_{1}, p_{2}, \dots, p_{k})\in \R^{k}$, we can see that for any point $q = (q_{1},q_{2},\dots,q_{k}) \in B_{r}^{\circ}(p)$, $q$ satisfies the condition that
+\[
+  \left(\sum_{i=1}^{k}(p_{i} - q_{i})^{2}\right)^{\frac{1}{2}} < r \iff \sum_{i=1}^{k}(p_{i} - q_{i})^{2} < r^{2}
+\]
+
+Then, we have that we if can take $q_{i}$ such that $(p_{i} - q_{i})^{2} < \frac{r^{2}}{k}$ for each $1 \leq i \leq k$, then $q \in B_{r}^{\circ}(p)$. However, since there is a rational between any two real numbers, as shown in chapter one, we have that $\exists q_{i}$ rational in the interval $(p_{i} - r / \sqrt{k}, p_{i} + r / \sqrt{k})$, which then satisfies $(p_{i} - q_{i})^{2} < \frac{r^{2}}{k}$, so these $q_{i}$ satisfy $q \in B_{r}^{\circ}(p)$, and $q \in \Q^{k}$, so $\Q^{k}$ is dense in $\R^{k}$.
+
+We know that this is countable since the is the finite Cartesian product of a countable set, which was shown to be countable in class.
+
+\section*{Ch 2, Q23}
+
+Since $X$ is seperable, we know that it contains a dense subset. Call this dense subset $E$. Consider the set
+\[
+  \{V_{\alpha}\} := \{B_{r}^{\circ}(p) \mid r \in \Q \setminus \{0\}, p \in E\}
+\]
+
+First, we can show that this is countable; consider the function that maps $f: \{V_{\alpha}\} \rightarrow \Q \setminus \{0\} \times E$ defined by $B_{r}^{\circ}(p) \mapsto (r, p)$. This is easily a bijection; if $f(B_{r}^{\circ}(p)) = f(B_{r'}^{\circ}(p')) \implies r = r', p = p'$, then $B_{r}^{\circ}(p) = B_{r'}^{\circ}(p)$ as sets; similarly, every $(r, p)$ is hit by the open set $B_{r}^{\circ}(p)$, so $f$ is surjective and injective. Since $\{V_{\alpha}\}$ is bijective to the Cartesian product of countable sets, it itself is countable.
+
+To see that it is a base, consider any open $G \subset X$. Then, pick any $x \in G$. In particular, since we have that $G$ is open, for some real $r > 0$, $B_{r}^{\circ}(x) \subset G$ as $x$ is an interior point. Further, since $E$ is a dense subset of $X$, $x$ is a limit point of $E$ so by definition, $B_{r/2}^{\circ}(x)$ contains some $p \in E$. Then, since there is a rational between any two real numbers, we have some $r'$ rational in the interval $(d(x,p), r / 2)$, so $B_{r'}^{\circ}(p)$ contains $x$. Then, we also have that $B_{r'}^{\circ}(p) \subset B_{r}^{\circ}(x)$, as for any $y$, $d(x, y) \leq d(x,p) + d(p,y) < r/2 + r/2 = r$. Since we have that $B_{r'}^{\circ}(p)$ is in $\{V_{\alpha}\}$, we have that $\{V_{\alpha}\}$ is a countable base for $X$.
+
+\section*{Ch 2, Q24}
+
+We can construct a countable dense subset of $X$. First, fix some $\delta > 0$, and pick any arbitrary $x_{1} \in X$. Then, given $x_{1}, \dots, x_{j}$, we choose $x_{j+1}$ such that $d(x_{j+1}, x_{i}) \geq \delta$ for $1 \leq i \leq j$, until no such element exists anymore. This cannot go on forever; if it did, we would have an infinite subset of $X$, $X' = \{x_{1}, x_{2}, \dots \}$ such that for any $p \in X$, $B_{\delta / 2}^{\circ} (p) \cap (X' \setminus \{ p \})$ is either $\emptyset$ or $\{x_{i}\}$ for some $i \in J$. If there are two distinct elements $x_{i,1}, x_{i,2} \in B_{\delta / 2}^{\circ} (p) \cap (X' \setminus \{ p \})$, then $d(x_{i,1}, x_{i,2}) \leq d(x_{i,1}, p) + d(p, x_{i,2}) < \delta$, so $\contra$. In the first case that $B_{\delta / 2}^{\circ} (p) \cap (X' \setminus \{ p \}) = \emptyset$, then $p$ is not a limit point of $X'$. In the second case that $B_{\delta / 2}^{\circ} (p) \cap (X' \setminus \{ p \}) = \{x_{i}\}$, then we have that $B_{d(p, x_{i})}^{\circ} (p) \cap (X' \setminus \{ p \}) = \emptyset$, which still shows that $p$ is not a limit point of $X'$. Either way, no point can be a limit point of $X'$, so the sequence cannot go on forever.
+
+Now, for any given $\delta > 0$, denote a sequence constructed by the above process as $X_{\delta}$, and consider the set
+\[
+  E = \bigcup_{n=1}^{\infty} X_{1/n}
+\]
+
+As the countable union of finite sets, we have that $E$ itself is countable, as shown in class. Now, given any $x \in X$ and $r > 0$, we have that there is some rational $p / q$ such that $0 < p / q < r$. Then, consider $X_{1/q} \subset E$. The intersection $B_{r}^{\circ}(x) \cap (X_{1/q} \setminus \{x\})$ must be nonempty. If it were empty, then we have that there are no elements of $X_{1/q}$ within $r > 1/q$ of $x$; however, since the construction of $X_{1/q}$ only terminates once we have no choices of $x_{j+1}$ such that $d(x_{j+1}, x_{i})$ for $1 \leq i \leq j$, and this $x$ would be a suitable choice of $x_{j+1}$, we have $\contra$, and so the intersection is empty. This gives that any point of $X$ is a limit point of $E$, so $E$ is dense in $X$.
+
+\end{document}
+% LocalWords:  NetID fancyplain LocalWords colorlinks linkcolor linkbordercolor

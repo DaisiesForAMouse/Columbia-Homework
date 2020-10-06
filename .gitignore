@@ -6,6 +6,8 @@
 *.fls
 *.fdb_latexmk
 *.fmt
+*.auctex*
+*dvi
 .~lock*
 _*
 .Rhistory
