@@ -1,0 +1,284 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{relsize}
+\usepackage{fancyvrb}
+\usepackage{import}
+\usetikzlibrary{shapes.geometric,fit}
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+\theoremstyle{definition}
+\newtheorem*{statement}{Statement}
+\newtheorem*{claim}{Claim}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+
+\newcommand{\contra}{\Rightarrow\!\Leftarrow}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Zeq}{\mathbb{Z}_{\geq 0}}
+\newcommand{\Zg}{\mathbb{Z}_{>0}}
+\newcommand{\Req}{\mathbb{R}_{\geq 0}}
+\newcommand{\Rg}{\mathbb{R}_{>0}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\DeclareMathOperator{\Id}{id}
+
+\newcommand{\incfig}[1] {%
+    % \def\svgwidth{\columnwidth}
+    \import{./figures/}{#1.pdf_tex}
+}
+
+\title{MATH 4041 HW 4}
+\author{David Chen, dc3451}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section*{Problem 1}
+
+% \((\implies)\) Since \((X_{1}, *_{1})\) is commutative, we have that for any \(x_{11},x_{12} \in X_{1}\), both \(f(x_{11} *_{1} x_{12}) = f(x_{11}) *_{2} f(x_{12})\) and \(f(x_{11} *_{1} x_{12}) = f(x_{12}  *_{1} f_{11}) = f(x_{12}) *_{1} f(x_{11})\); thus, we have that \(f(x_{12}) *_{2} f(x_{11}) = f(x_{11}) *_{2} f(x_{12})\). Then, for any \(x_{21}, x_{22} \in X_{2}\), we have that since \(f\) is a bijection, each
+
+\((\implies)\) Since \(f\) is an isomorphism, \(f^{-1}\) is also an isomorphism by a past homework problem, so for any \(x_{21}, x_{22} \in X_{2}\), \(f^{-1}(x_{21}), f^{-1}(x_{22}) \in X_{1}\). Then,
+\[
+  f^{-1}(x_{21} *_{2} x_{22}) = f^{-1}(x_{21}) *_{1} f^{-1}(x_{22}) = f^{-1}(x_{22}) *_{1} f^{-1}(x_{21}) = f^{-1}(x_{22} *_{2} x_{21})
+\]
+
+Since we know that \(f^{-1}\) is injective, \(x_{21} *_{2} x_{22} = x_{22} *_{2} x_{21}\).
+
+\((\impliedby)\) This is the same argument: for any \(x_{11}, x_{12} \in X_{1}\),
+\[
+  f(x_{11} *_{1} x_{12}) = f(x_{11}) *_{2} f(x_{12}) = f(x_{12}) *_{2} f(x_{11}) = f(x_{12} *_{1} x_{11})
+\]
+and since \(f\) is injective, \(x_{11} *_{1} x_{12} = x_{12} *_{1} x_{11}\).
+
+\section*{Problem 2}
+
+\subsection*{a}
+
+No: \(f(1 + 1) = 2^{3} = 8 \neq f(1) + f(1) = 1^{3} + 1^{3} = 2\)
+
+\subsection*{b}
+
+Yes: \(f\) is a bijection; we already know as a basic fact about \(\R\) that real cube roots of real numbers exist and are unique. Then, any particular \(x \in \R^{*}\) has a unique preimage \(x^{1/3}\), so \(f\) is bijective (the uniqueness of the cube root gives that \(f(x) = f(y) \implies x = y\) as otherwise \(x,y\) would be distinct cube roots of the same \(f(x)\), so \(f\) is injective, and the existence of the cube root for any \(x \in \R\) yields surjectivity). \(f(x_{1}\cdot x_{2}) = (x_{1} \cdot x_{2})^{3} = x_{1}^{3}\cdot x_{2}^{3}\) by the normal exponent laws on \(\R\), and \(x_{1}^{3} \cdot x_{2}^{3} = f(x_{1}) \cdot f(x_{2})\).
+
+\subsection*{c}
+
+No: \(f\) is not surjective, as \(1/2\) has no preimage. Suppose that \(\exists p/q \in \Q\) such that \(p,q\) are coprime and \(p^{3}/q^{3} = 1 / 2\); then, we would have that \(q^{3} = 2p^{3}\). Then, \(q^{3}\) is even, but then \(p^{3}\) must have some factor of \(2\), so \(\contra\) as we initially assumed that \(p,q\) were coprime.
+
+\subsection*{d}
+
+No: \(f\) is not injective: we have that \(f(e^{\frac{2\pi i}{3}}) = e^{2\pi i} = 1\), but also that \(f(1) = 1^{3} = 1\).
+
+\subsection*{e}
+
+Yes: to see that \(f\) is injective, \(f(z) = f(w) \implies 1/z = 1/w \implies zw(1/z) = zw(1/w) \implies z = w\), and we have a preimage for \(z = re^{i\theta}\), \(r \neq 0\) as \(z \in \C^{*}\):
+
+\[
+  f\left(\frac{1}{r}e^{-i\theta}\right) = \frac{1}{\frac{1}{r}e^{-i\theta}} = r\frac{1}{e^{-i\theta}} = re^{i\theta}
+\]
+since we have that \(e^{-i\theta}e^{i\theta} = e^{0} = 1 \implies \frac{1}{e^{-i\theta}} = e^{i\theta}\), \(f\left(\frac{1}{r}e^{-i\theta}\right) = z\), so \(f\) is surjective.
+
+Then,
+\[
+  f(zw) = \frac{1}{zw} = \frac{1}{z}\cdot \frac{1}{w} = f(z)f(w)
+\]
+
+\subsection*{f}
+
+No: \(f\) is not surjective. For example, if \(f(n) = 1\), then we would have \(2n = 1 \implies 0 < n < 1\), but there is no integer between 0 and 1.
+
+\subsection*{g}
+
+No:
+\[
+  f(p + q) = 2(p + q) - 1 = 2p + 2q - 1
+\]
+but
+\[
+  f(p) + f(q) = 2p - 1 + 2q - 1 = 2p + 2q - 2
+\]
+
+\section*{Problem 3}
+
+Suppose that we had some isomorphism \(f: (\R^{*}, \cdot) \rightarrow (\R, +)\). Then, we have that \(f(1) = f(-1 \cdot -1) = f(-1) + f(-1)\), but also that \(f(1) = f(1 \cdot 1) = f(1) + f(1)\). This gives us that \(2f(-1) = 2f(1) \implies f(-1) = f(1)\), so \(f\) is not injective, and so \(\contra\), no such isomorphism must not exist.
+
+\section*{Problem 4}
+
+\begin{center}
+  \begin{tabular}{c||c|c|c|c}
+    \(*\) & \(0\) & \(1\) & \(2\) & \(3\) \\ \hline \hline
+    \(0\) & \(0\) & \(1\) & \(2\) & \(3\) \\ \hline
+    \(1\) & \(1\) & \(0\) & \(1\) & \(2\) \\ \hline
+    \(2\) & \(2\) & \(1\) & \(0\) & \(1\) \\ \hline
+    \(3\) & \(3\) & \(2\) & \(1\) & \(0\) \\
+  \end{tabular}
+\end{center}
+
+Commutativity: \(a * b = |a - b| = |-1||a-b| = |-1(a-b)| = |b-a| = b * a\).
+
+0 is an identity, as can be checked in the table. Also, \(a * 0 = 0 * a = |a - 0| = |a| = a\).
+
+Inverses are unique, and exist, as can be seen in the table. Further, \(a * a = |a - a| = |0| = 0\), and \(a * b = 0 \implies |a-b| = 0 \implies a-b = 0 \implies a = b\).
+
+The Sudoku property does not hold; we have that \(1 * 0 = 1 * 2 = 1\), for example. This shows that associativity does not hold: in particular, \((1 * 1) * 2 = ||1 - 1| - 2| = 2\), but \(1 * (1 * 2) = |1 - |1 - 2|| = |1 - 1| = 0\).
+
+\section*{Problem 5}
+
+We can check that \(f(x) = x^{-1}\) is an isomorphism \((G, *) \rightarrow (G^{\text{op}}, *')\):
+\begin{align*}
+  f(x * y) &= (x * y)^{-1} \\
+  \intertext{We have that \((y^{-1} * x^{-1})(x * y) = y^{-1} * (x^{-1} * x) * y = y^{-1} * y = 1\), so}
+           &= y^{-1} * x^{-1} \\
+           &= f(y) * f(x) \\
+           &= f(x) *' f(y)
+\end{align*}
+
+Since we have that in groups inverses exist and are unique, \(f\) is a bijection, and thus \(G\) and \(G^{op}\) are isomorphic.
+
+\section*{Problem 6}
+
+The function \(\ell_{e}(x) = e * x = x\) is just the identity function.
+
+For \(a, b \in G\), we have that \((\ell_{a} \circ \ell_{b})(x) = \ell_{a}(\ell_{b}(x)) = \ell_{a}(b * x) = a * (b * x) = (a * b) * x = \ell_{a * b}(x)\).
+
+With right multiplication, we still have that \(r_{e}(x) = x * e = x\) is just the identity function.
+
+For \(a, b \in G\), we have that \((r_{a} \circ r_{b})(x) = r_{a}(r_{b}(x)) = r_{a}(x * b) = (x * b) * a = x * (b * a) = r_{b * a}(x)\).
+
+\section*{Problem 7}
+
+Here, we need to show that \(f\) is a bijection first. We already know from class and past homework that addition as \([a] + [b] = [a+b]\) is well defined on \(\Z / n\Z\), and additive inverses obey \(-[a] = [-a]\).
+
+% For injectivity, \(f([a]) = f([b]) \implies -[a] = -[b] \implies [a] + (-[b]) = 0 \implies [a] = [b]\), so \(f\) is injective. Further, any \([a]\) has an inverse \(-[a]\), and \(f(-[a]) = -(-[a])\), but we know that \(-[a] + [a] = 0\), so the additive inverse of \(-[a]\) is \(-(-[a]) = [a]\), so \(-[a]\) is a preimage of \([a]\). This gives that \(f\) is bijective.
+For injectivity,
+\[
+  f([a]) = f([b]) \implies -[a] = -[b] \implies -[a] + [a] = -[b] + [a] \implies [0] = -[b] + [a] = [-b + a]
+\]
+and so \([0] = [-b + a] \implies a - b = 0 \implies a = b\). For surjectivity, we have that \(f([4-a]) = -[4-a] = [a - 4] = [a]\).
+
+Then, we have \([a] + [-a] = [a + -a] = [0]\), so \([-a] = -[a]\), so
+\[
+  f([a] + [b]) = f([a+b]) = -[a+b] = [-(a+b)] = [-a + -b] = [-a] + [-b] = -[a] + -[b] = f([a]) + f([b])
+\]
+\(f\) is then a bijection \((\Z/4\Z, +) \rightarrow (\Z/4\Z, +)\).
+
+The last thing to check is that \(f([1]) = [3]\); we have that \([1] + [3] = [4] = [0]\), so by definition of inverses, \(-[1] = f([1]) = [3]\).
+
+\section*{Problem 8}
+\subsection*{i}
+
+\begin{align*}
+  A_{\theta}(\cos(\alpha), \sin(\alpha)) &=
+                                           \begin{bmatrix}
+                                             \cos(\theta) & -\sin(\theta) \\
+                                             \sin(\theta) & \cos(\theta)
+                                           \end{bmatrix}
+                                                  \begin{bmatrix}
+                                                    \cos(\alpha) \\
+                                                    \sin(\alpha)
+                                                  \end{bmatrix} \\
+                                         &=
+                                           \begin{bmatrix}
+                                             \cos(\theta) \cos(\alpha) - \sin(\theta) \sin(\alpha) \\
+                                             \sin(\theta) \cos(\alpha) + \cos(\theta) \sin(\alpha) \\
+                                           \end{bmatrix} \\
+                                         &=
+                                           \begin{bmatrix}
+                                             \cos(\theta + \alpha) \\
+                                             \sin(\theta + \alpha) \\
+                                           \end{bmatrix} \\
+  B_{\theta}(\cos(\alpha), \sin(\alpha)) &=
+                                           \begin{bmatrix}
+                                             \cos(\theta) & \sin(\theta) \\
+                                             \sin(\theta) & -\cos(\theta)
+                                           \end{bmatrix}
+                                                  \begin{bmatrix}
+                                                    \cos(\alpha) \\
+                                                    \sin(\alpha)
+                                                  \end{bmatrix} \\
+                                         &=
+                                           \begin{bmatrix}
+                                             \cos(\theta) \cos(\alpha) + \sin(\theta) \sin(\alpha) \\
+                                             \sin(\theta) \cos(\alpha) - \cos(\theta) \sin(\alpha) \\
+                                           \end{bmatrix} \\
+                                         &=
+                                           \begin{bmatrix}
+                                             \cos(\theta) \cos(\alpha) - \sin(\theta) \sin(-\alpha) \\
+                                             \sin(\theta) \cos(\alpha) + \cos(\theta) \sin(-\alpha) \\
+                                           \end{bmatrix} \\
+                                         &=
+                                           \begin{bmatrix}
+                                             \cos(\theta + (-\alpha)) \\
+                                             \sin(\theta + (-\alpha)) \\
+                                           \end{bmatrix} \\
+                                         &=
+                                           \begin{bmatrix}
+                                             \cos(\theta - \alpha) \\
+                                             \sin(\theta - \alpha) \\
+                                           \end{bmatrix} \\
+\end{align*}
+
+\subsection*{ii}
+
+\(\implies\) The claim needs a slight modification, which is that \(\theta = 2\pi a / n + 2\pi k\) for some integer \(k\).
+
+Since \(A_{\theta}(p_{i}) = p_{j}\) and \(B_{\theta}(p_{i}) = p_{k}\) for \(0 \leq i,j,k \neq n - 1\), we have that \(A_{\theta}(p_{0}) = p_{a}\) and \(B_{\theta}(p_{0}) = p_{b}\) for some \(0 \leq a,b \leq n - 1\). Then, we have that \(A_{\theta}(p_{0}) = A_{\theta}(\cos(0), \sin(0)) = (\cos(\theta), \sin(\theta))\) and \(B_{\theta}(p_{0}) = B_{\theta}(\cos(0),\sin(0)) = (\cos(\theta),\sin(\theta))\) via the last problem.
+
+Then, since we have that \((\cos(\theta), \sin(\theta)) = p_{b} = p_{a} = \cos(\frac{2\pi a}{n}), \sin(\frac{2\pi a}{n})\), from the basic trigonometric fact (used in class, and also proved in my last HW set) that \(\cos(\theta) = \cos(\theta'), \sin(\theta) = \sin(\theta') \implies \theta = \theta' + 2\pi k\), we have that \(\theta = \frac{2\pi a}{n}\), which was what we wanted. In particular, it turns out that \(a = b\) here.
+
+% We have that for any \(p_{i}\), \(A_{\theta}p_{i} = p_{j}\) for \(0 \leq i, j \leq n - 1\). Then, picking some \(i\) and the associated \(j\), we have that
+% \[
+%   A_{\theta}p_{i} = \left(\cos\left(\theta + \frac{2i\pi}{n}\right), \sin\left(\theta + \frac{2i\pi}{n}\right)\right) = \left(\cos\left(\frac{2j\pi}{n}\right), \sin\left(\frac{2j\pi}{n}\right)\right)
+% \]
+% which gives us that \(\theta = \frac{2(i-j)\pi}{n} + 2\pi k\) for some \(k \in \Z\). In particular, this follows from the basic trigonometric fact (used in class, and also proved in my last HW set) that \(\cos(\theta) = \cos(\theta'), \sin(\theta) = \sin(\theta') \implies \theta = \theta' + 2\pi k\).
+
+% Then, since we have that \(0 \leq i, j \leq n - 1 \implies -(n-1) \leq i - j \leq n -1\), we have two possible cases: \(0 \leq i - j \leq n - 1\) or \(-(n-1) \leq i - j < 0\).
+
+% In the first case, we are done with \(a = i - j\). In the other case, we know that \(\sin, \cos\) are peridoic with period \(2\pi\), so we can see that \(\theta = \frac{2(i-j)\pi}{n} + 2\pi k = \frac{2(i-j + n)}{n} + 2\pi (k - 1)\). Then, \(1 \leq i-j+n < n\), so \(a = i - j + n\) also works, and we are done.
+
+\(\impliedby\) We have that
+\[
+  A_{\theta}\left(p_{i}\right) = \left(\cos\left(\theta + \frac{2\pi i}{n}\right), \sin\left(\theta + \frac{2\pi i}{n}\right)\right) = \left(\cos\left(\frac{2\pi a}{n} + \frac{2\pi i}{n}\right), \sin\left(\frac{2\pi a}{n} + \frac{2\pi i}{n}\right)\right)
+\]
+so \(A_{\theta}(p_{i}) = (\cos(\frac{2\pi (i + a)}{n}), \sin(\frac{2\pi (i + a)}{n}))\). Since we have that \(0 \leq i, a \leq n - 1\), we have that \(0 \leq i + a \leq 2n - 2\). This gives us two cases: \(0 \leq i + a \leq n - 1\), or \(n \leq i + a \leq 2n -2\).
+
+In the first case, we are directly done, since \(A_{\theta}(p_{i}) = p_{a + i}\). In the second case, we have that since \(\cos, \sin\) are periodic,
+
+\begin{align*}
+  A_{\theta}\left(p_{i}\right) &= \left(\cos\left(\frac{2\pi \left(i + a\right)}{n}\right), \sin\left(\frac{2\pi \left(i + a\right)}{n}\right)\right) \\
+                    &=\left(\cos\left(\frac{2\pi \left(i + a\right)}{n} - 2\pi\right), \sin\left(\frac{2\pi \left(i + a\right)}{n}-2\pi\right)\right)\\
+                    &= \left(\cos\left(\frac{2\pi \left(i + a - n\right)}{n}\right), \sin\left(\frac{2\pi \left(i + a-n\right)}{n}\right)\right)
+\end{align*}
+and we have that \(n \leq i + a \leq 2n -2 \implies 0 \leq i + a - n \leq n-2\), we have that \(A_{\theta}(p_{i}) = p_{i + a - n}\). In either case, we have that for any \(i\), \(A_{\theta}(p_{i}) = p_{j}\) for some \(0 \leq j \leq n - 1\), and we are done.
+
+Then, since \(D_{n}\) is the group of symmetries of a regular \(n\)-gon, we have that \(D_{n}\) is the collection of all rotations and reflections of the plane that take vertices to other vertices in the plane. However, any rotation or reflection of the plane is an isometric linear mapping \(\R^{2} \rightarrow \R^{2}\), and thus is represented by an element of \(O_{2}\).
+
+In particular, we have that \(A_{\theta}\) describes a rotation of the plane by \(\theta\), and \(B_{\theta}\) represents a reflection over the \(x\)-axis (or the axis associated with the first dimension in a vector, at least) and a subsequent rotation of \(\theta\), which is equivalent to a reflection over an axis offset by \(\theta / 2\) degrees. Thus, we have that \(D_{n}\) is a specific subset of \(\{A_{\theta}, B_{\theta} \mid 0 \leq \theta < 2\pi\}\).
+
+The statement proved in this problem gives that the set of \(\theta\) which preserve the vertices is exactly \(\theta = \frac{2\pi a}{n}\) for some \(0 \leq a \leq n -1\). This gives that \(D_{n} = \{A_{2\pi n / a}, B_{2\pi n / a} \mid 0 \leq a \leq n - 1\}\). Then, since we know that \(A_{\theta_{1}} \neq B_{\theta_{2}}\) for any \(\theta_{1}, \theta_{2}\) (as we would need that \(\cos(\theta_{1}) = -\cos(\theta_{2})\) and \(\sin(\theta_{1}) = -\sin(\theta_{2})\) at the same time, which is impossible), \(\#(D_{n}) = 2n\).
+
+\end{document}
+% LocalWords:  NetID fancyplain LocalWords colorlinks linkcolor linkbordercolor
