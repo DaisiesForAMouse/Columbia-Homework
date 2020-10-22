@@ -1,0 +1,210 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{relsize}
+\usepackage{fancyvrb}
+\usepackage{import}
+\usepackage{float}
+\usepackage{xifthen}
+\usepackage{pdfpages}
+\usepackage{transparent}
+\usetikzlibrary{shapes.geometric,fit}
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+\theoremstyle{definition}
+\newtheorem*{statement}{Statement}
+\newtheorem*{claim}{Claim}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+
+\newcommand{\contra}{\Rightarrow\!\Leftarrow}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\D}{\mathbb{D}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Zeq}{\mathbb{Z}_{\geq 0}}
+\newcommand{\Zg}{\mathbb{Z}_{>0}}
+\newcommand{\Req}{\mathbb{R}_{\geq 0}}
+\newcommand{\Rg}{\mathbb{R}_{>0}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\DeclareMathOperator{\ima}{im}
+\DeclareMathOperator{\spn}{span}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\real}{Re}
+\DeclareMathOperator{\imag}{Im}
+\DeclareMathOperator{\diver}{div}
+\DeclareMathOperator{\curl}{curl}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\inter}{int}
+\DeclareMathOperator{\Dr}{Dr}
+\DeclareMathOperator{\Jac}{Jac}
+
+\newcommand{\incfig}[1]{\input{./figures/#1.pdf_tex}}
+\graphicspath{ {./figures/} }
+
+\title{MATH 4065 HW 4}
+\author{David Chen, dc3451}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\subsection*{9}
+
+We can reduce this to $\varphi(0) = 0$ and $\varphi'(0) = 1$. In particular, if some function $\phi: \Omega \rightarrow \Omega$ is a holomorphic function satisfying $\phi(z_{0}) = z_{0}$ and $\phi'(z_{0}) = 1$, we can define $\Omega' = \{z \mid z + z_{0} \in \Omega\}$ and $\varphi: \Omega' \rightarrow \Omega'$ by taking $\varphi(z) = \phi(z + z_{0}) - z_{0}$. Then, we have that $\varphi(0) = \phi(z_{0}) - z_{0} = 0$ and $\varphi'(0) = \phi'(z_{0}) = 1$. However, if we have that $\varphi(z)$ is linear, such that $\varphi(z) = z$, then we have that $\phi(z + z_{0}) = z + z_{0}$ is also linear, so it is sufficient to show that $\varphi(z) = z$.
+
+From here, since $\varphi$ is holomorphic in $\Omega$ containing $0$, we have that $\varphi(h) = \sum_{k=0}^{\infty}a_{k}h^{k}$ in some neighborhood of $0$, say $D_{r}(0)$. In particular, we have that $a_{0} = \varphi(0) = 0$ and $a_{1} = \varphi'(0) = 1$. Then, let $n$ be the first index greater than $0$ such that $a_{n} \neq 0$, such that $\varphi(h) = h + a_{n}h^{n} + O(h^{n+1})$.
+
+Now define $\varphi_{k} = \varphi \circ \varphi \circ \cdots \circ \varphi$ as the composition of $\varphi$ with itself $k-$times. We will show with induction that $\varphi_{k}(h) = h + ka_{n}h^{n} + O(h^{n+1})$ in some neighborhood of $0$. This clearly holds for $k = 1$ by the earlier power series expansion. If it holds for $k$, then $\varphi_{k+1} = \varphi \circ \varphi_{k}$, and
+\begin{align*}
+  (\varphi_{k}(h))^{m} &= (h + ka_nh^n+O(h^{n+1}))^m \\
+                   &= \sum_{i=0}^{m}\binom{m}{i}h^{m-i}(ka_{n}h^{n} + O(h^{n+1}))^{i} \\
+                   &= h^{m} + \sum_{i=1}^{m}\binom{m}{i}h^{m-i}(ka_{n}h^{n} + O(h^{n+1}))^{i} \\
+                   &= h^{m} + \sum_{i=1}^{m}\binom{m}{i}h^{m-i}h^{ni}(ka_{n}+ O(h))^{i} \\
+                   &= h^{m} + \sum_{i=1}^{m}\binom{m}{i}h^{m + (n-1)i}(ka_{n}+ O(h))^{i} \\
+  \intertext{Since $n > 1$, if $m > 1$ then}
+                   &= h^{m} + \sum_{i=1}^{m}\binom{m}{i}O(h^{m + 1})O(h)^{i} \\
+                   &= h^{m} + O(h^{m+1}) \\
+  \intertext{So}
+  \varphi_{k+1}(h) &= \varphi_{k}(h) + a_{n}(\varphi_{k}(h))^{n} + O((\varphi_{k}(h))^{n+1}) \\
+              &= h + ka_{n}h^{n} + O(h^{n+1}) + a_{n}(h^{n} + O(h^{n+1})) + O(h^{n+1} + O(h^{n+2})) \\
+              &= h + (k+1)a_{n}h^{n} + O(h^{n+1})
+\end{align*}
+for some neighborhood of $0$, as we have that since $\varphi_{k}$ as the composition of analytic functions is analytic, then $|\varphi_{k}(h) - 0|  = |\varphi_{k}(h)| < r \implies \varphi_{l} \in D_{r}(0)$ by continuity on some neighborhood of 0, so on that neighborhood the above relation holds for $k + 1$, and thus, all $k \geq 1$ by induction.
+
+Let $r$ be the radius of some disc whose closure is contained in $\Omega'$ (which we know exists since $\Omega'$ is open). Cauchy inequality gives that $|\varphi_{k}^{(n)}(0)| = ka_{n} \leq \frac{n!\sup_{C_{r}(0)}|\varphi_{k}|}{r^{n}}$ for any $k \geq 1$. However, the right hand side is bounded, since we know that $\Omega'$ is the codomain of $\varphi$ (and thus $\varphi_{k}$), and $\Omega'$ is a bounded set. Therefore, $k \leq \frac{n!\sup_{C_{r}(0)}|\varphi_{k}|}{r^{n}a_{n}}$ means that the integers are bounded, as all $k \geq 1$ satisfy being less than some finite number. $\contra$, so no $a_{n} \neq 0$ for $n \geq 1$, so $\varphi(h) = h$, which converges everywhere in $\C$, and so $\varphi$ is linear.
+
+\subsection*{10}
+
+Weierstrass's theorem gives that for any function $f: [0,1] \rightarrow \R$ and $\epsilon > 0$, we have that there is some sequence of polynomials $p_{n}$ such that $\{p_{n}\}_{n=1}^{\infty}$ converge uniformly to $f$.
+
+This cannot (always) happen in the complex case. In particular, we already have from the book and class that if $\{f_{n}\}_{n=1}^{\infty}$ a sequence of holomorphic functions converges uniformly to $f$, we have that $f$ is also holomorphic. In particular, this gives that if $f_{n}$ are all polynomials, they are all entire, and thus $f$ must be holomorphic on the open unit disc. As a result, if we can find some continuous function on the open unit disc that is not holomorphic, we are done.
+
+In particular, consider $f(z) = \overline{z}$. This clearly isn't holomorphic as $\frac{\partial f}{\partial \overline{z}} = 1 \neq 0$, so it doesn't obey the Cauchy-Riemann equations. However, it is continuous, as we have that for any $w$ in the unit disc, we know that for any $\epsilon > 0$ and $z$ in the unit disc, picking $\delta = \epsilon$ gives $|z - w| = |x_{z} + iy_{z} - (x_{w} + iy_{w})| < \delta \implies |\overline{z} - \overline{w}| = |x_{z} - iy_{z} - (x_{w} - iy_{w})| = \sqrt{(x_{z} - x_{w})^{2} + (y_{z} - y_{w})^{2}} = |x_{z} + iy_{z} - (x_{w} + iy_{w})| < \delta = \epsilon$.
+
+Thus, we have that $f(z) = \overline{z}$ is not uniformly approximated by polynomials in the unit disc.
+
+\subsection*{13}
+
+In particular, we can show that for some index $n$, we have that $c_{n} = 0$ for an uncountable amount of $w \in \C$, where $f(z) = \sum_{i=n}^{\infty}c_{n}(z-w)^{n}$. Suppose that $c_{n} = 0$ for at most a countable amount of $w$ for every $n$. Then, consider the set of ordered pairs $S = \{(n, w) \mid c_{n} = 0, f(z) = \sum_{i=0}^{\infty}c_{i}(z-w)^{i}\}$ Then, since we have that $c_{n} = 0$ for a countable amount of $w$ for any given $n$, we have that $S = \bigcap_{i=0}^{\infty}\{(i, w) \mid c_{i} = 0, f(z) = \sum_{j=0}^{\infty}c_{j}(z-w)^{j}\}$ is the countable union of countable sets, and is therefore countable itself.
+
+However, we can explicitly see that $S$ must be uncountable, as for every $w \in \C$, there is at least one $n$ such that $c_{n} = 0$, so we have that there is a bijection given by $(n,w) \mapsto w$ from a subset of $S$ to $\C$, so $S$ contains an uncountable subset, and thus cannot be countable. $\contra$, so $c_{n} = 0$ for an uncountable amount of $w \in \C$ for some index $n$.
+
+Further, any uncountable subset $E$ of $\R^{n}$ has a limit point in $\R^{n}$. To see this, if we partition $R^{n}$ into unit $n-$cells of the form $\prod_{i=1}^{n}[k_{i}, k_{i} + 1]$ for $k_{i} \in \Z$, we have a countable amount of $n-$cells (as we can form a bijection by taking $\prod_{i=1}^{n}[k_{i}, k_{i} + 1] \mapsto (k_{1}, k_{2}, \dots, k_{n}) \in \Z^{n}$, which is countable). Then, if there were a finite amount of points of $E$ in every cell, we have that $E$ must be countable as it would be the countable union of finite sets. In particular, if $K_{i}$ is an enumeration of the $n-$cells, $K = \bigcup_{i=1}^{\infty}K_{i} \cap E$, in which each intersection is finite by assumption. $\contra$, so there is some cell with an infinite amount of points in $E$. Take $i$ such that $K_{i} \cap E$ is infinite.
+
+Now, we have that $n-$cells in $\R^{n}$ are compact. If no point of $K_{i}$ is a limit point of $K_{i} \cap E$, then $\forall p \in K_{i}$, $D_{r_{p}}(p)$ contains at most one element of $K_{i} \cap E$ for some $r_{p} > 0$. Then, $\{D_{r_{p}}(p)\}_{p \in K_{i}}$ is an open cover of $K_{i}$, but no finite collection of $D_{r_{p}}(p)$ can cover of all of $K_{i} \cap E$, as this collection would have a finite amount of points of $K_{i} \cap E$, which is infinite, so there is no finite subcover of $K_{i}$. Then, $K_{i}$, a $n-$cell, cannot be compact and $\contra$ so some point of $K_{i}$ is a limit point of $K_{i} \cap E$ and thus a limit point of $E$.
+
+Finally, we can finish: since $c_{n} = 0$ for an uncountable amount of $w \in \C$ for some index $n$, we have that $f(z) = \sum_{i=0}^{\infty}c_{i}(z-w)^{i} \implies c_{n} = \frac{f^{(n)}(w)}{n!}$, so $f^{(n)}(w) = c_{n}$ vanishes on an uncountable subset of $\C$ and thus vanishes on some sequence with a limit point in $\C$, and thus $f^{(n)}$ must vanish entirely on $\C$. Then, if $f^{(n)}$ vanishes at every point in $\C$, we have that $f^{(m)}$ vanishes on the entire plane for any $m \geq n$, so $c_{m} = 0$ as well. Then, the power series expansion of $f$ around $0$ gives $f(z) = \sum_{i=0}^{n-1}c_{i}z^{i}$, which converges everywhere, so $f$ is a polynomial.
+
+\subsection*{15}
+
+We extend $f(z) = 1/\overline{f(1/\overline{z})}$ for $z \in \C$, $|z| > 1$. Then, we have that on the open set $\overline{\D}^{c}$ where this extension is defined, $f(z) = 1/\overline{f(1/\overline{z})}$ is continuous at $z \in \overline{\D}^{c}$ as $z \in \overline{\D}^{c} \implies |z| > 1 \implies |1/z| < 1 \implies 1/z \in \D \implies \overline{1/z} = 1/\overline{z}\in \D$, so $f(1/\overline{z})$ is continuous at $1/\overline{z}\implies 1/\overline{f(1/\overline{z})}$ is continuous.
+
+Thus, we have that $f$ with this extension is continuous on the open sets $\overline{\D}^{c}$ and on $\D$, so if we can show that for $|z| = 1$, $\lim_{w \rightarrow z, |w| > 1}1/\overline{f(1/\overline{z})} = \lim_{w \rightarrow z, |w| < 1}f(z) = f(z)$, we have that $f$ is continuous on all of $\C$. Fortunately, we have on the unit circle that $\overline{z} = 1/z$, so if we extend $1/\overline{f(1/\overline{z})}$ continually to $|z| = 1$, we have that $1/\overline{f(1/\overline{z})} = 1/\overline{f(z)} = f(z)$, so we have that $\lim_{w \rightarrow z}f(w) = f(z)$, so $f$ is continuous on all of $\C$ with the above extension.
+
+Now, we wish to show that $f$ is entire. We have that $f$ is holomorphic in $\D$ by assumption, and we have that if $f(z) = 1/\overline{f(1/\overline{z})}$ for $|z| > 1$, we have that $|z|, |z_{0}| > 1 \implies |1/\overline{z}|, |1/\overline{z_{0}}| < 1$, so expanding around $1/\overline{z_{0}}$,
+\begin{align*}
+  f\left(\frac{1}{\overline{z}}\right) &= \sum_{n=0}^{\infty}a_{n}\left(\frac{1}{\overline{z}} - \frac{1}{\overline{z_{0}}}\right)^{n} \\
+  f(z) &= \frac{1}{\overline{f\left(\frac{1}{\overline{z}}\right)}} \\
+                                       &= \frac{1}{\overline{\sum_{n=0}^{\infty}a_{n}\left(\frac{1}{\overline{z}} - \frac{1}{\overline{z_{0}}}\right)^{n}}} \\
+                                       &= \frac{1}{\sum_{n=0}^{\infty}\overline{a_{n}}\left(\frac{1}{z} - \frac{1}{z_{0}}\right)^{n}}
+\end{align*}
+but the bottom is then an analytic function expanded around $\frac{1}{z_{0}}$ and composed with $\frac{1}{z}$, so we have that $f(z)$ is analytic for $|z| > 1$.
+
+Now, to show that $f$ is analytic on the unit circle, consider any triangle $T$ in $\C$. If the triangle does not intersect the unit circle, either $T \subset \D$ or $T \subset \overline{\D}^{c}$. In either case, $f$ is holomorphic in those open sets, so $\int_{T}f = 0$. In the case that $T$ intersects the unit circle, we can split $T$ into two contours, as shown on the right:
+\begin{figure}[H]
+  \centering
+  \incfig{help}
+\end{figure}
+
+We have that $\int_{T}f = \int_{T_{1}}f + \int_{T_{2}}f = \lim_{\epsilon \rightarrow 0} \int_{T_{1,\epsilon}}f + \lim_{\epsilon \rightarrow 0} \int_{T_{2,\epsilon}}f$ by continuity. However, $T_{1,\epsilon}, T_{2,\epsilon}$ lie in $\D$ and $\overline{\D}^{c}$ respectively. Cauchy's theorem on discs gives that $\int_{T_{1,\epsilon}}f = 0$ since $f$ is holomorphic on $\D$, and taking Cauchy's theorem on star-shaped domains with a point inside the region such as $p$ witnessing star-shaped condition gives that $\int_{T_{2,\epsilon}}f = 0$ as well, so we can conclude $\int_{T}f = 0$.
+
+In particular, the way to split the triangle may vary, but we can always find star-shaped regions and paths to do the same argument:
+\begin{figure}[H]
+  \centering
+  \incfig{exotic}
+\end{figure}
+In all of these cases, we have that $\int_{T}f = \sum_{i=1}^{n} \lim_{\epsilon \rightarrow 0}\int_{T_{i,\epsilon}}f$ where $T_{i,\epsilon}$ is a path in a star-shaped region either completely inside or outside the disc, since we can split the triangle into subsets that are either inside or outside of $\D$, and take $T_{i}$ along those subsets and the portion of the unit circle connecting them, so $\int_{T}f = 0$. Finally, by Morera's theorem, $f$ must be holomorphic on the unit disc as well.
+
+At last, we have that $f$ under the given extension is entire. Further, since $f$ is continuous in $\overline{D}$, we have that $|f|$ must be bounded in $\D$ since $|f|$ is continuous on a compact set. This also means that $|f|$ must also attain its minimal value in $\overline{\D}$. Furthermore, since $|f(z)| = 1/|f(1/\overline{z})|$ for $z$ with $|z| > 1$, we have that since $1/\overline{z} \in \D$, and $f$ does not vanish in $\D$ and $|f|$ attains its minimal value, say $m$, $1/|f(1/\overline{z})|$ must be bounded by $1/|m|$. Therefore, $f$ is entire and bounded, and by Liouville's is a constant function.
+
+\subsection*{2}
+
+Note that since $1 \leq d(n) \leq n$, $\limsup_{n \rightarrow \infty}|d(n)|^{1/n} = 1$.
+
+We have that on the unit disc via power series expansion, $\frac{1}{1-z} = \sum_{m=0}^{\infty}z^{n}$, so
+\[
+  \frac{z^{n}}{1-z^{n}} = z^{n}\sum_{m=0}^{\infty}(z^{n})^{m} = \sum_{m=1}^{\infty}z^{nm} = \sum_{i=1}^{\infty}a_{n,i}z^{i}
+\]
+where $a_{n,i} = 1$ if $i = nm$ for some $m$ and $a_{n,i} = 0$ otherwise. In particular, this means that $a_{n,i} = 1$ if and only if $n|i$.
+
+Then, we have that $\sum_{n=1}^{\infty}\frac{z^{n}}{1-z^{n}} = \sum_{n=1}^{\infty}\sum_{m=1}^{\infty}z^{nm} = \sum_{n=1}^{\infty}\sum_{i=1}^{\infty}a_{n,i}z^{i} = \sum_{i=1}^{\infty}(\sum_{n=1}^{\infty}a_{n,i})z^{i} = \sum_{i=1}^{\infty}(\sum_{n=1}^{i}a_{n,i})z^{i}$, where the last equality holds since $n > i \implies n \nmid i \implies a_{n,i} = 0$. However, since $d(i)$ counts the amount of divisors of $i$, we have that $\sum_{n=1}^{i}a_{n,i}z^{i} = d(i)$, as $a_{n,i} = 1$ for each divisor of $i$ and $0$ otherwise, so we have that $\sum_{n=1}^{\infty}\frac{z^{n}}{1-z^{n}} = \sum_{i=1}^{\infty}(\sum_{n=1}^{i}a_{n,i})z^{i} =  \sum_{i=1}^{\infty}d(i)z^{i}$. Then, since this converges absolutely for $|z| < 1$, we have that all the interchanges of the sums were justified.
+
+Note that if we define the step function $k(x)$ such that for $n \geq 0, n \in \Z$, on the interval $(n,n+1)$, $k(x) = r^{n}/(1 - r^{n})$, we have that since $r^{x}/(1-r^{x})$ is decreasing for $r < 1$, as
+\[
+  \frac{d}{dx}\frac{r^{x}}{1-r^{x}} = \frac{r^{2x}\log(r)}{(1 - r^x)^2} + \frac{r^x \log(r)}{(1 - r^x)} = \log(r)\left(\frac{r^{2x}}{(1-r^{x})^{2}} + \frac{r^{x}}{1-r^{x}}\right) < 0 \text{ as } \log(r) < 0
+\]
+Then, we have that $r^{n}/(1-r^{n}) \leq r^{x}/(1-r^{x})$ for $x \in (n, n+1)$, so $r^{x}/(1-r^{x}) \leq k(x)$. Then we have that
+\begin{align*}
+  \sum_{n=1}^{\infty}\frac{r^{n}}{1-r^{n}} &= \int_{1}^{\infty}k(x)dx \\
+                                           &\leq \int_{1}^{\infty}\frac{r^{x}}{1-r^{x}}dx \\
+  \intertext{u-sub with $u = 1 - r^{x}$ gives}
+                                           &= -\int_{1-r}^{1}\frac{1}{u\log(r)}du \\
+                                           &= -\frac{1}{\log(r)}\log(u)\Big|_{1-r}^{1} \\
+                                           &= \frac{1}{\log(r)}\log(1-r) \\
+                                           &= -\frac{1}{\log(r)}\log\left(\frac{1}{1-r}\right) \\
+  \intertext{Then, since we have that Taylor expanding $\log(r)$ around $r=1$ gives that $\log(r) = (r-1) + O((r-1)^{2}) \implies \log(r) \leq (r-1) + c'(r-1) = \frac{1}{c}(r-1)$ as $r \rightarrow 1$ for constants $c, c'$, so}
+                                           &\leq c\frac{1}{r-1}\log\left(\frac{1}{1-r}\right)
+\end{align*}
+so we have that $|F(r)| \geq c\frac{1}{r-1}\log\left(\frac{1}{1-r}\right)$ as desired.
+
+To start the next part, we have that
+\begin{align*}
+  |F(re^{i\theta})| &= \left|\sum_{n=1}^{\infty}\frac{r^{n}e^{2\pi pn/q}}{1-r^{n}e^{2\pi pn/q}}\right| \\
+                    &=\left|\sum_{n=1,q\mid n}^{\infty}\frac{r^{n}e^{2\pi pn/q}}{1-r^{n}e^{2\pi pn/q}} + \sum_{n=1,q\nmid n}^{\infty}\frac{r^{n}e^{2\pi pn/q}}{1-r^{n}e^{2\pi pn/q}}\right| \\
+                    &=\left|\sum_{n=1}^{\infty}\frac{r^{nq}}{1-r^{nq}} + \sum_{n=1,q\nmid n}^{\infty}\frac{r^{n}e^{2\pi pn/q}}{1-r^{n}e^{2\pi pn/q}}\right| \\
+                      \intertext{If we put $w_{p} = e^{2\pi p/q}$, since $w_{p}^{n} = w_{p}^{n+q}$this reduces to}
+                    &=\left|\sum_{n=1}^{\infty}\frac{r^{nq}}{1-r^{nq}} + \sum_{p=1}^{q-1}\sum_{n=1}^{\infty}\frac{r^{qn+p}w_{p}}{1-r^{qn+p}w_{p}}\right| \\
+                    &\geq \left|\sum_{n=1}^{\infty}\frac{r^{nq}}{1-r^{nq}}\right| - \left|\sum_{p=1}^{q-1}\sum_{n=1}^{\infty}\frac{r^{qn+p}w_{p}}{1-r^{qn+p}w_{p}}\right| \\
+                    &\geq c\frac{1}{1-r^{q}}\log\left(\frac{1}{1-r^{q}}\right) - \left|\sum_{p=1}^{q-1}\sum_{n=1}^{\infty}\frac{r^{qn+p}w_{p}}{1-r^{qn+p}w_{p}}\right| \\
+  \intertext{Let $c' = \min(1-r^{n}w_{p})$ for $r \in \R$, $1 \leq p \leq q-1$. Then, we have that this is nonzero, as the set of all points $1 - r^nw_p$ is a collection of lines in the complex plane, none passing through zero, as $w_{p}$ has nonzero imaginary part. Then,}
+                    &\geq c\frac{1}{1-r^{q}}\log\left(\frac{1}{1-r^{q}}\right) - \left|\sum_{p=1}^{q-1}\sum_{n=1}^{\infty}\frac{r^{qn+p}w_{p}}{1-r^{qn+p}w_{p}}\right| \\
+                    &\geq c\frac{1}{1-r^{q}}\log\left(\frac{1}{1-r^{q}}\right) - \sum_{p=1}^{q-1}\sum_{n=1}^{\infty}\left|\frac{r^{qn+p}w_{p}}{1-r^{qn+p}w_{p}}\right| \\
+                    &\geq c\frac{1}{1-r^{q}}\log\left(\frac{1}{1-r^{q}}\right) - \sum_{p=1}^{q-1}\sum_{n=1}^{\infty}\frac{1}{c'}\left|r^{qn+p}w_{p}\right| \\
+                    &\geq c\frac{1}{1-r^{q}}\log\left(\frac{1}{1-r^{q}}\right) - \sum_{p=1}^{q-1}\sum_{n=1}^{\infty}\frac{1}{c}r^{qn+p} \\
+                    &= c\frac{1}{1-r^{q}}\log\left(\frac{1}{1-r^{q}}\right) - \frac{1}{c'}\sum_{n=1}^{\infty}r^{n} \\
+                    &= c\frac{1}{1-r^{q}}\log\left(\frac{1}{1-r^{q}}\right) - \frac{1}{c'}\sum_{n=1}^{\infty}r^{n} \\
+                    &= c\frac{1}{1-r^{q}}\log\left(\frac{1}{1-r^{q}}\right) - \frac{1}{c'}\frac{1}{1-r} \\
+  \intertext{From L'Hopital twice applied to $\frac{1-r^{q}}{1-r}$ and $\frac{\log(r)}{\log(r^{q})}$, $\lim_{r \rightarrow 1}\frac{1}{1-r}\log\left(\frac{1}{r}\right) / \frac{1}{1-r^{q}}\log\left(\frac{1}{r^{q}}\right) = q$. Then, since this ratio is bounded near $r = 1$, we can get new constants $c'', c'''$ such that}
+                    &\geq c''\frac{1}{1-r}\log\left(\frac{1}{1-r}\right) - \frac{1}{c'}\frac{1}{1-r} \\
+                    &= c''\frac{1}{1-r}\left(\log\left(\frac{1}{1-r}\right) - \frac{1}{c'''}\right) \\
+  \intertext{Then, as $r \rightarrow 1$, we have that $\log\left(\frac{1}{1-r}\right) > \frac{1}{c'''}$, so we can conclude}
+                    &\geq c''\frac{1}{1-r}\log\left(\frac{1}{1-r}\right) \\
+\end{align*}
+
+
+\end{document}
+
+% LocalWords:  NetID fancyplain LocalWords colorlinks linkcolor linkbordercolor
+% LocalWords:  holomorphic

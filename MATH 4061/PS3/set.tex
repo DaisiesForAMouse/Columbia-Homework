@@ -48,113 +48,109 @@
     \import{./figures/}{#1.pdf_tex}
 }
 
-\title{MATH 4061 HW 2}
+\title{MATH 4061 HW 3}
 \author{David Chen, dc3451}
 
 \begin{document}
 
 \maketitle
 
-\section*{Ch 2, Q9}
+\section*{Ch 2, Q7}
+
 \subsection*{a}
 
-We have that any $p \in E^{\circ}$ is an interior point of $E$, by the definition of $E^{\circ}$. By the definition of interior point, there is some $r > 0$ such that $B_{r}^{\circ}(p) \subset E$. Take any point $q$ in $B_{r}^{\circ}(p)$, and note that we have $B_{r - d(p,q)}^{\circ}(q) \subset B_{r}^{\circ}(p)$, as any $x \in B_{r - d(p,q)}^{\circ}(q)$ satisfies that $d(x, q) < r - d(p,q) \implies d(x,q) + d(q,p) < r\implies d(x,p) < r \implies x \in B_{r}^{\circ}(p)$.
+First, we can show that $(E \cup F)' = E' \cup F'$. In the case that $p \in E'$ or $p \in F'$, then we have that for any $r > 0$, $(E \cup F) \cap B_{r}^{\circ}(b) = (E \cap B_{r}^{\circ}(b)) \cup (F \cap B_{r}^{\circ}(b))$, but the right hand side cannot be empty, or else $p \notin E', F'$. Then, we have that $p \in (E \cup F)'$. Thus, we have that $E' \cup F' \subseteq (E \cup F)'$.
 
-Then, we have that $q$ is also an interior point of $E$, so $q \in E^{\circ}$, so $B_{r}^{\circ}(p) \subset E^{\circ}$ so $E^{\circ}$ is open as every point in $E^{\circ}$ is an interior point of $E^{\circ}$.
+To show that $(E \cup F)' \subseteq E' \cup F'$, suppose we have some $p \in (E \cup F)'$, but $p \notin E', p \notin F'$. Then, we have some $r_{E} > 0$ such that $E \cup B_{r_{E}}^{\circ}(p) \setminus \{p\} = \emptyset$ and some $r_{F} > 0$ such that $E \cup B_{r_{F}}^{\circ}(p)  \setminus \{p\} = 0$ (otherwise, $p$ would be a limit point of $E$ or $F$). Then, we have that $r = \min(r_{E},r_{F})$, such that $(E \cup F) \cap B_{r}^{\circ}(p) \setminus \{p\}  = (E \cap B_{r}^{\circ}(p)  \setminus \{p\} ) \cup (F \cap B_{r}^{\circ}(p) \setminus \{p\} ) = \emptyset \cup \emptyset = \emptyset$. Then, clearly $p \notin (E \cup F)'$, $\contra$, and so $(E \cup F)' \subseteq E' \cup F'$.
+
+We can now show that $\overline{E \cup F} = \overline{E} \cup \overline{F}$, as we have that $\overline{E \cup F} = (E \cup F) \cup (E \cup F)' = (E \cup F) \cup (E' \cup F') = (E \cup E') \cup (F \cup F') = \overline{E} \cup \overline{F}$.
+
+Then, we can induct to show that $\overline{B} = \overline{\bigcup_{i=1}^{n}A_{i}} = \bigcup_{i=1}^{n}\overline{A}_{i}$. $n = 1$ is trivial. Then, if it holds for $n$, we have that
+\begin{align*}
+  \overline{\bigcup_{i=1}^{n+1}A_{i}} &= \overline{\bigcup_{i=1}^{n}{A}_{i} \cup A_{n+1}} \\
+  \intertext{By the first statement,}
+                                      &= \overline{\bigcup_{i=1}^{n}A_{i}} \cup \overline{A}_{n+1} \\
+  \intertext{By inductive hypothesis,}
+                                      &= \bigcup_{i=1}^{n}\overline{A}_{i} \cup \overline{A}_{n+1} \\
+                                      &= \bigcup_{i=1}^{n+1`}\overline{A}_{i}\\
+\end{align*}
+
+so we have that for any $n, \overline{B} = \overline{\bigcup_{i=1}^{n}A_{i}} = \bigcup_{i=1}^{n}\overline{A}_{i}$
 
 \subsection*{b}
 
-This is simply the definition of open sets; recall that $E$ is defined to be open if all of its points are internal points, so we have $(\implies)$ immediately from the definition, as $E$ open $\implies \forall p \in E$, $p$ is interior $\implies p \in E^{\circ}$, so $E^{\circ} \subset E$ and $E \subset E^{\circ}$, so $E = E^{\circ}$.
+If $p \in \bigcup_{i=1}^{\infty}\overline{A}_{i}$, then we have that we have some $A_{j}$ such that $p \in \overline{A}_{j}$. Then, we have two cases: if $p \in A_{j}$, then $p \in \bigcup_{i=1}^{\infty}A_{i} = B$. The second case is that $p \in A_{i}'$; then, for any $r > 0$, we have that $A_{j} \cap B_{r}^{\circ}(p) \setminus \{p\}  \neq \emptyset$, which gives that as $A_{j} \subset B$, $B \cap B_{r}^{\circ}(p) \setminus \{p\}  \neq \emptyset$, so $p \in B'$ as well, so $p \in \overline{B}$. In both cases, $p \in \overline{B}$, so $B \supset \bigcup_{i=1}^{\infty}A_{i}$.
 
-If $E^{\circ} = E$, then no point of $E$ is not an interior point by defintition of $(E^{\circ})$, so all $p \in E$ are interior points, so $E$ is open, so we get ($\impliedby$).
+\section*{Ch 2, Q9}
+\subsection*{d}
 
-\subsection*{c}
+We want to show that $(E^{\circ})^{c} = \overline{E^{c}}$.
 
-Since $G \subset E$, if $B_{r}^{\circ}(p) \subset G$, then $B_{r}^{\circ}(p) \subset E$, so any interior point of $G$ is an interior point of $E$ and therefore a member of $E^{\circ}$ (so $G^{\circ} \subset E^{\circ}$). But since $G$ is open, we have by the last part that $G = G^{\circ}$, so we have $G = G^{\circ} \subset E$.
+First, for any $p$, we have two cases. If $p \notin E$, then we have that since $E^{\circ} \subset E$, $p \notin E^{\circ} \implies p \in (E^{\circ})^{c}$. Similarly, we have that $\overline{E^{c}} = E^{c} \cup (E^{c})'$, so $p \in \overline{E^{c}}$, so we have that for $p \notin E$, $p \in (E^{\circ})^{c} \iff p \in \overline{E^{c}}$. Then, the only points which remain are the ones which are in $E$.
 
-\section*{Ch 2, Q11}
+Now, for $p \in E$, if $p \in (E^{\circ})^{c}$, then we have that $p$ is not an interior point of $E$; that is, for every $r>0$, $B_{r}^{\circ}(p) \not\subset E$, so $B_{r}^{\circ}(p) \setminus \{p\}$ contains some point not in $E$, which then is in $E^{c}$. Then, for any $r > 0$, we have that $E^{c} \cap B_{r}^{\circ}(p)  \setminus \{p\} \neq \emptyset$, so $p \in (E^{c})' \implies p \in \overline{E^{c}}$.
 
-$d_{1}(-1,1) = 2^{2} > 2 = d_{1}(-1,0) + d_{1}(0,1)$, so $d_{1}$ fails the triangle inequality.
+Further, for $p \in E$, if $p \in \overline{E^{c}}$, we have that for any $r > 0$, $E^{c} \cap B_{r}^{\circ}(p) \setminus \{p\} \neq 0$. This means that $B_{r}^{\circ}(p) \not\subset E$, as it contains some point in $E^{c}$,  and so $p$ is not an interior point of $E$, so $p \notin E^{\circ} \implies p \in (E^{\circ})^{c}$.
 
-For the rest of the problems, note that
+Since in both cases $p \in E$ and $p \notin E$, $p \in (E^{\circ})^{c} \iff p \in \overline{E^{c}}$, the two sets are equal.
+
+\subsection*{e}
+
+No: consider something like $E = \Q \subset \R$. Then, the closure of $E$ is $\R$ as $\Q$ is dense in the reals, but the interior of $\Q$ is empty, and the interior of $\R$ is $\R$ itself, which is definitely \textit{not} empty.
+
+\subsection*{f}
+
+Again no: consider the same example. $E = \Q$ has interior $\emptyset$, the closure of which is $\emptyset$, but the closure of $\Q$ is $\R$.
+
+\section*{Ch 2, Q10}
+
+For any $p, q \in X$, we have that if $p \neq q$, $d(p,q) = 1 > 0$ and if $p = q$, $d(p,q) = 0$ so it satisfies the property of a metric.
+
+Further,
 \[
-  |x - y| =
-  \begin{cases}
-    -(x - y) & x - y < 0 \\
-    x - y & x - y > 0 \\
-    0 & x - y = 0
-  \end{cases} =
-  \begin{cases}
-    y - x & y - x > 0 \\
-    -(y - x) & y - x < 0\\
-    0 & y - x = 0
-  \end{cases} =
-  |y - x|
+  d(q,p) = \begin{cases}
+    1 & q \neq p \\
+    0 & q = p
+  \end{cases}
+  = \begin{cases}
+    1 & p \neq q \\
+    0 & p = q
+  \end{cases}
+  = d(p,q)
 \]
+so $d$ is symmetric.
 
-This also shows $|x - y|$ satisfies $|x - y| = 0$ if $x = y$ and $|x - y| > 0$ otherwise.
+Lastly, $d(p,r) + d(r,q) \geq d(p,q)$ can be verified in a few cases.
+\begin{enumerate}
+  \item $d(p,q) = 0$. Since $d(p,r) \geq 0$, $d(r,q) \geq 0$ by the first property, we have that $d(p,r) + d(r,q) \geq 0 = d(p,q)$.
+  \item $d(p,q) = 1$. Then, we have that $p \neq q$, so we cannot have that both $r = p$ and $r = q$. In that case, we have at least one of $r \neq p$ or $r \neq q$, so $d(p,r) + d(r,q) \geq 1 = d(p,q)$.
+\end{enumerate}
 
-This immediately gives that $d_{2}$ is symmetric, and also $d_{2}(x,y) > 0$ for $x \neq y$ and $d_{2}(x,x) = 0$.
+Thus, $d$ is a metric.
 
-Then, we can check that the triangle inequality holds since
-\[
-  \sqrt{|x - y|} \leq \sqrt{|x - r|} + \sqrt{|r - y|} \iff |x-y| \leq |x-r| + |r-y| + 2\sqrt{|x-r||r-y}
-\]
+Every set is open. First, note that for any $p \in X$, $B_{\frac{1}{2}}^{\circ}(p) = \{q \in X \mid d(p,q) < \frac{1}{2}\}$. However, $d(p,q) < \frac{1}{2} \implies d(p,q) = 0 \implies p = q$, so $B_{\frac{1}{2}}^{\circ}(p) = \{p\}$. Now, consider $E \subseteq X$. Then, for any point $p \in E$, we have that $B_{\frac{1}{2}}^{\circ}(p) = \{p\} \subset E$, so $E$ is open.
 
-However, we know that $2\sqrt{|x-r||r-y|} \geq 0$, and Rudin shows that $|x-y|$ satisfies the triangle inequality earlier in the book, so the right hand side holds, so the left hand side holds, so $d_{2}$ is a valid metric.
+Every set is also closed. First, note that since every set is open, any $E \subset X$ has that $E^{c}$ is open, and so $E = (E^{c})^{c}$ is the complement of an open set, and is thus closed. Alternatively, note that there are no limit points, since for any $p \in E$, $B_{\frac{1}{2}}^{\circ}(p) \cap (E \setminus \{p\}) = \{p\} \cap (E \setminus \{p\}) = \emptyset$. Thus, every set contains all of its (none) limit points, and is therefore closed.
 
-For $d_{3}$, note that $d_{3}(1,-1) = |1^{2} - (-1)^{2}| = 0$, so $d_{3}$ is not a metric.
+Only sets of finite order are compact. To see this, we can clearly give a finite subcover of any finite set. Let $E = \bigcup_{\alpha \in A}G_{\alpha}$ for some indexing set $A$. Then, since $E$ is finite (say with order $n$), we can select for each $p_{i} \in E$ that $p_{i} \in G_{\alpha_{i}}$ for some $\alpha_{i} \in A$ (if no such $\alpha_{i}$ exists, then $\bigcup_{\alpha \in A}G_{\alpha}$ does not contain $p$ and is thus not an open cover of $E$). Then, we have that $\bigcup_{i=1}^{n}G_{\alpha_{i}}$ contains every $p_{i} \in E$, so we have a finite subcover of $E$.
 
-For $d_{4}$, note that $d_{4}(1, 1 / 2) = |1 - 1| = 0$, so $d_{4}$ is not a metric.
+Furthermore, we can give an open cover of any infinite set that contains no finite subcover. In particular, consider for any infinite set $E \subseteq X$ the open cover $\bigcup_{p \in E}\{p\}$. Any finite subcover $\bigcup_{i=1}^{n}\{p_{i}\}$ has finite order, as it is the finite union of finite sets, and so $E$ cannot be a subset of $\bigcup_{i=1}^{n}\{p_{i}\}$, as $E$ is infinite. Thus, this open cover admits no finite subcover so no infinite set can be compact.
 
-Since we know that $|x-y|$ is symmetric, we have that $\frac{|x-y|}{1 + |x-y|} = \frac{|y-x|}{1 + |y-x|}$, and since $|x-y| > 0$ for $x\neq y$, and $1 + |x - y| > 1$, $d_{5}(x,y) > 0$ for $x \neq y$. Similarly, we have that $d_{5}(x,x) = 0 / 1 = 0$.
+\section*{Ch 2, Q12}
 
-The last thing to check is the triangle inequality: we have that in general, for some metric $d(x,y)$, we have that
-\begin{align*}
-  \frac{d(x,y)}{1+d(x,y)} &\leq \frac{d(x,r)}{1+d(x,r)} + \frac{d(r,y)}{1+d(r,y)} \\
-  \intertext{Multiplying by $(1+d(x,y))(1+d(x,r))(1+d(t,y)) > 0$,}
-  d(x,y)(1+d(x,r))(1+d(r,y)) &\leq d(x,r)(1+d(x,y))(1+d(r,y)) + d(r,y)(1+d(x,y))(1+d(x,r)) \\
-  \intertext{Expanding,}
-  d(x,y) + d(x,y)d(x,r) + d(x,y)d(r,y) &\\
-  + d(x,y)d(x,r)d(r,y) &\leq d(x,r) + d(x,y)d(x,r) + d(x,r)d(r,y) + d(x,y)d(x,r)d(r,y) \\
-                            &+ d(r,y) + d(x,y)d(r,y) + d(x,r)d(r,y) + d(x,y)d(x,r)d(r,y) \\
-  \intertext{Which finally leaves us with}
-  d(x,y) &\leq d(x,r) + d(r,y) + 2d(x,r)d(r,y) + 2d(x,y)d(x,r)d(r,y) \\
-\end{align*}
-Since we have that $d(x,y) \leq d(x,r) + d(r,y)$ since $d(x,y)$ is a metric, and $d(x,r), d(r,y)$ are positive, so the last inequality holds we have that $\frac{d(x,y)}{1+d(x,y)}$ obeys the triangle inequality. In particular, taking $d(x,y) = |x-y|$, which was shown to be an metric earlier in the book, shows that $d_{5}$ obeys the triangle inequality and is thus a metric.
+Suppose that we have an open cover such that $K \subset \bigcup_{\alpha \in A}G_{\alpha}$ for some indexing set $A$. Then, there is some $G_{\alpha_{0}}$ for $\alpha_{0} \in A$ such that $0 \in G_{\alpha_{0}}$. Then, since $G_{\alpha_{0}}$ is open, we have that there is some $r > 0$ such that $B_{r}^{\circ}(0) \subset G_{\alpha_{0}}$.
 
-\section*{Ch 2, Q22}
+Then, for $n \in \N$, $n > 1/r \implies 1/n < r \implies 1/n \in G_{\alpha_{0}}$. Let $N$ be the greatest natural such that $N \leq 1/r$. Then, for $1 \leq n \leq N$, we know that $\exists$ some $G_{\alpha_{n}}$ such that $\alpha_{n} \in A$ and $1/n \in G_{\alpha_{n}}$, since $\bigcup_{\alpha \in A}G_{\alpha}$ is an open cover of a set containing $1/n$. Then, we have that $\bigcup_{i=0}^{N}G_{\alpha_{i}}$ is a finite subcover of $K$, as $0 \in G_{\alpha_{0}}$, and for any $n \in N$, we have that either $n > 1/r \implies 1/n \in G_{\alpha_{0}}$ or $n \leq 1/r \implies 1/n \in G_{\alpha_{n}}$.
 
-We can show that $\Q^{k} \subset \R^{k}$ is dense. In particular, we already know this for $k = 1$, and we can use that to bootstrap to $k$ dimensions. For any $r > 0$ and $p = (p_{1}, p_{2}, \dots, p_{k})\in \R^{k}$, we can see that for any point $q = (q_{1},q_{2},\dots,q_{k}) \in B_{r}^{\circ}(p)$, $q$ satisfies the condition that
-\[
-  \left(\sum_{i=1}^{k}(p_{i} - q_{i})^{2}\right)^{\frac{1}{2}} < r \iff \sum_{i=1}^{k}(p_{i} - q_{i})^{2} < r^{2}
-\]
+\section*{Ch 2, Q25}
 
-Then, we have that we if can take $q_{i}$ such that $(p_{i} - q_{i})^{2} < \frac{r^{2}}{k}$ for each $1 \leq i \leq k$, then $q \in B_{r}^{\circ}(p)$. However, since there is a rational between any two real numbers, as shown in chapter one, we have that $\exists q_{i}$ rational in the interval $(p_{i} - r / \sqrt{k}, p_{i} + r / \sqrt{k})$, which then satisfies $(p_{i} - q_{i})^{2} < \frac{r^{2}}{k}$, so these $q_{i}$ satisfy $q \in B_{r}^{\circ}(p)$, and $q \in \Q^{k}$, so $\Q^{k}$ is dense in $\R^{k}$.
+For every $n \in \N$, consider the open cover of $K$, $\bigcup_{p \in K}B_{\frac{1}{n}}^{\circ}(p)$. Then, since $K$ is compact, there is some finite collection $\{p_{n_{i}}\}$ such that $\bigcup_{i=1}^{m_{n}}B_{\frac{1}{n}}^{\circ}(p_{n_{i}})$ is an open cover of $K$. Then, we have for each $n$ some finite associated collection of sets $E_{n} = \{B_{\frac{1}{n}}^{\circ}(p_{n_{i}})\}_{i=1}^{m_{n}}$. We know that as the countable union of finite sets, $\bigcup_{n=1}^{\infty}E_{n}$ is countable itself.
 
-We know that this is countable since the is the finite Cartesian product of a countable set, which was shown to be countable in class.
+We can check that $\bigcup_{n=1}^{\infty}E_{n}$ is a base for $K$: for every $p \in K$ and open $G \subset K$ that contains $p$, we have that since $G$ is open, there is some $r > 0$ such that $B_{r}^{\circ}(p) \subset G$. Then, there is some $n > 2/r \implies 1/n < \frac{r}{2}$; consider now $E_{n}$, which is an open cover of $K$, and thus also an open cover of $B_{r}^{\circ}(p)$. Therefore, we must have some $B_{\frac{1}{n}}^{\circ}(p_{n_{i}}) \in E_{n}$ such that $p \in B_{\frac{1}{n}}^{\circ}(p_{n_{i}})$. However, for any $q \in B_{\frac{1}{n}}^{\circ}(p_{i})$, we have that $d(p,q) \leq d(p,p_{n_{i}}) + d(p_{n_{i}}, q) \leq \frac{1}{n} + \frac{1}{n} < r$, so $p \in B_{\frac{1}{n}}^{\circ}(p_{n_{i}}) \subset B_{r}^{\circ}(p) \subset G$, so we have that $E_{n}$ is a countable base for $K$.
 
-\section*{Ch 2, Q23}
+To conclude that $K$ is separable, note that having a countable basis is sufficient to show that a set is separable. To see this, we can construct a countable dense subset of $K$ from a countable basis $\{V_{\alpha}\}_{\alpha \in A}$ where $A$ is some countable index set. In particular, select one point $p_{\alpha}$ from every $V_{\alpha}$. The set of all $\{p_{\alpha}\}_{\alpha \in A}$ is a countable dense subset; to see this, we need to show that every point $p \in K$ is a limit point of $E = \{p_{\alpha}\}_{\alpha \in A}$ or in $E$.
 
-Since $X$ is seperable, we know that it contains a dense subset. Call this dense subset $E$. Consider the set
-\[
-  \{V_{\alpha}\} := \{B_{r}^{\circ}(p) \mid r \in \Q \setminus \{0\}, p \in E\}
-\]
-
-First, we can show that this is countable; consider the function that maps $f: \{V_{\alpha}\} \rightarrow \Q \setminus \{0\} \times E$ defined by $B_{r}^{\circ}(p) \mapsto (r, p)$. This is easily a bijection; if $f(B_{r}^{\circ}(p)) = f(B_{r'}^{\circ}(p')) \implies r = r', p = p'$, then $B_{r}^{\circ}(p) = B_{r'}^{\circ}(p)$ as sets; similarly, every $(r, p)$ is hit by the open set $B_{r}^{\circ}(p)$, so $f$ is surjective and injective. Since $\{V_{\alpha}\}$ is bijective to the Cartesian product of countable sets, it itself is countable.
-
-To see that it is a base, consider any open $G \subset X$. Then, pick any $x \in G$. In particular, since we have that $G$ is open, for some real $r > 0$, $B_{r}^{\circ}(x) \subset G$ as $x$ is an interior point. Further, since $E$ is a dense subset of $X$, $x$ is a limit point of $E$ so by definition, $B_{r/2}^{\circ}(x)$ contains some $p \in E$. Then, since there is a rational between any two real numbers, we have some $r'$ rational in the interval $(d(x,p), r / 2)$, so $B_{r'}^{\circ}(p)$ contains $x$. Then, we also have that $B_{r'}^{\circ}(p) \subset B_{r}^{\circ}(x)$, as for any $y$, $d(x, y) \leq d(x,p) + d(p,y) < r/2 + r/2 = r$. Since we have that $B_{r'}^{\circ}(p)$ is in $\{V_{\alpha}\}$, we have that $\{V_{\alpha}\}$ is a countable base for $X$.
-
-\section*{Ch 2, Q24}
-
-We can construct a countable dense subset of $X$. First, fix some $\delta > 0$, and pick any arbitrary $x_{1} \in X$. Then, given $x_{1}, \dots, x_{j}$, we choose $x_{j+1}$ such that $d(x_{j+1}, x_{i}) \geq \delta$ for $1 \leq i \leq j$, until no such element exists anymore. This cannot go on forever; if it did, we would have an infinite subset of $X$, $X' = \{x_{1}, x_{2}, \dots \}$ such that for any $p \in X$, $B_{\delta / 2}^{\circ} (p) \cap (X' \setminus \{ p \})$ is either $\emptyset$ or $\{x_{i}\}$ for some $i \in J$. If there are two distinct elements $x_{i,1}, x_{i,2} \in B_{\delta / 2}^{\circ} (p) \cap (X' \setminus \{ p \})$, then $d(x_{i,1}, x_{i,2}) \leq d(x_{i,1}, p) + d(p, x_{i,2}) < \delta$, so $\contra$. In the first case that $B_{\delta / 2}^{\circ} (p) \cap (X' \setminus \{ p \}) = \emptyset$, then $p$ is not a limit point of $X'$. In the second case that $B_{\delta / 2}^{\circ} (p) \cap (X' \setminus \{ p \}) = \{x_{i}\}$, then we have that $B_{d(p, x_{i})}^{\circ} (p) \cap (X' \setminus \{ p \}) = \emptyset$, which still shows that $p$ is not a limit point of $X'$. Either way, no point can be a limit point of $X'$, so the sequence cannot go on forever.
-
-Now, for any given $\delta > 0$, denote a sequence constructed by the above process as $X_{\delta}$, and consider the set
-\[
-  E = \bigcup_{n=1}^{\infty} X_{1/n}
-\]
-
-As the countable union of finite sets, we have that $E$ itself is countable, as shown in class. Now, given any $x \in X$ and $r > 0$, we have that there is some rational $p / q$ such that $0 < p / q < r$. Then, consider $X_{1/q} \subset E$. The intersection $B_{r}^{\circ}(x) \cap (X_{1/q} \setminus \{x\})$ must be nonempty. If it were empty, then we have that there are no elements of $X_{1/q}$ within $r > 1/q$ of $x$; however, since the construction of $X_{1/q}$ only terminates once we have no choices of $x_{j+1}$ such that $d(x_{j+1}, x_{i})$ for $1 \leq i \leq j$, and this $x$ would be a suitable choice of $x_{j+1}$, we have $\contra$, and so the intersection is empty. This gives that any point of $X$ is a limit point of $E$, so $E$ is dense in $X$.
+We have two choices for $p \in K$. Either $p \in E$ or $p \notin E$; in the first case, we are immediately done. In the second case, for any $r > 0$, we have that $B_{r}^{\circ}(p)$ contains some $p_{\alpha} \in E$ where $p_{\alpha} \neq p$, as $V_{\alpha} \subset B_{r}$ for some $\alpha$ by the definition of base (as $B_{r}^{\circ}(p)$ is a nonempty open set), and $p_{\alpha} \in V_{\alpha}$ by construction. Then, $B_{r}^{\circ}(p) \cap (E \setminus{p}) \neq \emptyset$ and $p$ is a limit point of $E$, so $\overline{E} = K$, so $E$ is a countable dense subset of $K$.
 
 \end{document}
 % LocalWords:  NetID fancyplain LocalWords colorlinks linkcolor linkbordercolor

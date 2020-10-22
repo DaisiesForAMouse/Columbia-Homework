@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   sodipodi:docname="parte.svg"
+   width="100mm"
+   height="100mm"
+   viewBox="0 0 100 100"
+   version="1.1"
+   id="svg4652"
+   inkscape:version="1.0 (4035a4fb49, 2020-05-01)">
+  <defs
+     id="defs4646">
+    <inkscape:path-effect
+       length-right="20"
+       length-left="20"
+       lpeversion="1"
+       is_visible="true"
+       id="path-effect1981"
+       effect="perp_bisector" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="3.959798"
+     inkscape:cx="207.6672"
+     inkscape:cy="95.984388"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     inkscape:document-rotation="0"
+     showgrid="false"
+     inkscape:window-width="1920"
+     inkscape:window-height="1020"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata4649">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       id="path1977"
+       d="m 31.580945,20.383769 h 40"
+       style="fill:none;stroke:#000000;stroke-width:0.193625px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <path
+       inkscape:original-d="m 31.580945,20.383769 h 40"
+       inkscape:path-effect="#path-effect1981"
+       style="fill:none;stroke:#000000;stroke-width:0.193625px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 51.580945,0.383769 v 40"
+       id="path1979" />
+    <path
+       id="path2001"
+       d="M 33.894201,32.850709 64.088372,3.1862212"
+       style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <path
+       id="path2003"
+       d="m 51.620602,15.43364 h 7.865919 V 7.7548617"
+       style="fill:none;stroke:#000000;stroke-width:0.26499999;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:0.26499999,0.26499999;stroke-dashoffset:0" />
+    <text
+       id="text2007"
+       y="14.765988"
+       x="47.769341"
+       style="font-size:3.175px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';stroke-width:0.264583"
+       xml:space="preserve"><tspan
+         style="stroke-width:0.264583"
+         y="14.765988"
+         x="47.769341"
+         id="tspan2005"
+         sodipodi:role="line">$\real(b)$</tspan></text>
+    <text
+       id="text2011"
+       y="17.200516"
+       x="55.07357"
+       style="font-size:3.175px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';stroke-width:0.264583"
+       xml:space="preserve"><tspan
+         style="stroke-width:0.264583"
+         y="17.200516"
+         x="55.07357"
+         id="tspan2009"
+         sodipodi:role="line">$\imag(a)</tspan></text>
+    <text
+       id="text2015"
+       y="11.581985"
+       x="64.016403"
+       style="font-size:3.175px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';stroke-width:0.264583"
+       xml:space="preserve"><tspan
+         style="stroke-width:0.264583"
+         y="11.581985"
+         x="64.016403"
+         id="tspan2013"
+         sodipodi:role="line">$\real(a)$</tspan></text>
+  </g>
+</svg>

@@ -1,0 +1,142 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{relsize}
+\usepackage{fancyvrb}
+\usepackage{import}
+\usetikzlibrary{shapes.geometric,fit}
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+\theoremstyle{definition}
+\newtheorem*{statement}{Statement}
+\newtheorem*{claim}{Claim}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+
+\newcommand{\contra}{\Rightarrow\!\Leftarrow}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Zeq}{\mathbb{Z}_{\geq 0}}
+\newcommand{\Zg}{\mathbb{Z}_{>0}}
+\newcommand{\Req}{\mathbb{R}_{\geq 0}}
+\newcommand{\Rg}{\mathbb{R}_{>0}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+
+\newcommand{\incfig}[1] {%
+    % \def\svgwidth{\columnwidth}
+    \import{./figures/}{#1.pdf_tex}
+}
+
+\title{MATH 4061 HW 4}
+\author{David Chen, dc3451}
+
+\begin{document}
+
+\maketitle
+
+\section*{1}
+
+Note the reverse triangle inequality: $||x| - |y|| \leq |x - y|$, which follows immediately from the normal triangle inequality with $z = x - y$:
+\[
+  |z + y| \leq |z| + |y| \implies |x| \leq |x-y| - |y| \implies |x| - |y| \leq |x-y|
+\]
+
+Then, we have that if a sequence converges normally to $s$, then for every $\epsilon > 0$ there is some $N$ that for any $n > 0$, $|s_{n} - s| < \epsilon$, but the reverse triangle inequality then gives $||s_{n}| - |s|| < |s_{n} - s| < \epsilon$, so $\{|s_{n}|\}$ must also converge to $|s|$.
+
+The converse is not true; $\{(-1)^{n}\}_{n=1}^{\infty}$ does not converge (this is apparent with $\epsilon = 1$), but $\{|(-1)^{n}|\}_{n=1}^{\infty} = \{1\}_{n=1}^{\infty}$ does converge to 1.
+
+\section*{3}
+
+We will use that $\sqrt{x} > \sqrt{y} \iff x > y$ for positive $x,y$, which is something shown way earlier in the course.
+
+We can actually show that the sequence $\{s_{n}\}_{n=1}^{\infty}$ is monotonic and bounded. In particular, we can show for any $n$ that $0 < s_{n} < s_{n+1} < 2$. To see this, induct on $n$; the base case $n = 1$ is obvious, as $0 < \sqrt{2} < \sqrt{2 + \sqrt{2}} < \sqrt{4}$, as we have that $0 < \sqrt{2} < 2$. Then, if this holds for some $n$, we have that we have that
+\[
+  0 < s_{n} < s_{n+1} < 2 \implies 0 < 2 + \sqrt{s_{n}} < 2 + \sqrt{s_{n+1}} < 2 + 2 \implies 0 < s_{n+1}^{2} < s_{n+2}^{2} < 2^{2}
+\]
+which finally gives that $0 < s_{n+1} < s_{n+2} < 2$ since every term of the sequence is positive as the square root of a real number, which shows the inequality for $n+1$. By induction, this shows it for all integers $\geq 1$, and since every monotonic and bounded sequence converges, this sequence also converges and is bounded above by 2.
+
+\section*{16}
+\subsection*{a}
+
+Consider that
+\[
+  x_{n+1} - x_{n} = \frac{1}{2}\left(x_{n} + \frac{\alpha}{x_{n}}\right) - x_{n} = \frac{1}{2}\left(\frac{\alpha}{x_{n}} - x_{n}\right) = \frac{\alpha - x_{n}^{2}}{2x_{n}}
+\]
+but $x_{n} > \sqrt{\alpha} \implies x_{n}^{2} > \alpha$, so we get that $\frac{\alpha - x_{n}^{2}}{2x_{n}} = x_{n+1} - x_{n} < 0$, so $x_{n}$ monotonically decreases. Furthermore, have that
+\[
+  x_{n+1} - \sqrt{\alpha} = \frac{1}{2}\left(x_{n} + \frac{\alpha}{x_{n}}\right) - \alpha = \frac{1}{2}\left(x_{n} - 2\sqrt{\alpha} + \frac{\alpha}{x_{n}}\right) = \frac{1}{2}\left(\sqrt{x_{n}} - \frac{\sqrt{\alpha}}{\sqrt{x_{n}}}\right)^{2} > 0
+\]
+so every term satisfies $x_{n} > \sqrt{\alpha}$ (the only one this does not cover is $x_{1}$, but this is explicitly chosen greater than $\sqrt{\alpha}$).
+
+Then this sequence converges to some limit as it is monotone and bounded. Fix some $\epsilon > 0$. Since the sequence converges, say to $L$, there is some $N$ such that for $n \geq N$, $|x_{n} - L| < \epsilon / 2$. Then, we have that
+\[
+  |x_{n+1} - x_{n} + (L - L)| \leq |x_{n} - L| + |x_{n+1} - L| < \epsilon
+\]
+so we have that $x_{n+1} - x_{n}$ converges to $L - L = 0$. Then, since $x_{n+1} - x_{n} = \frac{1}{2}\left(\frac{\alpha}{x_{n}} - x_{n}\right)$ as computed above, we have that
+\[
+  0 = \lim_{n \rightarrow \infty} \frac{1}{2}\left(\frac{\alpha}{x_{n}} - x_{n}\right) = \frac{1}{2}\left(\lim_{n \rightarrow \infty} \frac{\alpha}{x_{n}} - \lim_{n \rightarrow \infty}x_{n}\right) = \frac{1}{2}\left(\frac{\alpha}{L} - L\right)
+\]
+so $L = \frac{\alpha}{L} \implies L^{2} = \alpha \implies L = \sqrt{\alpha}$ since we have that $L > 0$ as the limit of a strictly positive sequence.
+
+\subsection*{b}
+
+If we put $\epsilon_{n} = x_{n} - \sqrt{a}$, we computed in the last part that $x_{n+1} - \sqrt{\alpha} = \frac{1}{2}\left(\sqrt{x_{n}} - \frac{\sqrt{\alpha}}{\sqrt{x_{n}}}\right)^{2}$, so
+\[
+  e_{n+1} = x_{n+1} - \sqrt{\alpha} = \frac{1}{2}\left(\sqrt{x_{n}} - \frac{\sqrt{\alpha}}{\sqrt{x_{n}}}\right)^{2} = \frac{1}{2}\left(\frac{x_{n} - \sqrt{\alpha}}{\sqrt{x_{n}}}\right)^{2} = \frac{\epsilon_{n}^{2}}{2x_{n}} < \frac{\epsilon_{n}^{2}}{2\sqrt{a}}
+\]
+
+Then, inducting on $n$, we can show that $e_{n+1} < \beta\left(\frac{\epsilon_{1}}{\beta}\right)^{2^{n}}$ where $\beta = 2\sqrt{\alpha}$. In particular, for $n = 1$, we have that $\epsilon_{2} < \frac{\epsilon_{1}^{2}}{\beta}$, which is the same statement as in the last step. Then, if this holds for some $n$, then
+\[
+  \epsilon_{n+2} < \frac{\epsilon_{n+1}^{2}}{\beta} < \frac{(\beta \left(\epsilon_{1} / \beta\right)^{2^{n}})^{2}}{\beta} = \beta \left(\frac{\epsilon_{1}}{\beta}\right)^{2^{n+1}}
+\]
+which was what we wanted.
+
+\subsection*{c}
+
+As before, we have that $\epsilon_{1}/\beta = (2 - \sqrt{3})/(2\sqrt{3}) = \frac{1}{\sqrt{3}} - \frac{1}{2} = \frac{2\sqrt{3} - 3}{6}$. However, we have that $1.5 < \sqrt{3} < 1.8$ since $1.5^{2} < 3 < 1.8^{2}$, so $0 < \epsilon_{1}/\beta < \frac{0.6}{6} = \frac{1}{10}$. Thus, since $\beta = 2\sqrt{3}$ and $\sqrt{3} < 2$, $\beta < 4$, so we have that
+\begin{align*}
+  \epsilon_{5} &< \beta 10^{-2^{4}} < 4 \cdot 10^{-16} \\
+  \epsilon_{6} &< \beta 10^{-2^{5}} < 4 \cdot 10^{-32} \\
+\end{align*}
+
+\section*{20}
+
+Fix $\epsilon > 0$. The sequence is Cauchy, so we have that for $\epsilon/2 > 0$, there is some $N$ such that $m,n \geq N \implies d(x_{m}, x_{n}) < \epsilon/2$. Similarly, we have that since the subsequence $\{p_{n_{i}}\}$ converges, $d(p, p_{n_{k}}) < \epsilon / 2$ for $k \geq K$ for some $K$. Let $p_{n_{K}}$ be the $M$ term in the original sequence. Then, take $N' = \max(N, M)$, so we have that for $n > N'$,
+\[
+  d(p, p_{n}) \leq d(p, p_{M}) + d(p_{M}, p_{n}) < \epsilon/2 + \epsilon/2 = \epsilon
+\]
+
+\section*{21}
+
+Consider the following sequence: pick $p_{n}$ such that $p_{n} \in E_{n}$. Then, we have that each $E_{n}$ contains infinite points in the sequence, namely the subsequence starting that the $n^{th}$ index $p_{n}, p_{n+1}, \dots$, which was shown earlier in the book to be Cauchy if and only if $\lim_{n \rightarrow \infty}\text{diam}\{p_{i}\}_{i=n}^{\infty} = 0$. In particular, since we have that $\{p_{i}\}_{i=1}^{\infty} \subset E_{n}$, we have that $\text{diam}\{p_{i}\}_{i=n}^{\infty} \leq \text{diam}E_{n},$ so
+\[
+  \lim_{n \rightarrow \infty}\text{diam}E_{n} = 0 \implies \lim_{n \rightarrow \infty}\text{diam}\{p_{i}\}_{i=n}^{\infty} = 0
+\]
+so the sequence is Cauchy. Then, since the metric space is complete, this is convergent to some point $p$, but since each $E_{n}$ contains a subsequence $\{p_{i}\}_{i=n}^{\infty}$ which converges to $p$ \textit{and} $E_{n}$ is closed and nonempty, we have that $p$ is a limit point of $E_{n}$, and so $p \in E_{n}$ for every $n$. Thus, the intersection $\bigcap_{i=1}^{\infty}E_{i}$ is nonempty, as it contains at least $p$.
+
+Then, if $E = \bigcap_{i=1}^{\infty} E_{i}$ contains more than one distinct point, say $p_{1}, p_{2} \in E$ and $p_{1} \neq p_{2}$, then $\text{diam}E \geq d(p_{1}, p_{2}) > 0$. But since $E \subset E_{n}$ for any $E_{n}$, this means that $\lim_{n \rightarrow \infty}\text{diam} E_{n} \geq \text{diam} E \geq d(p_{1}, p_{2}) > 0$, so $\contra$. Thus, the intersection contains exactly one point.
+
+
+\end{document}
+% LocalWords:  NetID fancyplain LocalWords colorlinks linkcolor linkbordercolor

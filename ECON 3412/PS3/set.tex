@@ -1,0 +1,415 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{fancyvrb}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{relsize}
+\usepackage{fancyvrb}
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{import}
+\usetikzlibrary{shapes.geometric,fit}
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+\theoremstyle{definition}
+\newtheorem*{statement}{Statement}
+\newtheorem*{claim}{Claim}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+
+\newcommand{\contra}{\Rightarrow\!\Leftarrow}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Zeq}{\mathbb{Z}_{\geq 0}}
+\newcommand{\Zg}{\mathbb{Z}_{>0}}
+\newcommand{\Req}{\mathbb{R}_{\geq 0}}
+\newcommand{\Rg}{\mathbb{R}_{>0}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\Var}{Var}
+
+\newcommand{\incfig}[1] {%
+    % \def\svgwidth{\columnwidth}
+    \import{./figures/}{#1.pdf_tex}
+}
+
+\title{ECON 3412 HW 3}
+\author{David Chen, dc3451}
+
+\begin{document}
+
+\maketitle
+% \today
+
+\section*{Problem 1}
+
+Note: throughout this problem, I refer to the share of income of the bottom quintile. What I \textit{really} mean is the proportional rate at which that share of income varies with national income, but that is a long phrase to write, so I just put the shorter ``share of income'' to represent that, even though different income distributions can still admit the same $\alpha_{1}$, as long as they increase the income of the bottom quintile in the same proportion as national income.
+
+\subsection*{a}
+
+The corresponding $t-$statistic here is
+\[
+  t = \frac{\hat{\alpha_{1}} - 1}{SE(\hat{\alpha_{1}})} = \frac{1.072 - 1}{0.025} = 2.88
+\]
+
+Then, the corresponding $p-$value is $\approx 2(1-\Phi(2.88)) = 0.00397 < 0.05$, so we can actually reject that $\alpha_{1} = 1$.
+
+\subsection*{b}
+
+The $95\%$ confidence interval is $\hat{\alpha_{1}} \pm \Phi^{-1}(0.975)SE(\hat{\alpha_{1}}) = 1.072 \pm 1.96(0.025) = (1.023, 1.121)$.
+
+\subsection*{c}
+
+So, we have that there are multiple things that are correlated with the per capita income of a country that affect the distribution of income within the country. For example, poorer countries might expect to see higher levels of government corruption, and as a result more of national income accrues to government officials and their friends, which diminishes the share of income accruing to the bottom quintile. Another example could be something like the fact that poorer countries tend to have labor intensive sectors, meaning that potentially low-income laborers might take a larger share of the income than in richer nations, with their share rising faster than the national income.
+
+\subsection*{d}
+
+\begin{itemize}
+  \item Trade Volumes: a proxy of openness, which might see trade income which probably accrues in the hands of wealthier people, although high trade volumes might create more jobs for lower income manufacturing/farming/etc, so the actual effect of trade volume is hard to say theoretically.
+  \item Inflation: might be a proxy of government economic policy stability (and economic stability in general), and as a result countries experiencing high inflation means that the poor in the country feel it the most and thus lower the income of the bottom quintile.
+  \item Government Consumption: higher government consumption is roughly direct to how much the government takes in taxes, which diminishes the income of lower-income people.
+  \item Financial Development: a proxy for how well connected a nation is to international markets, and how efficient the nation's financial market is. In particular, we might expect that more developed financial markets would result in higher incomes for everyone.
+  \item Rule of Law: poorer countries might expect to see higher levels of government corruption, and as a result more of national income accrues to government officials and their friends, which diminishes the share of income accruing to the bottom quintile.
+\end{itemize}
+
+\subsection*{e}
+
+We have that in this case $t = \frac{1.140 - 1}{0.101} = 1.386 < 1.96$, so we can no longer reject the null that $\alpha_{1} = 1$ at the $95\%$ significance level.
+
+\subsection*{f}
+
+Plenty: amount of the population in manufacturing/farming industries, main type of exports, religious extremity, capital intensity. These all can determine the proportional income of the bottom quintile relative to the overall country income. For example, countries with high amounts of capital intensity might expect to see larger amount of income accrue to the wealthier classes, with little of the national income going to the bottom quintile. Similarly, highly religious nations might see that religious minorities are extremely poor, decreasing the share of income of the bottom quintile.
+
+\section*{Problem 2}
+
+If the $t-$statistics are independent of each other, then the odds of rejecting any given one of $\beta_{i} = 0$ is the likelihood that a $t-$statistic exceeds $1.96$ given the real mean is $0$ is $2(1 - F_{d}(1.96))$ where $F_{d}$ is the CDF of the $t$-distribution with $d$ degrees of freedom. In particular, if $d$ is large, then $F \approx \Phi$, the CDF of the standard normal distribution. In this case, we can compute $2(1 - \Phi(1.96)) = 0.05$.
+
+Then, the odds of the null being rejected is the complement of the probability that no $t$-statistic exceeds $1.96$. This latter quantity, the probability that no $t$-statistic exceeds $1.96$, is $(1 - 2(1-F_{d}(1.96)))^{3}$, which evaluates to $(1 - 0.05)^{3} = 0.857$ if $d$ is large. Then, the odds of the null being rejected is $1 - (1 - 2(1-F_{d}(1.96)))^{3}$, which comes out to $0.142$ if $d$ is large.
+
+\section*{Problem 3}
+
+A control variable is a variable included in the regression to account for omitted causal factors. Usually, these omitted causal factors are things that are hard to measure, and the control is something that is correlated with these causal factors, but is not causal by itself. This removes the omitted variable bias when done properly, ensuring that $E(u_{i} \mid X) = 0$ where $X$ is some causal variable of interest.
+
+An example of a control variable might be something like including multiple dummy variables indicating race in an regression that seeks to determine something like the causal impact of an individual's neighborhood's population density on SAT math scores. In particular, being black or hispanic or Asian or white or Amerindian etc. doesn't inherently make you worse at standardized testing (in particular, probably not on the math score; in other sections, things literature excerpts being white-skewed might actually do something like that), but it is a proxy for racial discrimination in education. Further, since black and hispanic people are more concentrated in urban areas, it is likely that the magnitude of the coefficient of the population density will be overestimated relative to its true causal effect. In this case, since it is hard to actually quantify racial discrimination in education succinctly, we can simply introduce dummy variables for race to control for that omitted causal factor.
+
+\section*{Problem 4}
+\subsection*{a}
+
+We get that
+\begin{Verbatim}[fontsize=\small]
+> summary(lm(course_eval ~ beauty, data = read_dta("TeachingRatings.dta")))
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)
+(Intercept)  3.99827    0.02535 157.727  < 2e-16 ***
+beauty       0.13300    0.03218   4.133 4.25e-05 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.5455 on 461 degrees of freedom
+Multiple R-squared:  0.03574,	Adjusted R-squared:  0.03364
+F-statistic: 17.08 on 1 and 461 DF,  p-value: 4.247e-05
+\end{Verbatim}
+Then, we have that $R^{2} = 0.03574, \overline{R}^{2} = 0.03364$, so we have that this regression explains $3.574\%$ of the variance that we see in course evaluations.
+
+\subsection*{b}
+
+We get that
+\begin{Verbatim}[fontsize=\small]
+> eval_beauty_age <- lm(course_eval ~ beauty + age,
+                        data = read_dta("TeachingRatings.dta"))
+> waldtest(eval_beauty_age, vcov = vcovHC(eval_beauty_age, type = "HC1"))
+Wald test
+
+Model 1: course_eval ~ beauty + age
+Model 2: course_eval ~ 1
+  Res.Df Df      F    Pr(>F)
+1    460
+2    462 -2 8.8965 0.0001619 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+\end{Verbatim}
+We will use $F_{d, \infty}$ for the rest of the problem, since the amount of observations is large. Then, we have that $F = 8.8965$, and the critical value for $F_{2,\infty}$ is (in \verb|R|) \verb|qf(0.99, 2, Inf) = 4.60|, so we reject the null that the coefficients are jointly insignificant at the $1\%$ level.
+
+\subsection*{c}
+
+We get that
+\begin{Verbatim}[fontsize=\small]
+> eval_beauty_age_min <- lm(course_eval ~ beauty + age + minority,
+                            data = read_dta("TeachingRatings.dta"))
+> waldtest(eval_beauty_age_min, vcov = vcovHC(eval_beauty_age_min, type = "HC1"))
+Wald test
+
+Model 1: course_eval ~ beauty + age + minority
+Model 2: course_eval ~ 1
+  Res.Df Df      F    Pr(>F)
+1    459
+2    462 -3 6.5368 0.0002457 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+\end{Verbatim}
+Then, we have that $F = 6.5368$, and the critical value for $F_{3,\infty}$ is (in \verb|R|) \verb|qf(0.99, 3, Inf) = 3.78|, so we reject the null that the coefficients are jointly insignificant at the $1\%$ level.
+
+\subsection*{d}
+
+Testing in \verb|R|,
+\begin{Verbatim}[fontsize=\small]
+> eval_beauty <- lm(course_eval ~ beauty, data = read_dta("TeachingRatings.dta"))
+> eval_beauty_age_min <- lm(course_eval ~ beauty + age + minority,
+                            data = read_dta("TeachingRatings.dta"))
+> waldtest(eval_beauty,
+           eval_beauty_age_min,
+           vcov = vcovHC(eval_beauty_age_min, type = "HC1"))
+Wald test
+
+Model 1: course_eval ~ beauty
+Model 2: course_eval ~ beauty + age + minority
+  Res.Df Df      F Pr(>F)
+1    461
+2    459  2 1.3309 0.2652
+\end{Verbatim}
+Then, we get that since the critical value is $4.605$ as in part b, we have that we cannot reject the null that minority and age are jointly insignificant.
+
+Alternatively, we have that the $R^{2}$ is $0.03574$ when regressing only on beauty and is $0.04263$ when regressing as in part c. Then, we have that $F = \frac{(0.04263 - 0.03574) / 2}{(1 - 0.04263) / 457} = 1.644 < 4.605$.
+
+This is different $F$-statistic that before, which makes sense, as we have that the first is heteroskedastic.
+
+\subsection*{e}
+
+\begin{table}[H]
+  \centering
+  \small
+  \begin{tabular}{@{}lllll@{}}
+    \toprule
+    Regressor (SE below)                                & (1)        & (2)        & (3)        & (4)         \\
+    \midrule
+    \multirow{2}{4cm}{beauty}                           & 0.13406    & 0.13421    & 0.13512    & 0.15920     \\
+                                                        & (0.03186)  & (0.03169)  & (0.03157)  & (0.03068)   \\
+    \addlinespace[0.5em]
+    \multirow{2}{4cm}{age}                              & 2.87e-4    & -1.959e-4  & 3.5037e-5  & -1.954e-3   \\
+                                                        & (2.545e-3) & (2.521e-3) & (2.495e-3) & (2.621e-3)  \\
+    \addlinespace[0.5em]
+    \multirow{2}{4cm}{minority}                         &            & -0.1338    & -0.07205   & -0.16942    \\
+                                                        &            & (0.0820)   & (0.08435)  & (0.06789)   \\
+    \addlinespace[0.5em]
+    \multirow{2}{4cm}{nnenglish}                        &            &            & -0.30299   & -0.24384    \\
+                                                        &            &            & (0.09651)  & (0.09589)   \\
+    \addlinespace[0.5em]
+    \multirow{2}{4cm}{intro}                            &            &            &            & 0.00794     \\
+                                                        &            &            &            & (0.05654)   \\
+    \addlinespace[0.5em]
+    \multirow{2}{4cm}{onecredit}                        &            &            &            & 0.63300     \\
+                                                        &            &            &            & (0.10776)   \\
+    \addlinespace[0.5em]
+    \multirow{2}{4cm}{female}                           &            &            &            & -0.18323    \\
+                                                        &            &            &            & (0.05219)   \\
+    \addlinespace[0.5em]
+    \multirow{2}{4cm}{intercept}                        & 3.9844     & 4.0262     & 4.0249     & 4.16853     \\
+                                                        & (0.1241)   & (0.1229)   & (0.1211)   & (0.13903)   \\
+    \midrule
+    \multicolumn{5}{c}{F-statistics ($p-$value below)}                                                       \\
+    \midrule
+    \multirow{2}{4cm}{beauty, age}                      & 8.8965     & 9.0582     & 9.1864     & 13.827      \\
+                                                        & (1.619e-4) & (1.386e-4) & (1.226e-4) & (1.48e-6)   \\
+    \addlinespace[0.5em]
+    \multirow{2}{4cm}{beauty, age, minority}            &            & 6.5368     & 6.208      & 11.078      \\
+                                                        &            & (2.457e-4) & (3.859e-4) & (4.957e-7)  \\
+    \addlinespace[0.5em]
+    \multirow{2}{4cm}{beauty, age, minority, nnenglish} &            &            & 8.0394     & 10.888      \\
+                                                        &            &            & (2.599e-6) & (1.94e-8)   \\
+    \addlinespace[0.5em]
+    \multirow{2}{4cm}{intro, onecredit}                 &            &            &            & 22.743      \\
+                                                        &            &            &            & (3.856e-10) \\
+    \addlinespace[0.5em]
+    \multirow{2}{4cm}{minority, age}                    &            &            &            & 3.3325      \\
+                                                        &            &            &            & (0.03658)   \\
+    \addlinespace[0.5em]
+    \multirow{2}{4cm}{intro, age}                       &            &            &            & 0.3031      \\
+                                                        &            &            &            & (0.7387)    \\
+    \midrule
+    \multicolumn{5}{c}{Regression summary statistics}                                                        \\
+    \midrule
+    $\overline{R}^{2}$                                  & 0.03157    & 0.03637    & 0.04991    & 0.1426      \\
+    $R^{2}$                                             & 0.03576    & 0.04262    & 0.05814    & 0.1556      \\
+    Regression RMSE                                     & 0.544      & 0.542      & 0.538      & 0.509       \\
+    $n$                                                 & 463        & 463        & 463        & 463         \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+It seems that beauty is always an important factor, with every combination of beauty and some other variable being jointly significant. The same holds true for minority; surprisingly, in the last regression, intro and onecredit are jointly significant (though this is likely due to onecredit likely being significant, looking at standard errors). The one that seems less important to include is age and intro as well, as they are jointly insignificant.
+
+The above table contains entries pulled by the following \verb|R| code:
+\begin{Verbatim}[fontsize=\small]
+library(haven)
+library(sandwich)
+library(lmtest)
+
+teach_data <- read_dta("TeachingRatings.dta")
+
+eval_1 <- lm(course_eval ~ beauty + age, data = teach_data)
+cat("R^2: ", summary(eval_1)$r.squared, "\n")
+cat("Adjusted R^2: ", summary(eval_1)$adj.r.squared, "\n")
+cat("Regression RMSE: ", sqrt(mean(eval_1$residuals^2)), "\n")
+cat("n: ", length(eval_1$residuals), "\n")
+print(coeftest(eval_1, vcov = vcovHC(eval_1, "HC1")))
+
+eval_2 <- lm(course_eval ~ beauty + age + minority, data = teach_data)
+cat("R^2: ", summary(eval_2)$r.squared, "\n")
+cat("Adjusted R^2: ", summary(eval_2)$adj.r.squared, "\n")
+cat("Regression RMSE: ", sqrt(mean(eval_2$residuals^2)), "\n")
+cat("n: ", length(eval_2$residuals), "\n")
+print(coeftest(eval_2, vcov = vcovHC(eval_2, "HC1")))
+
+eval_3 <- lm(course_eval ~ beauty + age +
+               minority + nnenglish,
+             data = teach_data)
+cat("R^2: ", summary(eval_3)$r.squared, "\n")
+cat("Adjusted R^2: ", summary(eval_3)$adj.r.squared, "\n")
+cat("Regression RMSE: ", sqrt(mean(eval_3$residuals^2)), "\n")
+cat("n: ", length(eval_3$residuals), "\n")
+print(coeftest(eval_3, vcov = vcovHC(eval_3, "HC1")))
+
+eval_4 <- lm(course_eval ~ beauty + age + minority + nnenglish +
+               intro + onecredit + female,
+             data = teach_data)
+cat("R^2: ", summary(eval_4)$r.squared, "\n")
+cat("Adjusted R^2: ", summary(eval_4)$adj.r.squared, "\n")
+cat("Regression RMSE: ", sqrt(mean(eval_4$residuals^2)), "\n")
+cat("n: ", length(eval_4$residuals), "\n")
+print(coeftest(eval_4, vcov = vcovHC(eval_4, "HC1")))
+
+print(waldtest(eval_1, vcov = vcovHC(eval_1, type = "HC1")))
+
+print(waldtest(eval_2, lm(course_eval ~ minority, data = teach_data),
+               vcov = vcovHC(eval_2, type = "HC1")))
+print(waldtest(eval_2, vcov = vcovHC(eval_2, type = "HC1")))
+
+print(waldtest(eval_3,
+               lm(course_eval ~ minority + nnenglish, data = teach_data),
+               vcov = vcovHC(eval_3, type = "HC1")))
+print(waldtest(eval_3,
+               lm(course_eval ~ nnenglish, data = teach_data),
+               vcov = vcovHC(eval_3, type = "HC1")))
+print(waldtest(eval_3, vcov = vcovHC(eval_3, type = "HC1")))
+
+print(waldtest(eval_4,
+               lm(course_eval ~ minority + nnenglish + intro +
+                    onecredit + female, data = teach_data),
+               vcov = vcovHC(eval_4, type = "HC1")))
+print(waldtest(eval_4, lm(course_eval ~ nnenglish + intro +
+                            onecredit + female, data = teach_data),
+               vcov = vcovHC(eval_4, type = "HC1")))
+print(waldtest(eval_4, lm(course_eval ~ intro + onecredit +
+                            female, data = teach_data),
+               vcov = vcovHC(eval_4, type = "HC1")))
+print(waldtest(eval_4, lm(course_eval ~ beauty + age + minority +
+                            nnenglish + female, data = teach_data),
+               vcov = vcovHC(eval_4, type = "HC1")))
+print(waldtest(eval_4, lm(course_eval ~ beauty + nnenglish + intro +
+                            onecredit + female, data = teach_data),
+               vcov = vcovHC(eval_4, type = "HC1")))
+print(waldtest(eval_4, lm(course_eval ~ beauty + minority + nnenglish +
+                            onecredit + female, data = teach_data),
+               vcov = vcovHC(eval_4, type = "HC1")))
+
+\end{Verbatim}
+
+\section*{Problem 5}
+\subsection*{a}
+
+There is perfect co-linearity, as we have that we fall into the dummy variable trap. Indeed, \verb|R| gives that one variable is not defined because of singularities. In particular,
+\begin{Verbatim}[fontsize=\small]
+> summary(lm(salary ~ north + south + east + west, data=read_dta("LAWSCH85.DTA")))
+
+Coefficients: (1 not defined because of singularities)
+            Estimate Std. Error t value Pr(>|t|)
+(Intercept)    39935       1991  20.061   <2e-16 ***
+north          -1568       2926  -0.536   0.5929
+south          -5594       2815  -1.987   0.0488 *
+east            2306       2671   0.864   0.3893
+west              NA         NA      NA       NA
+\end{Verbatim}
+so we cannot properly do the regression this way.
+
+\subsection*{b}
+
+We can simply remove the intercept. In that case, we ge that
+\begin{Verbatim}[fontsize=\small]
+> summary(lm(salary ~ north + south + east + west + 0, data=read_dta("LAWSCH85.DTA")))
+
+Coefficients:
+      Estimate Std. Error t value Pr(>|t|)
+north    38366       2145   17.89   <2e-16 ***
+south    34341       1991   17.25   <2e-16 ***
+east     42241       1780   23.73   <2e-16 ***
+west     39935       1991   20.06   <2e-16 ***
+\end{Verbatim}
+
+\subsection*{c}
+
+The coefficient of east here is simply that law graduates from eastern schools will make on average $\$42241$ in salary (whatever that means, the data columns aren't documented).
+
+\section*{Problem 6}
+
+$\log$ is the natural logarithm.
+
+\subsection*{a}
+
+We can log transform the equation, such that
+\[
+  Q = \lambda K^{\beta_{1}}L^{\beta_{2}}M^{\beta_{3}}e^{u} \implies \log(Q) = \log(\lambda) + \beta_{1}\log(K) + \beta_{2}\log(L) + \beta_{3}\log(M) + u
+\]
+
+Given some dataset, we can apply the logarithms to the values, and no do normal OLS regression to estimate the production parameters. In particular, $\log(\lambda)$ is the intercept, and $\beta_{i}$ slopes in the multivariate regression, representing elasticities of labor, capital, and materials.
+
+\subsection*{b}
+
+It turns out that Cobb-Douglas production functions are homogenous, such that
+\[
+  Q(cK,cL,cM) = \lambda (cK)^{\beta_{1}}(cL)^{\beta_{2}}(cM)^{\beta_{3}}e^{u} =  (c^{\beta_{1} + \beta_{2} + \beta_{3}})\lambda K^{\beta_{1}}L^{\beta_{2}}M^{\beta_{3}}e^{u} = c^{\beta_{1} + \beta_{2} + \beta_{3}} Q(K, L, M)
+\]
+
+Now, we can see that there are constant returns to scale under $\beta_{1} + \beta_{2} + \beta_{3} = 1$. This suggests that we can test the hypothesis that $\beta_{1} + \beta_{2} + \beta_{3} = 1$, where rejecting means that there are non-constant returns to scale. In particular, we can test that that $\beta_{1} + \beta_{2} + \beta_{3} < 1$ is diminishing returns to scale and $> 1$ is increasing returns to scale.
+
+To do this, we can reparameterize such that we define a new coefficient $\gamma = \beta_{1} + \beta_{2} + \beta_{3}$, such that
+\[
+  \log(Q) = \log(\lambda) + \gamma \log(K) + \beta_{2}(\log(L) - \log(K)) + \beta_{3}(\log(M) - \log(K)) + u
+\]
+and test $\gamma = 1$ in the new regression.
+
+\subsection*{c}
+
+We can do the same trick of reparameterizing, with $\beta_{1} + \beta_{2} + \beta_{3} = 1$, such that
+\begin{align*}
+  \log(Q) &= \log(\lambda) + \beta_{1}\log(K) + \beta_{2}\log(L) + \beta_{3}\log(M) + u \\
+          &= \log(\lambda) + \beta_{1}\log(K) + \beta_{2}\log(L) + (1 - \beta_{1} - \beta_{2})\log(M) + u \\
+          &= \log(\lambda) + \beta_{1}(\log(K) - \log(M)) + \beta_{2}(\log(L) - \log(M)) + \log(M) + u \\
+  \log(Q) - \log(M) &= \log(\lambda) + \beta_{1}(\log(K) - \log(M)) + \beta_{2}(\log(L) - \log(M)) + u \\
+\end{align*}
+
+and test for $\beta_{1}, \beta_{2}$ in the new regression and calculate $\beta_{3} = 1 - \beta_{1} - \beta_{2}$.
+
+
+\end{document}
+% LocalWords:  NetID fancyplain LocalWords colorlinks linkcolor linkbordercolor

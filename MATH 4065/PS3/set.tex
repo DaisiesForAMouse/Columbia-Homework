@@ -1,0 +1,297 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{relsize}
+\usepackage{fancyvrb}
+\usepackage{import}
+\usepackage{float}
+\usepackage{xifthen}
+\usepackage{pdfpages}
+\usepackage{transparent}
+\usetikzlibrary{shapes.geometric,fit}
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+\theoremstyle{definition}
+\newtheorem*{statement}{Statement}
+\newtheorem*{claim}{Claim}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+
+\newcommand{\contra}{\Rightarrow\!\Leftarrow}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Zeq}{\mathbb{Z}_{\geq 0}}
+\newcommand{\Zg}{\mathbb{Z}_{>0}}
+\newcommand{\Req}{\mathbb{R}_{\geq 0}}
+\newcommand{\Rg}{\mathbb{R}_{>0}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\DeclareMathOperator{\ima}{im}
+\DeclareMathOperator{\spn}{span}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\real}{Re}
+\DeclareMathOperator{\imag}{Im}
+\DeclareMathOperator{\diver}{div}
+\DeclareMathOperator{\curl}{curl}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\inter}{int}
+\DeclareMathOperator{\Dr}{Dr}
+\DeclareMathOperator{\Jac}{Jac}
+
+\newcommand{\incfig}[1]{\input{./figures/#1.pdf_tex}}
+\graphicspath{ {./figures/} }
+
+\title{MATH 4065 HW 3}
+\author{David Chen, dc3451}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\subsection*{1}
+
+\begin{figure}[H]
+  \centering
+  \incfig{path1}
+\end{figure}
+Since $e^{-z^{2}}$ is the composition of two holomorphic functions (that is, $z \mapsto -z^{2}$ and $z \mapsto e^{z}$), $e^{-z^{2}}$ is holomorphic itself. By Cauchy's theorem,
+\begin{align*}
+  0 &= \int_{\gamma}e^{-z^{2}}dz \\
+    &= \int_{\gamma_{1}}e^{-z^{2}}dz + \int_{\gamma_{2}}e^{-z^{2}}dz + \int_{\gamma_{3}}e^{-z^{2}}dz \\
+  \intertext{Taking $\gamma_{1}(x) = x$ and $\gamma_{3}(x) = xe^{\pi i / 4}$ with the reverse direction,}
+    &= \int_{0}^{R}e^{-x^{2}}dx + \int_{\gamma_{c}}e^{-z^{2}}dz - \int_{0}^{R}e^{-(xe^{\pi i /4})^{2}}(e^{\pi i / 4})dx \\
+  \intertext{Then, simplifying the last term,}
+  \int_{0}^{R}e^{-(xe^{\pi i /4})^{2}}(e^{\pi i / 4})dx &= e^{\pi i / 4}\int_{0}^{R}e^{-x^{2}e^{\pi i / 2}}dx \\
+    &=e^{\pi i / 4}\int_{0}^{R}e^{-ix^{2}}dx \\
+  \intertext{To handle $\int_{\gamma_{2}}e^{-z^{2}}$, we can take $\gamma_{2}(\theta) = Re^{i\theta}$ for $\theta \in [0, \pi/4]$, so that}
+  \left|\int_{\gamma_{2}}e^{-z^{2}}dz\right| &= \left| \int_{0}^{\pi/4}e^{-(Re^{i\theta})^{2}}(iRe^{i\theta})d\theta \right| \\
+  &\leq \int_{0}^{\pi/4}\left|e^{-(Re^{i\theta})^{2}}(iRe^{i\theta})\right| d\theta \\
+  &= \int_{0}^{\pi/4}\left|e^{-(Re^{i\theta})^{2}}\right|\left|(iRe^{i\theta})\right| d\theta \\
+  &= R\int_{0}^{\pi/4}\left|e^{-(Re^{i\theta})^{2}}\right| d\theta \\
+  &= R\int_{0}^{\pi/4}\left|e^{-R^{2}e^{2i\theta}}\right| d\theta \\
+  \intertext{Since we have that $|e^{z}| = e^{\real(z)}$ as a very basic fact about complex numbers,}
+  &= R\int_{0}^{\pi/4} e^{-R^{2}\cos(2\theta)} d\theta \\
+  \intertext{However, we have that $2\theta \in [0, \pi/2]$, and on this interval $\cos$ is concave, and so $\cos(2\theta) > 1 - \frac{4}{\pi}\theta$, as $1-\frac{4}{\pi}\theta$ has $1 - \frac{4}{\pi}(0) = \cos(2(0)) = 1$ and $1 - \frac{4}{\pi}(\frac{\pi}{4}) = \cos(2(\frac{\pi}{4})) = 0$, so by concavity $\cos(2\theta) > 1 - \frac{4}{\pi}\theta$ on the desired interval. Then,}
+    &\leq R\int_{0}^{\pi/4} e^{-R^{2}(1-\frac{4}{\pi}\theta)} d\theta \\
+    &= R\int_{0}^{\pi/4} e^{-R^{2}(1-\frac{4}{\pi}\theta)} d\theta \\
+    &= Re^{-R^{2}}\int_{0}^{\pi/4} e^{\frac{4R^{2}}{\pi}\theta} d\theta \\
+    &= Re^{-R^{2}} \frac{\pi}{4R^{2}}(e^{R^{2}} - 1)\\
+    &= \frac{\pi}{4R}(1-e^{-R^{2}}) \\
+  \intertext{Taking the limit, we see that}
+  \lim_{R \rightarrow \infty} \frac{\pi}{4R}(1-e^{-R^{2}}) &= 0
+  \intertext{so}
+  \lim_{R \rightarrow \infty}\int_{\gamma_{2}}e^{-z^{2}}dz &= 0 \\
+  % \intertext{To handle $\int_{\gamma_{2}}$, we can split $\gamma_{2}$ to be the arc from the real line to $h$ and the arc from $h$ to $Re^{\pi i / 4}$. In particular, take $h = Re^{\frac{\pi}{4}(1-e^{-R})}$. Then, call the arc from $R$ to $h$ $\gamma_{2,1}$ and the arc from $h$ to $Re^{\pi i / 4}$ $\gamma_{2,2}$. We have the following estimates:}
+  % \left| \int_{\gamma_{2}}e^{-z^{2}}dz \right| &\leq \left|\int_{\gamma_{2,1}} e^{-z^{2}}dz \right| + \left|\int_{\gamma_{2,2}} e^{-z^{2}}dz\right| \\
+  % &\leq \sup_{\gamma_{2,1}} |e^{-z^{2}}| \cdot \text{length}(\gamma_{2,1}) + \sup_{\gamma_{2,2}} |e^{-z^{2}}| \cdot \text{length}(\gamma_{2,2}) \\
+  % &\leq \sup_{\gamma_{2,1}} |e^{-z^{2}}| \cdot \frac{R\pi}{4}e^{-R} + \sup_{\gamma_{2,2}} |e^{-z^{2}}| \cdot \frac{R\pi}{4} \\
+  %   \intertext{Since we have $|e^{z}| = e^{\real(z)}$ as a basic fact about complex numbers, we can put $z = Re^{i\theta}$, such that}
+  % &= \sup_{\gamma_{2,1}} e^{\real(-z^{2})} \cdot \frac{R\pi}{4}e^{-R} + \sup_{\gamma_{2,2}} e^{\real(-z^{2})} \cdot \frac{R\pi}{4} \\
+  % &= \sup_{\theta \in [\frac{\pi}{4}(1-e^{-R}), \frac{\pi}{4}]} e^{-R^{2}\cos(2\theta)} \cdot \frac{R\pi}{4}e^{-R} + \sup_{\theta \in [0, \frac{\pi}{4}(1-e^{-R})]} e^{-R^{2}\cos(2\theta)} \cdot \frac{R\pi}{4}
+  %   \intertext{Since $e^{-x}$ is monotone decreasing, we see that $\sup_{\theta \in [\frac{\pi}{4}(1-e^{-R}), \frac{\pi}{4}]} e^{-R^{2}\cos(2\theta)}$ is realized by $\theta = \frac{\pi}{4}$ and $\theta = \frac{\pi}{4}(1-e^{-R})$ so}
+  % &= e^{0} \cdot \frac{R\pi}{4}e^{-R} + e^{-R^{2}\cos(\frac{\pi}{2}(1-e^{-R}))} \cdot \frac{R\pi}{4}
+  %   \intertext{Taking the limit,}
+  %   \lim_{R \rightarrow \infty}\frac{R\pi}{4}e^{-R} + e^{-R^{2}\cos(\frac{\pi}{2}(1-e^{-R}))} \cdot \frac{R\pi}{4} &= \lim_{R \rightarrow \infty}e^{-R^{2}\cos(\frac{\pi}{2}(1-e^{-R}))} \cdot \frac{R\pi}{4}
+  \intertext{Then, returning to the original equation,}
+  0 &= \lim_{R \rightarrow\infty}\left(\int_{0}^{R}e^{-x^{2}}dx + \int_{\gamma_{2}}e^{-z^{2}}dz - e^{\pi i /4}\int_{0}^{R}e^{-ix^{2}}dx\right) \\
+    &= \int_{0}^{\infty}e^{-x^{2}}dx - e^{\pi i /4}\int_{0}^{\infty}e^{-ix^{2}}dx \\
+    &= \int_{0}^{\infty}e^{-x^{2}}dx - e^{\pi i /4}\int_{0}^{\infty}(\cos(x^{2}) - i\sin(x^{2}))dx \\
+  \intertext{Since the book gives that $\int_{-\infty}^{\infty}e^{-x^{2}}dx = \sqrt{\pi}$ and we have that $e^{-(-x)^{2}} = e^{-x^{2}}$, $e^{-x^{2}}$ is even and $\int_{0}^{\infty}e^{-x^{2}} = \frac{\sqrt{\pi}}{2}$ so}
+  \int_{0}^{\infty}\cos(x^{2})dx - i\int_{0}^{\infty}\sin(x^{2})dx &= \frac{\sqrt{\pi}}{2}e^{-\pi i /4} \\
+    &= \frac{\sqrt{\pi}}{2}\left(\frac{\sqrt{2}}{2} - i\frac{\sqrt{2}}{2}\right) \\
+    &= \frac{\sqrt{2\pi}}{4} - i\frac{\sqrt{2\pi}}{4} \\
+\end{align*}
+Equating real and imaginary parts gives us
+\[
+  \int_{0}^{\infty}\cos(x^{2})dx = \int_{0}^{\infty}\sin(x^{2})dx = \frac{\sqrt{2\pi}}{4}
+\]
+
+\subsection*{3}
+
+\begin{figure}[H]
+  \centering
+  \incfig{path2}
+\end{figure}
+
+If $b > 0$, we pick the left path and the right path for $b < 0$. If $b = 0$, then the integrals collapse to $\int_{0}^{\infty}e^{-ax}\cos(0)dx = \frac{1}{a}$ and $\int_{0}^{\infty}e^{-ax}\sin(0)dx = 0$. Pick $\omega$ such that $\cos(\omega) = a / A$ (which gives that $\sin(\omega) = b / A$, where $A = \sqrt{a^{2} + b^{2}}$, $a > 0$). In particular, since $a > 0 \implies \cos(\omega) > 0$, we have that $-\pi/2 < \omega < \pi/2$.
+
+Again, we have that $e^{-Az}$ is holomorphic for any constant $A = \sqrt{a^{2} + b^{2}}$ as the composition of two holomorphic functions, so by Cauchy's theorem,
+\begin{align*}
+  0 = \int_{\gamma} e^{-Az}dz &= \int_{\gamma_{1}}e^{-Az}dz + \int_{\gamma_{2}}e^{-Az}dz + \int_{\gamma_{3}}e^{-Az}dz \\
+  \intertext{Taking parameterizations $\gamma_{1}(x) = x$ and $\gamma_{3}(x) = xe^{\omega i}$ in the reverse direction,}
+                              &= \int_{0}^{R}e^{-Ax}dx + \int_{\gamma_{2}}e^{-Az}dz - \int_{0}^{R}e^{-Axe^{\omega i}}e^{\omega i}dx \\
+                              &= -\frac{1}{A}\left(e^{-Ax}\right)\Big|^{R}_{0} + \int_{\gamma_{2}}e^{-Az}dz - (\cos(\omega) + i\sin(\omega))\int_{0}^{R}e^{-Ax(\cos(\omega) + i\sin(\omega))}dx \\
+                              &= \frac{1}{A}\left(1 - e^{-AR}\right) + \int_{\gamma_{2}}e^{-Az}dz - \left(\frac{a}{A} + i\frac{b}{A}\right)\left(\int_{0}^{R}e^{-Ax(\frac{a}{A} + i\frac{b}{A})}dx\right) \\
+                              &= \frac{1}{A}\left(1 - e^{-AR}\right) + \int_{\gamma_{2}}e^{-Az}dz - \left(\frac{a}{A} + i\frac{b}{A}\right)\left(\int_{0}^{R}e^{-ax + bxi}dx\right) \\
+                              &= \frac{1}{A}\left(1 - e^{-AR}\right) + \int_{\gamma_{2}}e^{-Az}dz - \left(\frac{a}{A} + i\frac{b}{A}\right)\left(\int_{0}^{R}e^{-ax}(\cos(bx) - i\sin(bx))dx\right) \\
+  \intertext{We can deal with $\int_{\gamma_{2}}e^{-Az}dz$ as follows}
+  \left|\int_{\gamma_{2}}e^{-Az}\right| &\leq \sup_{\gamma_{2}}|e^{-Az}| \cdot R\omega \\
+                              &= \sup_{\gamma_{2}}e^{\real(-Az)} \cdot R\omega \\
+  \intertext{Let $z = e^{i\theta}$:}
+                              &= \sup_{\gamma_{2}} e^{\real(-ARe^{\theta i})} \cdot R\omega \\
+                              &= \sup_{\gamma_{2}} e^{-AR\cos(\theta)} \cdot R\omega \\
+  \intertext{Since we have that $z$ is on the arc from $R$ to $Re^{\omega i}$, where $-\pi / 2 < \omega < \pi / 2$, we have that $\real(Re^{\omega i}) = R\cos(\omega) \leq \real(z) \leq R$. Then, since we have $\cos(\omega) > 0$, we have that $\real(z) = R\cos(\theta) > 0$ and so $\cos(\theta)>0$. Taking $b > 0$ as a lower bound on $\cos(\theta)$,}
+                              &\leq e^{-ARb} \cdot R\omega \\
+  \intertext{Taking the limit (via L'Hopital),}
+  \lim_{R \rightarrow\infty}e^{-ARb} \cdot R\omega &= \lim_{R \rightarrow\infty}\frac{\omega}{-Abe^{-ARb}} = 0 \\
+  \intertext{so}
+  0 &= \lim_{R \rightarrow\infty}\left(\frac{1}{A}\left(1 - e^{-AR}\right) + \int_{\gamma_{2}}e^{-Az}dz - \left(\frac{a}{A} + i\frac{b}{A}\right)\left(\int_{0}^{R}e^{-ax}(\cos(bx) - i\sin(bx))dx\right)\right) \\
+  &= \frac{1}{A} - \left(\frac{a}{A} + i\frac{b}{A}\right)\left(\int_{0}^{\infty}e^{-ax}(\cos(bx) - i\sin(bx))dx\right) \\
+  \intertext{Rearranging,}
+  \frac{1}{a+bi} &= \int_{0}^{\infty}e^{-ax}\cos(bx)dx - i\int_{0}^{\infty}e^{-ax}\sin(bx)dx \\
+\end{align*}
+On the left, $\frac{1}{a+bi} = \frac{a-bi}{a^{2}+b^{2}}$, so setting real and imaginary parts equal, we get that
+\begin{align*}
+  \int_{0}^{\infty}e^{-ax}\cos(bx)dx &= \frac{a}{a^{2}+b^{2}} \\
+  \int_{0}^{\infty}e^{-ax}\sin(bx)dx &= \frac{b}{a^{2}+b^{2}} \\
+\end{align*}
+
+\subsection*{6}
+
+Note that if $f$ is holomorphic at $w$, Goursat's theorem holds immediately and we are done. For the rest of the problem, assume that $f$ is not holomorphic at $w$.
+
+We will use that we have shown Cauchy's theorem on star shaped domains. Consider the following (very cluttered) diagram:
+\begin{figure}[H]
+  \centering
+  \incfig{path3}
+\end{figure}
+
+In general, we can show that $\text{interior}(T) \setminus R$, which is the interior of the triangle minus the line segment between $w$ and some arbitrary non-corner point on $T$, $w'$, is star-shaped. To see this, if we pick $w''$ co-linear to $w$ and $w'$ such that $w''$ lies on the opposite side of $w$ to $w'$, we have $[w'', z] \subset \text{interior}(T) \setminus R$. To see this, not that $[w'', z]$ connects two points inside $T$, and so lies entirely within $T$ as triangles are convex.
+
+Then, the only problem is that $[w'',z]$ could intersect $R$ at some point. The fact that it doesn't follows because for any point in the interior of $T$, either the point is on one side of the line containing $w'$ and $w''$, or the other (or it is on the line). In either one of the first two cases, the segment from $w''$ to any point is entirely on the same side of that line (with the exception of the $w''$ endpoint, but $w'' \notin R$), and therefore cannot intersect $R$ at all. In the case that the point is on the line, $[w'', z]$ intersects $R$ for $z \in \text{interior}(T)$ only if $z \in R$, but since we care only about $\text{interior}(T) \setminus R$, we are done. (The diagram is much more convincing than this paragraph.)
+
+Now, we have a sequence of contours $\Gamma_{\delta, \epsilon}$ that travel around $T$, come up along $R$ with some width $\delta$, around the circle of radius $\epsilon$ centered at $w$, and back onto $T$. Cauchy's theorem on star-shaped domains gives that $\int_{\Gamma_{\delta, \epsilon}} f(z)dz = 0$.
+
+Then, the sides along $R$ cancel in the limit $\delta \rightarrow 0$, as $f$ is holomorphic along the paths parallel to $R$, and thus continuous there as well, so the line integral along the sides are equal and opposite (this same reasoning was used in the proof of Cauchy's theorem). Then, we have that taking the limit as $\delta \rightarrow 0$, we have that the integral becomes
+\[
+  \lim_{\delta \rightarrow 0}\int_{\Gamma_{\delta, \epsilon}} f(z)dz = 0 = \int_{T}f(z)dz + \int_{C_{\epsilon}(w)}f(z)dz \implies \int_{T}f(z)dz =  -\int_{C_{\epsilon}(w)}f(z)dz
+\]
+
+However, we have that $f$ is bounded near $w$, so $\exists M \in \R$ such that $\sup_{z \in C_{\epsilon}(w)}|f(z)| \leq M$ for small enough $\epsilon$. Then, we can bound the integral
+\[
+  \left|\int_{C_{\epsilon}(w)}f(z)dz\right| \leq \sup_{z \in C_{\epsilon}(w)} |f(z)| \cdot 2\pi \epsilon \leq 2M\pi \epsilon
+\]
+which gives us that $\lim_{\epsilon \rightarrow 0}\left|\int_{C_{\epsilon}(w)}f(z)dz\right| = 0$.
+
+Taking the limit as $\epsilon \rightarrow 0$, we have that $\int_{T}f(z)dz = 0$.
+
+\subsection*{7}
+
+Wow, the hint for this one looks like its in the note about Fourier transforms...
+
+Anyway, taking the hint, we have that when we put $g(z) = f(z) - f(-z)$, we get that $g'(z) = f'(z) + f'(-z)$, so $g'(0) = 2f'(0)$. Then, applying Cauchy's integral formula on the circle $C_{r}(0)$ for $0 < r < 1$, we get that
+\[
+  2f'(0) = \frac{1}{2\pi i}\int_{C_{r}(0)}\frac{g(w)dw}{(w-0)^{2}} = \frac{1}{2\pi i}\int_{C_{r}(0)} \frac{f(w) - f(-w)}{w^{2}}dw
+\]
+then,
+\begin{align*}
+  2|f'(0)| &= \frac{1}{2\pi}\left|\int_{C_{r}(0)}\frac{f(w) - f(-w)}{w^{2}}\right| \\
+           &\leq \frac{1}{2\pi} \cdot \sup_{w \in C_{r}(0)}\left| \frac{f(w) - f(-w)}{w^{2}} \right| \cdot 2\pi r \\
+           &= r \cdot \sup_{w \in C_{r}(0)}\frac{|f(w) - f(-w)|}{|w^{2}|} \cdot \\
+           &= r \cdot \sup_{w \in C_{r}(0)}\frac{|f(w) - f(-w)|}{r^{2}} \cdot \\
+           &= \sup_{w \in C_{r}(0)}\frac{|f(w) - f(-w)|}{r} \cdot \\
+  \intertext{However, since $d = \sup_{z,w \in \mathbb{D}}|f(z) - f(w)|$, we have that for any $z, w \in \mathbb{D}$, $d \geq |f(z) - f(w)|$. In particular, we have that this includes when $w = -z$ and $w \in C_{r}(0) \subset \mathbb{D}$. Thus, we have that $d$ is an upper bound of $|f(w) - f(-w)|$ for $w \in C_{r}(0)$, so}
+           &\leq \frac{d}{r}
+\end{align*}
+
+Remember that the above holds for any $0 < r < 1$. Now, suppose that we have $2|f'(0)| = d' > d$. Then, we have that $0 < d/d'< 1$, so we can take $r = d/d'$, so $2|f'(0)| \leq d'$. $\contra$, so we have that $2|f'(0)| \leq d$.
+
+We will show that this bound is equality for linear functions $f(z) = a_{0} + a_{1}z$ (but we are excused from showing it is equal \textit{only} for linear functions). We have that $2|f'(0)| = 2|a_{1}|$. Furthermore, any $z \in \mathbb{D}$ can be given by $z = Re^{i\theta}$ where $0 \leq R < 1$ and $\theta \in [0, 2\pi)$. Then, $f(z) = a_{0} + a_{1}Re^{i\theta}$. Then, we have that $|f(z) - f(w)| = |a_{0} + a_{1}Re^{i\theta_{z}} - (a_{0} + a_{1}Re^{i\theta_{w}})| = |a_{1}R(e^{i\theta_{z}} - e^{i\theta_{w}})| = |a_{1}R||e^{i\theta_{z}}-e^{i\theta_{w}}| \leq |a_{1}R|(|e^{i\theta_{z}}| + |e^{i\theta_{w}}|) = 2|a_{1}R|$.
+
+In particular, we have that if we pick $\theta_{z} = 0, \theta_{w} = \pi$, we have that $|a_{1}R||e^{i\theta_{z}} - e^{i\theta_{w}}| = 2|a_{1}R|$, so the upper bound is realized. Finally, we have that $d = \sup_{z,w \in \mathbb{D}}|f(z) - f(w)| = \sup_{R \in [0,1)}2|a_{1}R| = 2|a_{1}|\sup_{R \in [0,1)}R = 2|a_{1}| = 2|f'(0)|$.
+
+\subsection*{8}
+
+Fix some $0 < R < 1$. Then, since $\overline{D}_{R}(x)$ is contained in the strip where $f$ is holomorphic, we have that the Cauchy inequality gives us that
+\begin{align*}
+  |f^{n}(z)| &\leq \frac{n!\sup_{z \in C_{R}(x)}|f(z)|}{R^{n}} \\
+             &= \frac{n!\sup_{\theta \in [0, 2\pi) }|f(x + Re^{i\theta})|}{R^{n}}
+               \intertext{Now, consider that from the setup we have $\sup_{\theta \in [0, 2\pi)}|f(x + Re^{i\theta})| \leq \sup_{\theta \in [0,2\pi)}A(1 + |x + Re^{i\theta}|)^{\eta}$, so}
+             &\leq \frac{n!\sup_{\theta \in [0, 2\pi)}A(1 + |x + Re^{i\theta}|)^{\eta}}{R^{n}} \\
+  \intertext{We now have two cases: first, if $\eta \geq 0$, we have that $(1 + |x + R^{i\theta}|)^{\eta}$ increases (or at least does not decrease in the case $\eta = 0$, which is good enough) with $|x + R^{i\theta}|,$ so by the triangle inequality,}
+  \frac{n!\sup_{\theta \in [0, 2\pi)}A(1 + |x + Re^{i\theta}|)^{\eta}}{R^{n}} &\leq \frac{n!\sup_{\theta \in [0, 2\pi)}A(1 + |x| + |Re^{i\theta}|)^{\eta}}{R^{n}} \\
+             &= \frac{n!\sup_{\theta \in [0, 2\pi)}A(1 + |x| + R)^{\eta}}{R^{n}} \\
+             &= \frac{n!A(1 + |x| + R)^{\eta}}{R^{n}} \\
+             &\leq \frac{n!A(1 + |x| + R + R|x|)^{\eta}}{R^{n}} \\
+             &= \frac{n!A((1 + |x|)(1 + R))^{\eta}}{R^{n}} \\
+             &= \frac{n!A(1+R)^{\eta}}{R^{n}}(1 + |x|)^{\eta}\\
+  \intertext{So $A_{n} = \frac{n!A(1+R)^{\eta}}{R^{n}}$. Now, for $\eta < 0$, we have that $(1 + |x + Re^{i\theta}|)^{\eta}$ decreases with $|x + Re^{i\theta}|$; by the reverse triangle inequality, we have $|x + Re^{i\theta}| \geq |x| - |Re^{i\theta}| > -1$. Then, we have that}
+  \frac{n!\sup_{\theta \in [0, 2\pi)}A(1 + |x + Re^{i\theta}|)^{\eta}}{R^{n}} &\leq \frac{n!\sup_{\theta \in [0, 2\pi)}A(1 + |x| - |Re^{i\theta}|)^{\eta}}{R^{n}} \\
+             &= \frac{n!\sup_{\theta \in [0, 2\pi)}A(1 + |x| - R)^{\eta}}{R^{n}} \\
+             &= \frac{n!A(1 + |x| - R)^{\eta}}{R^{n}} \\
+             &\leq \frac{n!A(1 + |x| - R - R|x|)^{\eta}}{R^{n}} \\
+             &= \frac{n!A((1 + |x|)(1 - R))^{\eta}}{R^{n}} \\
+             &= \frac{n!A(1-R)^{\eta}}{R^{n}}(1 + |x|)^{\eta}\\
+  \intertext{so $A_{n} = \frac{n!A(1-R)^{\eta}}{R^{n}}$. Thus, for every $\eta$, we are able to find some $A_{n}$ as desired that depends only on $n$ and fixed constants $\eta$ and $R$.}
+\end{align*}
+
+\subsection*{5}
+
+We first put $f(x + iy) = u(x,y) + iv(x,y)$. Note that since $f$ is continuously complex differentiable, we have that at any point $f'(z) = \lim_{h\rightarrow 0}\frac{f(z+h)-f(z)}{h}$, and in particular for $\epsilon \in \R$,
+\begin{align*}
+  f'(z) &= \lim_{\epsilon\rightarrow 0}\frac{f(z+\epsilon)-f(z)}{\epsilon} \\
+        &= \lim_{\epsilon\rightarrow 0}\frac{f(z+i\epsilon)-f(z)}{i\epsilon} \\
+\end{align*}
+
+In terms of $u,v$, we have that
+\begin{align*}
+  f'(z) &= \lim_{\epsilon \rightarrow 0}\frac{u(x+\epsilon,y) -
+          u(x,y)}{\epsilon} + i\frac{v(x + \epsilon,y) - v(x,y)}{\epsilon} \\
+        &= \frac{\partial u}{\partial x} + i\frac{\partial v}{\partial x} \\
+  f'(z) &= \lim_{\epsilon \rightarrow 0}\frac{u(x,y+\epsilon) -
+          u(x,y)}{i\epsilon} + i\frac{v(x,y + \epsilon) - v(x,y)}{i\epsilon} \\
+        &= \frac{1}{i}\frac{\partial u}{\partial y} + \frac{\partial v}{\partial y} \\
+\end{align*}
+
+From basic real analysis we know that $f(x) = (f_{1}(x), f_{2}(x))$ is continuous if and only if $f_{1}(x)$ and $f_{2}(x)$ are continuous, so we have that since $f'(z)$ is continuous, all of the first partials of $u, v$ are continuous, as they are components to $f'(z)$.
+
+Now, consider the following, for any path $\gamma(t) = x(t) + iy(t)$, $t \in [a,b]$:
+\begin{align*}
+  \int_{\gamma}f(z)dz &= \int_{a}^{b}f(\gamma(t))\cdot\gamma'(t)dt \\
+                      &= \int_{a}^{b}(u(x(t), y(t)) + iv(x(t), y(t)))(x'(t) + iy'(t))dt \\
+                      &= \int_{a}^{b}((u(x(t), y(t))x'(t) - v(x(t),y(t))y'(t)) + i(u(x(t), y(t))y'(t) + v(x(t),y(t))x'(t)))dt \\
+                      &= \int_{a}^{b}(u(x(t), y(t))x'(t)dt - v(x(t),y(t))y'(t)dt) + i(u(x(t), y(t))y'(t)dt + v(x(t),y(t))x'(t)dt)\\
+                      &= \int_{a}^{b}(u(\gamma(t)), -v(\gamma(t))) \cdot \gamma'(t)dt + i\int_{a}^{b}(v(\gamma(t)),u(\gamma(t))) \cdot \gamma'(t)dt \\
+  \intertext{Note that the above $\cdot$ is the dot product in $\R^{2}$. Awkwardly transforming notation to the one used by Stein,}
+                      &= \int_{\gamma} udx - vdy + i\int_{\gamma} vdx + udy\\
+\end{align*}
+
+Then, splitting $T$ into three lines $\gamma_{1}, \gamma_{2}, \gamma_{3}$, we have that
+\begin{align*}
+  \int_{T}f(z)dz =& \int_{\gamma_{1}}f(z)dz + \int_{\gamma_{2}}f(z)dz + \int_{\gamma_{3}}f(z)dz \\
+  =& \int_{\gamma_{1}}udx - vdy + i\int_{\gamma_{1}}vdx + udy \\
+  &+ \int_{\gamma_{2}}udx - vdy + i\int_{\gamma_{2}}vdx + udy \\
+  &+ \int_{\gamma_{3}}udx - vdy + i\int_{\gamma_{3}}vdx + udy \\
+  =& \int_{T}udx - vdy + i\int_{T}vdx + udy \\
+     \intertext{Now, we can use Green's theorem since all the partial derivatives are continuous. In particular, we have that  $(v,u)$ and $(u,-v)$are continuously differentiable vector fields, so}
+  =& \int_{\text{interior}(T)}\left( -\frac{\partial v}{\partial x} - \frac{\partial u}{\partial y}\right)dxdy +  \int_{\text{interior}(T)}\left(\frac{\partial u}{\partial x} - \frac{\partial v}{\partial y}\right)dxdy \\
+  \intertext{However, we have that from the Cauchy-Riemann equations that $\frac{\partial u}{\partial x} = \frac{\partial v}{\partial y}$ and $\frac{\partial v}{\partial x} = -\frac{\partial u}{\partial y}$, so the integrals reduce to}
+  =& \int 0 dxdy + \int 0 dxdy = 0
+\end{align*}
+
+Finally, we have that $\int_{T}f(z)dz = 0$.
+
+\end{document}
+
+% LocalWords:  NetID fancyplain LocalWords colorlinks linkcolor linkbordercolor
