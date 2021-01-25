@@ -1,0 +1,194 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{relsize}
+\usepackage{fancyvrb}
+\usepackage{import}
+\usetikzlibrary{shapes.geometric,fit}
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+\theoremstyle{definition}
+\newtheorem*{statement}{Statement}
+\newtheorem*{claim}{Claim}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+
+\newcommand{\contra}{\Rightarrow\!\Leftarrow}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Zeq}{\mathbb{Z}_{\geq 0}}
+\newcommand{\Zg}{\mathbb{Z}_{>0}}
+\newcommand{\Req}{\mathbb{R}_{\geq 0}}
+\newcommand{\Rg}{\mathbb{R}_{>0}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+
+\newcommand{\incfig}[1] {%
+    % \def\svgwidth{\columnwidth}
+    \import{./figures/}{#1.pdf_tex}
+}
+
+\title{MATH 4061 HW 5}
+\author{David Chen, dc3451}
+
+\begin{document}
+
+\maketitle
+
+\section*{4}
+
+We can induct to show that $s_{2m} = \frac{1}{2} - \frac{1}{2^{m}}$ and $s_{2m + 1} = 1 - \frac{1}{2^{m}}$. The base case we can compute directly: $s_{2} = 0 = \frac{1}{2} - \frac{1}{2}, s_{3} = \frac{1}{2} = 1 - \frac{1}{2}$ for $m = 1$, which is as desired. Then, if this holds for $m$, then $s_{2(m+1)} = s_{(2m + 1) + 1} = \frac{s_{2m + 1}}{2} = \frac{1}{2}\left(1 - \frac{1}{2^{m}}\right) = \frac{1}{2} - \frac{1}{2^{m+1}}$. Further, $s_{2(m+1) + 1} = s_{2m + 3} = \frac{1}{2} + s_{2m + 2} = \frac{1}{2} + \frac{1}{2} - \frac{1}{2^{m+1}} = 1 - \frac{1}{2^{m+1}}$, again as desired, so the claim holds for $m + 1$ as well, and thus for all positive integers.
+
+To see that $\limsup_{n \rightarrow \infty} s_{n} = 1$, we have that if $n_{k} = 2k+1$,
+\[
+  \lim_{k \rightarrow \infty}s_{n_{k}} = \lim_{k \rightarrow \infty}s_{2k + 1} = \lim_{k \rightarrow \infty} 1 - \frac{1}{2^{k}} = 1
+\]
+
+Then, if $x > 1$, we have that $s_{n} < 1$ for all $n$, which is apparent since either $s_{n} < 1$ if $n$ is odd, and $s_{n} < \frac{1}{2} < 1$ if $n$ is even. Then, by the theorem (3.17) in Rudin, also proved in class, we have that $1 = \limsup_{n \rightarrow \infty} s_{n}$.
+
+Similarly, to see that $\liminf_{n \rightarrow \infty} s_{n} = \frac{1}{2}$, we have that if $n_{k} = 2k$,
+\[
+  \lim_{k \rightarrow \infty}s_{n_{k}} = \lim_{k \rightarrow \infty}s_{2k} = \lim_{k \rightarrow \infty} \frac{1}{2} - \frac{1}{2^{k}} = \frac{1}{2}
+\]
+
+Then, if $x < \frac{1}{2}$, we have that since $\lim_{k \rightarrow \infty} s_{n_{k}} = \frac{1}{2}$, for $\epsilon = \frac{1}{2} - x$, there is some $K$ such that if $k > K$, $|s_{n_{k}} - \frac{1}{2}| < \epsilon \implies s_{n_{k}} > x$. This shows that $s_{n} > x$ for even $n$ greater than $N$, and for odd $n > N$, we have that $s_{n} = 1 - \frac{1}{2^{(n-1)/2}} > \frac{1}{2}$ as well. Then, by theorem 3.17, we have that $\liminf_{n \rightarrow \infty}s_{n} = \frac{1}{2}$.
+
+\section*{6}
+\subsection*{a}
+
+This sum telescopes: we can show that $\sum_{i=1}^{n}a_{i} = \sqrt{n+1} - 1$, since for $n = 1$, $\sum_{i=1}^{n}a_{i} = a_{1} = \sqrt{2} - 1$, as desired, and if it holds for $n$, then $\sum_{i=1}^{n+1}a_{i} = (\sqrt{n+1} - 1) + (\sqrt{n+2} - \sqrt{n+1}) = \sqrt{n+2} - 1$ so it holds for $n + 1$, and from induction holds for all $n$. Then, $\lim_{n \rightarrow \infty}\sqrt{n  +2} - 1 = \infty$, so the sum diverges.
+
+\subsection*{b}
+
+\[
+  \frac{\sqrt{n+1} - \sqrt{n}}{n}\frac{\sqrt{n+1} + \sqrt{n}}{\sqrt{n+1} + \sqrt{n}} = \frac{1}{n(\sqrt{n + 1} + \sqrt{n})} < \frac{1}{n(\sqrt{n} + \sqrt{n})} = \frac{1}{n^{\frac{3}{2}}}
+\]
+
+Then, by comparison, $\sum a_{n}$ converges since it is strictly positive (as $n + 1 > n \implies \sqrt{n + 1} > \sqrt{n}$) and strictly less than a convergence series $\sum \frac{1}{n^{\frac{3}{2}}}$.
+
+\subsection*{c}
+
+The root test gives that, since $\sqrt[n]{n} > 1$ for $n > 1$,
+\[
+  \lim_{n \rightarrow\infty}|(\sqrt[n]{n} - 1)^{n}|^{1/n} = \lim_{n \rightarrow\infty}((\sqrt[n]{n} - 1)^{n})^{1/n} = \lim_{n \rightarrow\infty}\sqrt[n]{n} - 1 = 1 - 1 = 0 < 1
+\]
+the limit $\lim_{n \rightarrow \infty}\sqrt[n]{n}$ is shown to be one in Rudin. This series converges.
+
+\subsection*{d}
+
+Consider $|z| \leq 1$, which gives $|z|^{n} \leq 1$ as well. Then, $\left|\frac{1}{1 + z^{n}}\right| = \frac{1}{|1 + z^{n}|}$, which by the triangle inequality $\frac{1}{|1 + z^{n}|} \geq \frac{1}{1 + |z^{n}|} \geq \frac{1}{1 + 1}$. However, this clearly bounds $a_{n} = \frac{1}{1 + z^{n}}$ away from zero, since $|a_{n}| \geq \frac{1}{2}$, so this series cannot converge.
+
+On the other hand, if $|z| > 1$, then we have that $\left|\frac{1}{1+z^{n}}\right| = \frac{1}{|1 + z^{n}|}$. Further, we have that
+\[
+  \lim_{n \rightarrow \infty}\frac{1 + z^{n}}{z^{n}} = \lim_{n \rightarrow \infty}1 + \frac{1}{z^{n}} = 1
+\]
+which gives that there is some $N$ such that if $n > N$, $\left|\frac{1 + z^{n}}{z^{n}}\right| > 1 - \epsilon$, and
+\[
+  \frac{1}{|1 + z^{n}|}\frac{|1 + z^{n}|}{|z^{n}|} = \frac{1}{|z|^{n}} > \frac{1-\epsilon}{|1 + z^{n}|}
+\]
+
+Then by comparison to the geometric series $\frac{1}{|z|} < 1$ (the inequality holds since $|z| > 1$), $\sum \frac{1-\epsilon}{|1+z^{n}|}$ converges, so $\sum \frac{1}{1 + z^{n}}$ converges absolutely for $|z| > 1$.
+
+\section*{8}
+
+We can show that the partial sums are Cauchy.
+
+Now, let $\lim_{n \rightarrow \infty}A_{n} = A$ and $\lim_{n \rightarrow \infty} b_{n} = b$ (the second limit converges since it is monotonic and bounded, and thus convergent \textit{and} Cauchy). Then, we have that $\lim_{n \rightarrow \infty}A_{n}b_{n} = Ab$ as well as the product of two convergent sequences. Since $A_{n}$ converges, it is also bounded; let $B$ the the larger of the two bounds of $A_{n}$ and $b_{n}$.
+
+Fix $\epsilon > 0$. Then, we have that there is $N_{1}$ such that $n > N_{1} \implies |A_{n}b_{n} - Ab| < \frac{\epsilon}{3}$, and since $b_{n}$ is Cauchy, we have that there is $N_{2}$ such that $m,n > N_{2} \implies |b_{m} - b_{n}| < \frac{\epsilon}{3B}$. Then, for $N = \max(N_{1},N_{2})$, and $N < p - 1 < p \leq q$, the difference between the $p,q$ partial sums is
+\begin{align*}
+  \left|\sum_{n=p}^{q}a_{n}b_{n}\right| &= \left|\sum_{n=p}^{q-1}A_{n}(b_{n} - b_{n+1}) + A_{q}b_{q} - A_{p-1}b_{p}\right| \\
+                                        &= \left|\sum_{n=p}^{q-1}A_{n}(b_{n} - b_{n+1})\right| + |A_{q}b_{q} - A_{p-1}b_{p}| \\
+                                        &\leq \left|\sum_{n=p}^{q-1}A_{n}(b_{n} - b_{n+1})\right| + |A_{q}b_{q} - Ab| + |Ab - A_{p-1}b_{p}| \\
+                                        &< \left|\sum_{n=p}^{q-1}A_{n}(b_{n} - b_{n+1})\right| + \frac{2\epsilon}{3} \\
+                                        &\leq \sum_{n=p}^{q-1}|A_{n}(b_{n} - b_{n+1})| + \frac{2\epsilon}{3} \\
+                                        &\leq B\sum_{n=p}^{q-1}|b_{n} - b_{n+1}| + \frac{2\epsilon}{3} \\
+  \intertext{Then, since we have that the sequence is monotonic, we have that for any given $n$, $|b_{n} - b_{n+1}| = b_{n} - b_{n+1}$, or that for any given $n$, $|b_{n} - b_{n+1}| = b_{n+1} - b_{n}$. Either way, the sum telescopes, and we have that}
+                                        &= B(b_{p} - b_{q}) + \frac{2\epsilon}{3} \\
+  \intertext{or}
+                                        &= B(b_{q} - b_{p}) + \frac{2\epsilon}{3} \\
+  \intertext{In either case, the term in the parentheses is positive, so}
+                                        &= B|b_{q} - b_{p}| + \frac{2\epsilon}{3} \\
+                                        &< B\frac{\epsilon}{3B} + \frac{2\epsilon}{3} \\
+                                        &< \epsilon \\
+\end{align*}
+
+Thus, the partial sums are Cauchy, and thus converge.
+
+\section*{12}
+
+\subsection*{a}
+
+We can see that since $r_{m} - r_{n} = \sum_{i=m}^{\infty}a_{i} - \sum_{i=n}^{\infty}a_{i}$, and the sum converges absolutely, we can cancel the terms such that $r_{m} - r_{n} = \sum_{i=m}^{n-1}a_{i}$, which is a finite sum of positive terms and is therefore positive itself. Then, we have that $m < n \implies r_{n} < r_{m}$ and $\frac{r_{n}}{r_{m}} < 1$; further, the RHS becomes
+\[
+  1 - \frac{r_{n}}{r_{m}} = \frac{r_{m} - r_{n}}{r_{m}} = \frac{\sum_{i=m}^{n-1}a_{i}}{r_{m}}
+\]
+And the LHS satisfies for each term that $\frac{r_{t}}{r_{t}} > \frac{r_{t}}{r_{n}}$ for any $m \leq t < n$. Then,
+\[
+  \sum_{i=m}^{n}\frac{a_{i}}{r_{i}} > \sum_{i=m}^{n}\frac{a_{i}}{r_{m}} = \frac{\sum_{i=m}^{n}a_{i}}{r_{m}} > \frac{\sum_{i=m}^{n-1}a_{i}}{r_{m}} = 1 - \frac{r_{n}}{r_{m}}
+\]
+where the last inequality follows from the fact that $a_{n} > 0$.
+
+Then, we have that the partial sums of $\sum \frac{a_{n}}{r_{n}}$ are not Cauchy, as for any $N$, fix $m = N$ and take $n$ large enough that $r_{n} < r_{m} / 2$, such that $|\sum_{i=1}^{n}\frac{a_{i}}{r_{i}} - \sum_{i=1}^{m-1}\frac{a_{i}}{r_{i}}| > 1 - \frac{r_{n}}{r_{m}} > 1 - \frac{r_{m}/2}{r_{m}} = \frac{1}{2}$. Then, fixing $\epsilon > 1/2$, we have that there is no $N$ such that all $n,m \geq N$ satisfy $|\sum_{i=1}^{n}\frac{a_{i}}{r_{i}} - \sum_{i=1}^{m}\frac{a_{i}}{r_{i}}| < \epsilon$. The reason that we can take $n$ large enough that $r_{n} < r_{m} / 2$ is that once we fix $r_{m}$, we have that $r_{m}/2$ is a fixed real number, and since $\lim_{n \rightarrow \infty}r_{n} = 0$ since the series converges, we have that there is some large $N'$ such that $r_{n} < r_{m}/2$ for $n > N'$.
+
+\subsection*{b}
+
+Consider that for any two positive distinct reals $x,y$, we have that $(x+y) - 2\sqrt{xy} = (\sqrt{x} - \sqrt{y})^{2} > 0 \implies \frac{x + y}{2} > \sqrt{xy}$ (this is AMGM for $n = 2$). Then, since $r_{n}-r_{n+1} = a_{n}$, we have that these are both distinct positive reals (as they converge absolutely and have all positive terms), and so satisfy $\frac{r_{n} + r_{n+1}}{2} > \sqrt{r_{n}r_{n+1}}$.
+
+Then, we have that
+\[
+  2(r_{n} - \sqrt{r_{n}r_{n+1}}) > 2\left(r_{n} - \frac{r_{n} + r_{n+1}}{2}\right) = 2\left(\frac{r_{n} - r_{n+1}}{2}\right) = r_{n} - r_{n+1} = a_{n}
+\]
+Rearranging,
+\[
+  a_{n} < 2(r_{n} - \sqrt{r_{n}r_{n+1}}) \implies \frac{a_{n}}{\sqrt{r_{n}}} < 2(\sqrt{r_{n}} - \sqrt{r_{n+1}})
+\]
+
+Then, we have that $\sum_{i=1}^{n}2(\sqrt{r_{i}} - \sqrt{r_{i+1}}) = 2(\sqrt{r_{1}} - \sqrt{r_{n+1}})$ since the sum telescopes, and so $\sum_{i=1}^{\infty}2(\sqrt{r_{i}} - \sqrt{r_{i+1}}) = \lim_{n \rightarrow \infty}2(\sqrt{r_{1}} - \sqrt{r_{n+1}})$. Since we showed in part a that $\lim_{n \rightarrow \infty}r_{n+1} = 0$, we have that fixing $\epsilon > 0$, there is some $N$ such that $r_{n} < \epsilon^{2}$ for $n > N$, and so $\sqrt{r_{n}} < \epsilon$, and so $\lim_{n \rightarrow \infty}\sqrt{r_{n+1}} = 0$, and the sum $\sum_{i=1}^{\infty}2(\sqrt{r_{i}} - \sqrt{r_{i+1}}) = 2\sqrt{r_{1}}$ is convergent. Then. by comparison, $\sum \frac{a_{n}}{r_{n}}$ is convergent.
+
+\section*{5}
+
+% We have to handle a few different cases:
+% \begin{enumerate}
+%   \item $\lim_{n \rightarrow \infty}a_{n} = \infty$ and $b_{n}$ is bounded.
+%   \item $\lim_{n \rightarrow \infty}b_{n} = \infty$ and $a_{n}$ is bounded.
+%   \item $\lim_{n \rightarrow \infty}a_{n} = \infty$ and $\lim_{n \rightarrow \infty}b_{n} = \infty$.
+%   \item $\lim_{n \rightarrow \infty}a_{n} = -\infty$ and $b_{n}$ is bounded.
+%   \item $\lim_{n \rightarrow \infty}b_{n} = -\infty$ and $a_{n}$ is bounded.
+%   \item $\lim_{n \rightarrow \infty}a_{n} = -\infty$ and $\lim_{n \rightarrow -\infty}b_{n} = -\infty$.
+%   \item Both $a_{n}, b_{n}$ are bounded.
+% \end{enumerate}
+% The last cases of $\lim_{n \rightarrow \infty}a_{n} = -\infty$ and $\lim_{n \rightarrow -\infty}b_{n} = \infty$ and $\lim_{n \rightarrow \infty}a_{n} = \infty$ and $\lim_{n \rightarrow -\infty}b_{n} = -\infty$ are disallowed by the prompt, so this is exhaustive.
+
+We will show that there is a subsequence of $a_{n}$ that converges to some $a$ and a subsequence of $b_{n}$ that converges to some $b$ such that $a + b = \limsup_{n \rightarrow \infty}(a_{n} + b_{n})$; then, we have that since $a$ is the limit of some subsequence of $\{a_{n}\}$ (and similarly for $b_{n}$), we have that $a \leq \limsup_{n \rightarrow \infty}a_{n}$ and $b \leq \limsup_{n \rightarrow \infty}b_{n}$, and $\limsup_{n \rightarrow \infty}(a_{n} + b_{n}) \leq \limsup_{n \rightarrow \infty}a_{n} + \limsup_{n \rightarrow \infty}b_{n}$ follows.
+
+Note that we have that the limit superior of a set is always achieved by some subsequence; then, let $\{a_{n_{k}} + b_{n_{k}}\}_{k=1}^{\infty}$ be a subsequence converging to $\limsup_{n \rightarrow \infty}(a_{n} + b_{n})$.
+
+Then, consider the sequence $\{a_{n_{k}}\}_{k=1}^{\infty}$ and $\{b_{n_{k}}\}_{k=1}^{\infty}$. We have that there is some further subsequence $\{a_{n_{k_{l}}}\}_{l=1}^{\infty}$ such that $\lim_{l \rightarrow \infty}a_{n_{k_{l}}} = \limsup_{k \rightarrow \infty}a_{n_{k}}$. Call this last quantity $a$. Then, we have that $\lim_{l \rightarrow \infty}b_{n_{k_{l}}} = \lim_{l \rightarrow \infty}((a_{n_{k_{l}}} + b_{n_{k_{l}}}) - a_{n_{k_{l}}}) = \lim_{l \rightarrow \infty}(a_{n_{k_{l}}} + b_{n_{k_{l}}}) - a$. We can always do this cancellation when the $a_{n}$ and $b_{n}$ are bounded above (and hence $a_{n} + b_{n}$ is bounded above), since then $\lim_{l \rightarrow \infty}a_{n_{k_{l}}} = \limsup_{k \rightarrow \infty}a_{n_{k}}$ is real and so is $\lim_{l \rightarrow \infty}(a_{n_{k_{l}}} + b_{n_{k_{l}}}) = \lim_{k \rightarrow \infty}(a_{n_{k}} + b_{n_{k}}) = \limsup_{n \rightarrow \infty}(a_{n} + b_{n})$ is real, so we can add the limits.
+
+Call this last quantity $\lim_{l \rightarrow \infty}b_{n_{k_{l}}} = b$, such that $a + b = \lim_{l \rightarrow \infty}(a_{n_{k_{l}}} + b_{n_{k_{l}}}) = \lim_{k \rightarrow \infty}(a_{n_{k}} + b_{n_{k}}) = \limsup_{n \rightarrow \infty}(a_{n} + b_{n})$, as desired. By the earlier logic, we are done.
+
+We still have to handle the case that one or more of the $a_{n},b_{n}$ are unbounded above. If one is unbounded, say WLOG that $a_n$ is unbounded, we have that $\lim_{k \rightarrow \infty}a_{n_{k}} = \infty$; then, we have that $\lim_{k \rightarrow \infty}(a_{n_{k}} + b_{n_{k}}) = \infty$ as well, so $\limsup_{n \rightarrow \infty}(a_{n} + b_{n}) = \limsup_{n \rightarrow \infty}a_{n_{k}} + \limsup_{n \rightarrow \infty}b_{n_{k}} = \infty$.
+
+\end{document}
+% LocalWords:  NetID fancyplain LocalWords colorlinks linkcolor linkbordercolor

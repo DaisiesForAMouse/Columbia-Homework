@@ -1,0 +1,162 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{mathtools}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{relsize}
+\usepackage{fancyvrb}
+\usepackage{import}
+\usepackage{float}
+\usepackage{xifthen}
+\usepackage{pdfpages}
+\usepackage{transparent}
+\usetikzlibrary{shapes.geometric,fit}
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+\theoremstyle{definition}
+\newtheorem*{statement}{Statement}
+\newtheorem*{claim}{Claim}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+
+\newcommand{\contra}{\Rightarrow\!\Leftarrow}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Zeq}{\mathbb{Z}_{\geq 0}}
+\newcommand{\Zg}{\mathbb{Z}_{>0}}
+\newcommand{\Req}{\mathbb{R}_{\geq 0}}
+\newcommand{\Rg}{\mathbb{R}_{>0}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand\halfopen[2]{\ensuremath{[#1,#2)}}
+\newcommand\openhalf[2]{\ensuremath{(#1,#2]}}
+\DeclareMathOperator{\diam}{diam}
+
+\newcommand{\incfig}[1] {%
+    % \def\svgwidth{\columnwidth}
+    \import{./figures/}{#1.pdf_tex}
+}
+
+\title{MATH 4061 HW 10}
+\author{David Chen, dc3451}
+
+\begin{document}
+
+\maketitle
+
+\section*{1}
+
+We can give a partition $P$ such that $U(P, f, \alpha) - L(P, f, \alpha) < \epsilon$ for any positive $\epsilon$. In particular, note that the continuity of $\alpha$ at $x_{0}$ gives some $\delta > 0$ such that $|x - x_{0}| < \delta \implies |\alpha(x) - \alpha(x_{0})| < \epsilon/2$. Then, consider $P = \{a, x_{\ell}, x_{r}, b\}$ such that $x_{0} - \delta < x_{\ell} < x_{0} < x_{r} < x + \delta$ (for instance, $x_{\ell}, x_{r} = x_{0} \pm \delta/2$). Then,
+\[
+  L(P, f, \alpha) = 0(\alpha(a) - \alpha(x_{\ell})) + 0(\alpha(x_{r}) - \alpha(x_{\ell})) + 0(\alpha(b) - \alpha(x_{r})) = 0
+\]
+and since $|\alpha(x_{r}) - \alpha(x_{\ell})| \leq |\alpha(x_{0}) - \alpha(x_{\ell})| + |\alpha(x_{0}) - \alpha(x_{r})| < \epsilon$,
+\[
+  U(P, f, \alpha) = 0(\alpha(a) - \alpha(x_{\ell})) + 1(\alpha(x_{r}) - \alpha(x_{\ell})) + 0(\alpha(b) - \alpha(x_{r})) = \alpha(x_{r}) - \alpha(x_{\ell}) < \epsilon
+\]
+so by the earlier theorem in the book, we get that $f \in \mathscr{R}(\alpha)$ and, since we can give some $U(P, f, \alpha) < \epsilon$, $\inf(U(P, f, \alpha)) \leq 0$, so we get that the integral is exactly $0$ since $U(P, f, \alpha) \geq L(P, f, \alpha)$, but the latter can be explicitly $0$, so
+\[
+  \underline{\int}_{a}^{b}fd\alpha = \overline{\int}_{a}^{b}fd\alpha = 0
+\]
+
+\section*{2}
+
+Suppose that $f$ is not indentically $0$, such that $\exists x_{0}$ such that $f(x_{0}) > 0$. Then, since $f$ is continuous, there is some neighborhood of $x_{0}$ where $f$ is positive: $\exists \delta > 0$ such that $|x - x_{0}| < \delta \implies |f(x) - f(x_{0})| < f(x_{0}) \implies f(x) > 0$.
+
+Then, consider the partition $P = \{a, x_{\ell}, x_{r}, b\}$ such that
+\[
+  L(P, f, \alpha) = \inf(f([a,x_{\ell}]))(x_{\ell} - a) + \inf(f([x_{\ell},x_{r}]))(x_{r} - x_{\ell}) + \inf(f([x_{r}, b]))(b - x_{r})
+\]
+Now, $f([a,b]) \geq 0$ so all the infimums are nonnegative and we have that $f$ continuous on the compact set $[x_{\ell}, x_{r}]$ realizes a minimum, so $\inf(f([x_{\ell}, x_{r}])) > 0$. Thus,
+\[
+  L(P, f, \alpha) \geq   \inf(f([x_{\ell},x_{r}]))(x_{r} - x_{\ell}) > 0
+\]
+so the integral is $> 0$. $\contra$, so $f$ is $0$ everywhere.
+
+\section*{7}
+
+\subsection*{a}
+
+Not very parsimonious, but this is immediate from the fact (given by the fundamental theorem of calculus) that $F(c) = \int_{c}^{1}f(x)dx$ is a continuous function of $c$ taking $[0,1] \rightarrow \R$ since $f$ is integrable on $[0, 1]$. Then, continuity gives us that $\lim_{c \rightarrow 0}F(c) = \lim_{c \rightarrow 0}\int_{c}^{1}f(x)dx = F(0) = \int_{0}^{1}f(x)dx$.
+
+% Set $F(c) = \int_{0}^{1}f(x)dx - \int_{c}^{1}f(x)dx$. Then, we will show that $\lim_{c \rightarrow 0}F(c) = 0$, which gives us what we want, since $\lim_{c \rightarrow 0}F(c) = $
+
+% We can show that $\left|\lim_{c \rightarrow 0}\int_{0}^{1}f(x)dx - \int_{c}^{1}f(x)dx\right| < \epsilon$. Then, the fact that
+
+\subsection*{b}
+
+The hint on piazza consists of making a graph of isoceles triangles of area $(-1)^{n}/n$ on the intervals $[1/(n+1), 1/n]$, which is continuous and thus integrable. Giving an explicit construction is a bit annoying, so we can also make this slightly more simple while keeping the same idea: consider the function
+\[
+  f(x) = (-1)^{n}(n+1)
+\]
+where $n$ is given by $\lfloor 1/x \rfloor$ (that is, $x \in \openhalf{1/(n+1), 1/n}$). Then, this is clearly discontinuous at exactly $x = 1/m$ for $m \in J$. This is integrable on any interval $[c,1]$ for $c > 0$. In particular, let $n_{c} = \lfloor 1/c \rfloor$, such that $c \in [1/(n_{c}+1), 1/n_{c}]$. Then, $f$ is a step function with finitely many discontinuities: $\{1/n_{c}, 1/(n_{c} - 1), \dots, 1/2\}$ since there are a finite amount of reciprocals of integers between $c > 0$ and $1$. Then, $f$ is integrable, and
+\[
+  \int_{c}^{1}f(x)dx = \left(\frac{1}{n_{c}} - c\right)(-1)^{n_{c}}(n_{c} + 1) + \sum_{n=1}^{n_{c}-1}\frac{(-1)^{n}}{n}
+\]
+since we can clearly give $P = \{c, 1/n_{c}, 1/(n_{c}-1), \dots, 1/2, 1\}$ such that
+\begin{align*}
+  U(P, f) = L(P, f) &= \left(\frac{1}{n_{c}} - c\right)(-1)^{n_{c}}(n_{c} + 1) + \sum_{n=1}^{n_{c}-1}\left(\frac{1}{n} - \frac{1}{n+1}\right)(-1)^{n}(n+1) \\
+                    &= \left(\frac{1}{n_{c}} - c\right)(-1)^{n_{c}}(n_{c} + 1) + \sum_{n=1}^{n_{c}-1}\frac{(-1)^{n}}{n}
+\end{align*}
+
+Then, $\lim_{c \rightarrow 0}\int_{c}^{1}f(x)dx = -\ln(2)$, since we get that as $c \rightarrow 0$, $n_{c} \rightarrow \infty$ and
+\[
+  \left|\left(\frac{1}{n_{c}} - c\right)(-1)^{n_{c}}(n_{c}+1)\right| < \left|\left(\frac{1}{n_{c}} - \frac{1}{n_{c} + 1}\right)(n_{c}+1)\right| = \left|\frac{1}{n_{c}}\right| \rightarrow 0
+\]
+so we get that
+\[
+  \lim_{c \rightarrow 0}\int_{c}^{1}f(x)dx = \left(\frac{1}{n_{c}} - c\right)(-1)^{n_{c}}(n_{c} + 1) + \sum_{n=1}^{n_{c}-1}\frac{(-1)^{n}}{n} = \sum_{n=1}^{\infty}\frac{(-1)^{n}}{n} = -\ln(2)
+\]
+but
+\[
+  \lim_{c \rightarrow 0}\left|\int_{c}^{1}f(x)dx\right| = \left(\frac{1}{n_{c}} - c\right)(n_{c} + 1) + \sum_{n=1}^{n_{c}-1}\frac{1}{n} = \sum_{n=1}^{\infty}\frac{1}{n}
+\]
+which diverges.
+
+\section*{8}
+
+Consider the following picture:
+
+($\implies$) Note that as $x \rightarrow 0$, if $f(x) \rightarrow m > 0$, then $f(x) \geq m > 0$ for all $x \in \halfopen{1, \infty}$, and so $\lim_{b \rightarrow \infty}\int_{1}^{b}f(x)dx > \lim_{b \rightarrow \infty}\int_{1}^{b}mdx = (b-1)m = \infty$. $\contra$
+
+Then, consider the new function $g(x) = f(\lfloor x + 1 \rfloor)$, such that  for integral $n$, $g(n) = f(n + 1)$ and thus $\sum_{n=1}^{\infty}g(n) = \sum_{n=2}^{\infty}f(n)$. In particular, on any finite interval $[1, b]$, $g$ is discontinuous at a subset of $\{2, 3, \dots, \lfloor b \rfloor\}$, and satisfies that $g(x) = f(\lfloor x + 1 \rfloor) \leq f(x)$, so $g$ is integrable and $\int_{1}^{b}g \leq \int_{1}^{b}f$. But, we get that with the partition $\{1,2,3,\dots, \lfloor b \rfloor, b\}$,
+\[
+  \int_{1}^{b}g = (b - \lfloor b \rfloor)g(\lfloor b \rfloor) + \sum_{n=1}^{\lfloor b \rfloor}g(n)
+\]
+but $0 \leq b - \lfloor b \rfloor < 1$, and $g(\lfloor b \rfloor) \rightarrow 0$ as $b \rightarrow 0$ since $f \rightarrow 0$ as $x \rightarrow 0$. Then,
+\[
+  \lim_{b \rightarrow \infty}\int_{1}^{b}g = \sum_{n=1}^{\infty}g(n) = \sum_{n=2}^{\infty}f(n) \leq \lim_{b \rightarrow \infty}\int_{1}^{b}f
+\]
+so $\sum_{n=1}^{\infty}f(n) \leq f(1) + \int_{1}^{\infty}f$, so the partial sums are monotonic and bounded, and thus converges.
+
+($\impliedby$) Since $\int_{1}^{b}f$ is a continuous increasing function of $b$, if it is bounded above, we get that the limit as $b \rightarrow \infty$ converges. Then, consider that $f(\lfloor x \rfloor) \geq f(x)$ since $\lfloor x \rfloor \leq x$, and on any finite interval $[1,b]$, we get that there are finite discontinuities $\{2,3,\dots, \lfloor b \rfloor\}$ just as before; then $f(\lfloor x \rfloor)$ is integrable, and thus gives us
+\[
+  \int_{1}^{b}f(\lfloor x \rfloor)dx = (b - \lfloor b \rfloor)f(\lfloor b \rfloor) + \sum_{n=1}^{\lfloor b \rfloor}f(n) \geq \int_{1}^{b}f(x)dx
+\]
+but as $b \rightarrow \infty$, $f(\lfloor b \rfloor) \rightarrow 0$ and $b - \lfloor b \rfloor \leq 1$, so
+\[
+  \sum_{n=1}^{\infty}f(n) \geq \int_{1}^{b}f
+\]
+where the LHS converges by assumption so we get what we want.
+
+\end{document}
+% LocalWords:  NetID fancyplain LocalWords colorlinks linkcolor linkbordercolor

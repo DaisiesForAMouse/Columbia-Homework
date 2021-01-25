@@ -1,0 +1,115 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{mathtools}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{relsize}
+\usepackage{fancyvrb}
+\usepackage{import}
+\usetikzlibrary{shapes.geometric,fit}
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+\theoremstyle{definition}
+\newtheorem*{statement}{Statement}
+\newtheorem*{claim}{Claim}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+
+\newcommand{\contra}{\Rightarrow\!\Leftarrow}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Zeq}{\mathbb{Z}_{\geq 0}}
+\newcommand{\Zg}{\mathbb{Z}_{>0}}
+\newcommand{\Req}{\mathbb{R}_{\geq 0}}
+\newcommand{\Rg}{\mathbb{R}_{>0}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\DeclareMathOperator{\diam}{diam}
+
+\newcommand{\incfig}[1] {%
+    % \def\svgwidth{\columnwidth}
+    \import{./figures/}{#1.pdf_tex}
+}
+
+\title{MATH 4061 HW 8}
+\author{David Chen, dc3451}
+
+\begin{document}
+
+\section*{9}
+
+We want to show that given $f: X \rightarrow Y$, $f$ is uniformly continuous if and only if it satisfies the property given in the question.
+
+$(\implies)$ Uniform continuity gives that for any $\epsilon > 0$, $\exists \delta > 0$ such that $d_{X}(p,q) < \delta \implies d_{Y}(f(p),f(q)) < \epsilon$ for any $p, q \in X$. Then, if we have any set $E$ such that $\diam E < \delta/2$, then for any two points $p, q$ in $E$, we have that $d_{X}(p, q) \leq \delta / 2 < \delta$, so for any two points $f(p), f(q) \in f(E)$, we have that $d_{Y}(f(p), f(q)) < \epsilon$, so $\diam f(E) < \epsilon$, which was what we wanted.
+
+($\impliedby$) Fix $\epsilon > 0$, and take any $p, q \in X$ such that $d_{X}(p,q) < \delta / 2$ where $\delta$ is the associated $\delta$ to the fixed $\epsilon$ given by the property from the question. Then, $q \in B_{\delta/2}^{\circ}(p)$, and consider that $\diam B_{\delta/2}^{\circ}(p) \leq \delta/2 < \delta$, so if we have the property from the question, then $\diam f(B_{\delta/2}^{\circ}(p)) < \epsilon$. Since we have that $q \in B_{\delta/2}^{\circ}(p) \implies f(q) \in f(B_{\delta/2}^{\circ}(p)) \implies d_{Y}(f(q), f(p)) < \epsilon$, we are done.
+
+\section*{10}
+
+Theorem 4.19 is that if $f: X \rightarrow Y$, $X$ compact, $f$ continuous, then $f$ is uniformly continuous. The alternative proof in the problem is as follows:
+
+Suppose that $f$ is not uniformly continuous. Then, for some $\epsilon > 0$ and every $\delta > 0$, there are $p_{\delta}, q_{\delta} \in X$ such that $d_{X}(p_{\delta}, q_{\delta}) < \delta$ and $d_{Y}(f(p_{\delta}), f(q_{\delta})) > \epsilon$. For positive integers $n$, set $p_{n}, q_{n}$ to the associated $p_{1/n}, q_{1/n}$ from before, such that $d_{Y}(f(p_{n}), f(q_{n})) > \epsilon$ and $d_{X}(p_{n}, q_{n}) < 1/n$. Then, we have that since $X$ is compact, that there are convergent subsequences of $p_{n}, q_{n}$, say $p_{n_{i}}, q_{n_{i}}$, such that $p_{n_{i}} \rightarrow p, q_{n_{i}} \rightarrow q$ as $i \rightarrow \infty$, $p, q \in X$.
+
+However, since we have that $d(q, p_{n_{i}}) \leq d(q, q_{n_{i}}) + d(q_{n_{i}}, p_{n_{i}}) < d(q,q_{n_{i}}) + 1/n_{i}$, but both terms on the right $\rightarrow 0$ as $i \rightarrow \infty$, since $q_{n_{i}} \rightarrow q$ by definition and $n_{i} \rightarrow \infty$, so we get that $d(q, p_{n_{i}}) \rightarrow 0$, so $p = q$. Then, since $f$ is continuous, we have that as $i \rightarrow \infty$, $f(p_{n_{i}}) \rightarrow f(p) = f(q)$ and $f(q_{n_{i}}) \rightarrow f(q) = f(p)$, and so both $d(f(p_{n_{i}}), p)$ and $d(p, f(q_{n_{i}})) \rightarrow 0$ as $i \rightarrow \infty$. However, we have that $d(f(p_{n_{i}}), f(q_{n_{i}}))  = d(f(p_{n_{i}}), p) + d(p, f(q_{n_{i}})) > \epsilon$ by construction, so as $i \rightarrow \infty$, we get that $0 > \epsilon$, so $\contra$. Thus, $f$ must be uniformly continuous.
+
+\section*{2}
+
+% Note that $f$ is differentiable and thus continuous on $(a,b)$. Then, take the continuous extension $f(a) = \lim_{p \rightarrow a}f(p)$ and $f(b) = \lim_{p \rightarrow b}f(b)$, so $f$ is defined on $[a,b]$.
+
+% Pick arbitrary values for $f$
+
+To see that it is strictly increasing, pick any $c,d$ such that $a < c < d < b$. Then, we have that $f$ is continuous on $[c,d]$ since it is differentiable on $(a,b) \supset [c,d]$. Next, the mean value theorem gives that there is some point $p$ on $(c,d)$ such that $f'(p) = \frac{f(d) - f(c)}{d - c}$, and since we have that $d > c \implies d - c > 0$, and the derivative is positive by assumption, then $f(d) - f(c) > 0$ as well, so $f$ must strictly increase.
+
+Then,
+\[
+  g'(f(x)) = \lim_{f(t) \rightarrow f(x)}\frac{g(f(t)) - g(f(x))}{f(t) - f(x)} = \lim_{f(t) \rightarrow f(x)}\frac{t - x}{f(t) - f(x)}
+\]
+but since $f$ is continuous,
+\[
+  \lim_{f(t) \rightarrow f(x)}\frac{t - x}{f(t) - f(x)} = \lim_{t \rightarrow x}\frac{1}{\frac{f(t)-f(x)}{t-x}} = \frac{1}{f'(x)}
+\]
+where this last equality comes from the fact that for any $\delta' > 0$, there is some $\delta > 0$ such that if $|t - x| < \delta$, then $|f(t) - f(x)| < \delta'$, so for any $\epsilon > 0$, if we need that $|f(t) - f(x)| < \delta'$ such that $\left|\frac{t-x}{f(t)-f(x)}\right| < \epsilon$, we can also just require $|t - x| < \delta$, and so the limits are equal.
+
+\section*{6}
+
+We have that $g$ is differentiable for $x > 0$, and by product rule we get
+\[
+  g'(x) = \frac{f'(x)}{x} - \frac{f(x)}{x^{2}} = \frac{xf'(x) - f(x)}{x^{2}}
+\]
+but by the mean value theorem we get that there is some point $p \in (0, x)$ such that $f(x) - f(0) = (x - 0)f'(p) \implies f(x) = xf'(p)$, so
+\[
+  g'(x) = \frac{x(f'(x) - f'(p))}{x^{2}}
+\]
+but since $f'$ is increasing, we have that $f(x) > f(p)$, so $g'(x) > 0$ for $x > 0$ so $g$ is strictly increasing by the last problem.
+
+\section*{8}
+
+$f'$ is continuous on a compact set (namely $[a,b]$) so $f'$ is uniformly continuous. This gives that for every $\epsilon > 0$, there is some $\delta > 0$ such that if $|y - x| < \delta$, then $|f'(y) - f'(x)| < \epsilon$. Then, the mean value theorem gives for any $t, x \in [a,b]$ some $p$ between $x$ and $t$ such that $f'(p) = \frac{f(t) - f(x)}{t - x}$, but since $p$ is between $x$ and $t$, $|p - x| < |t-x|$, so if $|t - x| < \delta$, then $|p  - x| < \delta$ and $|f'(p) - f'(x)|  = \left|\frac{f(t)-f(x)}{t-x} - f'(x)\right|< \epsilon$.
+
+For a vector-valued function, note that it has continuous derivative if and only if each component of the derivative is continuous, in which case each component is uniformly continuous; apply the above, and each component $f_{i}$ satisfies that it is uniformly differentiable. Then, for $|t - x| <\delta$,
+\[
+  \left|\frac{f(t) - f(x)}{t - x} - f'(x)\right| = \left(\sum_{i=1}^{n}\left|\frac{f(t) - f(x)}{t - x} - f'(x)\right|^{2}\right)^{1/2} < (n\epsilon^{2})^{1/2} < \epsilon\sqrt{n}
+\]
+so we have that it holds for vector-valued functions as well.
+
+\end{document}
+% LocalWords:  NetID fancyplain LocalWords colorlinks linkcolor linkbordercolor

@@ -1,0 +1,142 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{relsize}
+\usepackage{fancyvrb}
+\usepackage{import}
+\usetikzlibrary{shapes.geometric,fit}
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+\theoremstyle{definition}
+\newtheorem*{statement}{Statement}
+\newtheorem*{claim}{Claim}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+
+\newcommand{\contra}{\Rightarrow\!\Leftarrow}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Zeq}{\mathbb{Z}_{\geq 0}}
+\newcommand{\Zg}{\mathbb{Z}_{>0}}
+\newcommand{\Req}{\mathbb{R}_{\geq 0}}
+\newcommand{\Rg}{\mathbb{R}_{>0}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+
+\newcommand{\incfig}[1] {%
+    % \def\svgwidth{\columnwidth}
+    \import{./figures/}{#1.pdf_tex}
+}
+
+\title{MATH 4061 HW 5}
+\author{David Chen, dc3451}
+
+\begin{document}
+
+\maketitle
+
+\section*{7}
+
+We have that $(\sqrt{a_{n}} - \frac{1}{n})^{2} = a_{n} + \frac{1}{n^{2}} - \frac{\sqrt{a_{n}}}{n} \geq 0$. Then, we have that $a_{n} + \frac{1}{n^{2}} \geq \frac{\sqrt{a_{n}}}{n}$, so if the first series $\sum (a_{n} + \frac{1}{n^{2}})$ converges, then the series that we want converges as well. Then, we have that if $\sum a_{n}$ converges, which it does by assumption, and $\sum \frac{1}{n^{2}}$ converges, which it does since it is a p-series with exponent $-2$, then $\sum (a_{n} + \frac{1}{n^{2}})$ converges as well, and so $\sum \frac{\sqrt{a_{n}}}{n}$ converges.
+
+\section*{9}
+
+\subsection*{a}
+
+Ratio test:
+\begin{align*}
+  \lim_{n \rightarrow \infty}\left|\frac{(n + 1)^{3}z^{n+1}}{n^{3}z^{n}}\right| &= \lim_{n \rightarrow \infty}\frac{n^{3} + 3n^{2} + 3n + 1}{n^{3}}|z| \\
+                                                       &= \lim_{n \rightarrow \infty}\left(1 + 3\frac{1}{n} + 3\frac{1}{n^{2}} + \frac{1}{n^{3}}\right)|z| \\
+                                                       &= |z|
+\end{align*}
+which the ratio test states converges if $|z| < 1$.
+
+\subsection*{b}
+
+Ratio test:
+\begin{align*}
+  \lim_{n \rightarrow \infty}\left|\frac{\frac{2^{n+1}}{(n+1)!}z^{n+1}}{\frac{2^{n}}{n!}z^{n}}\right| &= \lim_{n \rightarrow \infty} \frac{2}{n+1}|z| = 0|z| = 0
+\end{align*}
+so the this series converges everywhere and thus has a radius of convergence of $\infty$.
+
+\subsection*{c}
+
+Ratio test:
+\begin{align*}
+  \lim_{n \rightarrow \infty}\left|\frac{\frac{2^{n+1}}{(n+1)^{3}}z^{n+1}}{\frac{2^{n}}{n^{3}}z^{n}}\right| &= \lim_{n \rightarrow \infty} 2\frac{n^{3}}{(n+1)^{3}}|z| = 2|z|\lim_{n \rightarrow \infty} \frac{n^{3}}{(n+1)^{3}}
+\end{align*}
+but we already showed that $\lim_{n \rightarrow \infty} \frac{(n+1)^{3}}{n^{3}} = 1$ in an earlier part, so $\lim_{n \rightarrow \infty}\frac{n^{3}}{(n+1)^{3}} = 1$, and so the this series converges when $2|z| < 1$, so the radius of convergence is $\frac{1}{2}$.
+
+\subsection*{d}
+
+Ratio test:
+\begin{align*}
+  \lim_{n \rightarrow \infty}\left|\frac{\frac{(n+1)^{3}}{3^{n+1}}z^{n+1}}{\frac{n^{3}}{3^{n}}z^{n}}\right| &= \lim_{n \rightarrow \infty} \frac{(n+1)^{3}}{3n^{3}}|z| = \frac{|z|}{3}\lim_{n \rightarrow \infty} \frac{(n+1)^{3}}{n^{3}} = \frac{|z|}{3}
+\end{align*}
+so this converges where $\frac{|z|}{3} < 1$, so the radius of convergence is $3$.
+
+\section*{10}
+
+We use the root test. We want to show that $\frac{1}{R} = \limsup_{n \rightarrow \infty}\sqrt[n]{|a_{n}|} \geq 1$. The contrapositive of theorem 3.17 in Rudin (also shown in class) states that for some real $x$, if there is no integer $N$ such that $n \geq N \implies \sqrt[n]{|a_{n}|} < x$, then $x \leq \limsup_{n \rightarrow \infty}\sqrt[n]{|a_{n}|}$. However, it is given that an infinite amount of $a_{n}$ must be distinct from zero. Then, for any $N$, we have that there is some $n > N$ such that $a_{n} \neq 0 \implies |a_{n}| \geq 1$, since there is no integer between $0$ and $1$. If there were no such $n$, then there would be at most $N$ $a_{n}$ distinct from $0$, so there is always some $n \geq N$ for which $a_{n} \neq 0$. Then, according to the earlier statement, $|a_{n}| \geq 1 \implies \sqrt[n]{|a_{n}|} \geq 1$ as a basic fact about $n^{th}$ roots, so by the earlier statement, $\limsup_{n \rightarrow \infty}\sqrt[n]{|a_{n}|} \geq 1$, so $\frac{1}{R} \geq 1 \implies R \leq 1$ which is what we wanted.
+
+\section*{13}
+
+Put $A_{n} = \sum_{k=0}^{n}a_{k}$, $B_{n} = \sum_{k=0}^{n}b_{k}$, $C_{n} = \sum_{k=0}^{n}|c_{k}| = \sum_{k=0}^{n}\left|\sum_{m=0}^{k}a_{m}b_{k-m}\right|$. Then, if both $\sum a_{n}$, $\sum b_{n}$ converge absolutely, we will show that $\sum |c_{n}|$ converge absolutely.
+
+We have that
+\[
+  C_{n} = \sum_{k=0}^{n}\left|\sum_{m=0}^{k}a_{m}b_{k-m}\right| \leq \sum_{k=0}^{n}\sum_{m=0}^{k}|a_{m}b_{k-m}| =  \sum_{k=0}^{n}\sum_{m=0}^{k}|a_{m}||b_{k-m}|
+\]
+
+However, we have that since $\sum |a_{m}|$ and $\sum |b_{m}|$ converge (and converge absolutely), then we have that the right hand side as their Cauchy product converges, as shown in Rudin, so $C_{n}$ is bounded and monotonic, since $C_{n+1} - C_{n} = \left|\sum_{m=0}^{n+1}a_{m}b_{k-m}\right| \geq 0$, so $C_{n}$ converges and thus $\sum c_{n}$ converges absolutely.
+
+I can't remember if we proved this in class, so note that we can do the following sum rearrangement:
+\begin{align*}
+  \sum_{k=0}^{n}\sum_{m=0}^{k}|a_{m}||b_{k-m}| &= |a_{0}||b_{0}| + (|a_{1}||b_{0}| + |a_{0}||b_{1}|) + \dots + (|a_{0}||b_{n}| + |a_{1}||b_{n-1}| + \dots + |a_{n}||b_{0}|) \\
+                                               &= |a_{0}|(|b_{0}| + |b_{1}| + \dots + |b_{n}|) + |a_{1}|(|b_{0}| + |b_{1}| + \dots + b_{n-1}) + \dots + |a_{n}||b_{0}| \\
+  \intertext{Since $\sum |a_{n}|$ and $\sum |b_{n}|$ converge, and each term is positive,}
+                                               &\leq \sum_{k=0}^{n}|a_{k}|(\sum_{m=0}^{\infty}|b_{m}|) < \left(\sum_{k=0}^{\infty}|a_{k}|\right)\left(\sum_{m=0}^{\infty}|b_{m}|\right)
+\end{align*}
+so $C_{n}$ is bounded and monotonic, so it converges.
+
+\section*{22}
+
+We will show at the end that for a dense set $G_{n}$ and some nonempty open set $E$, that $E \cap G_{n}$ is necessarily nonempty. If we have this, pick any open subset $E$ of $X$, so $E \cap G_{1} \neq \emptyset$. Then, this is the intersection of open sets, and is thus open itself. Pick $x_{1} \in E \cap G_{1}$, such that $B_{r_{1}}(x_{1}) \subset E \cap G_{1}$ for some $r_{1} < 1$. Then, we have that $\overline{B_{r_{1}/2}(x_{1})} \subset B_{r}(x_{1}) \subset E \cap G_{1}$, and further that $B_{r_{1}/2}(x_{1}) \cap G_{2} \neq \emptyset$ as well. Again, we have some $x_{2} \in B_{r_{1}/2}(x_{1}) \cap G_{2}$, and some $r_{2} < \min(d(x_{2},x_{1}), r_{1}/2 - d(x_{2},x_{1}), \frac{1}{2})$ such that $\overline{B_{r_{2}/2}(x_{2})} \subset B_{r_{2}}(x_{2}) \subset B_{r_{1}/2}(x_{1}) \cap G_{2} \subset E \cap G_{1} \cap G_{2}$.
+
+Continue this inductively, such that for any $n$, if we have that $B_{r_{n-1}/2}(x_{n-1}) \cap G_{n}$ is the intersection of nonempty open sets, and is open and nonempty itself since $G_{n}$ is dense, and so we pick $x_{n} \in B_{r_{n-1}/2}(x_{n-1}) \cap G_{n}$ and $r_{n} < \min(d(x_{n-1},x_{n}), r_{n-1}/2 - d(x_{n-1},x_{n}), \frac{1}{n})$ such that $\overline{B_{r_{n}/2}(x_{n})} \subset B_{r_{n}}(x_{n}) \subset B_{r_{n-1}/2}(x_{n-1}) \cap G_{n} \subset E \cap \left(\bigcap_{i=1}^{n}G_{i}\right)$, since $B_{r_{n-1}/2}(x_{n-1})$ by the inductive construction is a subset of $E \cap \left(\bigcap_{i=1}^{n-1}G_{i}\right)$.
+
+Then, this sequence $\{\overline{B_{r_{n}/2}(x_{n})}\}_{n=1}^{\infty}$ is a sequence of closed and bounded sets. We have that $\lim_{n \rightarrow \infty} \text{diam}(\overline{B_{r_{n}/2}(x_{n})}) = 0$, since $\overline{B_{r_{n}/2}(x_{n})} \subseteq \overline{B_{1/2n}(x_{n})}$ by construction, and so $\text{diam}(\overline{B_{r_{n}/2}(x_{n})}) \leq \text{diam}(\overline{B_{1/2n}(x_{n})})$. Then,
+\[
+  0 \leq \lim_{n \rightarrow \infty} \text{diam}(\overline{B_{r_{n}/2}(x_{n})}) \leq \lim_{n \rightarrow \infty}\text{diam}(\overline{B_{1/2n}(x_{n})}) = \lim_{n \rightarrow \infty}\frac{1}{2n} = 0
+\]
+Thus a past homework problem gives that since $X$ is complete, the infinite intersection $\bigcap_{i=1}^{\infty}\overline{B_{r_{i}/2}(x_{i})}$is still nonempty (Q21).
+
+Then, we have that there is some $x$ such that $x \in \bigcap_{i=1}^{\infty}\overline{B_{r_{i}/2}(x_{i})}$. Further, $x \in \overline{B_{r_{n}/2}(x_{n})}$ gives by construction that $x \in E \cap \left(\bigcap_{i=1}^{n}G_{n}\right)$, so since $x$ is in every $\overline{B_{r_{n}/2}(x_{n})}$, $x \in E \cap \left(\bigcap_{i=1}^{\infty}G_{n}\right)$, and we have that $\bigcap_{i=1}^{\infty}G_{n} \neq \emptyset$.
+
+
+Finally, since this holds for any open set $E$, pick any $x \in X$ and $\epsilon > 0$ and consider $B_{\epsilon}(x) \cap \left(\bigcap_{i=1}^{\infty}G_{n}\right)$, which now must be nonempty. Then, $x$ is either a limit point of $\left(\bigcap_{i=1}^{\infty}G_{n}\right)$, or it is contained in $\left(\bigcap_{i=1}^{\infty}G_{n}\right)$, so $\left(\bigcap_{i=1}^{\infty}G_{n}\right)$ is dense.
+
+The only thing left is to show that for a dense set $G_{n}$ and some open set $E$, that $E \cap G_{n}$ is necessarily nonempty. To see this, suppose that $G_{n} \cap E$ was in fact empty: then, for some $x \in E$, $G_{n} \cap B_{\epsilon}(x) = \emptyset$, so $x \notin G_{n}$ and $x$ cannot be a limit point of $G_{n}$, so $G_{n}$ cannot be dense, and so we are done.
+
+\end{document}
+% LocalWords:  NetID fancyplain LocalWords colorlinks linkcolor linkbordercolor

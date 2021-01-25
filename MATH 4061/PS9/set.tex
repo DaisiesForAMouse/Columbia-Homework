@@ -1,0 +1,202 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{mathtools}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{relsize}
+\usepackage{fancyvrb}
+\usepackage{import}
+\usepackage{float}
+\usepackage{xifthen}
+\usepackage{pdfpages}
+\usepackage{transparent}
+\usetikzlibrary{shapes.geometric,fit}
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+\theoremstyle{definition}
+\newtheorem*{statement}{Statement}
+\newtheorem*{claim}{Claim}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+
+\newcommand{\contra}{\Rightarrow\!\Leftarrow}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Zeq}{\mathbb{Z}_{\geq 0}}
+\newcommand{\Zg}{\mathbb{Z}_{>0}}
+\newcommand{\Req}{\mathbb{R}_{\geq 0}}
+\newcommand{\Rg}{\mathbb{R}_{>0}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\DeclareMathOperator{\diam}{diam}
+
+\newcommand{\incfig}[1] {%
+    % \def\svgwidth{\columnwidth}
+    \import{./figures/}{#1.pdf_tex}
+}
+
+\title{MATH 4061 HW 9}
+\author{David Chen, dc3451}
+
+\begin{document}
+
+\maketitle
+
+\section*{12}
+
+On $x < 0$, we have that $f(x) = -x^{3}$, and on $x > 0$, we have that $f(x) = x^{3}$. Then, for $x < 0$, since there derivative is defined as
+\[
+  \lim_{t \rightarrow x}\frac{f(t) - f(x)}{t - x}
+\]
+we have that for $t$ on sufficiently small neighborhoods of $x$, $t < 0$ so
+\[
+  \lim_{t \rightarrow x}\frac{f(t) - f(x)}{t - x} = \lim_{t \rightarrow x}\frac{-t^{3} + x^{3}}{t - x} = \lim_{t \rightarrow x}(-t^{2} - tx - x^{2}) = -3x^{2}
+\]
+Similarly, for $x > 0$, for $t$ on sufficiently small neighborhoods of $x$, $t > 0$, so
+\[
+  \lim_{t \rightarrow x}\frac{f(t) - f(x)}{t - x} = \lim_{t \rightarrow x}\frac{t^{3} - x^{3}}{t - x} = \lim_{t \rightarrow x}(t^{2} + tx + x^{2}) = 3x^{2}
+\]
+and note that if a derivative exists everywhere in a neighborhood of a point $x$ except for at $x$, then by L'Hopital, if the last limit here exists,
+\[
+  f'(x) = \lim_{t \rightarrow x}\frac{f(t) - f(x)}{t - x} = \lim_{t \rightarrow x}\frac{f'(t)}{1} = \lim_{t \rightarrow x}f'(t)
+\]
+% Then, at $0$, we compute the left and right limits; on the left, we have that $t < 0 \implies f(t) = -x^{3}$ and so
+% \[
+%   \lim_{t \rightarrow 0^{-}}\frac{f(t) - f(0)}{t - 0} = -t^{2} = 0
+% \]
+% and similarly on the right,
+% \[
+%   \lim_{t \rightarrow 0^{+}}\frac{f(t) - f(0)}{t - 0} = t^{2} = 0
+% \]
+and we clearly have that $\lim_{x \rightarrow 0^{-}}-3x^{2} = \lim_{x \rightarrow 0^{+}}3x^{2} = 0$, so the derivative at $0$ is $0$, and we get
+\[
+  f'(x) = \begin{cases}
+    -3x^{2} & x < 0 \\
+    3x^{2} & x \geq 0
+  \end{cases}
+\]
+
+Similarly, we get that for $x < 0$, $f''(x) = -6x$ as the derivative of $-3x^{2}$, and for $x > 0$, $f''(x) = 6x$, and at zero, again,
+\[
+  \lim_{x \rightarrow 0^{-}}-6x = \lim_{x \rightarrow 0^{+}}6x = 0
+\]
+so
+\[
+  f''(x) = \begin{cases}
+    -6x & x < 0 \\
+    6x & x \geq 0
+  \end{cases}
+\]
+but now, $f^{(3)}(0) = \lim_{t \rightarrow 0}\frac{f''(t) - f''(0)}{t - 0} = \lim_{t \rightarrow 0}\frac{f''(t)}{t}$, but here,
+\[
+  \lim_{t \rightarrow 0^{-}}\frac{f''(t)}{t} = \lim_{t \rightarrow 0^{-}}\frac{-6t}{t} = -6
+\]
+but
+\[
+  \lim_{t \rightarrow 0^{+}}\frac{f''(t)}{t} = \lim_{t \rightarrow 0^{+}}\frac{6t}{t} = 6
+\]
+so the left and right limits take different values, and thus the limit doesn't exist.
+
+\section*{25}
+
+
+\subsection*{a}
+
+\begin{figure}[H]
+  \centering
+  \incfig{parta}
+\end{figure}
+
+If we have some $x_{n}$, the next step is to create a tangent line to $f(x)$ at $x_{n}$, which is given by $g(x) = f'(x_{n})(x - x_{n}) + f(x_{n})$; then, we set $x_{n+1}$ to be the zero of $g$, which occurs at $x = x_{n} - \frac{f'(x_{n})}{f(x_{n})}$.
+
+\subsection*{b}
+
+As a note, the problem isn't true as stated? Taking $f(x) = x, [a,b] = [1,1]$, we get that $f'(x) = 1, f''(x) = 0$, which satisfies the desired properties, but clearly if we take $x_{1} \in (0, 1)$ we get $x_{2} = x_{1} - x_{1} = 0$, and $x_{3} = x_{2} - x_{2} = 0 = x_{2}$, so $x_{n+1} \leq x_{n}$ is the correct relation. Piazza strengthens the problem to $x_{n} \neq \xi$, so we'll use that.
+
+We want to show that $f(x_{n}) > 0$ for all $x_{n}$, which
+will give us that $\frac{f(x_{n})}{f'(x_{n})} > 0 \implies x_{n+1} = x_{n} - \frac{f(x_{n})}{f'(x_{n})} < x_{n}$, and since $f$ is increasing, that $f(x_{n}) > f(\xi) \implies x_{n} > \xi$. This is true for $x_{1}$ since $x_{1} \in (\xi, b)$ by construction, and the fact that the function has $f'(x) > 0$ shows that it is monotone increasing and thus $f(\xi) = 0 < f(x_{1})$. Now assume that $f(x_{n}) > 0$ by induction. Then, we have that $x_{n+1} = x_{n} - \frac{f'(x_{n})}{f(x_{n})}$, where $\frac{f'(x_{n})}{f(x_{n})}$ must be positive by assumption, so $x_{n} - x_{n+1} > 0$.
+
+Now, the mean value theorem gives us that there is some $c \in (x_{n+1}, x_{n})$ such that $f'(c) = \frac{f(x_{n}) - f(x_{n+1})}{x_{n} - x_{n+1}}$, but we have that by construction, $f'(x_{n}) = \frac{f(x_{n})}{x_{n} - x_{n+1}} = f'(c) - \frac{f(x_{n+1})}{x_{n} - x_{n+1}}$. Since the second derivative is nonnegative, we have that $f'(c) \leq f'(x_{n})$, so we get that (since $x_{n} - x_{n+1} > 0$) $f(x_{n+1}) \geq 0$. In particular, we assume that $x_{n} \neq \xi$ for any $n$, so since $\xi$ is the unique zero of $f$, $x_{n+1} \neq \xi$ and thus $f(x_{n+1}) \neq 0 \implies f(x_{n+1}) > 0$, which gives us that $\xi < x_{n+1} < x_{n}$ for all $n$.
+
+Thus, $x_{n} \rightarrow \zeta$ for some $\zeta \geq \xi$ since $x_{n}$ is monotone and bounded. However, we have that for sufficiently large $n$, $|x_{n+1} - x_{n}| = |\frac{f(x_{n})}{f'(x)}| < \epsilon$ for any epsilon. In particular, $f'(x)$ is bounded on $[a,b]$ since it is continuous and $[a,b]$ is compact, so $|f(x_{n})| < \epsilon$ for any epsilon for again, sufficiently large $n$. Then, we clearly have that $f(x_{n}) \rightarrow 0$ since it is monotonic (since $x_{n}$ is monotone, and $f$ is monotonic since it has positive derivative everywhere, so $x_{n+1} < x_{n} \implies f(x_{n+1}) < f(x_{n})$) and bounded (since $x_{n} > \xi \implies f(x_{n}) > 0$) so it is convergent, but the limit is smaller than any positive real number, and thus must be 0. But then, this gives that since $f$ is continuous, $f(\zeta) = 0$, so $\zeta = \epsilon$.
+
+\subsection*{c}
+
+Taylor's theorem yields the following estimate when expanded around $x = x_{n}$:
+\[
+  f(\xi) = f(x_{n}) + f'(x_{n})(\xi - x_{n}) + \frac{f''(t_{n})}{2}(\xi - x_{n})^{2}
+\]
+for some $t_{n} \in (\xi, x_{n})$. Then, since $f(\xi) = 0$, we get, after dividing by $f'(x_{n})$ which is nonzero,
+\[
+  -(\xi - x_{n}) - \frac{f(x_{n})}{f'(x_{n})} = \frac{f''(t_{n})}{2f'(x_{n})}(\xi - x_{n})^{2}
+\]
+which simplifies to (since $x_{n} - \frac{f(x_{n})}{f'(x_{n})} = x_{n+1}$)
+\[
+  x_{n+1} - \xi = \frac{f''(t_{n})}{2f'(x_{n})}(x_{n} - \xi)^{2}
+\]
+as desired.
+
+\subsection*{d}
+
+
+Note that since $f'(x) > \delta$ and $0 \leq f''(x) \leq M$ for all $x \in [a,b]$, we have that the last part gives us that for any $n$,
+\[
+  0 \leq x_{n+1} - \xi \leq \frac{M}{2\delta}(x_{n} - \xi)^{2} = \frac{1}{A}(A(x_{n} - \xi))^{2}
+\]
+and the nonnegativity is from the earlier part where $x_{n} \geq \xi$ is shown.
+
+This gives us what we want for $n = 1$, since the above inequality translates directly in this case to
+\[
+  0 \leq x_{2} - \xi \leq A(x_{1} - \xi)^{2} = \frac{1}{A}(A(x_{1} - \xi))^{2}
+\]
+Then, if we assume $0 \leq x_{n+1} - \xi \leq \frac{1}{A}(A(x_{1} - \xi))^{2^{n}}$ for $n$, then applying the first inequality we get
+\[
+  0 \leq x_{n+2} - \xi \leq \frac{1}{A}(A(x_{n+1} - \xi))^{2} \leq \frac{1}{A}\left(A\left(\frac{1}{A}(A(x_{1} - \xi))^{2^{n}}\right)\right)^{2} = \frac{1}{A}(A(x_{1} - \xi))^{2^{n}}
+\]
+as desired.
+
+\subsection*{e}
+
+We showed earlier that Newton's method generates a sequence converging to $\xi$ such that $f(\xi) = 0$, and it is clear that any fixed point of $g(x) = x$ gives that $f(x)/f'(x) = 0 \implies f(x) = 0$, and that any root of $f$ is a fixed point of $g$ since $f(x) = 0 \implies g(x) = x + \frac{0}{f'(x)} = x$.
+
+Computing the derivative, we get that $g'(x) = 1 - \frac{f'(x)^{2} - f(x)f''(x)}{f'(x)^{2}} = \frac{f(x)f''(x)}{f'(x)^{2}}$. Then, if $x \rightarrow \xi$, $f'(x)$ is bounded away from 0 and $f''(x)$ is bounded above, so $g'(x) \rightarrow 0$ as well.
+
+\subsection*{f}
+
+The problem here is that $f'(0)$ is not defined, since we have that $\lim_{t \rightarrow 0}\frac{t^{1/3}}{t} = \lim_{t \rightarrow 0}t^{-2/3} = \infty$, which isn't real, and so Newton's method wont work for finding a root.
+
+In particular, we have that $x_{n+1} = x_{n} - \frac{x_{n}^{1/3}}{\frac{1}{3}x_{n}^{2/3}} = -2x_{n}$, so we get that $|x_{n}| = 2^{n-1}x_{1} \rightarrow \infty$ as $n \rightarrow \infty$ when we pick $x_{1} \neq 0$. In fact, it oscillates, since terms of one parity $\rightarrow \infty$ and the rest $\rightarrow -\infty$.
+
+\section*{26}
+
+We take the hint given in the book.
+
+Defining $M_{0} = \sup|f(x)|$ and $M_{1} = \sup|f'(x)|$, the asumption that $|f'(x)| < A|f(x)| \implies \sup|f'(x)| \leq \sup|Af(x)| = A\sup|f(x)| \implies M_{1} \leq AM_{0}$. The mean value theorem yields
+\[
+  |f'(x)| = \left|\frac{f(x) - f(a)}{x - a}\right| \leq M_{1} \implies |f(x)| \leq M_{1}(x - a) \leq AM_{0}(x - a)
+\]
+for $x > a$ since $f(a) = 0$. Now, pick $x \in [a, a + \frac{1}{2A}]$. Then, $A(x - a) < A\frac{1}{2A} = \frac{1}{2} < 1$, such that we get $|f(x)| \leq \frac{1}{2}M_{0}$ and thus $M_{0} \leq \frac{1}{2}M_{0}$, so since $M_{0} = \sup|f(x)| \geq 0$, $M_{0} = 0$, so $|f(x)| = 0 \implies f(x) = 0$ on $[a, a + \frac{1}{2A}]$.
+
+Now, we can repeat this process on the interval $[a + \frac{1}{2A}, a + \frac{1}{A}]$ to show that $f$ vanishes there as well. This covers all of $[a,b]$ in at most $\lceil 2A(b - a) \rceil$ steps.
+
+\end{document}
+% LocalWords:  NetID fancyplain LocalWords colorlinks linkcolor linkbordercolor

@@ -1,0 +1,112 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{mathtools}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{relsize}
+\usepackage{fancyvrb}
+\usepackage{import}
+\usetikzlibrary{shapes.geometric,fit}
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+\theoremstyle{definition}
+\newtheorem*{statement}{Statement}
+\newtheorem*{claim}{Claim}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+
+\newcommand{\contra}{\Rightarrow\!\Leftarrow}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Zeq}{\mathbb{Z}_{\geq 0}}
+\newcommand{\Zg}{\mathbb{Z}_{>0}}
+\newcommand{\Req}{\mathbb{R}_{\geq 0}}
+\newcommand{\Rg}{\mathbb{R}_{>0}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+
+\newcommand{\incfig}[1] {%
+    % \def\svgwidth{\columnwidth}
+    \import{./figures/}{#1.pdf_tex}
+}
+
+\title{MATH 4061 HW 7}
+\author{David Chen, dc3451}
+
+\begin{document}
+
+\maketitle
+
+\section*{2}
+
+Let $E'$ be the set of all limit points of $E$, such that $\overline{E} = E \cup E'$. Then, if $x \in E$, then $f(x) \in f(E) \subset \overline{f(E)}$ by definition, so we are only concerned about $x \in E'$.
+
+Left superscripts denotes the metric space we are working in.
+
+We need to show that for any $x \in E'$, $f(x)$ is a limit point of $f(E)$ or is in $f(E)$. Since $x$ is a limit point of $E$, we have that for any $\delta > 0$, ${}^{X}B_{\delta}^{\circ}(x) \cap (E \setminus \{x\}) \neq \emptyset$, and since $f$ is continuous, we have that for any $\epsilon > 0$, we can find $\delta > 0$ such that $y \in {}^{X}B_{\delta}^{\circ}(x) \implies f(y) \in {}^{Y}B_{\epsilon}(f(x))$. Then, the first statement gives exactly some $y$ such that $y \in E$ and $y \in {}^{X}B_{\delta}^{\circ}(x)$, and thus some $f(y)\in {}^{Y}B_{\epsilon}(f(x))$ for $y \in E$.
+
+Now, either $f(y) = f(x)$, for $f(y) \neq f(x)$. In the first case, then $f(x) = f(y) \in f(E)$, and we are done. In the other case, then $f(y) \in f(E) \setminus \{f(x)\} \implies f(y) \in {}^{Y}B_{\epsilon}(f(x)) \cap f(E) \setminus \{f(x)\}$, so any neighborhood of $f(x)$ contains an element of $f(E)$ not itself, and so $f(x)$ is a limit point of $f(E)$. In either case, $x \in E' \implies f(x) \in \overline{f(E)}$, and we have what we want.
+
+To see that it can be a proper subset, consider $f: [1, \infty) \rightarrow \R$ given by $f(x) = 1/x$. This is clearly continuous (since $x$ is continuous, and does not vanish on $[1, \infty)$), but $f([1,\infty)) = (0,1]$. Then, the closure of $[1,\infty)$ is itself, so
+\[
+  f(\overline{[1,\infty)}) = (0,1] \subset \overline{f([1,\infty))} = \overline{(0, 1]} = [0,1]
+\]
+
+\section*{3}
+
+This follows immediately from the fact that $Z(f)$ is defined the same as $f^{-1}(\{0\})$, but $\{0\}$ is a closed set and the preimage of a closed set is closed by a theorem from class (also Rudin corollary to 4.8).
+
+\section*{4}
+
+We want to show that every point of $f(X)$ is either a point of $f(E)$, or a limit point of $f(E)$.
+
+From problem 2, we have that $f(\overline{E}) \subset \overline{f(E)}$, but since $E$ is dense in $X$, the closure of $E$ is $X$, so we have that $f(\overline{E}) = f(X)$, so $f(X) \subset \overline{f(E)}$, so every point in $f(X)$ is either a limit point of or member of $f(E)$, and we are done.
+
+Now consider $h: X \rightarrow Y$, $h(x) = f(x) - g(x)$, a continuous function which vanishes on $E$, a dense subset of $X$. Then, suppose that $h(x) \neq 0$ for some $x \in X$. Then clearly $x \notin E$, since in $E$ by assumption $f(x) = g(x) \implies f(x) - g(x) = 0$, so $x$ must be a limit point of $E$.
+
+Suppose that $d(h(x),0) = \epsilon > 0$; then, we have some $\delta > 0$ such that for $y \in B_{\delta}^{\circ}(x) \implies h(y) \in B_{\epsilon/2}^{\circ}(h(x))$, so by the reverse triangle inequality,
+\[
+  d(h(x),h(y)) \geq d(h(y),0) - d(h(x), 0) \implies d(h(x),0) \leq d(h(y),0) - d(h(x),h(y)) < \epsilon - \frac{\epsilon}{2} = \frac{\epsilon}{2}
+\]
+so $h(y) \neq 0$. However, we have that since $E$ is dense in $X$, $B_{\delta}^{\circ}(x) \cap (E \setminus \{x\})$ is nonempty; pick an element $y$ inside of $B_{\delta}^{\circ}(x) \cap (E \setminus \{x\})$. Then, by continuity, $h(x) \neq 0$, but by assumption, since $y \in E$, we have that $h(x) = 0$. $\contra$, so $h$ is identically zero, and so $f - g = 0 \implies f = g$.
+
+\section*{7}
+
+To see that $f$ is bounded, we have
+\[
+  \frac{1}{2} - f(x) = \frac{x^{2} + y^{4} - 2xy^{2}}{2(x^{2}+y^{4})} = \frac{(x - y^{2})^{2}}{2(x^{2}+y^{4})} \geq 0
+\]
+since both numerator and denominator are nonnegative, so $f(x,y) \leq 1/2$ for any $x,y$; then, since $f(-x,y) = -f(x,y)$, if $f(x,y) < -1/2$ for any $x$, we have that $f(-x,y) > 1/2$, so $\contra$ and thus $|f(x,y)| < 1/2$. This handles when $x^{2}+y^{4} \neq 0$, but $x^{2}+y^{4} = 0$ only when $x = y = 0$ and $f(0,0) = 0$ by definition, so we're good.
+
+To see that $g$ is always unbounded in a neighborhood of 0, consider $x = y^{3}$. Then, we have that $g(y^{3},y) = \frac{y^{5}}{2y^{6}} = \frac{1}{2y}$. We have that $\lim_{y \rightarrow 0}|g(y^{3},y)| = \lim_{y \rightarrow 0}\left|\frac{1}{2y}\right| = \infty$, so $g$ is always unbounded in a neighborhood of 0.
+
+To see that $f$ is discontinuous at the origin, we have that if we take $x = y^{2}$, $f(y^{2},y) = \frac{y^{4}}{2y^{4}} = \frac{1}{2}$, so $\lim_{y \rightarrow 0}f(y^{2},y) = \frac{1}{2} \neq f(0,0)$.
+
+To see that the restriction of $f,g$ is always continuous, note that for lines which avoid $(0,0)$, $f,g$ are already continuous everywhere but at the origin (since their denominators don't vanish and $f,g$ are the quotient of continuous functions). Then, their restriction must also be continuous (since the limit converges on every path, including the line we are restricting to).
+
+Any line through the origin is either given by $x = 0$, in which case $f,g$ both vanish everywhere and are thus continuous or is given by $y = ax$. Then, away from the origin, $f(x,ax) = \frac{a^{2}x^{3}}{x^{2}+a^{4}x^{4}} = \frac{a^{2}x}{1 + a^{4}x^{2}}$, which is easily seen to be continuous everywhere,  except maybe at $x = 0$ (again as the quotient of two continuous functions), but $\lim_{x \rightarrow 0}\frac{a^{2}x}{1+a^{4}x^{2}} = 0 = f(0,0)$.
+
+For $g$, $g(x,ax) = \frac{a^{2}x^{3}}{x^{2}+a^{6}y^{6}} = \frac{a^{2}x}{1 + a^{6}y^{4}}$, which is continuous everywhere except at the origin, but again, $\lim_{x \rightarrow 0}\frac{a^{2}x}{1+a^{6}x^{6}} = 0 = f(0,0)$.
+
+
+\end{document}
+% LocalWords:  NetID fancyplain LocalWords colorlinks linkcolor linkbordercolor
