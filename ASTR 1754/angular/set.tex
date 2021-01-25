@@ -1,0 +1,144 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{relsize}
+\usepackage{fancyvrb}
+\usepackage{import}
+\usepackage{float}
+\usepackage{xifthen}
+\usepackage{pdfpages}
+\usepackage{transparent}
+\usetikzlibrary{shapes.geometric,fit}
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+\theoremstyle{definition}
+\newtheorem*{statement}{Statement}
+\newtheorem*{claim}{Claim}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+
+\newcommand{\contra}{\Rightarrow\!\Leftarrow}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Zeq}{\mathbb{Z}_{\geq 0}}
+\newcommand{\Zg}{\mathbb{Z}_{>0}}
+\newcommand{\Req}{\mathbb{R}_{\geq 0}}
+\newcommand{\Rg}{\mathbb{R}_{>0}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\DeclareMathOperator{\ima}{im}
+\DeclareMathOperator{\spn}{span}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\real}{Re}
+\DeclareMathOperator{\imag}{Im}
+\DeclareMathOperator{\diver}{div}
+\DeclareMathOperator{\curl}{curl}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\inter}{int}
+\DeclareMathOperator{\Dr}{Dr}
+\DeclareMathOperator{\Jac}{Jac}
+
+\newcommand{\incfig}[1]{\input{./figures/#1.pdf_tex}}
+\graphicspath{ {./figures/} }
+
+\title{ASTR 1764 Angular Diameter WS}
+\author{David Chen, Lara Kemper, Scott Rosati, William Meyer}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\subsection*{Question 1}
+
+Abbreviate $206265$ to $C$ for brevity. We get
+\[
+  \alpha = C \cdot \frac{\text{linear diameter}}{\text{distance}} \implies \text{distance} = \frac{C \cdot \text{linear diameter}}{\alpha}
+\]
+Taking the linear diameter to be 1 unit and $\alpha = 1^{\circ} = 3600$ arcseconds, we get
+\[
+  \text{distance} = C \cdot 1 / 3600 = 57.3 \text{ units }
+\]
+
+\subsection*{Question 2}
+
+Since we have
+\[
+  \alpha = C \cdot \frac{\text{linear diameter}}{\text{distance}}
+\]
+it is clear that $\alpha \propto \text{linear diameter}$, so we get that the angular diameter doubles when the linear diameter doubles.
+
+\subsection*{Question 3}
+
+Since we have
+\[
+  \alpha = C \cdot \frac{\text{linear diameter}}{\text{distance}}
+\]
+it is clear that $\alpha \propto \frac{1}{\text{distance}}$, so we get that the angular diameter doubles when the distance halves.
+
+\subsection*{Question 4}
+
+Since we have
+\[
+  \alpha = C \cdot \frac{\text{linear diameter}}{\text{distance}}
+\]
+taking the proportion to be 1, we get $\alpha = C$, and converting to degrees we get $C / 3600 = 57.3^{\circ}$, the same (numerical) result as in Question 1.
+
+\subsection*{Question 5}
+\[
+  57.3 \cdot 2\pi = 360^{\circ}
+\]
+the amount of degrees in a full circle.
+
+\subsection*{Question 6}
+
+Since we have
+\[
+  \alpha = C \cdot \frac{\text{linear diameter}}{\text{distance}} \implies \text{distance} = \frac{C \cdot \text{linear diameter}}{\alpha}
+\]
+taking $\alpha = 1865$, we get that
+\[
+  \text{distance} = \frac{C}{1865} \text{ moon diameters} = 110 \text{ moon diameters }
+\]
+
+\subsection*{Question 7}
+
+\[
+  110 \text{ moon diameters } = 110 \text{moon diameters} \cdot \left(2 \cdot 1737.5 \text{ km } \cdot \text{ moon diameter }^{-1}\right) = 382250 \text{ km }
+\]
+
+\subsection*{Question 8}
+
+Playing with the model, we can see that they have identical angular diameters (or very close) since they occupy the same size in the sky (so the angles they subtend to an earthly observer are nearly the same).
+
+\subsection*{Question 9}
+
+Since we have from Question 8 that the sun and moon have the same angular diameter,
+\[
+  \text{distance}_{\text{sun}} = 110 \cdot (1.39 \text{million km}) = 152.9 \text{million km}
+\]
+or a distance of $1.53 \cdot 10^{8}$ km.
+
+\end{document}
+
+% LocalWords:  NetID fancyplain LocalWords colorlinks linkcolor linkbordercolor

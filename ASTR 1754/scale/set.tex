@@ -1,0 +1,144 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{relsize}
+\usepackage{fancyvrb}
+\usepackage{import}
+\usepackage{float}
+\usepackage{xifthen}
+\usepackage{pdfpages}
+\usepackage{transparent}
+\usetikzlibrary{shapes.geometric,fit}
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+\theoremstyle{definition}
+\newtheorem*{statement}{Statement}
+\newtheorem*{claim}{Claim}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+
+\newcommand{\contra}{\Rightarrow\!\Leftarrow}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Zeq}{\mathbb{Z}_{\geq 0}}
+\newcommand{\Zg}{\mathbb{Z}_{>0}}
+\newcommand{\Req}{\mathbb{R}_{\geq 0}}
+\newcommand{\Rg}{\mathbb{R}_{>0}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\DeclareMathOperator{\ima}{im}
+\DeclareMathOperator{\spn}{span}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\real}{Re}
+\DeclareMathOperator{\imag}{Im}
+\DeclareMathOperator{\diver}{div}
+\DeclareMathOperator{\curl}{curl}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\inter}{int}
+\DeclareMathOperator{\Dr}{Dr}
+\DeclareMathOperator{\Jac}{Jac}
+
+\newcommand{\incfig}[1]{\input{./figures/#1.pdf_tex}}
+\graphicspath{ {./figures/} }
+
+\title{ASTR 1764 Sense of Scale WS}
+\author{David Chen, Lara Kemper, Scott Rosati, William Meyer}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\subsection*{Question 1}
+
+We are using M\&M's, which are modeled here as $0.5 \text{in}\times 0.5 \text{in}\times 0.5 \text{in}$ cubes. This gives us a side area of 0.25 in$^{2}$ and $0.125$ in$^{3}$ per M\&M.
+
+\subsection*{Question 2}
+
+\subsubsection*{A}
+We didn't have 100 M\&M's, so we just multiply by 100 to get a line that is 50 inches for 4 feet, 2 inches long.
+\subsubsection*{B}
+A thousand M\&M's would be 500 inches, or more naturally 41 feet and 8 inches, or just under $1/120$ of a mile (explicitly, we get that this is $500 / ((5280 \cdot 12)) = 0.789\%$ of a mile).
+\subsubsection*{C}
+Since there are 20 blocks to a mile, this means that the 1000 M\&M chain is about $0.789\% \cdot 20 = 0.158$ city blocks long, so just over a seventh of a block (alternatively, this is about half an 18-wheeler).
+\subsubsection*{D}
+Since earlier we have that a thousand M\&M's spans about $1/12$ of a mile, a million M\&M's should be about 10 miles (exactly, 0.5 million inches is $500000 / (5280 * 12) = 7.89$ miles).
+\subsubsection*{E}
+Since Manhattan is about 13 miles long, this is about $7.89/13.11 = 60\%$ of Manhattan length-wise.
+
+\subsection*{Question 3}
+
+\subsubsection*{A}
+Again, we didn't have 100 M\&M's, so we just consider a $10\times10$ grid of them to get a square that is 5 inches $\times$ 5 inches, which has area 25 in$^2$.
+\subsubsection*{B}
+A thousand M\&M's would be 10 times before, so 250in$^{2}$, or more naturally $250/144 = 1.7$ square feet.
+\subsubsection*{C}
+If you have a 16:9 aspect ratio 24 inch monitor, it has screen area $\frac{9 \cdot 16}{9^{2} + 16^{2}} 24^{2} = 250$ in$^{2}$.
+\subsubsection*{D}
+With a million M\&M's, we have a new area of 250000in$^{2}$, or $1700$ square feet.
+\subsubsection*{E}
+A dorm room in Carman is about 210 square feet, so this is enough to fill just over 8 dorm rooms with M\&M's.
+
+\subsection*{Question 4}
+
+\subsubsection*{A}
+As before, we only had 50 M\%M's, and we filled a glass with radius 1.5 inches to a depth of 0.5 inches with those 50. This gives use that these 50 M\&M's take up $1.5^{2} \cdot 0.5 \cdot \pi = 3.53$ in$^{3}$.
+\subsubsection*{B}
+A thousand M\&M's would be $3.53 \cdot (1000 / 50) = 70.6$ cubic inches, which would be a box $\sqrt[3]{70.6} = 4.13$ inches on each side; in particular, this is a $10 \times 10 \times 10$ box of M\&M's (note this is different from our earlier usage of an M\&M being cubes with $0.5 \text{in}$ sides, since that would drastically overestimate in volume).
+\subsubsection*{C}
+We have that $70.6$ cubic inches is about 1.1 liters, so this is just enough to fill two normal 500mL plastic water bottles to the lid (since these bottles usually aren't filled all the way).
+\subsubsection*{D}
+A million M\&M's would be $70600$ cubic inches, which would be a box $\sqrt[3]{70600} = 41.3$ inches on each side.
+\subsubsection*{E}
+I have 13 gallon trash bags at home, so since $1$ gallon $\approx 231$ in$^{3}$, we get this is about $23.5$ of these trash bags.
+
+\subsection*{Question 5}
+\begin{enumerate}
+  \item A billion M\&M's is 0.5 billion inches long, i.e. $0.5 \cdot 10^{9} / (5280 \cdot 12) = 7891$ miles, or since the distance from LA to DC is 2668 miles, about $7891 / 2668 = 2.95 \approx 3$ times the distance from DC to LA.
+  \item A trillion M\&M's is 0.5 trillion inches long, i.e. $0.5 \cdot 10^{12} / (5280 \cdot 12) = 7891414 \approx 7.89$ million miles, or since the distance from the Earth to the moon is about 238900 miles, about $7891414 / 238900 = 33.03 \approx 33$ times the distance from the Earth to the moon.
+  \item A billion M\&M's is 0.25 billion in$^{2}$ in area, i.e. $0.25 \cdot 10^{9} / (144) = 1736111 \approx 1.73 \cdot 10^{6}$ square feet; the floor area of Butler Library is 441108 square feet, so a billion M\&M's is enough to fill Butler $1736111/441108 = 3.9$ times over.
+  \item A trillion M\&M's is 0.25 trillion in$^{2}$ in area, i.e. $0.25 \cdot 10^{12} / (144 \cdot 5280^{2}) = 62.27$ square miles, and since Staten Island is about 58.69 square miles, it is barely enough to cover Staten Island.
+  \item A billion M\&M's is $(3.53 / 50)$ billion in$^{3}$ in volume, i.e. $(3.53 / 50 \cdot 10^{9}) / (12^{3}) = 40856$ cubic feet. Since an 18-wheeler contains 3086 cubic feet, this is enough to fill $40856  / 3086 = 13.2$ 18-wheelers.
+  \item A trillion M\&M's is $(3.53 / 50)$ trillion in$^{3}$ in volume, i.e. $0.25 \cdot 10^{12} / (144 \cdot 5280^{2}) = 4.08 \cdot 10^{7}$ cubic feet, and since the volume of the Empire State building is 37 million cubic feet, it is barely enough to cover fill the Empire State building with M\&M's.
+\end{enumerate}
+
+
+\subsection*{Question 6}
+A visualization is useful because humans are bad at innately understanding large and small quantities; when someone says that there are a billion or a trillion of something, it is hard to understand those quantities as they \textit{really} are; visualizations are good when they allow you to understand these quantities better. For example, I think that the useful visualizations in this worksheet are the more mundane ones; it is hard to visualize a train of M\&M's from the Earth to moon, so the length-wise visualization of a trillion is unhelpful, but I can relate how big the Empire State building is because I can visit the building itself. In this vein I think the best visualizations here are
+\begin{enumerate}
+  \item A thousand: a chain of M\&M's half the length of an 18-wheeler.
+  \item A million: enough M\&M's to cover 8 dorm rooms.
+  \item A billion: a 4-deep carpet of M\&M's covering all of Butler library.
+  \item A trillion: the amount of M\&M's needed to fill the Empire State building.
+\end{enumerate}
+\subsubsection*{A}
+
+Since the Milky Way is \textit{roughly} flat, we can compare this to a M\&M cover with area $0.25 \cdot 10^{11}$ in$^{2}$, or from before, about a tenth of Staten Island, with the total area covered being the galaxy and the individual M\&M's being the stars.
+
+\subsubsection*{B}
+
+There are about 200 candies in a normal 7-oz bag of M\&M's, so we can imagine that if we have 24 trash bags of M\&M's, the amount of CO$_{2}$ in the atmosphere is proportional to the size of those two packets of M\&M's compared to the trash bags.
+
+\end{document}
+
+% LocalWords:  NetID fancyplain LocalWords colorlinks linkcolor linkbordercolor
