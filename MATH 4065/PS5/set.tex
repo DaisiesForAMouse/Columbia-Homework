@@ -1,0 +1,324 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{relsize}
+\usepackage{fancyvrb}
+\usepackage{import}
+\usepackage{float}
+\usepackage{xifthen}
+\usepackage{pdfpages}
+\usepackage{transparent}
+\usetikzlibrary{shapes.geometric,fit}
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+\theoremstyle{definition}
+\newtheorem*{statement}{Statement}
+\newtheorem*{claim}{Claim}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+
+\newcommand{\contra}{\Rightarrow\!\Leftarrow}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\D}{\mathbb{D}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Zeq}{\mathbb{Z}_{\geq 0}}
+\newcommand{\Zg}{\mathbb{Z}_{>0}}
+\newcommand{\Req}{\mathbb{R}_{\geq 0}}
+\newcommand{\Rg}{\mathbb{R}_{>0}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\DeclareMathOperator{\ima}{im}
+\DeclareMathOperator{\spn}{span}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\real}{Re}
+\DeclareMathOperator{\imag}{Im}
+\DeclareMathOperator{\diver}{div}
+\DeclareMathOperator{\curl}{curl}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\inter}{int}
+\DeclareMathOperator{\Dr}{Dr}
+\DeclareMathOperator{\Jac}{Jac}
+\DeclareMathOperator{\res}{res}
+
+\newcommand{\incfig}[1]{\input{./figures/#1.pdf_tex}}
+\graphicspath{ {./figures/} }
+
+\title{MATH 4065 HW 5}
+\author{David Chen, dc3451}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section*{2}
+
+\begin{figure}[H]
+  \centering
+  \incfig{problem2}
+\end{figure}
+
+We note that $\frac{1}{1+z^{4}}$ has poles when $z^{4} = -1$, which happens when $z^{2} = \pm i$, so the poles occur at $\{e^{-\pi i/4}, e^{-3\pi i/4},e^{-5\pi i/4},e^{-7\pi i/4}\}$. In particular, we have that
+\begin{align*}
+  \frac{1}{1+z^{4}} = \frac{1}{(z^{2} - i)(z^{2} + i)} &= \frac{1}{(z - e^{-\pi i/4})(z + e^{-\pi i/4})(z - e^{-3\pi i/4})(z + e^{-3\pi i/4})} \\
+                                                       &= \frac{1}{(z - e^{-\pi i/4})(z - e^{-5\pi i/4})(z - e^{-3\pi i/4})(z - e^{-7\pi i/4})}
+\end{align*}
+so we can see that all of the poles are simple, as for any root $w$, we have that the right hand side with the $z - w$ term removed in the denominator is a holomorphic function that doesn't vanish in a neighborhood of $w$.
+
+For example, we have that at $e^{-\pi i/4}$,
+\[
+  \frac{1}{1+z^{4}} = (z - e^{-\pi i/4})\frac{1}{(z-e^{-3\pi i/4})(z-e^{-5\pi i/4})(z-e^{-7\pi i/4})}
+\]
+and $\frac{1}{(z-e^{-3\pi i/4})(z-e^{-5\pi i/4})(z-e^{-7\pi i/4})}$ is clearly holomorphic near $e^{-\pi i/4}$, since the denominator is nonzero, and also clearly does not vanish, since the numerator is nonzero.
+
+Similarly,
+\[
+  \frac{1}{1+z^{4}} = (z - e^{-3\pi i/4})\frac{1}{(z-e^{-\pi i/4})(z-e^{-5\pi i/4})(z-e^{-7\pi i/4})}
+\]
+and $\frac{1}{(z-e^{-\pi i/4})(z-e^{-5\pi i/4})(z-e^{-7\pi i/4})}$ is clearly holomorphic near $e^{-3\pi i/4}$, since the denominator is nonzero, and also clearly does not vanish, since the numerator is nonzero.
+
+Integrating over the contour shown in the picture, we have that
+\[
+  \int_{-R}^{R}\frac{dx}{1+x^{4}} + \int_{\gamma}\frac{dz}{1 + z^{4}} = 2\pi i\left(\res_{e^{-\pi i/4}}\frac{1}{1+z^{4}} + \res_{e^{-3\pi i/4}}\frac{1}{1+z^{4}}\right)
+\]
+where $\gamma$ is the upper semicircle. Computing the residues,
+\begin{align*}
+  \res_{e^{-\pi i/4}}\frac{1}{1+z^{4}} &= \lim_{z \rightarrow e^{-\pi i/4}}(z - e^{-\pi i/4})\frac{1}{(z - e^{-\pi i/4})(z - e^{-3\pi i/4})(z - e^{-5\pi i/4})(z - e^{-7\pi i/4})} \\
+                                     &= \lim_{z \rightarrow e^{-\pi i/4}}\frac{1}{(z - e^{-3\pi i/4})(z - e^{-5\pi i/4})(z - e^{-7\pi i/4})} \\
+                                     &= \frac{1}{(e^{-\pi i/4} - e^{-3\pi i/4})(e^{-\pi i/4} - e^{-5\pi i/4})(e^{-\pi i/4} - e^{-7\pi i/4})} \\
+                                     &= \frac{1}{(\sqrt{2})(\sqrt{2} + \sqrt{2}i)(\sqrt{2}i)} = \frac{1}{4e^{3\pi/4}} \\
+  \res_{e^{-3\pi i/4}}\frac{1}{1+z^{4}} &= \lim_{z \rightarrow e^{-3\pi i/4}}(z - e^{-3\pi i/4})\frac{1}{(z - e^{-\pi i/4})(z - e^{-3\pi i/4})(z - e^{-5\pi i/4})(z - e^{-7\pi i/4})} \\
+                                     &= \lim_{z \rightarrow e^{-3\pi i/4}}\frac{1}{(z - e^{-\pi i/4})(z - e^{-5\pi i/4})(z - e^{-7\pi i/4})} \\
+                                     &= \frac{1}{(e^{-3\pi i/4} - e^{-\pi i/4})(e^{-3\pi i/4} - e^{-5\pi i/4})(e^{-3\pi i/4} - e^{-7\pi i/4})} \\
+                                     &= \frac{1}{(-\sqrt{2})(-\sqrt{2} + \sqrt{2}i)(\sqrt{2}i)} = \frac{1}{4e^{\pi/4}}
+\end{align*}
+
+Then, we have that
+\[
+  \int_{-R}^{R}\frac{dx}{1+x^{4}} + \int_{\gamma}\frac{dz}{1 + z^{4}} = 2\pi i\left(\frac{1}{4e^{\pi/4}} + \frac{1}{4e^{3\pi/4}}\right) = \frac{\pi}{2}(e^{-\pi/4} + e^{-3\pi/4}) = \frac{\pi\sqrt{2}}{2}
+\]
+
+We also have that $\frac{1}{|1 + z^{4}|} \leq \frac{B}{|z^{4}|}$ for sufficiently large $z$, where $B$ is a fixed constant. To see this, consider that $\left|\frac{1 + z^{4}}{z^{4}}\right| = \left|1 + \frac{1}{z^{4}}\right|$. Then, since $1 - \frac{1}{|z^{4}|} \leq \left|1 + \frac{1}{z^{4}}\right| \leq 1 + \frac{1}{|z^{4}|}$ by the triangle inequality (and the reverse triangle inequality), so we have that $\lim_{|z| \rightarrow \infty}\frac{1}{|z|^{4}} = 0$, and so for any $\epsilon$, for $|z| > N$ for some $N$,
+\[
+  1 - \epsilon \leq \left|\frac{1 + z^{4}}{z^{4}}\right| \leq 1 + \epsilon \implies (1-\epsilon)\left|\frac{1 }{1 + z^{4}}\right| \leq \left|\frac{1}{z^{4}}\right|
+\]
+which gives us what we want. Then, for sufficiently large $R$, we have that
+\[
+  \int_{\gamma} \frac{dz}{1 + z^{4}} \leq \pi R \frac{B}{R^{4}} \leq \frac{\pi B}{R^{3}}
+\]
+so as as $R \rightarrow \infty$, the integral $\rightarrow 0$. Then,
+\[
+  \int_{-\infty}^{\infty}\frac{dx}{1+x^{4}} = \frac{\pi\sqrt{2}}{2}
+\]
+
+\section*{5}
+
+We can see that $f(z) = \frac{e^{-2\pi i z \xi}}{(1+z^{2})^{2}} = \frac{e^{-2\pi i z \xi}}{(z-i)^{2}(z+i)^{2}}$. Then, at $i$, we have that
+\[
+  f(z) = (z-i)^{-2}\frac{e^{-2\pi i z \xi}}{(z+i)^{2}}
+\]
+where $\frac{e^{-2\pi i x \xi}}{(z+i)^{2}}$ is holomorphic in a neighborhood of $i$ (say $D_{1}(i)$), since $(z+i)^{2}$ doesn't vanish on that neighborhood, since $-i \notin D_{1}(i)$. Similarly, at $-i$,
+\[
+  f(z) = (z+i)^{-2}\frac{e^{-2\pi i z \xi}}{(z-i)^{2}}
+\]
+where $\frac{e^{-2\pi i x \xi}}{(z-i)^{2}}$ is holomorphic in a neighborhood of $-i$ (say $D_{1}(-i)$), since $(z-i)^{2}$ doesn't vanish on that neighborhood, since $i \notin D_{1}(-i)$.
+
+Then, we have poles of order $2$ at $\pm i$. Computing the residues,
+\begin{align*}
+  \res_{i}f &= \lim_{z \rightarrow i}\frac{d}{dz}\frac{e^{-2\pi i z \xi}}{(z+i)^{2}} \\
+            &= \lim_{z \rightarrow i}\left(-2(z+i)^{-3}e^{-2\pi i z \xi} - 2\pi i \xi(z+i)^{-2}e^{-2\pi i z \xi}\right) \\
+            &= \left(\frac{1}{4i} + \frac{\pi i \xi}{2}\right)e^{2\pi\xi} \\
+            &= \left(\frac{\pi i \xi}{2} - \frac{i}{4}\right)e^{2\pi\xi} \\
+  \res_{-i}f &= \lim_{z \rightarrow -i}\frac{d}{dz}\frac{e^{-2\pi i z \xi}}{(z-i)^{2}} \\
+            &= \lim_{z \rightarrow -i}\left(-2(z-i)^{-3}e^{-2\pi i z \xi} - 2\pi i \xi(z-i)^{-2}e^{-2\pi i z \xi}\right) \\
+            &= \left(-\frac{1}{4i} + \frac{\pi i \xi}{2}\right)e^{-2\pi\xi} \\
+            &= \left(\frac{\pi i \xi}{2} + \frac{i}{4}\right)e^{-2\pi\xi} \\
+\end{align*}
+
+We handle the case where $\xi \geq 0$ first, where $\xi = |\xi|$. Then, we integrate over the semicircle in the negative half-plane, as shown:
+
+\begin{figure}[H]
+  \centering
+  \incfig{problem31}
+\end{figure}
+
+In this case, we have that, where $\gamma$ is the semicircle,
+\[
+  \int_{-R}^{R}\frac{e^{-2\pi i x \xi}}{(1+x^{2})^{2}}dx + \int_{\gamma} \frac{e^{-2\pi i z \xi}}{(1+z^{2})^{2}}dz = -2\pi i \res_{-i} f = \frac{\pi}{2}(1 + 2\pi \xi)e^{-2\pi\xi} = \frac{\pi}{2}(1 + 2\pi|\xi|)e^{-2\pi|\xi|}
+\]
+where it is $-2\pi i \res_{-1} f$ since the path is negatively oriented. Then, all we have to do is to show that the second integral vanishes:
+\begin{align*}
+  \int_{\gamma} \frac{e^{-2\pi i z \xi}}{(1+z^{2})^{2}}dz &\leq (\pi R) \sup \left(\frac{|e^{-2\pi i z \xi}|}{|(1+z^{2})^{2}|}\right) \\
+                                                          &= (\pi R)\sup\left(\frac{e^{\real(-2\pi i z \xi)}}{|1+z^{2}|^{2}}\right) \\
+                                                          &= (\pi R)\sup\left(\frac{e^{2\pi \imag(z) \xi}}{|1+z^{2}|^{2}}\right) \\
+  \intertext{Since $\xi \geq 0$ and $\imag(z) \leq 0$, we have that $2\pi \imag(z) \xi \leq 0$, so}
+                                                          &\leq (\pi R)\sup\left(\frac{1}{|1+z^{2}|^{2}}\right) \\
+                                                          &= \sup \frac{\pi R}{|1+z^{2}|^{2}} \\
+  \intertext{We have by the reverse triangle inequality (should've used this in the first problem), $|1 + z^{2}| \geq |z^{2}| - 1$, so}
+                                                          &\leq \sup \frac{\pi R}{(|z^{2}| - 1)^{2}} \\
+                                                          &= \frac{\pi R}{(R^{2} - 1)^{2}} \\
+\end{align*}
+Taking $R \rightarrow \infty$, we have that in the limit $\int_{\gamma} \frac{e^{-2\pi i z \xi}}{(1+z^{2})^{2}}dz = 0$, and this gives us what we want for $\xi \geq 0$.
+
+Similarly, for $\xi < 0$, we integrate over the top half plane, as shown:
+\begin{figure}[H]
+  \centering
+  \incfig{problem32}
+\end{figure}
+which gives
+\[
+  \int_{-\infty}^{\infty}\frac{e^{-2\pi i x \xi}}{(1+x^{2})^{2}}dx + \int_{\gamma} \frac{e^{-2\pi i z \xi}}{(1+z^{2})^{2}}dz = 2\pi i \res_{-i} f = \frac{\pi}{2}(1 - 2\pi \xi)e^{2\pi\xi} = \frac{\pi}{2}(1 + 2\pi|\xi|)e^{-2\pi|\xi|}
+\]
+since $\xi < 0 \implies -\xi = |\xi|$.
+
+Then, again we have that
+\begin{align*}
+  \int_{\gamma} \frac{e^{-2\pi i z \xi}}{(1+z^{2})^{2}}dz &\leq (\pi R)\sup \left(\frac{e^{2\pi \imag(z) \xi}}{|1+z^{2}|^{2}}\right) \\
+  \intertext{Since $\xi < 0$ and $\imag(z) \geq 0$, we have that $2\pi \imag(z) \xi \leq 0$, so}
+                                                          &\leq (\pi R)\sup \left(\frac{1}{|1+z^{2}|^{2}}\right) \\
+                                                          &\leq \frac{\pi R}{(R^{2} - 1)^{2}} \\
+\end{align*}
+which again gives that in the limit $\int_{\gamma} \frac{e^{-2\pi i z \xi}}{(1+z^{2})^{2}}dz = 0$, and this gives us what we want for $\xi < 0$.
+
+\section*{6}
+
+We have poles of order $n+1$ at $\pm i$. In particular,
+\[
+  \frac{1}{(1+z^{2})^{n+1}} = \frac{1}{((z-i)(z+i))^{n+1}} = \frac{1}{(z-i)^{n+1}(z+i)^{n+1}} = (z-i)^{-(n+1)}(z+i)^{-(n+1)}
+\]
+and clearly $(z-i)^{-(n+1)}$ and $(z+i)^{-(n+1)}$ are holomorphic in a neighborhood around $-i$ and $i$ respectively (for a concrete one, say $D_{1}(-i)$ and $D_{1}(i)$, which do not contain $i$ and $-i$ respectively).
+
+Computing the residues, we have that
+\begin{align*}
+  \res_{i}\frac{1}{(1+z^{2})^{n+1}} &= \lim_{z \rightarrow i} \frac{1}{n!}\left(\frac{d}{dz}\right)^{n}(z-i)^{n+1}\frac{1}{(1+z^{2})^{n+1}} \\
+                                    &= \lim_{z \rightarrow i} \frac{1}{n!}\left(\frac{d}{dz}\right)^{n}(z+i)^{-(n+1)} \\
+  \intertext{We can show that $\frac{d^{n}}{dz^{n}}(z+i)^{-m} = (-1)^{n}\left(\prod_{i=0}^{n-1}(m + i)\right)(z+i)^{-m - n}$ for $n,m \geq 0$. In particular, inducting on $n$, the base case $n = 1$ is easy:}
+  \frac{d}{dz}(z \pm i)^{-1} &= -(z \pm i)^{-2} \\
+  \intertext{as desired. Then, if it holds for $n$,}
+  \frac{d^{n+1}}{dz^{n+1}}(z \pm i)^{-m} &= \frac{d}{dz}\left(\frac{d^{n}}{dz^{n}}(z \pm i)^{-m}\right) \\
+                                    &= \frac{d}{dz}\left((-1)^{n}\left(\prod_{j=1}^{n-1}(m + j)\right)(z \pm i)^{-m - n}\right) \\
+                                    &= -(m-n)\left((-1)^{n}\left(\prod_{j=0}^{n-1}(m + j)\right)(z \pm i)^{-m - (n+1)}\right) \\
+                                    &= (-1)^{n+1}\left(\prod_{j=0}^{n}(m + j)\right)(z \pm i)^{-m - (n+1)} \\
+  \intertext{so it holds for $n+1$, and so it holds in general for any $n \geq 1$. In particular, for $m = n + 1$,}
+  \frac{d^{n}}{dz^{n}}(z \pm i)^{-(n+1)} &= (-1)^{n}\left(\prod_{j=0}^{n-1}(n+1 + j)\right)(z \pm i)^{-(2n+1)} \\
+  \intertext{Then, }
+  \res_{i}\frac{1}{(1+z^{2})^{n+1}} &= \lim_{z \rightarrow i} \frac{1}{n!} (-1)^{n} \left(\prod_{j=1}^{n}(n + j)\right)(z + i)^{-(2n + 1)} \\
+                                    &= \frac{i^{2n}}{2i^{2n+1}}\left(\frac{\prod_{j=1}^{2n}j}{2^{2n}(\prod_{j=1}^{n}j)(\prod_{j=1}^{n}j)}\right) \\
+                                    &=\frac{1}{2i}\left(\frac{\prod_{j=1}^{n}(n+j)}{(\prod_{j=1}^{n}2j)(\prod_{j=1}^{n}2j)}\right) \\
+  \intertext{which is what we wanted, since}
+  \frac{\prod_{j=1}^{2n}j}{(\prod_{j=1}^{n}2j)(\prod_{j=1}^{n}2j)} &= \frac{\prod_{j=1}^{n}2j\prod_{j=1}^{n}(2j - 1)}{(\prod_{j=1}^{n}2j)(\prod_{j=1}^{n}2j)} \\
+                                    &= \frac{\prod_{j=1}^{n}(2j - 1)}{\prod_{j=1}^{n}2j} \\
+  \intertext{Alternatively,}
+  \frac{\prod_{j=1}^{2n}j}{(\prod_{j=1}^{n}2j)(\prod_{j=1}^{n}2j)} &= \frac{1 \cdot 2 \cdot 3 \cdots 2n}{(2 \cdot 4 \cdot 6 \cdots 2n)(2 \cdot 4 \cdot 6 \cdots 2n)} \\
+                                    &= \frac{1 \cdot 3 \cdot 5 \cdots (2n - 1)}{2 \cdot 4 \cdot 6 \cdots 2n}
+\end{align*}
+
+Integrating over the semicircle in the positive half plane,
+\begin{figure}[H]
+  \centering
+  \incfig{problem32}
+\end{figure}
+
+Thus, we have that, where $\gamma$ is the arc of the semicircle,
+\begin{align*}
+  \int_{-R}^{R}\frac{dx}{(1+x^{2})^{n+1}} + \int_{\gamma}\frac{dz}{(1+z^{2})^{n+1}} &= 2\pi i \res_{i}\frac{1}{(1+z^{2})^{n+1}} \\
+                                                                                    &= 2\pi i\left(\frac{1}{2i} \cdot \frac{1 \cdot 3 \cdot 5 \cdots (2n-1)}{2 \cdot 4 \cdot 6 \cdots (2n)}\right) \\
+                                                                                    &= \frac{1 \cdot 3 \cdot 5 \cdots (2n-1)}{2 \cdot 4 \cdot 6 \cdots (2n)}\cdot \pi \\
+\end{align*}
+
+The only left is to show that $\int_{\gamma}\frac{dz}{(1+z^{2})^{n+1}}$ vanishes in the limit. In particular, we have that
+\begin{align*}
+  \int_{\gamma}\frac{dz}{(1+z^{2})^{n+1}} &\leq \pi R \sup \left(\frac{1}{|(1+z^{2})^{n+1}|}\right) \\
+                                          &= \pi R \sup \left(\frac{1}{|1+z^{2}|^{n+1}}\right) \\
+  \intertext{By the reverse triangle inequality, $|1 + z^{2}| \geq |z^{2}| - 1$, so}
+                                          &\leq \pi R \sup \left(\frac{1}{(|z|^{2} - 1)^{n+1}}\right) \\
+                                          &= \frac{\pi R}{(R^{2} - 1)^{n+1}} \\
+\end{align*}
+
+Since we have that $n \geq 1$, this vanishes in the limit and we are left with the desired result.
+
+\section*{13}
+
+We will show that if $\lim_{z \rightarrow z_{0}}(z-z_{0})f(z)  = 0$, then $f$ has a removable singularity at $z_{0}$. If we have this, then for $f$ bounded as in the problem,
+\[
+  0 \leq \lim_{z \rightarrow z_{0}}|(z-z_{0})f(z)| \leq \lim_{z \rightarrow z_{0}}A|(z-z_{0})(z-z_{0})^{-1 + \epsilon}| = \lim_{z \rightarrow z_{0}}A|(z-z_{0})^{\epsilon}| = A(z_{0} - z_{0})^{\epsilon} = 0
+\]
+so $\lim_{z \rightarrow z_{0}}(z-z_{0})f(z) = 0$.
+
+To see the claim about removable singularities, we have that if we take
+\[
+  g(z) = \begin{cases}
+    (z - z_{0})^{2}f(z) & z \in D_{r}(z_{0}) \setminus \{z_{0}\} \\
+    0 & z = z_{0} \\
+  \end{cases}
+\]
+then $g(z)$ is holomorphic on $D_{r}(z_{0}) \setminus \{z_{0}\}$ as the product of two holomorphic functions. Further, we have that
+\[
+  g'(z_{0}) = \lim_{z \rightarrow z_{0}}\frac{(z-z_{0})^{2}f(z) - g(z_{0})}{z - z_{0}} = \lim_{z \rightarrow z_{0}}(z-z_{0})f(z) = 0
+\]
+is defined, so $g$ is holomorphic at $z_{0}$ as well. Thus, $g$ is holomorphic on all of $D_{r}(z_{0})$, and we have that $g(z_{0}) = g'(z_{0}) = 0$, such that on $D_{r}(z_{0})$,
+\[
+  g(z) = g(0) + g'(0)(z - z_{0}) + \sum_{n=2}^{\infty}a_{n}(z - z_{0})^{n} = \sum_{n=2}^{\infty}a_{n}(z-z_{0})^{n}
+\]
+and
+\[
+  \frac{g(z)}{(z - z_{0})^{2}} = \sum_{n=0}^{\infty}a_{n+2}(z-z_{0})^{n}
+\]
+satisfies that on $D_{r}(z_{0}) \setminus \{z_{0}\}$, $\frac{g(z)}{(z-z_{0})^{2}} = \frac{(z-z_{0})^{2}f(z)}{(z-z_{0})^{2}} = f(z)$, but is holomorphic on all of $D_{r}(z_{0})$, so taking $f(z_{0}) = a_{2}$ extends $f$ to $D_{r}(z_{0})$, and so the singularity is removable.
+
+\section*{8}
+
+Assume $b \neq 0$; otherwise this integral collapses to $\int_{0}^{2\pi}\frac{d\theta}{a} = \frac{\theta}{a}\Big|_{0}^{2\pi} = \frac{2\pi}{a}$, which is what we wanted.
+
+We will first transform this into a complex integral on the unit circle $C$. In particular, under the parameterization $\gamma(\theta) = e^{i\theta}$ where $\theta \in [0, 2\pi]$, we have that
+\[
+  \int_{C}f(z)dz = \int_{0}^{2\pi}f(e^{i\theta})ie^{i\theta}d\theta
+\]
+so if we take $f(z) = \left(a + b\frac{z + z^{-1}}{2}\right)^{-1}(iz)^{-1} = -\frac{2i}{bz^{2} + 2az + b}$, we have that
+\[
+  \int_{C}f(z)dz = \int_{0}^{2\pi}\frac{ie^{i\theta}d\theta}{\left(a + b\left(\frac{e^{i\theta} + e^{-i\theta}}{2}\right)\right)(ie^{i\theta})} = \int_{0}^{2\pi}\frac{d\theta}{a + b\cos(\theta)}
+\]
+
+Put $r_{1} = \frac{a + \sqrt{a^{2} - b^{2}}}{b}$, $r_{2} = \frac{a - \sqrt{a^{2} - b^{2}}}{b}$; these are the roots to $bz^{2} + 2az + b = 0$, and thus $f$ has a simple pole at both $r_{1}$ and $r_{2}$ when they differ (in particular, they differ in this problem since $a > |b| \implies a^{2} - b^{2} > 0$), since $f(z) = \frac{-2i}{b(z-r_{1})(z-r_{2})}$. Note that both $r_{1}, r_{2}$ are real since $a, b \in \R$ and $a^{2} - b^{2} > 0 \implies \sqrt{a^{2} - b^{2}} \in \R$.
+
+Then, we have that $|r_{1}| = \frac{|a + \sqrt{a^{2}-b^{2}}|}{|b|}$, but we have that $a > |b| > 0$ and $\sqrt{a^{2}-b^{2}} > 0$ so $|a + \sqrt{a^{2}-b^{2}}| = a + \sqrt{a^{2}-b^{2}} \geq a$, and so $|r_{1}| \geq \frac{a}{|b|} > 1$. To see that the other one lies in the unit circle, note that we have that $|b|^{2} + (\sqrt{a^{2}-b^{2}})^{2} = a^{2}$, and so $(|b| + \sqrt{a^{2}-b^{2}})^{2} = a^{2} + 2|b|\sqrt{a^{2}-b^{2}}$, and since (remember that we take $b \neq 0$) $|b|, \sqrt{a^{2}-b^{2}} > 0$, we have that $a < |b| + \sqrt{a^{2}-b^{2}} \implies a - \sqrt{a^{2}-b^{2}} < |b|$. Lastly, since $a =\sqrt{a^{2}} > \sqrt{a^{2}-b^{2}} > 0$, we have that $a - \sqrt{a^{2}-b^{2}} = |a - \sqrt{a^{2}-b^{2}}| < |b|$, so $|r_{2}| < 1$.
+
+Computing the residue,
+\begin{align*}
+  \res_{r_{2}}f &= \lim_{z \rightarrow r_{2}} (z-r_{2})\frac{-2i}{b(z-r_{1})(z-r_{2})} \\
+                &= \lim_{z \rightarrow r_{2}}\frac{-2i}{b(z-r_{1})}\\
+                &= \frac{-2i}{b(r_{2}-r_{1})}\\
+                &= \frac{-2i}{2\sqrt{a^{2}-b^{2}}}\\
+                &= \frac{1}{i\sqrt{a^{2}-b^{2}}}\\
+\end{align*}
+
+Then,
+\[
+  \int_{0}^{2\pi}\frac{d\theta}{a + b\cos(\theta)} = \int_{C}f(z)dz = 2\pi i \res_{r_{2}}f = 2\pi i \frac{1}{i\sqrt{a^{2}-b^{2}}} = \frac{2\pi}{a^{2}-b^{2}}
+\]
+as desired.
+
+\end{document}
+
+% LocalWords:  NetID fancyplain LocalWords colorlinks linkcolor linkbordercolor
+% LocalWords:  holomorphic

@@ -1,0 +1,243 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{relsize}
+\usepackage{fancyvrb}
+\usepackage{import}
+\usepackage{float}
+\usepackage{xifthen}
+\usepackage{pdfpages}
+\usepackage{transparent}
+\usetikzlibrary{shapes.geometric,fit}
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+\theoremstyle{definition}
+\newtheorem*{statement}{Statement}
+\newtheorem*{claim}{Claim}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+
+\newcommand{\contra}{\Rightarrow\!\Leftarrow}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\D}{\mathbb{D}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Zeq}{\mathbb{Z}_{\geq 0}}
+\newcommand{\Zg}{\mathbb{Z}_{>0}}
+\newcommand{\Req}{\mathbb{R}_{\geq 0}}
+\newcommand{\Rg}{\mathbb{R}_{>0}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Ha}{\mathbb{H}}
+\newcommand{\C}{\mathbb{C}}
+\DeclareMathOperator{\ima}{im}
+\DeclareMathOperator{\spn}{span}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\real}{Re}
+\DeclareMathOperator{\imag}{Im}
+\DeclareMathOperator{\diver}{div}
+\DeclareMathOperator{\curl}{curl}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\inter}{int}
+\DeclareMathOperator{\Dr}{Dr}
+\DeclareMathOperator{\Jac}{Jac}
+\DeclareMathOperator{\res}{res}
+
+\newcommand{\incfig}[1]{\input{./figures/#1.pdf_tex}}
+\graphicspath{ {./figures/} }
+
+\title{MATH 4065 HW 9}
+\author{David Chen, dc3451}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section*{14}
+
+Let $f: \Ha \rightarrow \D$ be a conformal mapping. Then, we have that $G(z) = i\frac{1-z}{1 + z}$ is a conformal mapping $\D \rightarrow \Ha$, so $(f \circ G)(z) = f\left(i\frac{1-z}{1+z}\right)$ is an automorphism of the disc, and thus takes the form $e^{i\theta}\psi_{\alpha}(z) = e^{i\theta}\frac{\alpha - z}{1 - \overline{\alpha}z}$. But then, $G^{-1}(z) = \frac{i - z}{i + z}$, so
+\begin{align*}
+  f(z) &= e^{i\theta}\frac{\alpha - \frac{i - z}{i + z}}{1 - \overline{\alpha}\frac{i - z}{i + z}} \\
+       &= e^{i\theta}\frac{\alpha(i + z) - (i - z)}{(i + z) - \overline{\alpha}(i - z)} \\
+       &= e^{i\theta}\frac{(\alpha + 1)z + (\alpha - 1)i}{(\overline{\alpha} + 1)z - (\overline{\alpha} - 1)i} \\
+       &= e^{i\theta}\frac{\alpha + 1}{\overline{\alpha} + 1}\frac{z + \frac{\alpha - 1}{ \alpha + 1}i}{z - \frac{\overline{\alpha} - 1}{\overline{\alpha} + 1}i}
+         \intertext{but we have that $\left|\frac{\alpha + 1}{\overline{\alpha} + 1}\right| = \sqrt{\frac{(\alpha + 1)(\overline{\alpha} + 1)}{(\overline{\alpha} + 1)(\alpha + 1)}} = 1$, thus it is some rotation, so putting $\beta = -\frac{\alpha - 1}{\alpha + 1}i$,}
+       &= e^{i\varphi}\frac{z - \beta}{z - \overline{\beta}}
+\end{align*}
+
+The last thing to check is that $\beta$ has positive imaginary part, which is the same as $\frac{\alpha - 1}{\alpha + 1}$ having negative real part. Let $\alpha = a + bi$:
+\[
+  \real\left(\frac{a - 1 + bi}{a + 1 + bi}\right) = \frac{1}{(a + 1)^{2} + b^{2}}\real((a - 1 + bi)(a + 1 + bi))
+\]
+but we get
+\[
+  \real((a - 1 + bi)(a + 1 + bi)) = \real(a^{2} + b^{2} - 1) < 0
+\]
+since $a^{2} + b^{2} = |\alpha|^{2} < 1$, so we get what we wanted.
+
+\section*{15}
+
+\subsection*{a}
+
+$\Phi(z) = \frac{az + b}{cz + d}$ for real $a,b,c,d$ with $ad - bc \neq 0$. Then, on the real line, $\Phi(x) = x$ should have 3 solutions since there are three distinct fixed points which must occur at $x \neq -d/c$, since $\Phi(-d/c) = \infty$. However,
+\[
+  \Phi(x) = x \implies x(cx + d) - ax + b = 0
+\]
+which is a quadratic in $x$ when $c \neq 0$, and thus cannot have three roots. Thus, $c = 0 \implies xd - ax + b = 0$, which is linear when $d - a \neq 0$ and cannot have three roots. Then, we get that $a = d, c = 0 \implies b = 0$, so finally
+\[
+  \Phi(z) = \frac{az}{d} = z
+\]
+
+\subsection*{b}
+
+The easy part is uniqueness. If there were two such automorphisms $\Phi_{1}, \Phi_{2}$, then we have that $\Phi_{1}^{-1} \circ \Phi_{2}$ must take $x_{i} \mapsto y_{i} \mapsto x_{i}$, so $x_{1}, x_{2}, x_{3}$ are fixed points; from earlier, this gives
+\[
+  \Phi_{1}^{-1} \circ \Phi_{2} = \id \implies \Phi_{2} = \Phi_{1}
+\]
+
+To actually construct this, we will actually create two different maps: the first will take $x_{1} \mapsto 0$, $x_{2} \mapsto 1$ and $x_{3} \mapsto \infty$, and the second will take $0 \mapsto y_{1}$, $1 \mapsto y_{2}$, and $\infty \mapsto y_{3}$. The first one is
+\[
+  F_{1}(z) = \frac{(z - x_{1})(x_{2} - x_{3})}{(z - x_{3})(x_{2} - x_{1})}
+\]
+and the second
+\[
+  F_{2}(z) = \frac{y_{3}z + \frac{y_{3} - y_{2}}{y_{2} - y_{1}}y_{1}}{z + \frac{y_{3} - y_{2}}{y_{2} - y_{1}}} = \frac{y_{3}(y_{2} - y_{1})z + y_{1}(y_{3} - y_{2})}{(y_{2} - y_{1})z + (y_{3} - y_{2})}
+\]
+where their composition is an automorphism of $\Ha$ with the correct values, since the determinants of both mappings' associated matrix are positive (the first has $ad - bc = (x_{1} - x_{3})(x_{2} - x_{3})(x_{2} - x_{1}) = - \cdot - \cdot + > 0$ and the second $ad - bc = (y_{3} - y_{2})(y_{2} - y_{1})(y_{3} - y_{1}) = + \cdot + \cdot + > 0$). After a tedious manipulation to check, we get the composition as
+\[
+  \frac{(y_{3}(y_{2} - y_{1})(x_{2} - x_{3}) + y_{1}(y_{3} - y_{2})(x_{2} - x_{1}))z - x_{1}y_{3}(y_{2} - y_{1})(x_{2} - x_{3}) - x_{3}y_{1}(y_{3} - y_{2})(x_{2} - x_{1})}{((y_{2} - y_{1})(x_{2} - x_{3}) + (y_{3} - y_{2})(x_{2} - x_{1}))z - x_{1}(y_{2} - y_{1})(x_{2} - x_{3}) - x_{3}(y_{3} - y_{2})(x_{2} - x_{1})}
+\]
+which recovers the desired values when substituted.
+
+\section*{17}
+
+Since we only have to do the left equation, this is relatively fast. Consider that the area of the unit disc is $\pi$, so $\frac{1}{\pi}\iint_{\D}dxdy = 1$. Then, under the change of variables $(x, y) = \psi(u, v) = x(u, v) + y(u, v)$ (where $\psi(u + vi) = \psi(u, v)$), the determinant of the Jacobian (proved back in chapter 1, it follows immediately from Cauchy-Rieman and the definition of the Wirtinger derivatives, though here the role of $x,y$ and $u, v$ are swapped from the book) is
+\[
+  \frac{\partial x}{\partial u}\frac{\partial y}{\partial v} - \frac{\partial x}{\partial v}\frac{\partial y}{\partial u} = \left(\frac{\partial x}{\partial u}\right)^{2} + \left(\frac{\partial x}{\partial v}\right)^{2} = \left|2\frac{\partial u}{\partial z}\right|^{2} = |\psi'(z)|^{2}
+\]
+but $\psi$ is an automorphism of $\D$, so the area of integration stays the same, so
+\[
+  \frac{1}{\pi}\iint_{\D}dxdy = \frac{1}{\pi}\iint_{\D}|\psi'(z)|^{2}dudv = 1
+\]
+
+\section*{19}
+
+Call the slit plane in the problem $S$. (I assume that the $A_{k}$ in the problem are real numbers?) Suppose we have two points $z_{1}, z_{2} \in S$ with paths $\gamma_{1}$ and $\gamma_{2}$ connecting them. Then, note that if $z \in S$, then $z + yi \in S$ for any $y \geq 0$, since if $z + yi \notin S$, then $z + yi = A_{k} + yi'$ for $y' \leq 0 \implies z = A_{k} + (y' - y)i \notin S$.
+
+The goal here is to raise the paths and use that the upper half plane is simply connected.
+\begin{figure}[H]
+  \centering
+  \incfig{homo}
+\end{figure}
+
+We first show that $\gamma_{1}$ and $\gamma_{2}$ are homotopic to two different curves, $\Gamma_{1}$ and $\Gamma_{2}$ respectively. Since both $\gamma_{1}, \gamma_{2}$ are bounded, let $M = \max\{\sup|\gamma_{1}|, \sup|\gamma_{2}|\} + 1$ and define
+\[
+  \Gamma_{i}(t) = \begin{cases}
+    \gamma_{i}(0) + 3Mit & 0 \leq t < \frac{1}{3} \\
+    \gamma_{i}(3t - 1) + Mi & \frac{1}{3} \leq t < \frac{2}{3} \\
+    \gamma_{i}(1) + 3Mi(1-t) & \frac{2}{3} \leq t \leq 1 \\
+  \end{cases}
+\]
+Then, we have that the mappings
+\[
+  h_{i}(s, t) = \gamma_{i,s}(t) = \begin{cases}
+    \gamma_{i}(0) + 3Mit & 0 \leq t < \frac{s}{3} \\
+    \gamma_{i}\left(\frac{3t-s}{3t-2s}\right) + sMi & \frac{s}{3} \leq t < 1 - \frac{s}{3} \\
+    \gamma_{i}(1) + 3Mi(1 - t) & 1 - \frac{s}{3} \leq t \leq 1 \\
+  \end{cases}
+\]
+gives us a homotopy between $\gamma_{1}$ and $\Gamma_{1}$ as well as $\gamma_{2}$ and $\Gamma_{2}$. Then, the paths $\Gamma_{1,r} = \Gamma_{1}(t)|_{[\frac{1}{3},\frac{2}{3}]}$ and $\Gamma_{2,r} = \Gamma_{2}(t)|_{[\frac{1}{3},\frac{2}{3}]}$ lie entirely in the upper half plane (that is, the restrictions of $\Gamma_{1}$ and $\Gamma_{2}$), since $|\imag(\gamma_{i}(t))| < M$, and are thus homotopic. Furthermore, $\Gamma_{1}$ and $\Gamma_{2}$ coincide on $t \in [0, \frac{1}{3}] \cup [\frac{2}{3}, 1]$. Then, there is some continuous mapping $H_{r}(s,t)$ which satisfies $H_{r}(0, t) = \Gamma_{1,r}(t)$ and $H(1, t) = \Gamma_{2,r}(t)$, such that we can give
+\[
+  H(s,t) = \begin{cases}
+    \Gamma_{1}(t) & 0 \leq t < \frac{1}{3} \\
+    H_{r}(s, 3t - 1) & \frac{1}{3} \leq t < \frac{2}{3} \\
+    \Gamma_{1}(t) & \frac{2}{3} \leq t \leq 1 \\
+  \end{cases}
+\]
+which gives us a homotopy between $\Gamma_{1}$ and $\Gamma_{2}$. Then, we have that $\gamma_{1}$ and $\gamma_{2}$ are homotopic.
+
+\section*{2}
+
+\subsection*{a}
+
+Earlier, the book gives that the angle between two complex numbers $z, w$ is determined by the two quantities
+\[
+  \frac{(z,w)}{|z||w|} \text{       and       } \frac{(z, -iw)}{|z||w|}
+\]
+
+Then, we just directly these quantities for $(f \circ \gamma)'(t_{0})$ and $(f \circ \eta)'(t_{0})$, putting $\gamma(t_{0})  = \eta(t_{0}) = z_{0}$:
+\[
+  \frac{((f \circ \gamma)'(t_{0}), (f \circ \eta)'(t_{0}))}{|(f \circ \gamma)'(t_{0})| |(f \circ \eta)'(t_{0})|} =
+  \frac{(f'(z_{0})\gamma'(t_{0}), f'(z_{0})\eta'(t_{0}))}{|f'(z_{0})\gamma'(t_{0})||f'(z_{0})\eta'(t_{0})|}
+\]
+and by the conjugate linearity of the inner product,
+\[
+  \frac{(f'(z_{0})\gamma'(t_{0}), f'(z_{0})\eta'(t_{0}))}{|f'(z_{0})\gamma'(t_{0})||f'(z_{0})\eta'(t_{0})|} =
+  \frac{f'(z_{0})\overline{f'(z_{0})}(\gamma'(t_{0}), \eta'(t_{0}))}{|f'(z_{0})||\gamma'(t_{0})||f'(z_{0})||\eta'(t_{0})|} = \frac{(\gamma'(t_{0}), \eta'(t_{0}))}{|\gamma'(t_{0})||\eta'(t_{0})|}
+\]
+A similar manipulation gives
+\[
+  \frac{((f \circ \gamma)'(t_{0}), -i(f \circ \eta)'(t_{0}))}{|(f \circ \gamma)'(t_{0})| |(f \circ \eta)'(t_{0})|} =
+  \frac{(f'(z_{0})\gamma'(t_{0}), -if'(z_{0})\eta'(t_{0}))}{|f'(z_{0})\gamma'(t_{0})||f'(z_{0})\eta'(t_{0})|}
+\]
+and
+\[
+  \frac{(f'(z_{0})\gamma'(t_{0}), -if'(z_{0})\eta'(t_{0}))}{|f'(z_{0})\gamma'(t_{0})||f'(z_{0})\eta'(t_{0})|} =
+  \frac{f'(z_{0})\overline{f'(z_{0})}(\gamma'(t_{0}), -i\eta'(t_{0}))}{|f'(z_{0})||\gamma'(t_{0})||f'(z_{0})||\eta'(t_{0})|} = \frac{(\gamma'(t_{0}), -i\eta'(t_{0}))}{|\gamma'(t_{0})||\eta'(t_{0})|}
+\]
+so the angle between $(f \circ \gamma)'(t)$ and $(f \circ \eta)'(t)$ is the same as the angle between $\gamma'(t)$ and $\eta'(t)$.
+
+\subsection*{b}
+
+We just do the same calculation, but instead viewing $f$ as taking $\Omega \subset \R^{2} \rightarrow \R^{2}$. In particular, let $f(x,y) = (u(x,y), v(x,y))$ and $\gamma(t) = (\gamma_{1}(t), \gamma_{2}(t))$, such that we get that $J_{f \circ \gamma} = J_{f} \cdot J_{\gamma}$ and similar for $\eta$. Then, we have that since $f$ preserves angles,
+\[
+  \frac{(J_{f \circ \gamma}, J_{f \circ \eta})}{|J_{f \circ \gamma}||J_{f \circ \eta}|} = \frac{(J_{\gamma}, J_{\eta})}{|J_{\gamma}||J_{\eta}|} \implies (J_{f} \cdot J_{\gamma}, J_{f} \cdot J_{\eta}) = C(J_{\gamma}, J_{\eta})
+\]
+where $c = \frac{|J_{f \circ \gamma}||J_{f \circ \eta}|}{|J_{\gamma}||J_{\eta}|}$. Then, we have that by a easy property of the inner product,
+\[
+  (J_{f} \cdot J_{\gamma}, J_{f} \cdot J_{\eta}) = (J_{\gamma}, (J_{f}^{T}J_{f}) \cdot J_{\eta}) = C(J_{\gamma}, J_{\eta}) = (J_{\gamma}, CI \cdot J_{\eta}).
+\]
+
+However, this holds for all paths $\gamma$ and $\eta$; thus, we can show that $J^{T}_{f}J_{f} = cI$. The ultimate goal is to show that $J_{f}$ is a rotation matrix. To see this, let $A = J^{T}_{f}J_{f} = \begin{bmatrix} a & b \\ c & d \end{bmatrix}$, and take $\gamma(t) = z_{0} + t$, $\eta(t) = z_{0} + it$, such that $J_{\gamma} = \begin{bmatrix} 1, 0 \end{bmatrix}, J_{\eta} = \begin{bmatrix} 0, 1 \end{bmatrix}$ and we get that $(J_{\gamma}, AJ_{\eta}) = b = c(J_{\gamma}, J_{\eta}) = 0$. Taking this with $\gamma, \eta$ switched gives $c = 0$, and taking $\gamma(t) = \eta(t) = z_{0} + t$ and $z_{0} + it$ gives $a = d = C$ respectively. Then, we get that if $J_{f} = \begin{bmatrix} a & b \\ c & d \end{bmatrix}$, we get
+\[
+  J_{f}^{T}J_{f} = \begin{bmatrix}
+    a^{2} + c^{2} & ad + bc \\
+    ad + bc & b^{2} + d^{2}
+  \end{bmatrix}
+\]
+and since $a^{2} + c^{2} = C$ and $ad + bc = 0$, substituting we get $c^{2}(\frac{d^{2}}{b^{2}} + 1) = C\frac{c^{2}}{b^{2}} = C$ so $b = \pm c$ and $a = \mp d$. Now, we also have that (note multiplying by $-i$ is a rotation of $-90^{\circ}$):
+\[
+  \frac{(J_{f \circ \gamma}, RJ_{f \circ \eta})}{|J_{f \circ \gamma}||J_{f \circ \eta}|} = \frac{(J_{\gamma}, RJ_{\eta})}{|J_{\gamma}||J_{\eta}|} \implies (J_{f} \cdot J_{\gamma}, RJ_{f} \cdot J_{\eta}) = C(J_{\gamma}, RJ_{\eta})
+\]
+where $R = \begin{bmatrix} 0 & 1 \\ -1 & 0 \end{bmatrix}$, so by a similar argument to above we get that $J^{T}_{f}RJ_{f} = CR$, so then if $J_{f} = \begin{bmatrix} a & b \\ c & d \end{bmatrix}$, we get that $ad - bc = C > 0$, but since $a = \pm d$ and $b = \pm c$, exactly one is positive (one has that both are of the same sign, the other that they are opposite), so we need $ad > 0$ and $bc < 0$, so $a = d$ and $b = -c$, so the Jacobian of $f$ has the form
+\[
+  \begin{bmatrix}
+    a & -b \\
+    b & a
+  \end{bmatrix}
+\]
+which is exactly the Cauchy-Riemann equations, and we are done. Further, $|f'(z_{0})|^{2} = |J_{f}(z_{0})|$ as seen earlier in the problem set, and $|J_{f}(z_{0})| = a^{2} + b^{2} = C > 0$, so the derivative is also nonzero.
+
+\end{document}
+
+% LocalWords:  NetID fancyplain LocalWords colorlinks linkcolor linkbordercolor
+% LocalWords:  holomorphic

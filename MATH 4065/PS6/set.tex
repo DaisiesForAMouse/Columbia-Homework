@@ -1,0 +1,258 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{relsize}
+\usepackage{fancyvrb}
+\usepackage{import}
+\usepackage{float}
+\usepackage{xifthen}
+\usepackage{pdfpages}
+\usepackage{transparent}
+\usetikzlibrary{shapes.geometric,fit}
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+\theoremstyle{definition}
+\newtheorem*{statement}{Statement}
+\newtheorem*{claim}{Claim}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+
+\newcommand{\contra}{\Rightarrow\!\Leftarrow}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\D}{\mathbb{D}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Zeq}{\mathbb{Z}_{\geq 0}}
+\newcommand{\Zg}{\mathbb{Z}_{>0}}
+\newcommand{\Req}{\mathbb{R}_{\geq 0}}
+\newcommand{\Rg}{\mathbb{R}_{>0}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\DeclareMathOperator{\ima}{im}
+\DeclareMathOperator{\spn}{span}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\real}{Re}
+\DeclareMathOperator{\imag}{Im}
+\DeclareMathOperator{\diver}{div}
+\DeclareMathOperator{\curl}{curl}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\inter}{int}
+\DeclareMathOperator{\Dr}{Dr}
+\DeclareMathOperator{\Jac}{Jac}
+\DeclareMathOperator{\res}{res}
+
+\newcommand{\incfig}[1]{\input{./figures/#1.pdf_tex}}
+\graphicspath{ {./figures/} }
+
+\title{MATH 4065 HW 6}
+\author{David Chen, dc3451}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section*{12}
+
+Taking $f(z) = \frac{\pi \cot(\pi z)}{(u + z)^{2}} = \frac{\pi \cos(\pi z)}{(u + z)^{2}\sin(\pi z)}$, we can see that this has poles where $(u + z)^{2} = 0$ and where $\sin(\pi z) = 0$. Since $\sin(\pi z) = \frac{e^{\pi i z} - e^{-\pi i z}}{2i} = 0 \implies e^{2\pi i z} = 1 \implies z = k$ for $k \in \Z$, we have that since $f(z) = (u+z)^{-2}\frac{\pi \cos(\pi z)}{\sin(\pi z)}$, and $\sin(\pi z) \neq 0$ on a neighborhood of $u$ (since $u$ is not an integer, and therefore is not a zero of $\sin(\pi z)$), the pole is of order two at $-u$. Computing the residue,
+\begin{align*}
+  \res_{-u} f &= \lim_{z \rightarrow -u} \frac{d}{dz}(z+u)^{2}f(z) \\
+              &= \lim_{z \rightarrow -u} \frac{d}{dz}\frac{\pi \cos(\pi z)}{\sin(\pi z)} \\
+              &= \lim_{z \rightarrow -u} \pi\frac{-\pi\sin^{2}(\pi z) - \pi\cos^{2}(\pi z)}{\sin^{2}(\pi z)} \\
+              &= -\frac{\pi^{2}}{\sin^{2}(\pi z)}
+\end{align*}
+
+Similarly, around $z = k$ for $k \in \Z$, we have that (noting that from above, $\frac{d}{dz}\pi\cot(\pi z) = \frac{-\pi^{2}}{\sin^{2}(\pi z)}$), $1/f(z) = \frac{(u+z)^{2}}{\pi \cot(\pi z)}$, and
+\[
+  \frac{d}{dz}\frac{1}{f(z)} = \frac{2\pi \cot(\pi z)(u + z) + \pi^{2}\frac{(u + z)^{2}}{\sin^{2}(\pi z)}}{\pi^{2}\cot^{2}(\pi z)} = \frac{2\tan(\pi z)(u + z)}{\pi} + \frac{(u+z)^{2}}{\cos^{2}(\pi z)}
+\]
+which when evaluated at $z = k$, gives $\frac{d}{dz}\frac{1}{f(k)} = 0 + (u + k)^{2}$, and since $u$ is not an integer, $u + k \neq 0 \implies (u+k)^{2} \neq 0$, so the zero is simple at $k$ and the pole at $k$ of $f$ is thus also simple. Computing the residue,
+\begin{align*}
+  \res_{k}f &= \lim_{z \rightarrow k}(z - k)\frac{\pi \cos(\pi z)}{(u + z)^{2}\sin(\pi z)} \\
+            &= \lim_{z \rightarrow k}\frac{\pi \cos(\pi z)}{(u + z)^{2}} \cdot \frac{z-k}{\sin(\pi z)} \\
+            &= \lim_{z \rightarrow k}\frac{\cos(\pi z)}{(u + z)^{2}} \cdot \lim_{z \rightarrow k}\frac{\pi (z-k)}{\sin(\pi z)} \\
+  \intertext{This holds when the limits exist, which is apparent for the left limit and will be shown immediately for the right limit via L'Hopital:}
+            &= \frac{\cos(\pi k)}{(u + k)^{2}} \cdot \lim_{z \rightarrow k}\frac{\pi}{\pi\cos(\pi z)} \\
+            &= \frac{\cos(\pi k)}{(u + k)^{2}} \cdot \frac{1}{\cos(\pi k)} = \frac{1}{(u+k)^{2}}
+\end{align*}
+
+Now, consider the integral $\int_{C_{R_{N}}}f(z)dz$, where $C_{R_{N}}$ is $\{z \mid |z| = R_{N} = N + \frac{1}{2}\}$ for $N$ a positive integer at least $|u|$. Then, we have that
+\begin{align*}
+  \int_{C_{R_{N}}}f(z)dz &\leq 2\pi \left(N + \frac{1}{2}\right) \sup_{z \in C_{R_{N}}}\left|f(z)\right| \\
+                         &=  2\pi \left(N + \frac{1}{2}\right) \sup_{z \in C_{R_{N}}}\left|\frac{\pi \cos(\pi z)}{(u + z)^{2}\sin(\pi z)}\right| \\
+                         &=  2\pi \left(N + \frac{1}{2}\right) \sup_{z \in C_{R_{N}}}\frac{\pi}{|u+z|^{2}}\left|\frac{\cos(\pi z)}{\sin(\pi z)}\right| \\
+                         &\leq  2\pi \left(N + \frac{1}{2}\right) \sup_{z \in C_{R_{N}}}\frac{\pi}{||z|-|u||^{2}}\left|\frac{\cos(\pi z)}{\sin(\pi z)}\right| \\
+                         &= 2\pi \left(N + \frac{1}{2}\right)\frac{\pi}{(N + \frac{1}{2} - |u|)^{2}} \sup_{z \in C_{R_{N}}}\left|\frac{\cos(\pi z)}{\sin(\pi z)}\right| \\
+  \intertext{Note that with $z = \pm R_{N} = \pm (N + \frac{1}{2})$,}
+  \left|\frac{\cos(\pm\pi(N + 1/2))}{\sin(\pm\pi(N+1/2))}\right| &= \frac{|\cos(\pi(N + 1/2))|}{|\pm \sin(\pi(N+1/2))|} \\
+                         &= \frac{0}{1} = 0 \\
+  \intertext{So we only really need to care about $z$ with nonzero imaginary part. With a bit of algebra,}
+  \left|\frac{\cos(\pi z)}{\sin(\pi z)}\right| &= \left|\frac{e^{i \pi z} + \frac{1}{e^{i \pi z}}}{e^{i \pi z} - \frac{1}{e^{i \pi z}}}\right| \\
+                         &= \left|\frac{e^{2i \pi z} + 1}{e^{2i \pi z} - 1}\right| \\
+                         &= \frac{|1 + e^{2i \pi z}|}{|1 - e^{2i \pi z}|} \\
+                         &\leq \frac{1 + e^{-2\pi \imag(z)}}{||1| - e^{-2\pi \imag(z)}|} \\
+  \intertext{Put $z = R_{N}e^{i\theta}$, $\theta \neq 0, \pi$ since we already covered that case. We have two remaining cases: if $\imag(z) = R_{N}\sin(\theta) > 0$, then as $R_{N} \rightarrow \infty$, $\imag(z) \rightarrow \infty$, so $e^{-2\pi \imag(z)} \rightarrow 0$, and}
+  \frac{1 + e^{-2\pi \imag(z)}}{||1| - e^{-2\pi \imag(z)}|} &\rightarrow \frac{1 + 0}{|1 - 0|} = 1 \\
+  \intertext{If $\imag(z) = R_{N}\sin(\theta) < 0$, then $e^{-2\pi \imag(z)} > 1$, so}
+  \frac{1 + e^{-2\pi \imag(z)}}{||1| - e^{-2\pi \imag(z)}|} &= \frac{e^{-2\pi R_{N}\sin(\theta)} + 1}{e^{-2\pi R_{N}\sin(\theta)} - 1} = \frac{e^{-2\pi (N + 1/2)\sin(\theta)} + 1}{e^{-2\pi (N + 1/2)\sin(\theta)} - 1}\\
+  \intertext{Then, via L'Hopital,}
+  \lim_{N \rightarrow \infty}\frac{e^{-2\pi (N + 1/2)\sin(\theta)} + 1}{e^{-2\pi (N + 1/2)\sin(\theta)} - 1} &= \lim_{N \rightarrow \infty}\frac{e^{-2\pi (N + 1/2)\sin(\theta)}}{e^{-2\pi (N + 1/2)\sin(\theta)}} = 1 \\
+  \intertext{Finally, we get that in the limit $N \rightarrow \infty$, $\left|\frac{\cos(\pi z)}{\sin(\pi z)}\right| \leq 1$ (where $|z| = N + 1/2$) on the upper and lower half planes and vanishes on the real line. Finally we can bound the integral in the limit:}
+  \lim_{N \rightarrow \infty}\int_{C_{R_{N}}}f(z)dz &\leq \lim_{N \rightarrow \infty} 2\pi \left(N + \frac{1}{2}\right)\frac{\pi}{(N + \frac{1}{2} - |u|)^{2}} \sup_{z \in C_{R_{N}}}\left|\frac{\cos(\pi z)}{\sin(\pi z)}\right| \\
+  &\leq \lim_{N \rightarrow \infty} 2\pi \left(N + \frac{1}{2}\right)\frac{\pi}{(N + \frac{1}{2} - |u|)^{2}} \\
+  &= 2\pi^{2} \lim_{N \rightarrow \infty} \frac{(N + \frac{1}{2})^{2}}{(N + \frac{1}{2} - |u|)^{2}} \\
+  &= 2\pi^{2} (0)= 0\\
+  \intertext{However, by the residue theorem, we have that}
+  \int_{C_{R_{N}}}f(z)dz &= \res_{-u}f + \sum_{\substack{k \in \Z \\ -R_{N} < k < R_{N}}}\res_{k}f \\
+                         &= -\frac{\pi^{2}}{\sin^{2}(\pi z)} + \sum_{\substack{k \in \Z \\ -R_{N} < k < R_{N}}} \frac{1}{(u+k)^{2}}\\
+  \intertext{In the limit, as $N \rightarrow \infty$,}
+  0 &= \lim_{N \rightarrow \infty}\int_{C_{R_{N}}}f(z)dz \\
+                         &= -\frac{\pi^{2}}{\sin^{2}(\pi z)} + \lim_{N \rightarrow \infty}\sum_{\substack{k \in \Z \\ -R_{N} < k < R_{N}}} \frac{1}{(u+k)^{2}}\\
+                         &= -\frac{\pi^{2}}{\sin^{2}(\pi z)} + \sum_{k=-\infty}^{\infty} \frac{1}{(u + k)^{2}}
+\end{align*}
+which finally gives us what we want:
+\[
+  \frac{\pi^{2}}{\sin^{2}(\pi z)} = \sum_{k=-\infty}^{\infty} \frac{1}{(u + k)^{2}}
+\]
+
+
+\section*{14}
+
+Consider $g(z): \C \setminus \{0\} \rightarrow \C$, where $g(z) = f(1/z)$. There are three cases: either there is a removable singularity at $z = 0$, there is an essential singularity at $z = 0$, or there is a pole at $z = 0$.
+
+In the first case, if the singularity is removable, then we have that $g$ is bounded in a neighborhood of the origin, say $D_{r}(0)$. In particular, this means that $|z| < r \implies |g(z)| < B$, which gives that $|z| < r \implies |f(1/z)| < B$, which in turn gives that $|z| > 1/r \implies |f(z)| < B$. Then, since $f$ is entire, we have that $f$ is continuous on $\overline{D}_{1/r}(0)$, which is a bounded and closed (and therefore compact) set, and thus $f$ is bounded on $\overline{D}_{1/r}(0)$, say by $B'$. Then, $f$ is bounded everywhere on the complex plane (for $|z| > 1/r$, we have that $|f(z)| < B$, and for $|z| \leq 1/r$, $|f(z)| < B'$), so $f$ is entire and bounded, and by Liouville is constant, so the singularity cannot be removable since constant functions cannot be injective.
+
+In the second case that the singularity is essential, then Casorati-Weierstrass gives that the image under $g$ of $D_{1}(0) \setminus \{0\}$ is dense in the complex plane. Then, $g(z) = f(1/z)$, which is holomorphic everywhere in $\C \setminus \{0\}$, is then holomorphic on $D_{1}(2)$, which is a region that satisfies the open mapping theorem; thus, the image of $D_{1}(2)$ must be an open set in $\C$. However, since $g(D_{1}(0) \setminus \{0\})$ is dense, it must intersect $g(D_{1}(2))$ at some point; if it didn't, since $g(D_{1}(2))$ is open, we can pick any $w \in g(D_{1}(2))$ and note that there is some $r > 0$ such that $D_{r}(w) \subset g(D_{1}(2)) \implies g(D_{1}(0) \setminus \{0\}) \cap D_{r}(w) = \emptyset$, so $w$ cannot be contained in $g(D_{1}(0) \setminus \{0\})$, nor can it be a limit point of $g(D_{1}(0) \setminus \{0\})$, so $g(D_{1}(0) \setminus \{0\})$ cannot be dense in $\C$. $\contra$, so we have that there is some $x \in g(D_{1}(0) \setminus \{0\}) \cap g(D_{1}(2))$, so there are $z_{1} \in D_{1}(0) \setminus \{0\}$ and $z_{2} \in D_{1}(2)$ such that $g(z_{1}) = g(z_{2}) \implies f(1/z_{1}) = f(1/z_{2})$; further, since $D_{1}(0) \cap D_{1}(2) = \emptyset$, we have that $z_{1} \neq z_{2}$, so $f$ cannot be injective.
+
+The last remaining case is that $g(z)$ contains a pole at $z = 0$. In this case, $f$ must be a polynomial: otherwise, we would have that
+\[
+  f(z) = \sum_{n=0}^{\infty}a_{n}z^{n} \implies g(z) = \sum_{n=0}^{\infty}\frac{a_{n}}{z^{n}}
+\]
+so for any nonnegative integer $n$, $g(z) = z^{-n}\left(\sum_{m=0}^{n}a_{n-m}z^{m} + \sum_{m=1}^{\infty}\frac{a_{m+n}}{z^{m}}\right)$, where $\sum_{m=0}^{\infty}\frac{a_{m+n}}{z^{m}}$ is clearly not holomorphic at $z = 0$ unless all of the $a_{k}$ vanish for $k > n$ for some nonegative integer $N$, so $g(z)$ cannot have a pole at $0$ of any order.
+
+Then, if $f$ is a polynomial, then $f$ must be of degree 1; otherwise, if $f$ is of degree $n > 1$, then there are $n$ zeros of $f$ counting multiplicity. If there are two or more distinct zeros of $f$, then clearly $f$ is not injective, so $f(z) = c(z - w)^{n}$ for some root $w$ with multiplicity $n$. However, we have that if $f(z) = c(z - w)^{n}$, $f(w + e^{2\pi i / n}) = ce^{2\pi i} = c = f(w + 1)$, so $f$ cannot be injective. Thus, $f$ must be of degree 1 (if it were degree 0, it would be constant and thus not injective), so $f(z) = az + b$ for $a \neq 0$, as desired.
+
+
+\section*{16}
+
+\subsection*{a}
+
+We begin with the fact that $f$ does not vanish on the circle $C = \{z \mid |z| = 1\}$, which gives that on $C$, $|f| > 0$. In particular, since $C$ is closed and bounded, and thus compact, $z \mapsto |f(z)|$ is continuous since $f$ is holomorphic on a region containing $C$ and is thus continuous on $C$, and so a minimum is attained on $C$; thus, on the unit circle, $|f| \geq N$ for some positive $N$. Similarly, $g$ being holomorphic in a region containing $C$ gives that $g$ is continuous on $C$, a compact set, and thus $g$ is bounded on $C$, say by $M$. Then, we have that $|f|/|g| \geq N/M$.
+
+Thus, for $\epsilon < N/M$, we have that $|f|/|g| > \epsilon \implies |f| > \epsilon |g|$ on $C$, and so by Rouche's theorem we have that $f$ and $f_{\epsilon} = f + \epsilon g$ have the same amount of zeros, namely exactly 1.
+
+\subsection*{b}
+
+% Put $\eta: [0,r) \rightarrow \overline{D}_{1}(0)$ for the mapping $\epsilon \mapsto z_{\epsilon}$, where $z_{\epsilon}$ is the root of $f_{\epsilon}$. Then, suppose that $\eta$ is discontinuous at some $\epsilon$. Then, we have that there is some sequence $\{\epsilon_{n}\}_{n=1}^{\infty}$ such that $\epsilon_{n} \rightarrow \epsilon$ as $n \rightarrow \infty$, but $\eta(\epsilon_{n})$ does not converge to $\eta(\epsilon)$ as $n \rightarrow \infty$. However, the sequence $\eta(\epsilon_{n})$ is a sequence in a compact set, namely the closed unit disc, so there is some convergent subsequence, say $\eta(\epsilon_{n_{i}})$ which converges to some $w$ in the closed unit disc.
+
+We'll use something that comes up in Conway's book, but not Stein, which is that under the assumptions of the argument principle and some holomorphic function $g$,
+\[
+  \frac{1}{2\pi i}\int_{C}g(z)\frac{f'(z)}{f(z)} = \sum_{i=1}^{n}g(z_{i})n_{i}
+\]
+where $z_{i}$ are all the zeros and poles of $f$, with order $n_{i}$ (poles will be written to have negative order, so a pole of order 1 at $z_{i}$ has $n_{i} = -1$).
+
+To see this, note that we already have from the proof of the argument principle that
+\[
+  \frac{f(z)}{f'(z)} = \frac{n}{z - z_{0}} + G(z)
+\]
+for any pole or zero $z_{0}$ with order $n$. Then,
+\[
+  \res_{z_{0}}g(z)\frac{f(z)}{f'(z)} = \lim_{z \rightarrow z_{0}}(z-z_{0})\cdot \frac{g(z)n}{z - z_{0}} =  g(z_{0})n
+\]
+so the residue formula gives us what we want.
+
+Then, in this case, we have that there are no poles in the closed unit disc for $f_{\epsilon}$, and there is only a simple zero in the closed unit disc. Then,
+\begin{align*}
+  z_{\epsilon} &= \frac{1}{2\pi i}\int_{C}z\frac{f'(z) + \epsilon g'(z)}{f(z) + \epsilon g(z)}dz \\
+  &= \frac{1}{2\pi}\int_{0}^{2\pi}e^{it}\frac{f'(e^{i t}) + \epsilon g'(e^{i t})}{f(e^{i t}) + \epsilon g(e^{i t})}dt
+\end{align*}
+but the integrand is continuous in $\epsilon$, and therefore $z_{\epsilon}$ is continuous in $\epsilon$. In fact, it is differentiable in $\epsilon$ as well via Leibniz's rule.
+
+\section*{17}
+
+\subsection*{a}
+
+Put the unit circle as $C$.
+
+Note that for any $w_{0} \in D_{1}(0)$, we have that $\sup_{w_{0} \in C}|w_{0}| = |w_{0}| < 1$, and since $|f(z)| = 1$ on the unit circle, we have that on $C$, $1 = |f| > |-w_{0}| = |w_{0}|$ so Rouche gives that $f(z) - w_{0}$ has the same amount of zeros as $f$ in the unit disc; thus, if we can show that $f(z) = 0$ has a root, then $f(z) - w_{0} = 0$ also has a root, and so for every unit $w_{0}$ in the unit disc, $f(z) = w_{0}$ for some $z$ in the unit disc.
+
+To see that $f(z)$ must have a zero, suppose that it vanishes nowhere in the unit disc. Then, $1/f(z)$ is holomorphic in the unit disc, and $|1/f(z)| = 1$ on $C$, the closure of the unit disc, so $|1/f(z)| \leq 1$ on the unit disc by the maximum modulus principle, and so $|f(z)| \geq 1$. However, by the maximum modulus principle, we also have that $|f(z)| = 1$ on $C$, so $|f(z)| \leq 1$ on the unit disc by the maximum modulus principle. Thus, $|f(z)| = 1$ on the unit disc, but this means that we map an open set, namely the unit disc, to a subset of $C$, which cannot be open, since for any $w \in C$, $w - \epsilon w / 2 \in D_{\epsilon}(w)$, since $|w - (w - \epsilon w/ 2)| = |w|\epsilon/2 = \epsilon/2 < \epsilon$, but $|w - \epsilon w/2| = 1 - \epsilon/2 < 1$, so $D_{\epsilon}(w) \not\subset C$ for any $\epsilon > 0$, so the image of an open set is not open, so $f$ cannot be nonconstant and holomorphic by the open mapping theorem. $\contra$, so $f(z)$ must have a zero, and by the earlier paragraph, we are done.
+
+\subsection*{b}
+
+Finally, a part b that's easier than part a...
+
+Again, we only need to show that $f$ vanishes at some point in the unit disc. The following is copied with some slight modification from part a:
+
+Note that for any $w_{0} \in D_{1}(0)$, we have that $\sup_{w_{0} \in C}|w_{0}| = |w_{0}| < 1$, and since $|f(z)| \geq 1$ on the unit circle, we have that on $C$, $|f| \geq 1 > |-w_{0}| = |w_{0}|$ so Rouche gives that $f(z) - w_{0}$ has the same amount of zeros as $f$ in the unit disc; thus, if we can show that $f(z) = 0$ has a root, then $f(z) - w_{0} = 0$ also has a root, and so for every unit $w_{0}$ in the unit disc, $f(z) = w_{0}$ for some $z$ in the unit disc.
+
+Now suppose that $f(z)$ does not vanish on the closed unit disc. Note that $|f(z)| \geq 1 \implies |1/f(z)| \leq 1$ on $C$ so the maximum modulus principle gives that on the unit disc (since $f$ doesn't vanish, $1/f$ is holomorphic), $|1/f(z)| \leq \sup_{z \in C}|1/f(z)| \leq 1$. However, we already have a point $z_{0}$ in the unit disc that $|f(z_{0})| < 1 \implies |1/f(z_{0})| > 1$, so $\contra$, and $f(z)$ vanishes, and by Rouche we are done.
+
+\section*{3}
+
+We integrate over the following dotted contour $\gamma$:
+\begin{figure}[H]
+  \centering
+  \incfig{drawing-6}
+\end{figure}
+where the corridors have width $\epsilon$, and the circular sections are $\epsilon$ away from $C_{r_{2}}, C_{r_{1}}$.
+
+Note that the domain $\Omega = \{w \mid r_{1} \leq |w-z_{0}| \leq r_{2}\} \setminus \{w \mid w = z_{0} + \lambda(z - z_{0}), \lambda \in \R, \lambda > 0\}$ is a sector of an annulus (in particular, it is the annulus with the ray starting from $z_{0}$ and traveling through $z$ removed), which is simply connected, as seen in class. Now consider take $\frac{f(z)}{w - z}$ on $\Omega$: we have that $w \notin \Omega$, and $\Omega \subset \{w \mid r_{1} \leq |w-z_{0}| \leq r_{2}\}$, so $f(z)$ is holomorphic on $\Omega$, so $\frac{f(z)}{w-z}$ is holomorphic on $\Omega$. Since $\Omega$ is simply connected, we have that since $\gamma \subset \Omega$,
+\begin{align*}
+  \int_{\gamma}\frac{f(w)}{w-z}dw &= 0 \\
+  \intertext{Taking $\epsilon \rightarrow 0$, we get the the corridors cancel, and}
+  \int_{\gamma}\frac{f(w)}{w-z}dw &= \int_{C_{r_{2}}}\frac{f(w)}{w-z}dw - \int_{C_{z}}\frac{f(w)}{w-z}dw - \int_{C_{r_{1}}}\frac{f(w)}{w-z}dw = 0\\
+  \intertext{Where $C_{z}$ is the circle around $z$, and the signs come from the orietation of the contour. But by Cauchy's integral formula,}
+  \int_{C_{z}}\frac{f(w)}{w-z}dw &= 2\pi i f(z) \\
+  \intertext{So, putting this together,}
+  f(z) &= \frac{1}{2\pi i}\left(\int_{C_{r_{2}}}\frac{f(w)}{w-z}dw - \int_{C_{r_{1}}}\frac{f(w)}{w-z}dw\right)
+\end{align*}
+
+We proceed as in class, when we showed that a holomorphic function is infinitely differentiable. Then, on the interior of the annulus,
+\begin{align*}
+  \int_{C_{r_{2}}}\frac{f(w)}{w-z}dw &= \int_{C_{r_{2}}}\frac{f(w)}{(w-z_{0}) - (z-z_{0})}dw \\
+               &= \int_{C_{r_{2}}}\frac{f(w)}{(w-z_{0})(1 - \frac{z-z_{0}}{w-z_{0}})}dw \\
+  \intertext{Since $|w-z_{0}| = r_{2} > |z-z_{0}|$, the following series is absolutely convergent, which allows us to swap the sum and integral:}
+                                       &= \int_{C_{r_{2}}}\frac{f(w)}{(w-z_{0})}\left(\sum_{n=0}^{\infty}\frac{(z-z_{0})^{n}}{(w-z_{0})^{n}}\right)dw \\
+                                       &= \int_{C_{r_{2}}}\sum_{n=0}^{\infty}f(w)\frac{(z-z_{0})^{n}}{(w-z_{0})^{n+1}}dw \\
+                                       &= \sum_{n=0}^{\infty}\int_{C_{r_{2}}}f(w)\frac{(z-z_{0})^{n}}{(w-z_{0})^{n+1}}dw \\
+                                       &= \sum_{n=0}^{\infty}\left(\int_{C_{r_{2}}}\frac{f(w)}{(w-z_{0})^{n+1}}dw\right)(z-z_{0})^{n} \\
+  \intertext{This sum converges whenever $r_{2} > |z - z_{0}|$, since this is the region where the first series expansion of $\frac{1}{1 - \frac{z-z_{0}}{w-z_{0}}}$ converged absolutely. Similarly,}
+  -\int_{C_{r_{1}}}\frac{f(w)}{w-z}dw &= -\int_{C_{r_{1}}}\frac{f(w)}{(w-z_{0}) - (z-z_{0})}dw \\
+               &= \int_{C_{r_{2}}}\frac{f(w)}{(z-z_{0})(1 - \frac{w-z_{0}}{z-z_{0}})}dw \\
+  \intertext{Since $|w-z_{0}| = r_{1} < |z-z_{0}|$, the following series is absolutely convergent, which allows us to swap the sum and integral:}
+                                       &= \int_{C_{r_{2}}}\frac{f(w)}{(z-z_{0})}\left(\sum_{n=0}^{\infty}\frac{(w-z_{0})^{n}}{(z-z_{0})^{n}}\right)dw \\
+                                       &= \int_{C_{r_{2}}}\sum_{n=0}^{\infty}f(w)\frac{(w-z_{0})^{n}}{(z-z_{0})^{n+1}}dw \\
+                                       &= \sum_{n=0}^{\infty}\int_{C_{r_{2}}}f(w)\frac{(w-z_{0})^{n}}{(z-z_{0})^{n+1}}dw \\
+                                       &= \sum_{n=0}^{\infty}\left(\int_{C_{r_{2}}}\frac{f(w)}{(w-z_{0})^{-n}}dw\right)(z-z_{0})^{-(n+1)} \\
+                                       &= \sum_{n=1}^{\infty}\left(\int_{C_{r_{2}}}\frac{f(w)}{(w-z_{0})^{-(n-1)}}dw\right)(z-z_{0})^{-n} \\
+  \intertext{This sum converges whenever $r_{1} < |z - z_{0}|$, since this is the region where the first series expansion of $\frac{1}{1 - \frac{w-z_{0}}{z-z_{0}}}$ converged absolutely. Thus, both series are convergent on the interior of the annulus, allowing us to combine and reindex the sum as we like. Then, we have that, putting $a_{n} = \frac{1}{2\pi i}\int_{C_{r_{2}}}\frac{f(w)}{(w-z_{0})^{n+1}}dw$,}
+  f(z) &= \frac{1}{2\pi i}\left(\int_{C_{r_{2}}}\frac{f(w)}{w-z}dw - \int_{C_{r_{1}}}\frac{f(w)}{w-z}dw\right) \\
+                                     &= \sum_{n=0}^{\infty}a_{n}(z-z_{0})^{n} + \sum_{n=1}^{\infty}a_{-n}(z-z_{0})^{-n} \\
+                                     &= \sum_{n=-\infty}^{\infty}a_{n}(z-z_{0})^{n}
+\end{align*}
+which gives us our desired Laurent expansion.
+
+\end{document}
+
+% LocalWords:  NetID fancyplain LocalWords colorlinks linkcolor linkbordercolor
+% LocalWords:  holomorphic

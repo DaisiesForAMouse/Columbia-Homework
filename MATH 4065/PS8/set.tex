@@ -1,0 +1,237 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{relsize}
+\usepackage{fancyvrb}
+\usepackage{import}
+\usepackage{float}
+\usepackage{xifthen}
+\usepackage{pdfpages}
+\usepackage{transparent}
+\usetikzlibrary{shapes.geometric,fit}
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+\theoremstyle{definition}
+\newtheorem*{statement}{Statement}
+\newtheorem*{claim}{Claim}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+
+\newcommand{\contra}{\Rightarrow\!\Leftarrow}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\D}{\mathbb{D}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Zeq}{\mathbb{Z}_{\geq 0}}
+\newcommand{\Zg}{\mathbb{Z}_{>0}}
+\newcommand{\Req}{\mathbb{R}_{\geq 0}}
+\newcommand{\Rg}{\mathbb{R}_{>0}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Ha}{\mathbb{H}}
+\newcommand{\C}{\mathbb{C}}
+\DeclareMathOperator{\ima}{im}
+\DeclareMathOperator{\spn}{span}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\real}{Re}
+\DeclareMathOperator{\imag}{Im}
+\DeclareMathOperator{\diver}{div}
+\DeclareMathOperator{\curl}{curl}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\inter}{int}
+\DeclareMathOperator{\Dr}{Dr}
+\DeclareMathOperator{\Jac}{Jac}
+\DeclareMathOperator{\res}{res}
+
+\newcommand{\incfig}[1]{\input{./figures/#1.pdf_tex}}
+\graphicspath{ {./figures/} }
+
+\title{MATH 4065 HW 7}
+\author{David Chen, dc3451}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section*{1}
+
+$(\implies)$ Since we have that $f: U \rightarrow V$ is a local bijection on $U$, we have that for any $z \in U$, there is some small neighborhood $D$ centered at $z$ where $f: D \rightarrow f(D)$ is holomorphic and bijective; the proposition in the book then gives that $f'(w) \neq 0$ for every $w \in D$, in particular that $f'(z) \neq 0$. Since this holds for any $z \in U$, then we get that $f'(z) \neq 0$ for all $z \in U$.
+
+% $(\impliedby)$ We have that since $f'(z) \neq 0$ for all $z \in U$, we have that fixing $z_{0} \in U$, for $z$ in a sufficiently small neighborhood (call it $D$) of $z_{0}$, $f(z) = f(z_{0}) + a(z - z_{0}) + O((z - z_{0})^{2})$, so $f(z) - f(z_{0}) = a(z - z_{0}) + O((z - z_{0})^{2})$ for some nonzero constant $a$. Then, if we fix any $w \in f(D)$, we have that $|f(z) - w - (f(z) - f(z_{0}))| = |f(z_{0}) - w|$,
+
+$(\impliedby)$ Fix any $z_{0} \in U$, and take a small enough neighborhood such that
+\[
+  f(z) = f(z_{0}) + a(z - z_{0}) + O((z - z_{0})^{2}) \implies f(z) - f(z_{0}) = a(z - z_{0}) + O((z - z_{0})^{2})
+\]
+which then gives that on a (possibly) smaller neighborhood, $|a(z - z_{0})| > |O((z - z_{0})^{2})|$, so we get that $f(z) - f(z_{0})$ has the same amount of roots as $a(z - z_{0})$, which is exactly one: $z = z_{0}$ since $a = f'(z_{0}) \neq 0$. Then, we have that $f(z) \neq f(z_{0})$ on the smaller neighborhood for $z \neq z_{0}$. Then, if we halve the radius of the neighborhood, we get some $r > 0$ such that $|z - z_{0}| \leq r \implies f(z) - f(z_{0}) \neq 0$ for $z \neq z_{0}$. Let $m$ be the minimal value of $|f(z) - f(z_{0})|$, which must be positive and attained since $|f(z) - f(z_{0})|$ attains its minimum as a continuous function on a compact set and $f(z) - f(z_{0}) \neq 0$ for $|z - z_{0}| = r$. Now for $w \in V$ satisfying $|w - f(z_{0})| < m$, we get that
+\[
+  |(f(z) - w) - (f(z) - f(z_{0}))| = |f(z_{0}) - w| < m \leq |f(z) - f(z_{0})|
+\]
+on the boundary $|z - z_{0}| = r$. Then, Rouche's theorem gives that $f(z) - w = (f(z) - w - (f(z) - f(z_{0}))) + f(z) - f(z_{0})$ must have the same amount of zeros as $f(z) - f(z_{0})$ on $|z - z_{0}| < r$, namely one by the earlier fact that $f(z) \neq f(z_{0})$ for $z \neq z_{0}$. This means that for any $w$ within $m$ of $w_{0}$, $f(z)$ assumes the value of $w$ exactly once. Then, since $f$ is uniformly continuous on $|z - z_{0}| \leq r$, we can shrink the neighborhood until the image of the neighborhood has diameter $< m$, such that $|f(z) - f(z_{0})| < m$ for every $z$ in the neighborhood. Now since this neighborhood is contained inside $|z - z_{0}| \leq r$, we get that $f(z)$ assumes each output value at most once, and is thus injective. On this small neighborhood (call it $D$), we get what we want: $f: D \rightarrow f(D)$ is injective from above, and is trivially surjective, so it is a bijection.
+
+\section*{2}
+
+First, we consider that from the chapter on logarithms, that for any non-vanishing holomorphic function in a simply connected region, $f(z)$, that there is some function holomorphic function $g(z)$ satisfying $f(z) = e^{g(z)}$. In particular, this lets us do the following: since $F(z) = F'(z) = 0$, we have that
+\[
+  F(z) = 0 + 0(z - z_{0}) + a_{0}(z - z_{0})^{2} + a_{1}(z - z_{0})^{3} + \dots = \sum_{n=0}^{\infty}a_{n}(z - z_{0})^{n + 2} = (z - z_{0})^{2}f(z)
+\]
+where $f(z)$ is some non-vanishing holomorphic function in a neighborhood of $(z_{0})$ (in particular, it takes $f(z_{0}) = a_{0} = F''(z) \neq 0$ , and we can shrink our neighborhood until $0$ is no longer in the image of $f$). Then, we have that $f(z) = e^{h(z)}$ for some holomorphic $h(z)$, so we get that $F(z) = ((z - z_{0})e^{h(z)})^{2}$.
+
+Abbreviate $(z - z_{0})e^{h(z)} = g(z)$, and note that $g$ is holomorphic. Then, we get that $F(z) = (g(z))^{2}$, so $F(z_{0}) = 0 \implies g(z_{0}) = 0$ and differentiating,
+\[
+  F''(z_0) = 2g''(z_0)g(z_0) + 2(g'(z_{0}))^{2} = g(z_{0})^{2} \neq 0 \implies g'(z_0) \neq 0
+\]
+Then, on some small neighborhood of $z_{0}$ (again, $g'$ is continuous so just keep shrinking the neighborhood until it no longer contains $0$) we get that $g'(z) \neq 0$. Then, by the last problem, $g$ is a local bijection on this neighborhood, such that on a small neighborhood $D$ of $z_{0}$, $g$ is conformal and admits a holomorphic inverse $g^{-1}$. Let $r$ be the radius of a neighborhood of $g(z_{0}) = 0$ which is contained in the image of $D$ under $g$ (this exists, since $g$ is holomorphic and thus an open mapping). Then, consider the paths given as follows:
+\[
+  \begin{cases}
+    \Gamma_{1} = g^{-1}(tr) & -0.5 \leq t \leq 0.5 \\
+    \Gamma_{2} = g^{-1}(itr) & -0.5 \leq t \leq 0.5
+  \end{cases}
+\]
+such that $F(\gamma_{1}) = (tr)^{2} = r^{2}t^{2}$ which since $t,r$ are both real is obviously minimal at $t = 0$ and is real. Similarly, $F(\gamma_{2}) = (itr)^{2} = -r^{2}t^{2}$ which is again real and clearly maximal at $t = 0$. Furthermore, since $g$ is conformal, it preserves angles, so since $\gamma_{1} = tr$ and $\gamma_{2} = itr$ are orthogonal (the first travels the real line and the second the imaginary line, so they are perpendicular), $\Gamma_{1}$ and $\Gamma_{2}$ must be orthogonal at $g^{-1}(0) = z_{0}$ as well.
+
+\section*{4}
+
+Yes, we can define one explicitly. Consider first the conformal mapping $\D \rightarrow \Ha$ given in the chapter, $G(w) = i\frac{1 - w}{1 + w}$, which reduces the question to finding a holomorphic surjection $\Ha \rightarrow \C$. In particular, if we consider $H(z) = (z - i)^{2}$, we can see that $H \circ G$ is holomorphic since $H$ is entire and $G$ is holomorphic on $\D$, and thus $H \circ G$ is holomorphic on $\D$.
+
+To see that $H \circ G$ is surjective, we first want to see that any complex number has a preimage under $H$ in the upper half plane. In particular, take any $z = re^{i\theta} \in \C$, with $0 \leq \theta < 2\pi$. Then, we have that $\sqrt{r}e^{i\theta / 2} + i$ is a preimage of $z$ under $H$, since $(\sqrt{r}e^{i\theta / 2} + i - i)^{2} = (\sqrt{r}e^{i\theta / 2})^{2} = re^{i\theta}$ as desired. Then, we have that $0 \leq \theta/2 < \pi$ which gives that $\imag(\sqrt{r}e^{i\theta / 2}) \geq 0$, so $\imag(\sqrt{r}e^{i\theta / 2} + i) \geq 1 > 0$, so any $z \in \C$ has a preimage under $f$ in the upper half plane.
+
+Then, for any $z \in \C$, if $H(w) = z$, $w \in \Ha$, then we have that $w$ has a preimage under $G$, since $G$ is a conformal mapping between $\D$ and $\Ha$, and so this gives a preimage $G^{-1}(w)$ for $z$ under $H \circ G$, so it is surjective and we get what we want.
+
+
+\section*{5}
+
+It is clearly holomorphic, since $z$ is entire and $1/z$ is holomorphic on $\C \setminus \{0\}$, so $z + 1/z$ is holomorphic on all of $\C$ except the origin. Since the origin is not contained in the half disc, $f$ is holomorphic.
+
+Now,
+\[
+  f(x + yi) = -\frac{1}{2}\left(x +yi + \frac{1}{x + yi}\right) = -\frac{1}{2}\left(\frac{(x + yi)(x^{2} + y^{2}) + (x - yi)}{x^{2} + y^{2}}\right)
+\]
+so $\imag(f(x +yi)) = -\frac{y}{2(x^{2} + y^{2})}(x^{2} + y^{2} - 1)$, but since $x^{2} + y^{2} = |x  + iy|^{2} < 1$, we have that $\imag(f(x + yi)) > 0$, so this takes values only in the upper half plane.
+
+To see that $f$ is bijective, consider that if we want $f(z) = w$, we arrive at
+\[
+  -\frac{1}{2}\left(z + \frac{1}{2}\right) = w \implies z^{2} + 2wz + 1 = 0
+\]
+which has solutions $z = - w \pm \sqrt{w^{2} - 1}$ (choose the branch of the square root arbitrarily). Now the discriminant is nonzero for $w \neq \pm 1$, so for any $w \in \Ha$, we have that there are two distinct solutions $w \pm \sqrt{w^{2} - 1}$. We want to show that exactly one always lies inside the half disc, which will give both injectivity and surjectivity.
+
+Call the two roots $z_{1}, z_{2}$. Then, we have that $z_{1} + z_{2} = -2w$ and $z_{1}z_{2} = 1$, so $|z_{1}| = 1/|z_{2}|$, so if one of $z_{1}, z_{2}$ lie on the unit circle, then both lie on the unit circle; in particular, in this case they are inverses, so $z_{1} = \overline{z_{2}} \implies z_{1} + z_{2}$ is real, but $-2w$ has negative imaginary part since $w \in \Ha$, so $\contra$, so neither can lie on the unit circle. Then, exactly one of $z_{1}$ is in the unit disc, and the other is outside of it; consider now that one also must be in the upper half plane and the other the lower half plane, since if $z_{1} = re^{i\theta}$, then $z_{2} = 1/z_{1} = r^{-1}e^{-i\theta}$, so if $\theta \in (0,\pi)$, then $z_{1} \in \Ha$ and $z_{2} \in -\Ha$, and if $\theta \in (\pi, 2\pi)$, then $z_{1} \in -\Ha$ and $z_{2} \in \Ha$. Note that neither can be real, since then the other would be real and their sum could not have nonzero imaginary part. Then, since $z_{1} + z_{2} \in -\Ha$, the larger root must lie in $-\Ha$ and the smaller root must lie in $\Ha$ (since $\imag(z_{1}) + \imag(z_{2}) = \sin(\theta)(r - 1/r)$, which is negative if and only if either $r > 1/r$ when $z_{1} \in \Ha$ or $r < 1/r$ when $z_{1} \in -\Ha$, and in both cases, the smaller root is contained in $\Ha$) and since it has modulus $< 1$, lies in the upper half disc as desired.
+
+In particular, if we choose the square root to be the root with positive real part, I think that $-w + \sqrt{w^{2} - 1}$ is the solution we want, but I can't explicitly show it. Thankfully, I don't need to!
+
+\section*{10}
+
+We have that $G(z) = i\frac{1 - z}{1 + z}$ is a conformal mapping $\D \rightarrow \Ha$ with inverse $\frac{i - z}{i + z}$. Then, we have that $F \circ G$ is a holomorphic mapping from $\D \rightarrow \overline{\D}$, since $|F(z)| \leq 1$. However, we cannot have that $|F(z)| = 1$ since this would violate the maximum modulus principle, since $F$ would attain a maximum somewhere on $\Ha$, so $F \circ G$ takes $\D \rightarrow \D$. Further, $(F \circ G)(0) = F(i) = 0$, so we can apply the Schwarz lemma: $|(F \circ G)(z)| \leq |z|$, and this gives is what we want:
+\[
+  |F(z)| = |(F \circ G \circ G^{-1})(z)| = \left|(F \circ G)\left(\frac{i - z}{i + z}\right)\right| \leq \left|\frac{i - z}{i + z}\right| = \left|\frac{z - i}{z + i}\right|
+\]
+
+\section*{11}
+
+We will first show this for $M = R = 1$. First, note that since $f$ has domain $\D$, an open set, $|f(z)| \neq 1$, or else $f$ would be maximal on $\D$, so $f: \D \rightarrow \D$ is holomorphic. Consider the M\"obius transformation $\psi(z) = \frac{f(0) - z}{1 - \overline{f(0)}z}$. Then, $\psi \circ f$ is $\D \rightarrow \D$ holomorphic and satisfies $\psi(0) = \frac{f(0) - f(0)}{1 - \overline{f(0)}f(0)} = 0$, so applying the Schwarz lemma,
+\[
+  |(\psi \circ f)(z)| = \left|\frac{f(0) - f(z)}{1 - \overline{f(0)}f(z)}\right| = \left|\frac{f(z) - f(0)}{1 - \overline{f(0)}f(z)}\right| \leq |z|
+\]
+
+Since we have this for $M = R = 1$, for the general case of $f: D(0, R) \rightarrow \C$ and $|f(z)| \leq M$, we can write define some $g(z) = \frac{f(Rz)}{M}$, which now takes $g: \D \rightarrow \C$ and satisfies $g(z) \leq 1$. Then,
+\[
+  \left|\frac{f(z) - f(0)}{M^{2} - \overline{f(0)}f(z)}\right| = \left|\frac{Mg\left(\frac{z}{R}\right) - Mg(0)}{M^{2} - \overline{Mg(0)}\left(Mg\left(\frac{z}{R}\right)\right)}\right| = \frac{1}{M}\left|\frac{g(w) - g(0)}{1 - \overline{g(0)}{g(w)}}\right|
+\]
+where $w = z/R$. Then, from earlier,
+\[
+  \left|\frac{g(w) - g(0)}{1 - \overline{g(0)}{g(w)}}\right| \leq |w| \implies \left|\frac{f(z) - f(0)}{M^{2} - \overline{f(0)}f(z)}\right| = \frac{1}{M}\left|\frac{g(w) - g(0)}{1 - \overline{g(0)}{g(w)}}\right| \leq \frac{|w|}{M} = \frac{|z|}{MR}
+\]
+which was what we wanted.
+
+\section*{12}
+
+\subsection*{a}
+
+Let the two fixed points of $f$ be $z_{1}, z_{2}$, and consider the M\"obius transformation $\psi(z) = \frac{z_{1} - z}{1 - \overline{z_{1}}z}$ and the composition $\psi \circ f \circ \psi$, which takes $\D \rightarrow \D$ holomorphic. Then, we have that
+\[
+  (\psi \circ f \circ \psi)(0) = (\psi \circ f)(z_{1}) = \psi(z_{1}) = 0
+\]
+so we can apply the Schwarz lemma.
+
+Then, note that since $\psi$ is an automorphism of the disc, there is some preimage of $z_{2}$, say $z'_{2}$ distinct from 0 since $\psi$ is a bijection, such that
+\[
+  (\psi \circ f \circ \psi)(z_{2}') = (\psi \circ f)(z_{2}) = \psi(z_{2}) = z_{2}'
+\]
+since $\psi$ is its own inverse.
+
+Then, this gives us that $|(\psi \circ f \circ \psi)(z_{2}')| = |z_{2}'|$, so by the Schwarz lemma, $\psi \circ f \circ \psi$ is a rotation, say $(\psi \circ f \circ \psi)(z) = e^{i\theta}z$. But since we have that $(\psi \circ f \circ \psi)(z_{2}') = e^{i\theta}z_{2}' = z_{2}'$, we have that $\theta = 0$ and $\psi \circ f \circ \psi$ is the identity mapping. Then, we get that $\psi \circ \psi \circ f \circ \psi = \psi \implies f \circ \psi = \psi \implies f = \id$.
+
+\subsection*{b}
+
+Not every holomorphic function $\D \rightarrow \D$ has a fixed point. Consider $F^{-1} \circ g \circ F$ where $F$ is a conformal mapping $\D \rightarrow \Ha$ taking $z \mapsto \frac{i - z}{i + z}$ and $g$ takes $z \mapsto z + 1$. In particular, we already have what we want: $(F^{1} \circ g \circ F)(z) = z \implies (g \circ F)(z) = F(z)$ but this would require $g$ to have a fixed point $F(z)$, but $g$ has no fixed point since $z \neq z + 1$ for any $z \in \Ha$. $\contra$, so $F^{-1} \circ g \circ F$ is a holomorphic map $\D \rightarrow \D$ with no fixed points.
+
+Explicitly, we get that
+\[
+  (F^{-1} \circ g \circ F)(z) = F^{-1}\left(\frac{i - z}{i + z} + 1\right) = F^{-1}\left(\frac{2i}{i + z}\right) = i\frac{1 - \frac{2i}{i + z}}{1 + \frac{2i}{i + z}} = i\frac{z - i}{z + 3i}
+\]
+which has no fixed points in the unit disc ($i\frac{z - i}{z + 3i} = z \implies (z - i)^{2} = 0 \implies z = i \notin \D$) while being holomorphic in $\D$ and taking values only in $\D$ (since the range of $F^{-1}$ is $\D$).
+
+\section*{8}
+
+If we can get $F_{1}, \dots, F_{5}$ as in the book, then the function $\frac{1}{\pi}\arg(z) \circ F_{5} \circ F_{4} \circ F_{3} \circ F_{2} \circ F_{1}$ is (by a lemma from the book) a harmonic function on open first quadrant with the desired boundary conditions. The actual hard part is finding such conformal mappings.
+
+For $F_{1}$, we want a transformation that sends $\infty \rightarrow 1, 0 \rightarrow -1, 1 \rightarrow 0$. Then, we consider the M\"obius transformation $F_{1}: z \mapsto \frac{z - 1}{z + 1}$. Now, the book already showed that $w \mapsto \frac{w + 1}{w - 1}$ takes the upper half disc to the first quadrant conformally, so we get compute the inverse to be exactly $F_{1}$, which takes the first quadrant to the upper half disc conformally. We only need to check the boundary conditions are correct:
+\begin{enumerate}
+  \item The imaginary axis is taken to the semicircle:
+        \[
+          \left|\frac{ai - 1}{ai + 1}\right| = \left|\frac{(ai - 1)^{2}}{a^{2} + 1}\right| = \frac{1}{a^{2} + 1}|ai - 1|^{2} = 1
+        \]
+  \item $[0, 1]$ is taken to $[-1, 0]$: $x \in [0, 1]$ satisfies that $x - 1 \leq 0$, $x + 1 > 0$, and $|x - 1| < |x + 1|$, so $\frac{x - 1}{x + 1} \in [0, 1]$.
+  \item $(1, \infty)$ is taken to $(0, 1)$, since $x \in (0, 1)$ satisfies that $x - 1 > 0, x + 1 > 0$, and $|x - 1| < |x + 1|$, so $\frac{x - 1}{x + 1} \in (0, 1)$.
+\end{enumerate}
+
+For $F_{2}$, consider the principle branch of $\log(z)$, which takes the closed upper half disc (minus 0) to the pictured region $\{z \mid \real(z) \leq 0, 0 \leq \imag(z) \leq 1\}$. The book already showed that this is a conformal mapping between the open upper half disc and the interior of the above region, so we only need to check the boundaries.
+\begin{enumerate}
+  \item The semicircle is taken to the line $\real(z) = 0$, since $\real(\log(z)) = \real(\log(|z|) + i\arg(z)) = \real(i\arg(z)) = 0$.
+  \item $(0, 1)$ is taken to the line $\imag(z) = 0$, since $\arg(z) = 0$ for $z \in (0, 1)$.
+  \item $(-1, 0)$ is taken to line $\imag(z) = \pi$, since $\arg(z) = \pi$ for $z \in (-1, 0)$.
+\end{enumerate}
+
+For $F_{3}$, the mapping is $z \mapsto -iz$, which gives us what we want on inspection.
+
+For $F_{4}$, the mapping is $z \mapsto \sin(z)$, as shown in the book to be conformal on this strip.
+\begin{enumerate}
+  \item The half line $\real(z) = -\pi/2, \imag(z) > 0$ gets taken to $(-\infty, -1)$, since we have that
+        \[
+          \sin(z) = \frac{e^{-i\pi/2 - \imag(z)} - e^{i\pi/2 + \imag(z)}}{2i} = \frac{-i(e^{-\imag(z)}+e^{\imag(z)})}{2i} = -\frac{e^{-\imag(z)}+e^{\imag(z)}}{2} < -1
+        \]
+        since $e^{-\imag(z)} + e^{\imag(z)} > 2$ since $\imag(z) > 0$ (note that $e^{x} + e^{-x}$ achieves a minimum of $2$ at $x = 0$).
+  \item The half line $\real(z) = \pi/2, \imag(z) > 0$ gets taken to $(1, \infty)$, since we have that
+        \[
+          \sin(z) = \frac{e^{i\pi/2 - \imag(z)} - e^{i\pi/2 + \imag(z)}}{2i} = \frac{i(e^{-\imag(z)}+e^{\imag(z)})}{2i} = \frac{e^{-\imag(z)}+e^{\imag(z)}}{2} > 1
+        \]
+  \item The interval $[\pi/2, \pi/2]$ gets taken to $[-1, 1]$.
+\end{enumerate}
+
+For $F_{5}$, the mappings is $z \mapsto z - 1$, which is clearly what we want.
+
+Now, we have that $\frac{1}{\pi}\arg(z)$ on the upper half plane is harmonic from the book, and takes values on the boundaries as follows: $x < 0 \implies \frac{1}{\pi}\arg(x) = 1$ and $x > 0 \implies \frac{1}{\pi}\arg(x) = 0$. Then, we have that under the series of mappings, the half lines $\{y = 0, x > 1\}$ and $\{x = 0, y > 0\}$ are taken to $(-\infty, -2)$ and $(-2, 0)$ respectively, and the interval $\{0 < x < 1, y = 0\}$ is taken to $(0, \infty)$, so we have that $f = u \circ F_{5} \circ F_{4} \circ F_{3} \circ F_{2} \circ F_{1}$ satisfies that $f$ is harmonic on the first quadrant and has the desired boundaries.
+
+\end{document}
+
+% LocalWords:  NetID fancyplain LocalWords colorlinks linkcolor linkbordercolor
+% LocalWords:  holomorphic

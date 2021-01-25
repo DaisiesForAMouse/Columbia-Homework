@@ -1,0 +1,243 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{relsize}
+\usepackage{fancyvrb}
+\usepackage{import}
+\usepackage{float}
+\usepackage{xifthen}
+\usepackage{pdfpages}
+\usepackage{transparent}
+\usetikzlibrary{shapes.geometric,fit}
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+\theoremstyle{definition}
+\newtheorem*{statement}{Statement}
+\newtheorem*{claim}{Claim}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+
+\newcommand{\contra}{\Rightarrow\!\Leftarrow}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\D}{\mathbb{D}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Zeq}{\mathbb{Z}_{\geq 0}}
+\newcommand{\Zg}{\mathbb{Z}_{>0}}
+\newcommand{\Req}{\mathbb{R}_{\geq 0}}
+\newcommand{\Rg}{\mathbb{R}_{>0}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\DeclareMathOperator{\ima}{im}
+\DeclareMathOperator{\spn}{span}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\real}{Re}
+\DeclareMathOperator{\imag}{Im}
+\DeclareMathOperator{\diver}{div}
+\DeclareMathOperator{\curl}{curl}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\inter}{int}
+\DeclareMathOperator{\Dr}{Dr}
+\DeclareMathOperator{\Jac}{Jac}
+\DeclareMathOperator{\res}{res}
+
+\newcommand{\incfig}[1]{\input{./figures/#1.pdf_tex}}
+\graphicspath{ {./figures/} }
+
+\title{MATH 4065 HW 7}
+\author{David Chen, dc3451}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section*{18}
+
+Let $C$ be centered at $z_{0}$ with radius $R$, and the interior disc be $D$.
+
+We have that $f$ is holomorphic in a region containing $C$ and the interior of $C$, so we have that we can explicitly define $\gamma_{s}(\theta) = (z_{0} + s (z - z_{0})) + (1-s)Re^{i\theta}$ for $s \in [0,1]$ and $z$ any point inside $C$. Then, for any given $s$, $\gamma_{s}$ is the circle centered at $z + s(z - z_{0})$, and in particular, we have that any point $\gamma_{s}(\theta)$ satisfies that
+\[
+  |\gamma_{s}(\theta) - z_{0}| = |s(z - z_{0}) + (1-s)Re^{i\theta}| \leq s|z - z_{0}| + (1-s)R
+\]
+and since $z$ is contained inside $C$, $|z - z_{0}| < R$, so $|\gamma_{s}(\theta) - z_{0}| \leq sR + (1-s)R = R$ so $\gamma_{s}$ is always contained inside of $C$ for $s > 0$, and is $C$ for $s = 0$, so we have that $\gamma_{s}$ is always contained in the region where $f$ is holomorphic. In particular, we have that we can consider $\Omega$ to be a disc slightly larger that $C$, containing $C$, which is then simply connected, and note that we have $\gamma_{s}$ is contained in $\Omega$ for any $s \in [0,1]$ so since each $\gamma_{s}$ are homotopic to each other, we get that
+\[
+  \int_{C}\frac{f(w) - f(z)}{w-z}dw = \int_{\gamma_{0}}\frac{f(w) - f(z)}{w-z}dw = \int_{\gamma_{1-\epsilon}}\frac{f(w)-f(z)}{w-z}dw
+\]
+where explicitly, $\gamma_{1-\epsilon}(\theta) = z - \epsilon(z - z_{0}) + \epsilon Re^{i\theta}$.
+% \[
+%   |\gamma_{1-\epsilon}(\theta) - z| = |\epsilon(z - z_{0}) + \epsilon Re^{i\theta}| > ||\epsilon Re^{i\theta}| - |\epsilon(z-z_{0})|| = \epsilon|R - |z-z_{0}||
+% \]
+% but $|z-z_{0}| < R$, so this distance is positive, so $\gamma_{1-\epsilon}$ is bounded away from $z$, so $\gamma_{1-\epsilon} \subset D \setminus \{z\}$, so $\frac{f(w)-f(z)}{w-z}$ is continuous on  $\gamma_{1-\epsilon}$ since the denominator doesn't vanish. Then, since $\gamma_{1-\epsilon}$ is a circle of radius $\epsilon$, we have that $\gamma_{1-\epsilon}$ is closed and bounded, and thus compact, and so $\frac{f(w)-f(z)}{w-z}$ is bounded on $\gamma_{1-\epsilon}$. Then,
+\[
+  \int_{\gamma_{1-\epsilon}}\frac{f(w)-f(z)}{w-z}dw \leq 2\pi \epsilon \sup \left|\frac{f(w)-f(z)}{w-z}\right|
+\]
+so in the limit,
+\[
+  \int_{C}\frac{f(w)-f(z)}{w-z}dw = \int_{\gamma_{1-\epsilon}}\frac{f(w)-f(z)}{w-z}dw \leq \lim_{\epsilon \rightarrow 0}2\pi \epsilon \sup\left|\frac{f(w)-f(z)}{w-z}\right|
+\]
+but as $\epsilon \rightarrow 0$, since $w = z + \epsilon(z - z_{0}) + \epsilon Re^{i\theta}$ for some $\theta$, $w \rightarrow z$, so $\frac{f(w)-f(z)}{w-z} = f'(z)$ since $f$ is holomorphic at $z \in D$, so $\lim_{\epsilon \rightarrow 0}2\pi \epsilon \sup \left|\frac{f(w)-f(z)}{w-z}\right| = 0$.
+
+Then,
+\[
+  \int_{C}\frac{f(w)-f(z)}{w-z}dw = 0 \implies \int_{C}\frac{f(w)}{w-z}dw = \int_{C}\frac{f(z)}{w-z}dw = f(z)\int_{C}\frac{dw}{w-z}
+\]
+but we showed that this last integral, equivalent to $\int_{C-z}\frac{dw}{w}$, is just $2\pi i$, so we arrive at
+\[
+  f(z) = \frac{1}{2\pi i}\int_{C}\frac{f(w)}{w-z}dw
+\]
+
+
+\section*{20}
+
+I'll take the hint in the book (even admitting the hint given in the assignment which seems to just follow from Cauchy-Schwartz inequality, I don't see how the desired result follows) to use the mean value property, which follows from the Cauchy integral formula immediately anyway, since under the parameterization of $C = z + re^{i\theta}$,
+\[
+  f(z) = \frac{1}{2\pi i}\int_{C}\frac{f(w)}{w-z}dw = \frac{1}{2\pi i}\int_{0}^{2\pi}\frac{f(z + re^{i\theta})}{z+re^{i\theta}-z}ire^{i\theta}d\theta = \frac{1}{2\pi}\int_{0}^{2\pi}f(z+re^{i\theta})d\theta
+\]
+which then gives
+\[
+  |f(z)| = \left|\frac{1}{2\pi}\int_{0}^{2\pi}f(z+re^{i\theta})d\theta\right| \leq \frac{1}{2\pi}\int_{0}^{2\pi}|f(z+re^{i\theta})|d\theta
+\]
+so we have that in the context of the problem, we apply this to $f^{2}(z)$, such that
+\[
+  |f(z)|^{2} = |f^{2}(z)| \leq \frac{1}{2\pi}\int_{0}^{2\pi}|f^{2}(z+re^{i\theta})|d\theta
+\]
+and we multiply by $r$ (so we can convert to rectangular coordinates) and integrate from $r = 0$ to $r = t$ to get that
+\[
+  \int_{0}^{t}|f(z)|^{2}rdr \leq \frac{1}{2\pi}\int_{0}^{t}\int_{0}^{2\pi}|f^{2}(z+re^{i\theta})|rd\theta dr \implies \frac{t^{2}}{2}|f(z)|^{2} \leq \frac{1}{2\pi}\iint_{D_{t}(z)}|f^{2}(z)|dx dy
+\]
+which finally gives that
+\[
+  |f(z)|^{2} \leq \frac{1}{t^{2}\pi}\iint_{D_{t}(z)}|f(z)|^{2}dxdy
+\]
+for any disc $D_{t}(z)$ in which $f$ is holomorphic. But then, we have that for any $z \in D_{s}$,
+\[
+  |f(z)|^{2} \leq \frac{1}{(r-s)^{2}\pi}\iint_{D_{r-s}(z)}|f(z)|^{2}dxdy
+\]
+but we have that $D_{r-s}(z)$ must be contained inside of $D_{r}(z_{0})$, since $|z - z_{0}| < s$ and for $w \in D_{r-s}(z)$, $|w - z| < r -s \implies |w - z_{0}| < s + r -s = r$, and since $|f(z)|^{2}$ is clearly nonnegative,
+\[
+  |f(z)|^{2} \leq \frac{1}{(r-s)^{2}\pi}\iint_{D_{r-s}(z)}|f(z)|^{2}dxdy \leq \frac{1}{(r-s)^{2}\pi}\iint_{D_{r}(z_{0})}|f(z)|^{2}dxdy
+\]
+and taking the square root gives
+\[
+  |f(z)| \leq \frac{1}{(r-s)\sqrt{\pi}}\left(\iint_{D_{r}(z_{0})}|f(z)|^{2}dxdy\right)^{1/2} = C||f||_{L^{2}(D_{r}(z_{0}))}
+\]
+so $C||f||_{L^{2}(D_{r}(z_{0}))}$ is an upper bound on $|f(z)|$ for $z \in D_{s}(z_{0})$, so we get that
+\[
+  \sup_{z \in D_{s}(z_{0})}|f(z)| = ||f||_{L^{\infty}(U)} \leq C||f||_{L^{2}(D_{r}(z_{0}))}
+\]
+as desired.
+
+To show the second part, first we have that for any subset $E$ of $U$, we have that
+\[
+  \iint_{U}|f(z)|^{2}dxdy = \int_{E}|f(z)|^{2}dzdy + \int_{U \setminus E}|f(z)|^{2}dxdy
+\]
+but both integrands on the RHS are nonnegative, so
+\[
+  ||f||_{L^{2}(U)} \geq ||f||_{L^{2}(E)}
+\]
+
+Now pick any compact subset $K$ of $U$. We will always have that the distance between $K$ and $\C \setminus U$ is positive, since $K$ is closed, and $\C \setminus U$ is the complement of an open set and thus closed as well, and the two sets have no overlap. Then, if the distance is 0, we must have that for any $n \in \N$, there are $z_{n} \in K$, $w_{n} \in \C \setminus U$, such that $|z_{n} - w_{n}| < \frac{1}{n}$. Then, since $K$ is compact, we have that there is some convergent subsequence $z_{n_{m}}$ such that $\{z_{n_{m}}\}_{m=1}^{\infty}$ converge to some point $z$ of $K$. Then, we have that $|z - w_{n_{m}}| < |z - z_{n_{m}}| + |z_{n_{m}} - w_{n_{m}}| < |z-z_{n_{m}}| + \frac{1}{n_{m}}$. Then, since in the limit both terms in the RHS vanish, we get that $z$ is a limit point on $C \setminus U$, and so $z \in C \setminus U$, a closed set. $\contra$, so the distance is positive.
+
+Now take $2d$ to be that distance, so $D_{2d}(z) \subset U$ for any $z \in K$; then, $K$ is covered by a finite amount of these discs $D_{d}(z)$, such that $K \subset \bigcup_{i=1}^{n}D_{d}(z_{i})$. Then, on each of these discs,
+\[
+  ||f||_{L^{\infty}(D_{d}(z_{i}))} \leq C_{i}||f||_{L^{2}(D_{2d}(z_{i}))} \leq C||f||_{L^{2}(U)}
+\]
+where $C = \sup{C_{i}}$ for any holomorphic function $f$.
+
+Now, fix an $\epsilon > 0$. This gives that if for $m,n > N$, $||f_{n} - f_{m}||_{L^{2}(U)} < \epsilon$, then on $K$, with $z \in K$,
+\[
+  |f_{n}(z) - f_{m}(z)| \leq \sup_{z \in K}|f_{n}(z) - f_{m}(z)| = ||f_{n} - f_{m}||_{L^{\infty}(K)} = || < C||f_{n} - f_{m}||_{L^{2}(U)} < C\epsilon
+\]
+so we get uniform convergence of $f_{n}$ on $K$ since uniform Cauchy convergence and uniform convergence are equivalent in functions from $\R^{n} \rightarrow \R^{m}$. Then, by a theorem of Weierstrass from a chapter back, we get that since $f_{n}$ are holomorphic, $f_{n}$ converge to some holomorphic function in particular, which gives us what we want.
+
+\section*{22}
+
+We have that since $f$ is holomorphic on the unit disc, which is clearly simply connected, so for $\gamma_{\epsilon}(\theta) = (1-\epsilon)e^{i\theta}$ the circle centered at $0$ with radius $1-\epsilon$, for $\epsilon > 0$, $1-\epsilon < 1$, so $\gamma_{\epsilon} \in \mathbb{D}$, and so
+\[
+  \int_{\gamma_{\epsilon}}f(z)dz = 0
+\]
+but since the continuation to $\partial{D}$ is continuous, we have that
+\[
+  \int_{C}f(z)dz = \lim_{\epsilon \rightarrow 0^{+}}\int_{\gamma_{\epsilon}}f(z)dz = \lim_{\epsilon \rightarrow 0^{+}}0 = 0
+\]
+but on the unit circle, $f(z) = 1/z$, so
+\[
+  \int_{C}f(z)dz = \int_{C}\frac{dz}{z} = 2\pi i
+\]
+so $\contra$, and $f$ cannot exist.
+
+\section*{2}
+
+We know that $T(z) = \frac{z_{0} - z}{1-\overline{z_{0}}z}$ is a Blaschke factor, and thus (from the question in the first problem set) it is holomorphic on the unit disc and takes $\D$ to $\D$ bijectively.
+
+Then, if $u(z) = \real(F(z))$ for some holomorphic function $F$ as shown in class, we have that $u(T(z)) = \real(F(T(z)))$, which is the real part of a holomorphic function and thus harmonic as shown both in earlier HW and in class.
+
+Applying the mean value theorem for $u_{0}(z) = u(T(z))$, we get that
+\[
+  u_{0}(0) = \frac{1}{2\pi}\int_{0}^{2\pi}u_{0}(e^{i\theta})d\theta = \frac{1}{2\pi}\int_{0}^{2\pi}u\left(\frac{z_{0}-e^{i\theta}}{1-\overline{z_{0}}e^{i\theta}}\right)d\theta
+\]
+
+We now consider
+\[
+  e^{i\varphi} = \frac{z_{0}-e^{i\theta}}{1-\overline{z_{0}}e^{i\theta}}
+\]
+which gives us
+\begin{align*}
+  ie^{i\varphi}d\varphi &= \frac{(1-\overline{z_{0}}e^{i\theta})(-ie^{i\theta}) - (z_{0} - e^{i\theta})(-\overline{z_{0}}ie^{i\theta})}{(1-\overline{z_{0}}e^{i\theta})^{2}}d\theta \\
+                        &= -ie^{i\theta}\frac{1 - \overline{z_{0}}e^{i\theta} - |z_{0}|^{2} + \overline{z_{0}}e^{i\theta}}{(1-\overline{z_{0}}e^{i\theta})^{2}}d\theta \\
+                        &= -ie^{i\theta} \frac{1 - |z_{0}|^{2}}{(1-\overline{z_{0}}e^{i\theta})^{2}}d\theta \\
+  \intertext{We proved back in the first problem set that $T(T(z)) = z$, so we get that $e^{i\theta} = \frac{z_{0} - e^{i\varphi}}{1 - \overline{z_{0}}e^{i\varphi}}$, giving us that}
+  d\varphi &= -e^{-i\varphi}\left(\frac{z_{0} - e^{i\varphi}}{1 - \overline{z_{0}}e^{i\varphi}}\right)(1-|z_{0}|^{2})\left(1 - \overline{z_{0}}\frac{z_{0} - e^{i\varphi}}{1 - \overline{z_{0}}e^{i\varphi}}\right)^{-2} d\theta\\
+                        &= -e^{-i\varphi}\left(\frac{z_{0} - e^{i\varphi}}{1 - \overline{z_{0}}e^{i\varphi}}\right)(d\theta1-|z_{0}|^{2})\left(\frac{1-|z_{0}|^{2}}{1 - \overline{z_{0}}e^{i\varphi}}\right)^{-2} d\theta\\
+                        &= -e^{-i\varphi}\frac{(z_{0}-e^{i\varphi})(1-\overline{z_{0}}e^{i\varphi})}{1-|z_{0}|^{2}} d\theta\\
+                        &= \frac{(z_{0}-e^{i\varphi})(\overline{z_{0}}-e^{-i\varphi})}{1-|z_{0}|^{2}} d\theta\\
+                        &= \frac{(z_{0}-e^{i\varphi})\overline{(z_{0}-e^{i\varphi})}}{1-|z_{0}|^{2}} = \frac{|z_{0} - e^{i\varphi}|^{2}}{1 - |z_{0}|^{2}}d\theta
+\end{align*}
+which gives us in the integral that since $T(0) = \frac{z_{0} - 0}{1 - \overline{z_{0}}0}$,
+\[
+  u(z_{0}) = u_{0}(0) = \frac{1}{2\pi}\int_{0}^{2\pi}u\left(\frac{z_{0}-e^{i\theta}}{1-\overline{z_{0}}e^{i\theta}}\right)d\theta = \frac{1}{2\pi}\int_{0}^{2\pi}\frac{1 - |z_{0}|^{2}}{|e^{i\varphi}-z_{0}|^{2}}u(e^{i\varphi})d\varphi
+\]
+as desired.
+
+Now, if we take and rename the variable of integration back to $\theta$ and take $z_{0} = re^{i\varphi}$, we have that
+\begin{align*}
+  \frac{1 - |z_{0}|^{2}}{|e^{i\theta} - z_{0}|^{2}} &= \frac{1 - |re^{i\varphi}|^{2}}{|e^{i\theta} - re^{i\varphi}|^{2}} \\
+                                                    &= \frac{1 - r^{2}|e^{i\varphi}|^{2}}{|e^{i\theta} - re^{i\varphi}|^{2}} \\
+                                                    &= \frac{1 - r^{2}}{|e^{i\theta} - re^{i\varphi}|^{2}} \\
+  \intertext{In the denominator,}
+  |e^{i\theta} - re^{i\varphi}|^{2} &= (e^{i\theta} - re^{i\varphi})\overline{(e^{i\theta} - re^{i\varphi})} \\
+                                                    &= (e^{i\theta} - re^{i\varphi})(e^{-i\theta} - re^{-i\varphi}) \\
+                                                    &= 1 + r^{2} -r(e^{i(\theta - \varphi)} + e^{i(\varphi-\theta)}) \\
+                                                    &= 1 + r^{2} - 2r\frac{e^{i(\theta - \varphi)} + e^{-i(\theta - \varphi)}}{2} \\
+                                                    &= 1 + r^{2} - 2r\cos(\theta - \varphi)
+\end{align*}
+so we get that
+\[
+  \frac{1 - |z_{0}|^{2}}{|e^{i\theta} - z_{0}|^{2}} &= \frac{1 - r^{2}}{1 - 2r\cos(\theta - \varphi) + r^{2}} \\
+\]
+as desired.
+
+\end{document}
+
+% LocalWords:  NetID fancyplain LocalWords colorlinks linkcolor linkbordercolor
+% LocalWords:  holomorphic
