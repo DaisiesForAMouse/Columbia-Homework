@@ -1,0 +1,141 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{mathtools}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{relsize}
+\usepackage{fancyvrb}
+\usepackage{import}
+\usepackage{float}
+\usepackage{xifthen}
+\usepackage{pdfpages}
+\usepackage{transparent}
+\usetikzlibrary{shapes.geometric,fit}
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+\theoremstyle{definition}
+\newtheorem*{statement}{Statement}
+\newtheorem*{claim}{Claim}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+
+\newcommand{\contra}{\Rightarrow\!\Leftarrow}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Zeq}{\mathbb{Z}_{\geq 0}}
+\newcommand{\Zg}{\mathbb{Z}_{>0}}
+\newcommand{\Req}{\mathbb{R}_{\geq 0}}
+\newcommand{\Rg}{\mathbb{R}_{>0}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand\halfopen[2]{\ensuremath{[#1,#2)}}
+\newcommand\openhalf[2]{\ensuremath{(#1,#2]}}
+\DeclareMathOperator{\diam}{diam}
+
+\newcommand{\incfig}[1] {%
+    % \def\svgwidth{\columnwidth}
+    \import{./figures/}{#1.pdf_tex}
+}
+
+\title{MATH 4062 HW 1}
+\author{David Chen, dc3451}
+
+\begin{document}
+
+\maketitle
+
+\section*{2}
+
+Let $\{f_{n}\}, \{g_{n}\}$ converge uniformly to $f$ and $g$ respectively (on some set $E$). Then, we have that $\exists N_{f}$ such that $n > N_{f} \implies |f_{n}(x) - f(x)| < \epsilon/2$ for any $\epsilon > 0$ and any $x \in E$; similarly, there is some $N_{g}$ for which $n > N_{g} \implies |g_{n}(x) - f(x)| <\epsilon/2$ as well; then, for $n > \max\{N_{f}, N_{g}\}$, we have have
+\[
+  |f(x) + g(x) - f_{n}(x) - g_{n}(x)| \leq |f(x) - f_{n}(x)| + |g(x) - g_{n}(x)| < \epsilon
+\]
+so $\{f_{n} + g_{n}\}$ converges uniformly to $f + g$.
+
+First, if we have some sequence of bounded functions $\{f_{n}\}$ (let $f_{n}$ be bounded by $M_{n}$) converging uniformly on $E$ to $f$, then $\exists N$ such that $m,n > N \implies |f_{m}(x) - f_{n}(x)| < 1$ and $|f_{n} - f(x)| < 1$, then picking $n = N + 1$ we have that $f(x) < 1 + M_{N+1}$, and in particular also that $M_{m} < 1 + M_{N + 1}$ for all $m > N$. Thus, taking $M = \max\{M_{1}, \dots, M_{N}, 1 + M_{N+1}\}$, we get that $f(x) < M$ for all $x \in E$ (and also that $f_{n}(x) < M$ for any $n$)
+
+Now, if $\{f_{n}\}, \{g_{n}\}$ are sequences of bounded functions, let them be uniformly bounded by $M_{f}$ and $M_{g}$, and take $M = \max{M_{f}, M_{g}}$, and $N$ sufficiently large that for $n > N$, $|f(x) - f_{n}(x)| < \epsilon/2M$ and $|g(x) - g_{n}(x)| < \epsilon/2M$. Then, for $n > N$,
+\begin{align*}
+  |f(x)g(x) - f_{n}(x)g_{n}(x)| &= |f(x)g(x) - f(x)g_{n}(x) + f(x)g_{n}(x) - f_{n}(x)g_{n}(x)| \\
+                                &\leq |f(x)g(x) - f(x)g_{n}(x)| + |g_{n}(x)f(x) - g_{n}(x)f_{n}(x)| \\
+                                &= f(x)|g(x) - g_{n}(x)| + g_{n}(x)|f(x) - f_{n}(x)| \\
+                                &= M(|g(x) - g_{n}(x)| + |f(x) - f_{n}(x)|) < \epsilon
+\end{align*}
+
+\section*{3}
+
+Let $f_{n}(x) = x$ and $g_{n}(x) = x + \frac{1}{n}$ on all of $\R$. Clearly $f_{n}(x)$ converges uniformly to $x$ (take $N$ to be your favorite positive integer and for all $n > N$, $|f_{n} - f| = 0 < \epsilon$), and $g_{n}(x)$ to $x$ as well (fixing $\epsilon > 0$, take $N > 1/\epsilon$, and we have $n > N \implies |g_{n}(x) - g(x)| = |1/n| < \epsilon$). Then, $f_{n}(x)g_{n}(x) = x^{2} + \frac{x}{n}$; now, we have that for any $n$, $|f_{n}(x)g_{n}(x) - f(x)g(x)| = |x/n|$, so for any $\epsilon > 0$, we can take $x > n\epsilon$ such that $|f_{n}(x)g_{n}(x) - f(x)g(x)| > \epsilon$. Thus, there cannot be some $N$ such that $n > N \implies |f_{n}(x)g_{n}(x) - f(x)g(x)| < \epsilon$ for all $\epsilon > 0$ (in particular, consider $\epsilon = 1$ and $x = n = N + 1$).
+
+\section*{4}
+
+Put $f_{n}$ for the $n^{th}$ partial sum.
+
+First, we rule out $x = -\frac{1}{n^{2}}$ for $n \in \Z_{> 0}$, since in these cases the $n^{th}$ term is not defined. Otherwise, $f(x)$ converges absolutely for $x \neq 0$ since in that case $\frac{1}{1+n^{2}x} < \frac{1}{xn^{2}}$ which converges aboslutely. This gives that $f$ cannot converge uniformly on any interval containing 0, and also is unbounded at the origin.
+
+Now, consider any interval with 0 as a limit point. If it lies in the positive half line, then it contains some subinterval $(0, \delta)$, on which we have $\sum_{i=1}^{n}\frac{1}{1+nx^{2}} < \sum_{i=1}^{n}\frac{1}{1} = n$, so each partial sum is bounded, and from the earlier problem, if $f$ converges abosultely on this interval, $f$ must be bounded as well; $\contra$.
+
+For intervals on the negative half line, it contains some subinterval $(-\delta, 0)$; however, consider the Cauchy criterion. We have that for $x = -\frac{1}{2n^{2}}$, $|f_{n}(x) - f_{n-1}(x)| = |\frac{1}{1-\frac{1}{2}}| = 2$, so for large $n$, $x = -\frac{1}{2n^{2}} \in (-\delta, 0)$, and so $f$ cannot be uniformly convergent on these intervals.
+
+Now, for intervals bounded away from 0, we have that they must be subintervals of either $[\delta, \infty)$ or $(-\infty, -\delta]$. In the first case, the Weierstrass M-test yields that since $\frac{1}{1+n^{2}x} < \frac{1}{1+\delta n^{2}}$ and $\sum_{n=1}^{\infty}\frac{1}{1+\delta n^{2}}$ is convergent, $f$ is uniformly convergent on $[\delta, \infty)$. Similarly, for $(-\infty, -\delta]$, we have (for $n > \sqrt{1/\delta}$)
+\[
+  \left|\frac{1}{1 + n^{2}x}\right| = \frac{1}{n^{2}x - 1} < \frac{1}{n^{2}\delta - 1}
+\]
+which has $\sum_{n}^{\infty}\frac{1}{n^{2}\delta - 1}$ convergent, so $f$ is uniformly convergent here as well.
+
+Uniform convergence gives continuity where $f$ is defined (that is, $x \neq -1/n^{2}, 0$).
+
+\section*{6}
+
+First, to see that it does not converge absolutely for any value of $x$, consider that
+\[
+  \frac{x^{2}+n}{n^{2}} \geq \frac{n}{n^{2}} = \frac{1}{n}
+\]
+so by comparison to the harmonic series, $\sum_{n=1}^{\infty}\frac{x^{2}+n}{n^{2}}$ diverges.
+
+Pick any bounded interval with end points $a, b$, with $a < b$. Then, we have that we can split the sum as
+\[
+  \sum_{n=1}^{\infty}(-1)^{n}\frac{x^{2}}{n^{2}} + \sum_{n=1}^{\infty}(-1)^{n}\frac{n}{n^{2}}
+\]
+where the left hand side converges uniformly via the Weierstrass M-test, with $\frac{x^{2}}{n^{2}} < \frac{\max\{|a|,|b|\}^{2}}{n^{2}}$, and $\sum_{n=1}^{\infty}\frac{\max\{|a|,|b|\}^{2}}{n^{2}}$ converges. Then, $\sum_{n=1}^{\infty}(-1)^{n}\frac{1}{n}$ is just some constant, so the entire sum converges uniformly (via the first problem on this HW).
+
+\section*{7}
+
+The point here is that $f_{n} \rightarrow 0$ uniformly. In particular, we have that
+\[
+  \frac{d}{dx}\frac{x}{1 + nx^{2}} = \frac{1-nx^{2}}{(1+nx^{2})^{2}}
+\]
+so the maximal value of $|f_{n}|$ is at $1/\sqrt{n}$, so $|f_{n}| < \frac{1}{2\sqrt{n}}$, so for any $\epsilon > 0$, pick $N > \frac{1}{4\epsilon^{2}}$ and all $n > N$ satisfies that $|f_{n}(x) - 0| < \epsilon$ for any $x \in \R$. Then, we have that for $x \neq 0$,
+\[
+  \frac{1-nx^{2}}{(1+nx^{2})^{2}} \rightarrow 0
+\]
+as $n \rightarrow \infty$, so $f'(x) = 0 = \lim_{n \rightarrow \infty}f'_{n}(x)$, but for $x = 0$, $f'_{n}(0) = 1 \neq 0$.
+
+\section*{9}
+
+Fix some $\epsilon > 0$. Then there is some $N_{1}$ such that $n > N_{1}$ yields $|f_{n}(x_{n}) - f(x_{n})| < \epsilon/2$, and since $f$ is continuous at $x$, we have that for some $N_{2}$ such that $n > N_{2}$ yields $|f(x_{n}) - f(x)| < \epsilon/2$; then, for $n > \max\{N_{1}, N_{2}\}$,
+\[
+  |f_{n}(x_{n}) - f(x)| = |f_{n}(x_{n}) - f(x_{n}) + f(x_{n}) - f(x)| \leq |f_{n}(x_{n}) - f(x_{n})| + |f(x_{n}) - f(x)| < \epsilon
+\]
+
+
+\end{document}
+% LocalWords:  NetID fancyplain LocalWords colorlinks linkcolor linkbordercolor
