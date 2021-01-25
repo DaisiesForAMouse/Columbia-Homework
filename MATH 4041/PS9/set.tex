@@ -1,0 +1,274 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{relsize}
+\usepackage{fancyvrb}
+\usepackage{import}
+\usetikzlibrary{shapes.geometric,fit}
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+\theoremstyle{definition}
+\newtheorem*{statement}{Statement}
+\newtheorem*{claim}{Claim}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+
+\newcommand{\contra}{\Rightarrow\!\Leftarrow}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Zeq}{\mathbb{Z}_{\geq 0}}
+\newcommand{\Zg}{\mathbb{Z}_{>0}}
+\newcommand{\Req}{\mathbb{R}_{\geq 0}}
+\newcommand{\Rg}{\mathbb{R}_{>0}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\DeclareMathOperator{\Id}{id}
+\DeclareMathOperator{\lcm}{lcm}
+
+\newcommand{\incfig}[1] {%
+    % \def\svgwidth{\columnwidth}
+    \import{./figures/}{#1.pdf_tex}
+}
+
+\title{MATH 4041 HW 9}
+\author{David Chen, dc3451}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section*{1}
+
+First, we want to show that any cycle $(a_{1}, a_{2}, \dots, a_{n}) = \prod_{i=1}^{n-1}(a_{i}, a_{i+1})$. Induct on $n$; the case of $n = 2$ is easy, since it just reduces to $(a_{1}, a_{2}) = \prod_{i=1}^{2-1}(a_{i},a_{i+1}) = (a_{1}, a_{2})$ directly.
+
+If we have the identity for $n$, then $\sigma = (a_{1}, a_{2}, \dots, a_{n+1})$ defined by $\sigma(a_{n+1}) = a_{1}$, and for $i < n+1$, $\sigma(a_{i}) = \sigma(a_{i+1})$ and fixes every element not in $a_{1}, \dots, a_{n+1}$; however, we can check that $\tau = (a_{1}, a_{2}, \dots, a_{n})(a_{n}, a_{n+1})$ maps the same elements to the same outputs: for $i < n$, the first permutation fixes $a_{i}$, and the second sends $a_{i} \mapsto a_{i+1}$. We can directly check that $(a_{n}, a_{n+1})$ takes $a_{n+1} \mapsto a_{n}$, and $(a_{1},\dots, a_{n})$ takes $a_{n} \mapsto a_{1}$, so $\tau(a_{n+1}) = a_{1}$, and since $(a_{n}, a_{n+1})$ takes $a_{n} \mapsto a_{n+1}$ which is fixed by $(a_{1}, a_{2}, \dots, a_{n})$, we have that $\tau(a_{n}) = a_{n+1}$. Any element not in $a_{1}, \dots, a_{n+1}$ is fixed by both $(a_{1}, \dots, a_{n})$ and $(a_{n}, a_{n+1})$ and is thus fixed by $\tau$. Thus, $\tau = \sigma$ since they coincide on every input, and
+\[
+  (a_{1},\dots, a_{n+1}) = (a_{1}, \dots, a_{n})(a_{n}, a_{n+1}) = \left(\prod_{i=1}^{n-1}(a_{i},a_{i+1})\right) (a_{n},a_{n+1}) = \prod_{i=1}^{n}(a_{i},a_{i+1})
+\]
+so by induction this holds for a cycle of any length.
+
+This gives us that a cycle of length $n$ has sign $(-1)^{n-1}$.
+
+\subsection*{a}
+
+We can use the algorithm given in the proof from class to see that this permutation reduces to $(1,5,8)(2,3,7,6)$, so the sign is $(-1)^{2}(-1)^{3} = -1$ so this permutation is odd.
+
+\subsection*{b}
+
+The sign is $(-1)^{3}(-1)^{2} = -1$ so this permutation is odd.
+
+\subsection*{c}
+
+It's a square, so it has to be even.
+
+The sign is $(-1)^{5}(-1)^{5} = 1$, so it is even, which was what we expected.
+
+\subsection*{d}
+
+The sign is $(-1)^{5}(-1)^{5}(-1)^{5} = -1$, so it is odd.
+
+\subsection*{e}
+
+The sign is $(-1)^{3}(-1)^{3} = 1$, so it is even.
+
+
+\section*{2}
+
+\subsection*{i}
+
+
+Consider the permutation $(a_{1},a_{2})(a_{3},a_{4})$. Pick any two disjoint pairs $a_{1},a_{2}$ and $a_{3}, a_{4}$. There are $\binom{n}{2} = n(n-1)/2$ ways to pick the first pair, and $\binom{n-2}{2} = (n-2)(n-3)/2$ ways to pick the second. Then, since we want to discard the order between the pairs, we divide by 2, since we have currently counted both the selection of both $(a_{1},a_{2})(a_{3},a_{4})$ and $(a_{3},a_{4})(a_{1},a_{2})$ and disjoint pairs commute.
+
+% Suppose we have that
+% \[
+%   (a_{1},a_{2})(a_{3},a_{4}) = (b_{1},b_{2})(b_{3},b_{4})
+% \]
+% Then, since we have from class that the elements are unique in these factorizations into decompositions, then we must have $(a_{1},a_{2}) = (b_{1}, b_{2})$ or $(a_{1}, a_{2}) = (b_{3}, b_{4})$, the $(a_{3},a_{4})$ equal to the other transposition in the RHS. This shows that if two pairs of pairs are different, then thei
+
+This comes out to a total of
+\[
+  \frac{\binom{n}{2}\binom{n-2}{2}}{2} = \frac{n(n-1)(n-2)(n-3)}{8}
+\]
+
+\subsection*{ii}
+
+Consider a $k-$cycle $(a_{1},a_{2},\dots,a_{k})$. There are $n!/(n-k)!$ to pick the $a_{1}, a_{2},\dots, a_{k}$ distinctly from $\{1,2,\dots n\}$. However, this might not define a distinct permutation, since we have that $(a_{1},a_{2},\dots, a_{k}) = (a_{2},a_{3},\dots,a_{k},a_{1})$. In particular, for any set $\{a_{1}, \dots, a_{k}\}$, there are $k$ identical rotations of $(a_{1}, a_{2}, \dots, a_{k})$ which give rise to the same permutation. Then, we divide by $k$ to compensate, giving us a total of $\frac{n!}{(n-k)!k}$.
+
+\subsection*{iii}
+
+Write any $\sigma \in A_{5}$ as $\sigma = \prod_{i}^{n}\sigma_{i}$, where $\sigma_{j}$ is a cycle of length $k_{j} \geq 2$ disjoint from the other $\sigma_{i}$. The sign of $\sigma$ is then $\prod_{i=1}^{n}(-1)^{k_{i}-1} = (-1)^{\sum_{i=1}^{n}k_{i} - n}$ as shown in the first problem of the HW (given that the sign is multiplicative).
+
+We have that since $\sum_{i=1}^{n}k_{i} \geq \sum_{i=1}^{n}2 = 2n$, that $n$ is at most $2$ (since $\sum_{i=1}^{n}k_{n} \geq 3n = 6 > 5$). Note that this condition $\sum_{i=1}^{n}k_{1} \leq 5$ is given explicitly in the HW, but arises immediately from counting the number of distinct elements in the support of the product of $\sigma$, since each cycle moves another distinct $k_{j}$ elements.
+
+Suppose that $n = 1$. Then, $\sigma$ is a cycle, and has sign $k_{1} - 1$ as shown in the first problem of the HW. We have the following cases, since the cycle needs to be of odd length greater than 1.
+\begin{itemize}
+  \item $k_{1} = 3$. Then, there are $\frac{5!}{2!3} = 20$ $3-$cycles as shown in part ii.
+  \item $k_{1} = 5$. Then, there are $\frac{5!}{0!5} = 24$ $5-$cycles as shown in part ii.
+\end{itemize}
+
+Then, if $n = 2$, the sign of $\sigma$ is $(-1)^{k_{1} + k_{2} - 2} = (-1)^{k_{1} + k_{2}}$, so $k_{1} + k_{2} = 2$ or $k_{1} + k_{2} = 4$. Clearly the first is impossible if we want that $k_{1},k_{2} \geq 2$, so $k_{1} + k_{2} = 4$ and $k_{1} = k_{2} = 2$. From part i, there are exactly $\frac{5\cdot 4 \cdot 3 \cdot 2}{8} = 15$ such products of distinct $2-$cycles.
+
+The last one we haven't counted is the identity, bringing our total to $1 + 15 + 24 + 20 = 60$, as desired.
+
+\section*{3}
+
+Note that $H$ is the subgroup of $S_{4}$ which contains elements that are the product of distinct 2-cycles and the identity, but its easier to directly compute that it is a subgroup.
+
+$H$ is clearly a subset of $S_{4}$ and since elements are either the identity for the product of two 2-cycles, the sign of which is $(-1)^{-1}(-1)^{-1} = 1$, all the elements are even as well, so it is a subset of $A_{4}$.
+
+$H$ clearly contains the identity. We can do some direct computation (note that disjoint cycles commute) to see that it is closed and contains inverses.
+
+\begin{align*}
+  (1,2)(3,4) \cdot (1,2)(3,4) &= (1,2)(3,4) \cdot (4,3)(2,1) \\
+                              &= (1,2)((3,4)(4,3))(2,1) \\
+                              &= (1,2)(2,1) = 1 \\
+  (1,3)(2,4) \cdot (1,3)(2,4) &= (1,3)(2,4) \cdot (4,2)(3,1) \\
+                              &= (1,3)(3,1) = 1 \\
+  (1,4)(2,3) \cdot (1,4)(2,3) &= (1,4)(2,3) \cdot (3,2)(4,1) \\
+                              &= (1,4)(4,1) = 1 \\
+  (1,2)(3,4) \cdot (1,3)(2,4) &=
+                                \begin{pmatrix}
+                                  1 & 2 & 3 & 4 \\
+                                  3 & 4 & 1 & 2 \\
+                                  4 & 3 & 2 & 1 \\
+                                \end{pmatrix} = (1,4)(2,3) \\
+  (1,3)(2,4) \cdot (1,2)(3,4) &=
+                                \begin{pmatrix}
+                                  1 & 2 & 3 & 4 \\
+                                  2 & 1 & 4 & 3 \\
+                                  4 & 3 & 2 & 1 \\
+                                \end{pmatrix} = (1,4)(2,3) \\
+  (1,2)(3,4) \cdot (1,4)(2,3) &=
+                                \begin{pmatrix}
+                                  1 & 2 & 3 & 4 \\
+                                  4 & 3 & 2 & 1 \\
+                                  3 & 4 & 1 & 2 \\
+                                \end{pmatrix} = (1,3)(2,4) \\
+  (1,4)(2,3) \cdot (1,2)(3,4) &=
+                                \begin{pmatrix}
+                                  1 & 2 & 3 & 4 \\
+                                  2 & 1 & 4 & 3 \\
+                                  3 & 4 & 1 & 2 \\
+                                \end{pmatrix} = (1,3)(2,4) \\
+  (1,3)(2,4) \cdot (1,4)(2,3) &=
+                                \begin{pmatrix}
+                                  1 & 2 & 3 & 4 \\
+                                  4 & 3 & 2 & 1 \\
+                                  2 & 1 & 4 & 3 \\
+                                \end{pmatrix} = (1,2)(3,4) \\
+  (1,4)(2,3) \cdot (1,3)(2,4) &=
+                                \begin{pmatrix}
+                                  1 & 2 & 3 & 4 \\
+                                  3 & 4 & 1 & 2 \\
+                                  2 & 1 & 4 & 3 \\
+                                \end{pmatrix} = (1,2)(3,4)
+\end{align*}
+so we can see that each element is its own inverse and is closed under composition, and is thus a subgroup. Further, we can see that it is commutative.
+
+Define the bijection $f: H \rightarrow \Z/2\Z \times \Z/2\Z$ such that
+\begin{align*}
+  f(1) \ \ \ \ \ \ \ \ \ \ \ \ &= (0,0) \\
+  f((1,2)(3,4)) &= (1,0) \\
+  f((1,3)(2,4)) &= (0,1) \\
+  f((1,4)(2,3)) &= (1,1)
+\end{align*}
+
+Checking that this is an isomorphism (clearly it is bijective), since $H$ commutes it is enough to check the following:
+\begin{align*}
+  f((1,2)(3,4) \cdot (1,3)(2,4)) &= f((1,4)(2,3)) = (1,1) = f((1,2)(3,4)) + f((1,3)(2,4)) \\
+  f((1,2)(3,4) \cdot (1,4)(2,3)) &= f((1,3)(2,4)) = (0,1) = f((1,2)(3,4)) + f((1,4)(2,3)) \\
+  f((1,3)(2,4) \cdot (1,4)(2,3)) &= f((1,2)(3,4)) = (1,0) = f((1,3)(2,4)) + f((1,4)(2,3)) \\
+  \intertext{And as seen above, for any $\tau \in H$,}
+  f(\tau^{2}) &= 1 = (1,0) + (1,0) = (1,1) + (1,1) = (0,1) + (0,1) = f(\tau) + f(\tau)
+\end{align*}
+
+\section*{4}
+
+First, we want to show that if $\sigma = (a_{0}, a_{1}, \dots, a_{k-1})$, then $\sigma^{\alpha}(a_{i}) = a_{r}$ where $i + \alpha = kq + r$, where $q \in \Z$, $0 \leq r \leq k-1$. This $r$ is unique and always exists from the number theory classes. Clearly this holds for $\alpha = 0$, since $i + 0 = i$, and we already have $0 \leq i \leq k - 1$. Then, if it holds for $\alpha \geq 0$, then $\sigma^{\alpha + 1}(a_{i}) = \sigma^{\alpha}(\sigma(a_{i}))$. Now, if $i = k - 1$, then $\sigma^{\alpha}(\sigma(a_{k-1})) = \sigma^{\alpha}(a_{0}) = a_{r}$ where $r = \alpha - kq$ for some integer $q$. Then, this is exactly what we wanted, since $k-1 + (\alpha + 1) = \alpha + k = r + kq + k = r + k(q + 1)$. Further, if $i < k - 1$, then we have by the inductive hypothesis that $\sigma^{\alpha}(\sigma(a_{i})) = \sigma^{\alpha}(a_{i+1}) = a_{r}$ where $r = (i + 1) + \alpha - kq$, but again we have that $i + (\alpha + 1) = i + 1 + \alpha = r + kq$. In either case, we have that $\sigma^{\alpha + 1}(a_{i}) = a_{r}$ where $i + (\alpha + 1) = r + kq$ for some integer $q$.
+
+Then for $\alpha < 0$, $\sigma^{-\alpha}(a_{i}) = a_{r}$ where $i - \alpha = kq + r$. Then, $\sigma^{\alpha}(a_{r}) = a_{i}$ where $r + \alpha = -kq + i$; but this is exactly the same as the condition in positive case.
+
+This now tells us that $\sigma^{k}(a_{i}) = a_{i}$, since $i$ satisfies that $i + k = kq + r$ with $q = 1, r = i$. Then, $\sigma^{k} = 1$, and for any $0 < \alpha < k$, $\sigma^{\alpha}(a_{0}) = a_{\alpha} \neq a_{0}$, since $0 + \alpha = kq + r$ with $q = 0, r= \alpha$. Thus, the order of $\sigma$ is $k$.
+
+Err, just realized that the problem has $a$, not $\alpha$ as the exponent. Oops!
+
+Then, take $\alpha, \beta \in \Z$, $\gcd(\alpha, k) = 1$. We have then that $\alpha x + k y = \beta$ has integral solutions $x,y$, so $\sigma^{\beta} = \sigma^{\alpha x + ky} = (\sigma^{\alpha})^{x}(\sigma^{k})^{y} = (\sigma^{\alpha})^{x}$, so $\langle \sigma^{\alpha} \rangle \supseteq \langle \sigma \rangle$. Clearly since $(\sigma^{\alpha})^{x} = \sigma^{\alpha x}$, $\langle \sigma^{\alpha} \rangle \subseteq \langle \sigma \rangle$, so $\langle \sigma^{\alpha} \rangle = \langle \sigma \rangle$.
+
+We now want that $O_{\sigma}(i) \subseteq O_{\sigma^{\alpha}}(i)$. To see this, we have that for any element $\sigma^{\beta}(i) \in O_{\sigma}(i)$, $\sigma^{\beta} = (\sigma^{\alpha})^{x}$ for some integral $x$, and so $(\sigma^{\alpha})^{x}(i) \in O_{\sigma^{\alpha}}(i)$ also satisfies $(\sigma^{\alpha})^{x}(i) = \sigma^{\beta}(i) \in O_{\sigma}(i)$, so $O_{\sigma}(i) \subseteq O_{\sigma^{\alpha}}(i)$ and $O_{\sigma^{\alpha}}(i) \subseteq O_{\sigma}(i)$, so the orbits of $\sigma^{\alpha}$ are the same as the orbits of $\sigma$.
+
+However, from class, the orbits of $\sigma$, a cycle, are $O_{1},O_{2},\dots, O_{N}$ where $|O_{i}| = 1$ for $i \geq 2$, and $|O_{1}| = k$. By a theorem from class, we have that since $\sigma^{\alpha}$ has the same orbits, $\sigma^{\alpha} = \rho$ where $\rho$ is a $k$-cycle with support $O_{1}$.
+
+\section*{5}
+
+We have that for any $k$ such that $2 \leq k \leq n$, $(1,k-1)(k-1, k)(1, k-1) = ((1,k-1)(k-1), (1,k-1)(k)) = (1,k)$ by the ``beautiful'' formula given in class. The middle term in the equality has that $(1, k-1)(k-1)$ and $(1,k-1)(k)$ are function application.
+
+We can induct on $k$ to see that any subgroup containing $\{(1,2),(2,3),\dots,(n-1,n)\}$ also contains $(1,k)$ for $k \leq n$. In particular, this holds for $k = 1$ since $(1,1) = 1$, which is the subgroup by definition. We can check the base case $k = 2$, since $(1,2)$ is explicitly in the subgroup. Then, if $(1,k-1)$ (where $k \leq n$) is in the subgroup, we know that $(k-1, k)$ is contained in the subgroup by assumption, so $(1,k-1)(k-1,k)(1,k-1) = (1,k)$ is in the subgroup by closure.
+
+Then, consider any transposition $(i,j)$ for $i,j \leq n$. We have that $(1,i)$, $(1,j)$ are both in any subgroup containing $\{(1,2),(2,3),\dots,(n-1,n)\}$, and so $(1,i)(1,j) = (i,1)(1,j) = (i,j)$ by the identity shown in the first HW problem. This shows by closure that $(i,j)$ is in the subgroup as well, so any subgroup containing $\{(1,2),(2,3),\dots,(n-1,n)\}$ must contain any transposition, and since any permutation is the product of transpositions, the subgroup by closure must be the entire group $S_{n}$.
+
+\section*{Unnumbered Question (?)}
+
+We have that every transposition is its own inverse since if $\sigma = (a,b)(a,b), \sigma(a) = (a,b)(b) = a$ and $\sigma(b) = (a,b)(a) = b$, so $\tau_{i}^{2} = 1$ for any $i$.
+
+Further, if $j \neq i \pm 1$, then we have two cases. First, if $j = i$, then $\tau_{i}\tau_{j} = \tau_{i}^{2} = 1$. Otherwise, $j \neq i, i + 1$ and $j + 1 \neq i, i + 1$. Then, $\tau_{i},\tau_{j}$ are disjoint, and thus commute.
+
+The braid relation is then immediate from the ``beautiful'' formula:
+\begin{align*}
+  \tau_{i}\tau_{i+1}\tau_{i} &= (i,i+1)(i+1,i+2)(i,i+1) \\
+                             &= ((i,i+1)(i+1),(i,i+1)(i+2)) \\
+                             &= (i, i+2) \\
+  \tau_{i+1}\tau_{i}\tau_{i+1} &= (i+1,i+2)(i,i+1)(i+1,i+2) \\
+                             &= ((i+1,i+2)(i),(i+1,i+2)(i+1)) \\
+                             &= (i,i+2) \\
+\end{align*}
+
+\section*{6}
+
+We have that $\sigma^{k}(1) = k + 1$ for $1 \leq k \leq n - 1$ and $\sigma^{k}(2) = k + 2$ for $1 \leq k \leq n - 2$ from the formula shown in the proof of 4. Then, $\sigma^{k}\tau\sigma^{k} = (k, k + 1)$. This then gives that by closure, $\{(1,2), (2,3), (3,4), \dots, (n-1,n)\} = \{\sigma^{0}\tau\sigma^{-0}, \sigma^{1}\tau\sigma^{-1}, \sigma^{2}\tau\sigma^{-2},\dots, \sigma^{n-2}\tau\sigma^{-(n-2)}\}$ is contained in any subgroup containing $(1,2)$ and $(1,2,\dots,n)$. Then, by an earlier problem, we have that any subgroup containing $(1,2)$ and $(1,2,\dots,n)$ is the entirety of $S_{n}$.
+
+\section*{7}
+
+Any alternating group element can be written as the product of an even amount of transpositions by the definition of the alternating group. In particular, let any $\sigma \in A_{n}$ be $\sigma = \prod_{i=1}^{2k}(a_{i},b_{i})$; reindexing, $\prod_{i=1}^{2k}(a_{i},b_{i}) = \prod_{i=1}^{k}(a_{2i-1},b_{2i-1})(a_{2i},b_{2i})$. Then, we can clearly see that any element $\sigma$ is the product of the product of two 2-cycles $(a_{2i - 1},b_{2i-1})(a_{2i},b_{2i})$.
+
+Consider $(i,j)(i,l)$ where $i \neq j$, $i \neq l$. If $j = l$, then this becomes $(i,j)(i,j) = 1$ since transposes are their own inverses, and if $j \neq l$, then by the identity shown in 1, $(i,j)(i,l) = (j,i)(i,l) = (j,i,l)$. Then, the product of nondisjoint two 2-cycles is $3$-cycle.
+
+Then, $\sigma = (i,j,k)(k,i,l)$ clearly fixes any element not equal to one of $i,j,k,l$. Then, directly computing,
+\begin{align*}
+  \sigma(i) &= (i,j,k)(l) = l \\
+  \sigma(j) &= (i,j,k)(j) = k \\
+  \sigma(k) &= (i,j,k)(i) = j \\
+  \sigma(l) &= (i,j,k)(k) = i
+\end{align*}
+and
+\begin{align*}
+  ((j,k)(l,i))(i) &= l \\
+  ((j,k)(l,i))(j) &= k \\
+  ((j,k)(l,i))(k) &= j \\
+  ((j,k)(l,i))(l) &= i
+\end{align*}
+and $(j,k)(l,i)$ also fix any element not $i,j,k,l$, so $\sigma = (j,k)(l,i)$. Then, any product of two 2-cycles is either a product of two 3-cycles if the 2-cycles are disjoint ($(i,j)(j,k) = (i,j,k)(k,i,l)$ for $i\neq j \neq k \neq l$) or is a 3-cycle (or the identity) if they are not disjoint ($(i,j)(i,l) = 1$ or $(j,i,l)$). Thus, for $n \geq 3$, we have that 3-cycles generate all products of two 2-cycles, which in turn generate $A_{n}$.
+
+
+\end{document}
+% LocalWords:  NetID fancyplain LocalWords colorlinks linkcolor linkbordercolor

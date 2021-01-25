@@ -1,0 +1,186 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{relsize}
+\usepackage{fancyvrb}
+\usepackage{import}
+\usetikzlibrary{shapes.geometric,fit}
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+\theoremstyle{definition}
+\newtheorem*{statement}{Statement}
+\newtheorem*{claim}{Claim}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+
+\newcommand{\contra}{\Rightarrow\!\Leftarrow}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Zeq}{\mathbb{Z}_{\geq 0}}
+\newcommand{\Zg}{\mathbb{Z}_{>0}}
+\newcommand{\Req}{\mathbb{R}_{\geq 0}}
+\newcommand{\Rg}{\mathbb{R}_{>0}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\DeclareMathOperator{\Id}{id}
+\DeclareMathOperator{\lcm}{lcm}
+
+\newcommand{\incfig}[1] {%
+    % \def\svgwidth{\columnwidth}
+    \import{./figures/}{#1.pdf_tex}
+}
+
+\title{MATH 4041 HW 10}
+\author{David Chen, dc3451}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section*{Problem 1}
+
+\subsection*{i}
+
+We can check directly that $f(r + s) = \frac{1}{2}(r + s) = \frac{1}{2}r + \frac{1}{2}s = f(r) + f(s)$, so we have that $f$ is indeed a homomorphism. It is also bijective, since for any $r_1, r_2$, we get that $f(r_1) = f(r_2) \implies \frac{1}{2}r_1 = \frac{1}{2}r_2 \implies r_1 = r_2$, so $f$ is injective, and that any $r \in \Q$ has preimage $2r \in \Q$ under $f$.
+
+\subsection*{ii}
+
+This is not a homomorphism, since homomorphisms $G \rightarrow H$ map the identity of $G$ to the identity of $H$; in this case, we have that we need $g(1) = 1$ for $g: \Q^* \rightarrow \Q^*$ to be a homomorphism, but $g(1) = \frac{1}{2}(1) = \frac{1}{2} \neq 1$.
+
+It is however, still both surjective and injective, for the same reasons as in part i: since for any $r_1, r_2$, we get that $g(r_1) = g(r_2) \implies \frac{1}{2}r_1 = \frac{1}{2}r_2 \implies r_1 = r_2$, so $g$ is injective, and that any $r \in \Q^*$ has preimage $2r \in \Q^*$ under $g$ (note that $2r \neq 0$ if $r \neq 0$, so $2r$ is always in $\Q^*$.
+
+\section*{Problem 2}
+
+\subsection*{i}
+
+We have that $f(1 + -1) = f(0) = 0$, but $f(1) + f(-1) = 1 + 1 = 2$, so $f$ is not a homomorphism.
+
+If instead the domain is $R^*$ and the operation real multiplication, then we get that $f(xy) = |xy| = |x||y| = f(x)f(y)$ by basic properties of the absolute value, so $f$ is a homomorphism.
+
+\subsection*{ii}
+
+We have that $f(1 + 1) = f(2) = \frac{1}{2}$, but $f(1) + f(1) = 1 + 1 = 2$, so $f$ is not a homomorphism.
+
+If instead the domain is $R^*$ and the operation real multiplication, then we get that $f(xy) = \frac{1}{xy} = \frac{1}{x} \cdot \frac{1}{y} = f(x)f(y)$, so $f$ is a homomorphism.
+
+\subsection*{iii}
+
+We have that $f(0.6 + 0.6) = f(1.2) = 1$, but $f(0.6) + f(0.6) = 0 + 0 = 0$.
+
+\section*{Problem 3}
+
+We first show this for nonnegative integers. This is clearly true for $n = 0$, since again we have from class that homomorphisms map the identity to the identity, so $f(g^0) = f(1) = 1 = (f(g))^0$. Then, if this holds for $n$, then we have that
+\[
+  f(g^{n+1}) = f(gg^n) = f(g)f(g^n) = f(g)(f(g))^n = (f(g))^{n+1}
+\]
+as desired, so by induction this holds for all $n \geq 0$. Then, we have that since
+\[
+  1 = f(1) = f(g^n g^{-n}) = f(g^n)f(g^{-n}) = (f(g))^nf(g^{-n})
+\]
+for positive $n$, we must have that $f(g^{-n}) = ((f(g))^n)^{-1} = (f(g))^{-n}$, so this holds for negative integers $n$ as well.
+
+\section*{Problem 4}
+
+\section*{i}
+
+From the last problem, we get that $f(a) = f(a \cdot 1) = f(1) \cdot a = a \cdot f(1)$ where $\cdot$ denotes repeated addition. Further, $f$ is injective (unless $f(1) = 0 \implies f = 0$, in which case it is clearly not injective), since  $f(a) = f(b) \implies a \cdot f(1) = b \cdot f(1) \implies a = b$. $f$ is never surjective unless $f(1) = 1$, in which case $f$ is the identity, since we have that for $f(1) \neq 1$, either $f(1) = 0$ or $|f(1)| > 1$, and in the first case this is clearly not surjective, since the image is exactly $\{0\}$. In the second case, we have that $|f(a)| = |f(1)||a|$, and since $|f(1)| > 1$, if $|a| = 0$, then $f(a) = 0$, and if $|a| \neq 0$, then $|a| \geq 1 \implies |f(a)| > 1$, so $f(a)$ can never hit $1$ for any $a$, so $f$ is not surjective.
+
+\section*{ii}
+
+From problem 3, we have that $f(a) = f(a \cdot 1) = (f(1))^a = g^a$ where the first group is additive and the second is multiplicative, and $g = f(1)$.
+
+\section*{iii}
+
+On $\Z$, we have the same thing as in the first problem: $f(a) = f(a \cdot 1) = f(1) \cdot a$. Then, for any $a = p/q \in \Q$ (with integral $p,q$, $q \neq 0$), we have that $ f(p) = f(p/q \cdot q) = f(p/q)\cdot q$ via problem 3; we also have that $f(p) = f(1) \cdot p$, so $f(p/q) \cdot q = f(1) \cdot p$, so $f(p/q) = f(1) \cdot p \cdot (1/q) = f(1)(p/q)$. Thus, for any $a \in \Q$, we have that $f(a) = f(1)(p/q)$ as desired.
+
+Unless $f(1) = 0$, $f$ is a bijection. In the case that $f(1) = 0$, then clearly $f(a) = 0a = 0$ for every $a \in \Q$, so this is neither surjective nor injective. For $f(1) = p/q \neq 0$, then we have that the preimage of $a$ is simply $a(q/p)$ (so $f$ is surjective) and $f(a) = f(b) \implies (p/q)(a) = (p/q)(b) \implies a = b$ since $q/p = (f(1))^{-1} \in \Q$ as well so $f$ is injective.
+
+\section*{iv}
+
+We only need that $f(a + b) = f(a) + f(b)$. We check this directly:
+\[
+  f(a + b) = r(a + b) = ra + rb = f(a) + f(b)
+\]
+as desired.
+
+\section*{Problem 5}
+
+We have that $\exp(i(\theta + \varphi)) = \exp(i\theta + i\varphi) = \exp(i\theta)\exp(i\varphi)$, so this is a homomorphism.
+
+The kernel is all reals which map to $1$ under the exponential, so we need all $\theta$ such that $\sin(\theta) = 0, \cos(\theta) = 1$. The latter happens exactly when $\theta = \pm 2k\pi$ for $k \in \Z$, and since $\sin(2k\pi) = 0$ for $k \in \Z$, we have that the kernel of $f$ is $\{2k \pi \mid k \in \Z\}$.
+
+The image is the unit circle; if $|z| = |x + iy| = 1$, we have that $y^2 = 1 - x^2$, so $x,y \in [-1,1]$. Then, since $\cos(\theta)$ has image $[-1,1]$ over $\R$, set $x = \cos(\theta)$ for some $\theta \in \R$. We have that $y^2 = 1 - \cos(\theta)^2 = \sin(\theta)^2 \implies y = \pm \sin(\theta) = \sin(\pm \theta)$. Then, since $\cos(-\theta) = \cos(\theta)$, we have that either $z = \cos(\theta) + i\sin(\theta)$ or $z = \cos(-\theta) + i\sin(-\theta)$, so $z = e^{i\theta}$ or $e^{-i\theta}$, as desired. This shows that any $|z| = 1$ is hit by $f$, and since $|f(\theta)| = |\cos(\theta) + i\sin(\theta)| = \sqrt{\cos^2(\theta) + \sin^2(\theta)} = 1$ we have that only $|z| = 1$ are hit by $f$, so the image is exactly the unit circle.
+
+\section*{Problem 6}
+
+We have that $g_1g_2 = f(1,0)f(0,1) = f((1,0) + (0,1)) = f(1,1) = f((0,1) + (1,0)) = f(0,1)f(1,0) = g_1g_2$.
+
+We have that since $(n,m) = (n,0) + (0,m) = n(1,0) + m(0,1)$, by problem 3,
+\[
+  f(n,m) = f(n(1,0) + m(0,1)) = f(n(1,0))f(m(0,1)) = f(1,0)^nf(0,1)^m = g_1^ng_2^m
+\]
+
+To check the converse, all we need is that $f(n,m) = g_1^ng_2^m$ satisfies the correct identity.
+\[
+  f((n_1,m_1) + (n_2, m_2)) = f(n_1 + n_2, m_1 + m_2) = g_1^{n_1+n_2}g_2^{m_1+m_2}
+\]
+but since $g_1, g_2$ commute, we have that $g_1^{n_1+n_2}g_2^{m_1+m_2} = g_1^{n_1}g_1^{n_2}g_2^{m_1}g_2^{m_2} = g_1^{n_1}g_2^{m_1}g_1^{n_2}g_2^{m_2} = f(n_1,m_1)f(n_2,m_2)$ as desired.
+
+\section*{Problem 7}
+
+Taking $G$ in the last problem to $\Z$, we have that $f(n,m) = g_1^ng_2^m = na + mb$ where $a = f(1,0) = g_{1}, b = f(0,1) = g_{2}$, which also immediately gives that $a, b$ must be unique, since they are given exactly by $f(1,0)$ and $f(0,1)$ respectively. In particular, if $f(n,m) = na' + mb'$, we have that $f(1,0) = a \implies a' = a$ and $f(0,1) = b \implies b' = b$. This also gives that since $g_1^ng_2^m = na + mb$ in the notation of $\Z$, we have that $f(n,m) = na + mb$ must be a homomorphism by the last problem as well.
+
+You recover $a,b$ by taking $a = f(1,0)$ and $b = f(0,1)$.
+
+($\gcd(a,0) = a$ for any integer $a$) If $a,b$ are relatively prime, then by the number theory classes we have that $na + mb = 1$ has integer solutions for $n,m$, say $n',m'$, so $f(n',m') = 1$. Further, if $a,b$ are not relatively prime (and are not both 0), $a,b$ have gcd $> 1$, then $na + mb = 1$ has no integer solutions, since for any $n,m$, $\gcd(a,b) \mid na + mb$, but $\gcd(a,b) > 1 \implies \gcd(a,b) \nmid 1$, so $1$ has no preimage under $f$.
+
+The above doesn't handle $(a,b) = (0,0)$, since the $gcd$ is not defined here, but since $f(n,m) = 0$ for all $n,m$ here, we see that this is not injective (and $0$ is not coprime to $0$, so the statement holds).
+
+$f$ is never injective: $f(-b, a) = (-b)a + ab = 0$, so $(-b,a)$ is a nonzero element in the kernel of $f$, and so $f$ is not injective. This works when $(a,b) \neq (0,0)$, but in that case $f(n,m) = 0a + 0b = 0$ so every element gets mapped to 0, so this is clearly not injective anyway.
+
+\section*{Problem 8}
+
+Note that
+\[
+  gx = xg \iff x^{-1}gx = x^{-1}xg = g
+\]
+
+To see that $Z(G)$ is a subset of $G$, we need to show it is closed and contains inverses (which immediately gives that it contains the identity). If $g,h \in G$, then for any $x \in G$,
+\[
+  x(gh) = (xg)h = (gx)h = g(xh) = g(hx) = (gh)x
+\]
+so $gh$ is in the center of $G$ as well.
+
+Further, if $g \in Z(G)$, for any $x \in G$,
+\[
+  (x^{-1}g)(g^{-1}x) = x^{-1}(gg^{-1})x = x^{-1}x = 1
+\]
+so $g^{-1}x = (x^{-1}g)^{-1} = (x^{-1})^{-1}g^{-1} = xg^{-1}$ as desired, so $g^{-1} \in Z(G)$ as well.
+
+If $G$ is abelian, any $g \in G$ satisfies that for any $x \in G$, $gx = xg$, so $Z(G) = G$.
+
+If $Z(G) = G$, then for any $g,h \in G$, we have that $g \in Z(G)$, so $gh = hg$ and so $G$ is abelian.
+
+\end{document}
+% LocalWords:  NetID fancyplain LocalWords colorlinks linkcolor linkbordercolor

@@ -1,0 +1,249 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{relsize}
+\usepackage{fancyvrb}
+\usepackage{import}
+\usetikzlibrary{shapes.geometric,fit}
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+\theoremstyle{definition}
+\newtheorem*{statement}{Statement}
+\newtheorem*{claim}{Claim}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+
+\newcommand{\contra}{\Rightarrow\!\Leftarrow}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Zeq}{\mathbb{Z}_{\geq 0}}
+\newcommand{\Zg}{\mathbb{Z}_{>0}}
+\newcommand{\Req}{\mathbb{R}_{\geq 0}}
+\newcommand{\Rg}{\mathbb{R}_{>0}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\DeclareMathOperator{\Id}{id}
+\DeclareMathOperator{\lcm}{lcm}
+
+\newcommand{\incfig}[1] {%
+    % \def\svgwidth{\columnwidth}
+    \import{./figures/}{#1.pdf_tex}
+}
+
+\title{MATH 4041 HW 8}
+\author{David Chen, dc3451}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section*{1}
+
+There is exactly one prime which divides $p^{a}$, which is $p$. Any other prime cannot divide $p$, as the only prime factors of $p$ are $1$ and $p$, and so cannot divide $p^{a}$. Then, the totient formula given in class shows
+\[
+  \varphi(p^{a}) = p^{a}\prod_{q \mid n}\left(1 - \frac{1}{q}\right) = p^{a}\left(1 - \frac{1}{p}\right) = p^{a}\left(\frac{p - 1}{p}\right) = p^{a-1}(p-1)
+\]
+as desired.
+
+\section*{2}
+
+\subsection*{i}
+
+The order is $\varphi(19) = 19 - 1 = 18$ since $19$ is prime.
+
+\subsection*{ii}
+
+We have $2^{2} = 4$, $2^{3} = 8$, $2^{6} = 8 \cdot 8 = 64 = 7$, $2^{9} = 8 \cdot 7 = 56 = 18 = -1$, $2^{18} = 18 * 18 = -1 * -1 = 1$.
+
+$2$ must be a generator of $(\Z/19\Z)^{*}$; in particular, any element has an order that divides the order of the group (in particular, this was showed for cyclic groups, but was noted to be true for general groups in the notes, as Lagrange's theorem was mentioned, and thus the order of $a \in G$ is by definition $|\langle a \rangle|$ which divides $|G|$ by Lagrange). Thus, the possible orders of $2$ are $1,2,3,6,9,18$; however, we have that for $n = 1,2,3,6,9$, $2^{n} \neq 1$, so the order of $2$ is $18$ and is therefore a generator of $(\Z/19\Z)^{*}$. If we can't use Lagrange, we can also check directly:
+\begin{center}
+  \begin{tabular}{c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c}
+    $n$ & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 & 16 & 17 & 18\\ \hline
+    $2^{n}$ & 1 & 2 & 4 & 8 & 16 & 13 & 7 & 14 & 9 & 18 & 17 & 15 & 11 & 3 & 6 & 12 & 5 & 10 & 1
+  \end{tabular}
+\end{center}
+
+\subsection*{iii}
+
+As seen in class, $2^{n}$ is a generator if and only if $n$ and $18$ are coprime, of which $\gcd(11,18) = 1$, $\gcd(12, 18) = 6$, $\gcd(13, 18) = 1$, and $\gcd(15,18) = 3$, so $2^{11}, 2^{13}$ are generators.
+
+\subsection*{iv}
+
+From the same reasoning as above, we have that $1,5,7,11,13,17$ are coprime to $18$, so $2^{1} = 1$, $2^{5} = 13$, $2^{7}=14$, $2^{11} = 15$, $2^{13} = 3$, and $2^{17} = 10$ are generators. There are exactly $\varphi(18) = 18(1 - 1/2)(1 - 1/3) = 6$ of them, as expected.
+
+\subsection*{v}
+
+These are the elements, as seen in class, which are of the form $2^{n}$ where $18/\gcd(n,18) = 6 \implies \gcd(n,18) = 3$. In particular, $n = 3, 15$, so $2^{3} = 8, 2^{15} = 12$ are the elements of order $6$.
+
+\section*{3}
+
+We have that $(\Z/14\Z)^{*} = \varphi(14) = 14(1 - 1/2)(1 - 1/7) = 6$. Then, we can directly compute $\langle 3 \rangle$,
+\begin{center}
+  \begin{tabular}{c|c|c|c|c|c|c|c}
+    $n$ & 0 & 1 & 2 & 3 & 4 & 5 & 6 \\ \hline
+    $3^{n}$ & 1 & 3 & 9 & 13 & 11 & 5 & 1
+  \end{tabular}
+\end{center}
+which shows that $3$ is a generator, since $3$ has order $6$. As in the last problem, we didn't need to check all of the above $n$, merely $n = 2,3,4,6$, which are non-coprime to $6$, but this is basically all of them so we might as well compute $3^{5}$ along the way.
+
+We have that $(\Z/14\Z)^{*} \cong \Z/6\Z$ since the former is cyclic and of order $6$, and the latter has $\varphi(6) = 2$ generators, and since generators are preserved by isomorphism, $(\Z/14\Z)^{*}$ also has 2 generators.
+
+\section*{4}
+
+\subsection*{i}
+
+As basic facts about groups of the form $\Z/n\Z$, we know that $\Z/28\Z$ has order 28, is cyclic and thus has an element (for example, 1) which has order 28. Isomorphic to (ii).
+
+\subsection*{ii}
+
+4 and 7 are coprime, so by the Chinese Remainder Theorem, we get that $\Z/28\Z \cong \Z/4\Z \times \Z/7\Z$, so this group also has order 28, is cyclic, and is generated by $(1,1)$, which has order $\lcm(4,7) = 28$.
+
+\subsection*{iii}
+
+This group has order $|\Z/2\Z| \cdot |\Z/14\Z| = 2 \cdot 14 = 28$. It is not cyclic, since there is no element of order $28$, as the order of any element $(a,b)$ has order $\lcm(\alpha, \beta)$ where $a, b$ have orders $\alpha, \beta$ respectively. However, we have that $\alpha \mid 2, \beta \mid 14 \implies \alpha \mid \lcm(2,14), \beta \mid \lcm(2,14) \implies \lcm(\alpha, \beta) \mid \lcm(2, 14) = 14$, so $(a,b)$ has order at most $14$, and so this group is not cyclic. (Not isomorphic to anything else since no other group has the same order.)
+
+\subsection*{iv}
+
+This group has order $\varphi(28) = 28(1 - 1/2)(1-1/7) = 12$, and is not cyclic by virtue of the last theorem in the number theory class/notes, as $28 = 2^{2} \cdot 7$ is not one of the desired forms. Isomorphic to (v).
+
+\subsection*{v}
+
+This group satisfies by the alteration of CRT that $(\Z/4\Z)^{*} \times (\Z/7\Z)^{*} \cong (\Z/28\Z)^{*}$, and thus has order $12$, and is also not cyclic (as it is isomorphic to a noncylic group).
+
+\subsection*{vi}
+
+This group is not cyclic to (iv), (v) since $\gcd(2,14) = 2$. In particular, note that this group is in fact cyclic, since $(\Z/2\Z)^{*}$ has order 1, $(\Z/14\Z)^{*}$ has order $6$ as shown in the last part, and thus $(\Z/2\Z)^{*} \times (\Z/14\Z)^{*}$ has order $1 \cdot 6 = 6$. Then, $(1,3)$ has order $\lcm(1,6) = 6$, and is thus a generator ($3$ is shown to generate $(\Z/14\Z)^{*}$ in the last problem). (Not isomorphic to anything else since no other group has the same order.)
+
+\section*{5}
+
+Since we have that $n,m$ are relatively prime, $\gcd(n,m) = 1$, and so we have that $kn + lm = 1$ has integer solutions $k,l$. In particular, they can be found via the Euclidean algorithm. Then, set $x = skn + rlm$. In this case, we have the following relations:
+\begin{align*}
+  rlm &= 1 - kn \\
+      &\equiv 1 \mod n \\
+  skn &= 1 - lm \\
+      &\equiv 1 \mod m \\
+  x &= skn + rml \\
+       &\equiv sk(0) + r(1) \mod n \\
+       &\equiv r \mod n \\
+  x &= skn + rml \\
+       &\equiv s(1) + rl(0) \mod m \\
+       &\equiv s \mod m \\
+\end{align*}
+as desired.
+
+\section*{6}
+
+\subsection*{i}
+
+Any subgroup of $\Z/p\Z$ must have order dividing $p$; however, the only divisors of $p$ are $1$ and $p$. There are exactly one subgroup of each order, and we can see that the trivial subgroups $\{0\}$ and $\Z/p\Z$ have orders $1, p$ respectively, and thus are the only subgroups of $\Z/p\Z$.
+
+\subsection*{ii}
+
+First, we can see that $G$ is cyclic: pick any element $g \in G$, $g \neq 1$. Then, $\langle g \rangle$ is a subgroup of $G$, and is thus either $\{1\}$ or $G$. Since $g \neq 1$, $\langle g \rangle \neq \{1\}$ since the former contains $g$ and the latter does not; thus, $\langle g \rangle = G$ and so $G$ is cyclic.
+
+$G$ cannot be infinite; in particular, if it were, then $G \cong \Z$, which clearly has subgroups; then, under the isomorphism $f: \Z \rightarrow G$, we have if $H$ were a proper nontrivial subgroup of $\Z$, say $\langle 2 \rangle$, $f(H)$ is a proper nontrivial subgroup of $G$. $\contra$, so $G$ cannot be infinite.
+
+Thus, $G$ is a finite cyclic group, and thus $G \cong \Z/n\Z$ for some natural number $n$. However, we have that finite subgroups of order $n$ always have exactly one group of order $n/d$, where $d$ is any divisor of $n$. Since the only subgroups of $G$ are of order 1 and $n$ ($\{1\}$ and $G$ respectively), we have that the only divisors are $1$ and $n$, and so $n$ is by definition prime. If indeed some other number $m \neq n, m \neq 1$ divided $n$, then there would be a subgroup of order $n/m \neq n, 1$. $\contra$, so $n$ is prime.
+
+\section*{7}
+
+\subsection*{i}
+
+We can see that $\sigma(1) = 5, \sigma(5) = 8, \sigma(8) = 1$, as well as $\sigma(2) = 3, \sigma(3) = 7, \sigma(7) = 6, \sigma(6) = 2$, and $\sigma(4) = 4$, so
+\[
+  \sigma = (1,5,8)(2,3,7,6)
+\]
+by virtue of the constructive proof from class.
+
+\subsection*{ii}
+
+\subsubsection*{a}
+
+We have the following computation, where each level is an application of a cycle:
+\[
+  \begin{pmatrix}
+    1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 \\
+    4 & 2 & 3 & 5 & 1 & 6 & 7 & 8 \\
+    4 & 2 & 6 & 5 & 3 & 7 & 1 & 8 \\
+  \end{pmatrix}
+\]
+so $(1,3,6,7)(1,4,5) = (1,4,5,3,6,7)$.
+
+\subsubsection*{b}
+
+See part c for computation:
+\[
+  (3,5,7,4,6,8)^{2} = (3,7,6)(5,4,8)
+\]
+
+
+\subsubsection*{c}
+
+\[
+  \begin{pmatrix}
+    1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 \\
+    1 & 2 & 5 & 6 & 7 & 8 & 4 & 3 \\
+    1 & 2 & 7 & 8 & 4 & 3 & 6 & 5 \\
+    1 & 2 & 4 & 3 & 6 & 5 & 8 & 7 \\
+  \end{pmatrix}
+\]
+so $(3,5,7,4,6,8)^{3} = (3,4)(5,6)(7,8)$.
+
+\subsubsection*{d}
+
+\[
+  \begin{pmatrix}
+    1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 \\
+    4 & 2 & 7 & 3 & 5 & 6 & 1 & 8 \\
+    4 & 3 & 7 & 1 & 2 & 6 & 5 & 8 \\
+  \end{pmatrix}
+\]
+so $(1,5,2,3)(1,4,3,7) = (1,4)(2,3,7,5)$.
+
+\subsubsection*{e}
+
+We just write the elements backwards:
+\[
+  (3,5,7,4,6,8)^{-1} = (8,6,4,7,5,3)
+\]
+
+\subsection*{iii}
+
+We have that $(\sigma^{-1} \cdot \tau^{-1})\cdot(\tau \cdot \sigma) = \sigma^{-1} \cdot (\tau^{-1} \cdot \tau) \cdot \sigma = \sigma^{-1} \cdot \sigma = 1$, so $(\tau \cdot \sigma)^{-1} = \sigma^{-1} \cdot \tau$. Then, we have that $(1,3,5)^{-1} = (5,3,1)$ and $(2,4)^{-1} = (4,2)$, so $((1,3,5)(2,4))^{-1} = (4,2)(5,3,1)$.
+
+\section*{8}
+
+Note that $\sigma \tau = \tau \sigma \implies \sigma \tau \sigma^{-1} = \tau \sigma \sigma^{-1} = \tau$, and $\tau = \sigma\tau\sigma^{-1} \implies \tau \sigma = \sigma \tau \sigma^{-1}\sigma = \sigma \tau$, so
+\[
+  \sigma \tau = \tau \sigma \iff \sigma \tau \sigma^{-1} = \tau
+\]
+
+Suppose that $\sigma \neq 1$. Then, there is some $1 \leq i,j \leq n$ such that $i \neq j$ and $\sigma(i) = j$. Then, since $n \geq 3$, we have that there is some $1 \leq k \leq n$ such that $k \neq i, j$. Then, note that
+\[
+  \rho = \sigma \cdot (i,k) \cdot \sigma^{-1} = (\sigma(i), \sigma(k)) = (j,\sigma(k))
+\]
+so $\rho(j) = \sigma(k)$. If $\rho = (i, k)$, then $\rho$ must fix $j$, so $\sigma(k) = j$. Then, $\rho = (j,j) = 1 \neq (i,k)$, so $\contra$ and $\rho = \sigma \cdot (i,k) \cdot \sigma^{-1} \neq (i,k)$, so we have found explicitly some $\tau = (i,k)$ such that $\sigma \tau \neq \tau \sigma$ by the first line in the proof, so $\contra$ and $\sigma = 1$.
+
+\end{document}
+% LocalWords:  NetID fancyplain LocalWords colorlinks linkcolor linkbordercolor

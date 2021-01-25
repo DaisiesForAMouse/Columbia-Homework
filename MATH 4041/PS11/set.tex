@@ -1,0 +1,285 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{relsize}
+\usepackage{fancyvrb}
+\usepackage{import}
+\usetikzlibrary{shapes.geometric,fit}
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+\theoremstyle{definition}
+\newtheorem*{statement}{Statement}
+\newtheorem*{claim}{Claim}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+
+\newcommand{\contra}{\Rightarrow\!\Leftarrow}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Zeq}{\mathbb{Z}_{\geq 0}}
+\newcommand{\Zg}{\mathbb{Z}_{>0}}
+\newcommand{\Req}{\mathbb{R}_{\geq 0}}
+\newcommand{\Rg}{\mathbb{R}_{>0}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\DeclareMathOperator{\Id}{id}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\lcm}{lcm}
+
+\newcommand{\incfig}[1] {%
+    % \def\svgwidth{\columnwidth}
+    \import{./figures/}{#1.pdf_tex}
+}
+
+\title{MATH 4041 HW 11}
+\author{David Chen, dc3451}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section*{Problem 1}
+
+\subsection*{i}
+We want to compute $5^{143} \pmod{29}$. Since $29$ is prime, we have that, (mod 29),
+\[
+  5^{143} \equiv 5^{5 \cdot 28 + 3} \equiv (5^{28})^{5} \cdot 5^{3} \equiv 1^{5} \cdot 5^{3} \equiv 125 \equiv 9 + 29 \cdot 4 \equiv 9
+\]
+so the remainder is $9$ after $5^{143}$ is divided by 29.
+
+\subsection*{ii}
+
+Consider the group $(\Z/100\Z)^{*} \cong (\Z/4\Z)^{*} \times (\Z/25\Z)^{*}$, where $\gcd(a, 100) = 1 \implies a \in (\Z/100)^{*}$. $f([a]_{100}) = ([a]_{4}, [a]_{25})$ is an isomorphism as shown in class. Then, we have that since $\varphi(4) = 2$ and $\varphi(25) = 20$, both divisors of 20, that in both $(\Z/4\Z)^{*}$ and $(\Z/25\Z)^{*}$, $a^{20} = 1$. In particular,
+\[
+  [a^{20}]_{4} = [a]_{4}^{20} = ([a]_{4}^{2})^{10} = [1]_{4}^{10} = [1]_{4}
+\]
+and
+\[
+  [a^{20}]_{25} = [a]_{25}^{20} = [1]_{25}
+\]
+since for any group $G$ and $g \in G$, $g^{|G|} = 1$.
+
+Then, we have clearly that $f([1]_{100}) = ([1]_{4}, [1]_{25})$, so since $f$ is injective and $f([a^{20}]_{100}) = ([a^{20}]_{4},[a^{20}]_{25}) = ([1]_{4},[1]_{25}) = f([1]_{100})$, $a^{20} = 1$ as well in $(\Z/100\Z)^{*}$.
+
+\section*{Problem 2}
+
+We have that since $H_{1}$, $H_{2}$ are subgroups, then $H_{1} \cap H_{2}$ is a subgroup of $G$ as well, and are also then subgroups of $H_{1}$ and $H_{2}$ respectively since it is clearly a subset of both. Then, $|H_{1} \cap H_{2}|$ divides both $|H_{1}|$ and $|H_{2}|$; however, $\gcd(|H_{1}|, |H_{2}|) = 1$, so $|H_{1} \cap H_{2}| = 1$ as well. Then, every subgroup contains the identity, so $1 \in |H_{1} \cap H_{2}|$, but then no other element can be a member of $H_{1} \cap H_{2}$, or else it will have order $> 1$.
+
+\section*{Problem 3}
+
+Consider any element $g \in G$. Then, we have that $\langle g \rangle \leq G$, and in particular, $|g| = |\langle g \rangle|$ must divide $|G| = p^{n}$. But then, since $p$ is prime, the only possible divisors of $p^{n}$ are $p^{k}$ for $k \leq n$; in particular, (this is not the most parsimonious solution) $a \mid p^{k}$ being divisible by a prime $q \neq p$ would gives that $p^{k} = q \cdot \prod_{i}q_{i}$ where the latter term is the prime factorization of $p^{n}/q$, contradicting the uniqueness of prime factorization.
+
+Then, since $|G| = p^{n} > 1$, pick some non-identity $g \in G$. Then, $|g| = p^{k}$, for $k \geq 1$ (since the only element with order 1 is the identity). Now, if $k = 1$, then we are done. Otherwise, consider $g^{p^{k-1}}$. We have that $(g^{p^{k-1}})^{p} = g^{p^{k-1} \cdot p} = g^{p^{k}} = 1$, and if $(g^{p^{k-1}})^{r} = 1$ for $1 \leq r \leq p - 1$, then we have that $g^{p^{k-1} \cdot r} = 1$ so $g$ has order at most $p^{k-1} \cdot r \leq p^{k-1} \cdot p - 1 < p^{k-1} \cdot p = p^{k}$. $\contra$, so $g^{p^{k-1}}$ has order $p$ in $G$.
+
+\section*{Problem 4}
+
+Recalling the definition of $\equiv_{\ell}$ and $\equiv_{r}$, we have that $g_{1} \equiv_{\ell} g_{2} \text{ mod } H \iff g_{2} = g_{1}h$ for some $h \in H$; then, taking inverses, $g_{2} = g_{1}h \iff g_{2}^{-1} = (g_{1}h)^{-1}$, but $(g_{1}h)^{-1} = h^{-1}g_{1}^{-1}$; since $h \in H \implies h^{-1} \in H$, we have that $g_{2}^{-1} = h^{-1}g_{1}^{-1} \iff g_{1}^{-1} \equiv_{r} g_{2}^{-1} \text{ mod } H$ as well.
+
+Note that this also immediately gives that $g_{1}^{-1} \equiv_{\ell} g_{2}^{-1} \text{ mod } H \iff g_{1} \equiv_{r} g_{2} \text{ mod } H$ since $(g^{-1})^{-1} = g$.
+
+To check that defining $f: G/H \rightarrow H\backslash G$ on representatives is well-defined, we need to show that if $g_{1} \equiv_{\ell} g_{2} \text{ mod } H$ (equivalent to $g_{1}H = g_{2}H$), then $f(g_{1}H) = f(g_{2}H)$. We have that $f(g_{1}H) = Hg_{1}^{-1}$ and $f(g_{2}H) = Hg_{2}^{-1}$. Then, since we have that $g_{1} \equiv_{\ell} g_{2} \text{ mod } H \implies g_{1}^{-1} \equiv_{r} g_{2}^{-1}  \text{ mod } H \implies g_{2}^{-1} = hg_{1}^{-1} \text{ for some } h \in H \implies Hg_{2}^{-1} = Hg_{1}^{-1}$, we have what we want.
+
+To find an inverse, consider $f^{-1}(Hg) = g^{-1}H$. Checking that this is well defined, we have that again,
+\[
+  g_{1} \equiv_{r} g_{2} \text{ mod } H \implies g_{1}^{-1} \equiv_{\ell} g_{2}^{-1} \text{ mod } H \implies f^{-1}(Hg_{1}) = g_{1}^{-1}H = g_{2}^{-1}H = f^{-1}(Hg_{2})
+\]
+as desired.
+
+Then, we have that
+\[
+  f(f^{-1}(Hg)) = f(g^{-1}H) = H(g^{-1})^{-1} = Hg,
+  f^{-1}(f(gH)) = f^{-1}(Hg^{-1}) = (g^{-1})^{-1}H = gH
+\]
+as desired.
+
+\section*{Problem 5}
+
+\subsection*{i}
+
+Put $1$ as the identity. Then, $i_{1}(x) = 1(x)1^{-1} = (1x)1 = x1 = x = \Id_{G}$, and clearly $\Id_{G} \circ i_{g} = i_{g} \circ \Id_{G} = i_{g}$.
+
+Computing,
+\[
+  (i_{g_{1}} \circ i_{g_{2}})(x) = i_{g_{1}}(g_{2}xg_{2}^{-1}) = g_{1}(g_{2}xg_{2}^{-1})g_{1}^{-1} = (g_{1}g_{2})x(g_{2}^{-1}g_{1}^{-1}) = (g_{1}g_{2})x(g_{1}g_{2})^{-1}
+\]
+
+\subsection*{ii}
+
+Explicitly, $i_{g} \circ i_{g^{-1}} = i_{g g^{-1}} = i_{1} = \Id_{G}$, so $(i_{g})^{-1} = i_{g^{-1}}$.
+
+\subsection*{iii}
+
+Since $i_{g}$ admits an inverse, it is a bijection. Then,
+\[
+  i_{g}(xy) = gxyg^{-1} = g(x \cdot 1 \cdot y)g^{-1} = g(x(g^{-1}g)y)g^{-1} = (gxg^{-1})(gyg^{-1}) = i_{g}(x)i_{g}(y)
+\]
+
+\subsection*{iv}
+
+($\implies$) Since $G$ is abelian, $i_{g}(x) = gxg^{-1} = gg^{-1}x = 1x = x = \Id_{G}$.
+
+($\impliedby$) We have that for any $g_{1}, g_{2} \in G$, $i_{g_{2}}(g_{1}) = g_{2}g_{1}g_{2}^{-1} = g_{1}$ since $i_{g_{2}} = \Id_{G}$. Then, $g_{2}g_{1}g_{2}^{-1} = g_{1} \implies g_{2}g_{1} = g_{2}g_{1}g_{2}^{-1}g_{2} = g_{1}g_{2}$, so $G$ is abelian.
+
+\subsection*{v}
+
+These statements both follow from the ``beautiful formula'', which gives that for $\sigma \in S_{n}$, $\rho = (a_{1}, \dots, a_{k})$,
+\[
+  i_{\sigma}(\rho) = \sigma \rho \sigma^{-1} = (\sigma(a_{1}), \sigma(a_{2}), \dots, \sigma(a_{k}))
+\]
+which is another $k$-cycle. Now, if $\rho$ is the product of $r$ disjoint cycles (say $\rho = \prod_{i=1}^{r}\rho_{i} = \rho_{1}\rho_{2}\dots\rho_{r}$ where $\rho_{i}$ is a cycle of length $k_{i}$), we can induct on $r$. The earlier case shows what we want for $r = 1$. If it holds for $r$, then if $\rho = \prod_{i=1}^{r+1}\rho_{i}$,
+\[
+  i_{\sigma}(\rho) = i_{\sigma}\left(\prod_{i=1}^{r+1}\rho_{i}\right) = i_{\sigma}\left(\prod_{i=1}^{r}\rho_{i} \cdot \rho_{r+1}\right) = \left(\prod_{i=1}^{r}i_{\sigma}(\rho_{i})\right) \cdot i_{\sigma}(\rho_{r+1})
+\]
+from part iii. Then, by the inductive hypothesis, $\left(\prod_{i=1}^{r}i_{\sigma}(\rho_{i})\right)$ is the product of $r$ disjoint cycles of lengths $k_{1}, \dots, k_{r}$, and from the earlier case, $i_{\sigma}(\rho_{r+1})$ is a $k_{r+1}$-cycle. The only thing left is to show that all the cycles are disjoint. By the inductive hypothesis, all of the $i_{\sigma}(\rho_{i})$ for $1 \leq i \leq r$ are disjoint.
+
+Then, consider any $\rho_{i}$, $1 \leq i \leq r$. Then, if some element $a$ is moved by both $i_{\sigma}(\rho_{i})$ and $i_{\sigma}(\rho_{r+1})$, then by the earlier beautiful formula, $a = \sigma(a_{i})$ and $a = \sigma(a_{r+1})$ for some $a_{i}, a_{r+1}$ in the supports of $\rho_{i}, \rho_{r+1}$ respectively. Since $\sigma(a_{i}) = \sigma(a_{r+1}) \implies a_{i} = a_{r+1}$ since $\sigma \in S_{n}$ is a bijection, then $\rho_{i}, \rho_{r+1}$ are not disjoint, since they both move $a_{i} = a_{r+1}$. $\contra$, so $\rho_{r+1}$ is disjoint with any of the $\rho_{i}$, and combining with the inductive hypothesis, they are all disjoint, which finishes the induction and gives us what we want.
+
+\subsection*{vi}
+
+We need closure, inverses, and the identity. Clearly $\Id_{G}: G \rightarrow G$ is a bijection and $\Id_{G}(xy) = xy = \Id_{G}(x)\Id_{G}(y)$, so $\Id_{G} \in \Aut G$. Then, the composition of isomorphisms is itself an isomorphism (from a few classes ago), and so $f, g \in \Aut G \implies f\circ g$ takes $G \rightarrow G$, and is an isomorphism, so $f \circ g \in \Aut G$.
+
+Inverses follow since any isomorphism admits an inverse that is itself an isomorphism, and so $f \in \Aut G \implies f^{-1}: G \rightarrow G$ is an isomorphism, so $f^{-1} \in \Aut G$.
+
+\subsection*{vii}
+
+Directly computing,
+\[
+  F(g_{1}g_{2}) = i_{g_{1}g_{2}} = i_{g_{1}} \circ i_{g_{2}} = F(g_{1})F(g_{2})
+\]
+where the middle equality comes from part i, so $F$ is a homomorphism.
+
+The kernel is the center of the group, i.e. any element that commutes with every other element. (This gives, for example, that the kernel of $F$ when $G$ is abelian is all of $G$, as shown above.) The center is defined by
+\[
+  Z(G) = \{g \in G \mid \forall x \in G, gx = xg\}
+\]
+but $gx = xg \iff gxg^{-1} = xgg^{-1} = x$. Then, if $i_{g}(x) = gxg^{-1} = x = \Id_{G}(x)$ for all $x \in G$, we have that $g \in Z(G)$.
+
+\section*{Problem 6}
+
+First, we compute the inverse:
+\[
+  \begin{bmatrix}
+    1 & 1 \\ 0 & 1
+  \end{bmatrix}^{-1} = \frac{1}{1 - 0} \begin{bmatrix}
+    1 & -1 \\ 0 & 1
+  \end{bmatrix} = \begin{bmatrix}
+    1 & -1 \\ 0 & 1
+  \end{bmatrix}
+\]
+Then,
+\begin{align*}
+  \begin{bmatrix}
+    0 & -1 \\ 1 & 0
+  \end{bmatrix}
+  \begin{bmatrix}
+    1 & -1 \\ 0 & 1
+  \end{bmatrix} &=
+  \begin{bmatrix}
+    0 & -1 \\ 1 & -1
+  \end{bmatrix} \\
+  \begin{bmatrix}
+    1 & 1 \\ 0 & 1
+  \end{bmatrix}
+  \begin{bmatrix}
+    0 & -1 \\ 1 & -1
+  \end{bmatrix} &=
+  \begin{bmatrix}
+    1 & -2 \\ 1 & -1
+  \end{bmatrix}
+\end{align*}
+but we have that $\sqrt{1^{2} + 1^{2}} = \sqrt{2}$, so the columns are not orthonormal; thus, for $g = \begin{bmatrix} 1 & 1 \\ 1 & 0 \end{bmatrix} \in GL_{2}(\R)$, and $h = \begin{bmatrix} 0 & -1 \\ 1 & 0\end{bmatrix} \in O_{2}, SO_{2}$, we have that $ghg^{-1} \notin O_{2}, SO_{2}$, so $gHg^{-1} \not\subseteq H$, and thus $O_{2}, SO_{2}$ are not normal subgroups.
+
+\section*{Problem 7}
+
+\subsection*{i}
+
+First, note that $H$ is easily checked to be the group of all products between disjoint transpositions in $S_{4}$ and the identity. As a counting problem, there are $4 \cdot 3 / 2 = 6$ ways to pick the two pairs; since we discard the order of the transpositions since they commute when disjoint, this gives us $6 / 2 = 3$ distinct products at most, and we can see that $H$ contains exactly 3 products that are distinct, so $H$ must contain all products of disjoint transpositions in $S_{4}$.
+
+Then part v of the earlier problem says that for any $\tau \in S_{4}$ (and thus for any $\tau \in A_{4}$) we have that $\tau \sigma \tau^{-1}$ for $\sigma = H$ is either the identity if $\sigma = 1$ (since $\tau \cdot 1 \cdot \tau^{-1} = \tau\tau^{-1} = 1$), or the product of two disjoint transpositions since the other elements of $H$ are the product of two disjoint tranpositions, so $\tau \sigma \tau^{-1} \in H$ from above and $\tau H \tau^{-1} \subset H$, so $H$ is normal.
+
+\subsection*{ii}
+
+We have that $|A_{4}/H| = |A_{4}|/|H| = (4!/2)/4 = 3$, and $|S_{4}/H| = |S_{4}|/|H| = 4!/4 = 6$.
+
+\subsection*{iii}
+
+We can directly compute here: clearly for the identity, $\tau \cdot 1 \cdot \tau^{-1} = 1 \in K$, so we are only concerned with $(1,2)(3,4)$. For $\tau \in H,$ we compute all the possible $\tau \cdot (1,2)(3,4) \cdot \tau^{-1}$ with liberal use of the fact that $(a,b) = (b,a)$, $(a,b)(b,c) = (a,b,c)$, $(a,b,c)(c,d) = (a,b)(b,c)(c,d) = (a,b,c,d)$, and $(a,b)(b,c,d) = (a,b)(b,c)(c,d) = (a,b,c,d)$:
+\begin{align*}
+  (1,2)(3,4)(1,2)(3,4)(3,4)(1,2) &= (1,2)(3,4)(1,2)(1,2) = (1,2)(3,4) \\
+  (1,3)(2,4)(1,2)(3,4)(2,4)(1,3) &= (1,3)(4,2,1)(3,4,2)(1,3) = (3,1,4,2)(4,2,3,1)\\
+                                 &=
+  \begin{pmatrix}
+    1 & 2 & 3 & 4 \\
+    4 & 3 & 1 & 2 \\
+    2 & 1 & 4 & 3 \\
+  \end{pmatrix} = (1,2)(3,4) \\
+  (1,4)(2,3)(1,2)(3,4)(2,3)(1,4) &= (1,4)(3,2,1)(4,3,2)(1,4) = (4,1,3,2)(3,2,4,1) \\
+                                 &=
+  \begin{pmatrix}
+    1 & 2 & 3 & 4 \\
+    3 & 4 & 2 & 1 \\
+    2 & 1 & 4 & 3 \\
+  \end{pmatrix} = (1,2)(3,4)
+\end{align*}
+so $\tau \sigma \tau^{-1} \in K$ for $\sigma \in K$, $\tau \in H$ $\implies \tau K \tau^{-1} \subseteq K$ and $K$ is normal.
+
+For $A_{4}$, consider that
+\[
+  (1,2,3)(1,2)(3,4)(3,2,1) = \begin{pmatrix}
+    1 & 2 & 3 & 4 \\
+    3 & 1 & 2 & 4 \\
+    4 & 2 & 1 & 3 \\
+    4 & 3 & 2 & 1
+  \end{pmatrix} = (1,4)(2,3) \neq (1,2)(3,4)
+\]
+so for $\tau \sigma \tau^{-1} \notin K$, so $K$ is not a normal subgroup of $A_{4}$.
+
+\section*{Problem 8}
+
+\subsection*{i}
+
+Pick any element $x \in H \cap K$, and $g \in G$. Then, we need to show that $gxg^{-1} \in H \cap K$, but since $x \in H$, $gxg^{-1} \in H$ since $H$ is normal, and similarly, $x \in K \implies gxg^{-1} \in K$ since $K$ is normal, and so we get that $gxg^{-1} \in H \cap K$.
+
+\subsection*{ii}
+
+We want that for any $x \in H \cap K$ and $g \in K$, that $gxg^{-1} \in H \cap K$. In particular, since $x \in H$, we have that $gxg^{-1} \in H$, and since $x \in K$ as well as $g \in K \implies g^{-1} \in K$, we have that $gxg^{-1} \in K$ as well. This gives that $gxg^{-1} \in H \cap K$.
+
+\subsection*{iii}
+
+Since $H,K$ are subgroups, we have that $1(k) = k \in HK$ for any $k \in K$, and similarly, that $h(1) = 1 \in HK$ for any $h \in H$, so $HK$ contains both $H$ and $K$. Note that this gives immediately that $1 \in HK$ as well.
+
+For closure, consider the product $(h_{1}k_{1})(h_{2}k_{2})$. Since $H$ is normal, the left coset $k_{1}H$ is the same as the right coset $Hk_{1}$, and so $h_{2}k_{2} = k_{2}h_{2}'$ for some $h_{2}' \in H$. Then,
+\[
+  (h_{1}k_{1})(h_{2}k_{2}) = (h_{1}k_{1})(k_{2}h_{2}') = h_{1}kh_{2}'
+\]
+where $k = k_{1}k_{2} \in K$ since $K$ is a subgroup. Then, again, since $H$ is normal, $kh_{2}' = h_{2}''k$ for some $h_{2}'' \in H$, so
+\[
+  h_{1}kh_{2}' = h_{1}h_{2}''k = hk
+\]
+where $h = h_{1}h_{2}'' \in H$ since $H$ is a subgroup. Then, we have that $(h_{1}k_{1})(h_{2}k_{2}) \in HK$ as well.
+
+For inverses, consider that for any element $hk$, that $(hk)^{-1} = k^{-1}h^{-1}$, and since $H$ is normal, $k^{-1}h^{-1} = h'k^{-1}$ for some $h \in H$, and so $k^{-1}h^{-1} \in HK$ as well, so we have what we want.
+
+\end{document}
+% LocalWords:  NetID fancyplain LocalWords colorlinks linkcolor linkbordercolor
